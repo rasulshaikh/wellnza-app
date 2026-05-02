@@ -78,7 +78,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
   // Rating stats — compute from already-fetched reviews
   const approvedReviews = product.reviews.filter((r: typeof product.reviews[number]) => r.isApproved);
   const avgRating = approvedReviews.length
-    ? (approvedReviews.reduce((total, r: typeof approvedReviews[number]) => total + r.rating, 0) / approvedReviews.length).toFixed(1)
+    ? (approvedReviews.reduce((total: number, r: typeof approvedReviews[number]) => total + r.rating, 0) / approvedReviews.length).toFixed(1)
     : null;
 
   const images: string[] = product.images ?? [];
