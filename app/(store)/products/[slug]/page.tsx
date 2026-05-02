@@ -85,16 +85,16 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
   const hasVariants = product.variants.length > 0;
 
   // Build variant data for client components
-  const variantData = product.variants.map((v) => ({
+  const variantData = product.variants.map((v: typeof product.variants[number]) => ({
     id: v.id,
     flavor: v.flavor,
     size: v.size,
     price: v.price,
   }));
 
-  const inventoryData = product.variants.map((v) => ({
+  const inventoryData = product.variants.map((v: typeof product.variants[number]) => ({
     variantId: v.id,
-    quantity: v.inventory.reduce((total, inv) => total + inv.quantity, 0),
+    quantity: v.inventory.reduce((total: number, inv: typeof v.inventory[number]) => total + inv.quantity, 0),
   }));
 
   // Nutrition facts
@@ -263,7 +263,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
                       </tr>
                     </thead>
                     <tbody>
-                      {Object.entries(nutritionFacts).map(([key, value]) => (
+                      {Object.entries(nutritionFacts).map(([key, value]: [string, string]) => (
                         <tr key={key} className="border-b border-border last:border-0">
                           <td className="px-4 py-2 text-foreground capitalize">{key.replace(/_/g, " ")}</td>
                           <td className="px-4 py-2 text-right text-muted-foreground">{value}</td>
@@ -353,7 +353,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
             </p>
           ) : (
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-              {product.reviews.map((review) => (
+              {product.reviews.map((review: typeof product.reviews[number]) => (
                 <ReviewCard key={review.id} review={review} />
               ))}
             </div>
@@ -365,7 +365,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
           <div className="mt-12">
             <h2 className="font-heading text-xl font-bold text-foreground mb-6">You might also like</h2>
             <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-              {relatedProducts.map((p) => (
+              {relatedProducts.map((p: typeof relatedProducts[number]) => (
                 <ProductCard key={p.id} {...p} />
               ))}
             </div>
