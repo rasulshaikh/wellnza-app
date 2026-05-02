@@ -78,7 +78,7 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps) 
             <h2 className="font-semibold text-[#1C1C1C]">Items</h2>
           </div>
           <div className="space-y-4">
-            {order.items.map((item) => (
+            {order.items.map((item: typeof order.items[number]) => (
               <div key={item.id} className="flex items-center gap-4">
                 <div className="w-14 h-14 bg-[#F5F5F0] flex-shrink-0 flex items-center justify-center">
                   <Package className="w-6 h-6 text-[#CCCCCC]" />
