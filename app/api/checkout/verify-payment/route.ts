@@ -2,13 +2,6 @@ import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import crypto from "crypto";
 
-const verifyPaymentSchema = {
-  orderId: "",
-  razorpayPaymentId: "",
-  razorpayOrderId: "",
-  razorpaySignature: "",
-};
-
 export async function POST(request: Request) {
   try {
     const body = await request.json();

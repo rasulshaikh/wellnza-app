@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useCartStore } from "@/store/cart-store";
 import { formatCurrency, cn } from "@/lib/utils";
+import { SHIPPING_METHODS, FREE_SHIPPING_THRESHOLD } from "@/lib/shipping";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
@@ -100,7 +101,7 @@ export default function CheckoutPage() {
   // Calculate totals
   const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-  const selectedShipping = SHIPPING_METHODS.find((m) => m.id === shippingMethod)!;
+  const selectedShipping = SHIPPING_METHODS.find((m) => m.id === shippingMethod) ?? SHIPPING_METHODS[0];
   const shippingCost =
     subtotal >= FREE_SHIPPING_THRESHOLD && shippingMethod !== "express"
       ? 0
@@ -198,10 +199,20 @@ export default function CheckoutPage() {
     const script = document.createElement("script");
     script.src = "https://checkout.razorpay.com/v1/checkout.js";
     script.async = true;
+
+    const timeoutId = setTimeout(() => {
+      if (!script.src) return; // already loaded
+      script.remove();
+      setError("Payment gateway timed out. Please try again.");
+      setLoading(false);
+    }, 10000);
+
     script.onload = () => {
+      clearTimeout(timeoutId);
       initializeRazorpayCheckout();
     };
     script.onerror = () => {
+      clearTimeout(timeoutId);
       setError("Failed to load payment gateway. Please try again.");
       setLoading(false);
     };

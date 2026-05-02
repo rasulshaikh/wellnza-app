@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { generateOrderNumber } from "@/lib/utils";
+import { SHIPPING_METHODS, FREE_SHIPPING_THRESHOLD, calculateShipping } from "@/lib/shipping";
 import { z } from "zod";
 import Razorpay from "razorpay";
 
@@ -31,10 +32,6 @@ const createOrderSchema = z.object({
     .optional(),
 });
 
-const FREE_SHIPPING_THRESHOLD = 99900; // ₹999 in paise
-const STANDARD_SHIPPING = 5000; // ₹50 in paise
-const EXPRESS_SHIPPING = 10000; // ₹100 in paise
-
 export async function POST(request: Request) {
   try {
     const body = await request.json();
@@ -43,6 +40,14 @@ export async function POST(request: Request) {
     if (!parsed.success) {
       return NextResponse.json(
         { error: "Invalid request", details: parsed.error.flatten() },
+        { status: 400 }
+      );
+    }
+
+    // Require at least phone or email for guest checkouts
+    if (!guestAddress && !guestPhone && !guestEmail) {
+      return NextResponse.json(
+        { error: "Phone or email is required for guest checkout" },
         { status: 400 }
       );
     }
@@ -108,16 +113,8 @@ export async function POST(request: Request) {
     }, 0);
 
     // Calculate shipping based on method and threshold
-    let shippingCost: number;
-    if (shippingMethod === "FREE" && subtotal >= FREE_SHIPPING_THRESHOLD) {
-      shippingCost = 0;
-    } else if (shippingMethod === "EXPRESS") {
-      shippingCost = EXPRESS_SHIPPING;
-    } else if (subtotal >= FREE_SHIPPING_THRESHOLD) {
-      shippingCost = 0;
-    } else {
-      shippingCost = STANDARD_SHIPPING;
-    }
+    const shippingMethodKey = shippingMethod.toUpperCase() as keyof typeof SHIPPING_METHODS;
+    const shippingCost = calculateShipping(subtotal, shippingMethodKey);
     const tax = 0; // No tax for now
     const total = subtotal + shippingCost + tax;
 
