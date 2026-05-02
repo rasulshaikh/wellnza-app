@@ -13,6 +13,7 @@ const createOrderSchema = z.object({
   ),
   shippingAddressId: z.string().optional(),
   paymentMethod: z.enum(["RAZORPAY", "COD"]),
+  shippingMethod: z.enum(["STANDARD", "EXPRESS", "FREE"]).optional().default("STANDARD"),
   // Guest checkout fields
   guestEmail: z.string().email().optional(),
   guestPhone: z.string().optional(),
@@ -46,7 +47,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const { cartItems, shippingAddressId, paymentMethod, guestEmail, guestPhone, guestName, guestAddress } =
+    const { cartItems, shippingAddressId, paymentMethod, shippingMethod, guestEmail, guestPhone, guestName, guestAddress } =
       parsed.data;
 
     // Validate variants exist and get prices
@@ -106,8 +107,17 @@ export async function POST(request: Request) {
       return sum + variant.price * item.quantity;
     }, 0);
 
-    const shippingCost =
-      subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : STANDARD_SHIPPING;
+    // Calculate shipping based on method and threshold
+    let shippingCost: number;
+    if (shippingMethod === "FREE" && subtotal >= FREE_SHIPPING_THRESHOLD) {
+      shippingCost = 0;
+    } else if (shippingMethod === "EXPRESS") {
+      shippingCost = EXPRESS_SHIPPING;
+    } else if (subtotal >= FREE_SHIPPING_THRESHOLD) {
+      shippingCost = 0;
+    } else {
+      shippingCost = STANDARD_SHIPPING;
+    }
     const tax = 0; // No tax for now
     const total = subtotal + shippingCost + tax;
 
@@ -122,10 +132,42 @@ export async function POST(request: Request) {
     // Create address for guest checkout
     let finalShippingAddressId = shippingAddressId;
 
-    if (!shippingAddressId && guestAddress) {
-      // Create a temporary address record for guest
-      // Note: In production, you'd want to link this properly or use a different approach
-      // For now, we'll skip address creation and just use the data
+    if (!shippingAddressId && guestAddress && guestPhone) {
+      // Create a guest user if needed, then create address
+      const guestEmailAddr = guestEmail || `guest_${guestPhone}@temp.com`;
+
+      // Find existing or create guest user
+      let guestUser = await db.user.findFirst({
+        where: { email: guestEmailAddr },
+      });
+
+      if (!guestUser) {
+        guestUser = await db.user.create({
+          data: {
+            email: guestEmailAddr,
+            name: guestName || "Guest",
+            phone: guestPhone,
+            role: "GUEST",
+          },
+        });
+      }
+
+      // Create address linked to guest user
+      const guestAddressRecord = await db.address.create({
+        data: {
+          userId: guestUser.id,
+          name: guestAddress.name,
+          phone: guestAddress.phone,
+          line1: guestAddress.line1,
+          line2: guestAddress.line2 || "",
+          city: guestAddress.city,
+          state: guestAddress.state,
+          pin: guestAddress.pin,
+          isDefault: true,
+        },
+      });
+
+      finalShippingAddressId = guestAddressRecord.id;
     }
 
     // Create the order
