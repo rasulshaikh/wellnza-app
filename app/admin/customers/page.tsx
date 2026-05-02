@@ -129,7 +129,7 @@ export default async function AdminCustomersPage({
               </tr>
             </thead>
             <tbody className="divide-y divide-[#E5E7EB]">
-              {users.map((user) => (
+              {users.map((user: { id: string; name: string | null; email: string; role: string; createdAt: Date; _count: { orders: number } }) => (
                 <tr key={user.id} className="hover:bg-[#FAFAFA]">
                   <td className="px-5 py-3">
                     <div className="flex items-center gap-3">
