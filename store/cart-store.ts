@@ -18,6 +18,7 @@ interface CartStore {
   removeItem: (id: string) => void;
   updateQuantity: (id: string, quantity: number) => void;
   clearCart: () => void;
+  // openCart is reserved for future use (e.g., auto-open after add)
   openCart: () => void;
   closeCart: () => void;
 }
@@ -42,7 +43,7 @@ export const useCartStore = create<CartStore>()(
           return {
             items: [
               ...state.items,
-              { ...item, id: `${item.productVariantId}-${Date.now()}` },
+              { ...item, id: crypto.randomUUID() },
             ],
           };
         }),

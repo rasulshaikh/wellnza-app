@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+const FSSAI_LICENSE = process.env.NEXT_PUBLIC_FSSAI_LICENSE || "XXXXXXXXXXXXXX";
+
 const footerLinks = {
   shop: [
     { href: "/products", label: "All Products" },
@@ -33,7 +35,7 @@ export function Footer() {
               Precision Fuel for Performance. Premium sports nutrition made transparent.
             </p>
             <p className="text-xs text-muted-foreground">
-              FSSAI License No: XXXXXXXXXXXXXX
+              FSSAI License No: {FSSAI_LICENSE}
             </p>
             <p className="text-sm text-muted-foreground">
               <a href="mailto:support@wellnzanutrition.com" className="hover:text-background transition-colors">
@@ -99,7 +101,7 @@ export function Footer() {
             © {new Date().getFullYear()} Well NZ Nutrition. All rights reserved.
           </p>
           <p className="text-xs text-muted-foreground">
-            FSSAI License No: XXXXXXXXXXXXXX | Food supplements are not intended to diagnose, treat, cure or prevent any disease.
+            FSSAI License No: {FSSAI_LICENSE} | Food supplements are not intended to diagnose, treat, cure or prevent any disease.
           </p>
         </div>
       </div>

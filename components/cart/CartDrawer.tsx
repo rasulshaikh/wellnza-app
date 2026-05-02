@@ -2,7 +2,7 @@
 
 import { useCartStore } from "@/store/cart-store";
 import { formatCurrency } from "@/lib/utils";
-import { X, Minus, Plus, ShoppingBag } from "lucide-react";
+import { X, Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerFooter } from "@/components/ui/drawer";
 
@@ -46,8 +46,13 @@ export function CartDrawer() {
                       type="button"
                       onClick={() => updateQuantity(item.id, item.quantity - 1)}
                       className="inline-flex size-7 items-center justify-center rounded-[min(var(--radius-md),12px)] border border-border bg-background hover:bg-muted hover:text-foreground transition-all"
+                      aria-label={item.quantity === 1 ? "Remove item" : "Decrease quantity"}
                     >
-                      <Minus className="h-3 w-3" />
+                      {item.quantity === 1 ? (
+                        <Trash2 className="h-3 w-3" />
+                      ) : (
+                        <Minus className="h-3 w-3" />
+                      )}
                     </button>
                     <span className="w-8 text-center text-sm">{item.quantity}</span>
                     <button

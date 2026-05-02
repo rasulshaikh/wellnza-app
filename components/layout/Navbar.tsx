@@ -70,6 +70,9 @@ export function Navbar() {
           {/* Mobile menu toggle */}
           <button
             type="button"
+            aria-label="Toggle menu"
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-menu"
             className="md:hidden flex h-8 w-8 items-center justify-center rounded-md hover:bg-muted transition-colors"
             onClick={() => setMobileOpen(!mobileOpen)}
           >
@@ -80,7 +83,7 @@ export function Navbar() {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="md:hidden border-t bg-background">
+        <div id="mobile-menu" className="md:hidden border-t bg-background">
           <nav className="container mx-auto px-4 py-4 flex flex-col gap-4">
             {navLinks.map((link) => (
               <Link
