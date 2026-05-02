@@ -26,17 +26,116 @@ const CATEGORIES = [
   { value: "MULTIVITAMIN", label: "Multivitamin" },
 ];
 
-const DIETARY_OPTIONS = [
-  { value: "vegetarian", label: "Vegetarian" },
-  { value: "non-vegetarian", label: "Non-Vegetarian" },
-];
-
 const SORT_OPTIONS = [
   { value: "featured", label: "Featured" },
   { value: "price_asc", label: "Price: Low to High" },
   { value: "price_desc", label: "Price: High to Low" },
   { value: "newest", label: "Newest" },
 ];
+
+interface FilterContentProps {
+  sort: string;
+  selectedCategories: string[];
+  minPrice: string;
+  maxPrice: string;
+  activeFilterCount: number;
+  onToggleCategory: (value: string) => void;
+  onSortChange: (value: string) => void;
+  onPriceChange: (field: "minPrice" | "maxPrice", value: string) => void;
+  onClearAll: () => void;
+}
+
+function FilterContent({
+  sort,
+  selectedCategories,
+  minPrice,
+  maxPrice,
+  activeFilterCount,
+  onToggleCategory,
+  onSortChange,
+  onPriceChange,
+  onClearAll,
+}: FilterContentProps) {
+  return (
+    <div className="flex flex-col gap-6">
+      {/* Sort */}
+      <div className="flex flex-col gap-2">
+        <Label className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+          Sort By
+        </Label>
+        <select
+          value={sort}
+          onChange={(e) => onSortChange(e.target.value)}
+          className="h-8 w-full rounded-lg border border-input bg-transparent px-2.5 py-1 text-sm transition-colors focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
+        >
+          {SORT_OPTIONS.map((opt) => (
+            <option key={opt.value} value={opt.value}>
+              {opt.label}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* Category */}
+      <div className="flex flex-col gap-3">
+        <Label className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+          Category
+        </Label>
+        <div className="flex flex-col gap-2">
+          {CATEGORIES.map((cat) => (
+            <Label
+              key={cat.value}
+              className="flex cursor-pointer items-center gap-2 text-sm font-normal"
+            >
+              <Checkbox
+                checked={selectedCategories.includes(cat.value)}
+                onCheckedChange={() => onToggleCategory(cat.value)}
+              />
+              {cat.label}
+            </Label>
+          ))}
+        </div>
+      </div>
+
+      {/* Price Range */}
+      <div className="flex flex-col gap-3">
+        <Label className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+          Price Range
+        </Label>
+        <div className="flex items-center gap-2">
+          <Input
+            type="number"
+            placeholder="Min"
+            value={minPrice}
+            onChange={(e) => onPriceChange("minPrice", e.target.value)}
+            className="h-8"
+            min={0}
+          />
+          <span className="text-muted-foreground">-</span>
+          <Input
+            type="number"
+            placeholder="Max"
+            value={maxPrice}
+            onChange={(e) => onPriceChange("maxPrice", e.target.value)}
+            className="h-8"
+            min={0}
+          />
+        </div>
+      </div>
+
+      {activeFilterCount > 0 && (
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={onClearAll}
+          className="mt-2"
+        >
+          Clear All Filters
+        </Button>
+      )}
+    </div>
+  );
+}
 
 interface ProductFiltersProps {
   className?: string;
@@ -48,11 +147,9 @@ export function ProductFilters({ className }: ProductFiltersProps) {
   const searchParams = useSearchParams();
 
   const selectedCategories = searchParams.getAll("category");
-  const selectedDietary = searchParams.getAll("dietary");
   const minPrice = searchParams.get("minPrice") ?? "";
   const maxPrice = searchParams.get("maxPrice") ?? "";
   const sort = searchParams.get("sort") ?? "featured";
-  const search = searchParams.get("search") ?? "";
 
   const updateParams = useCallback(
     (updates: Record<string, string | string[] | null>) => {
@@ -82,14 +179,6 @@ export function ProductFilters({ className }: ProductFiltersProps) {
     updateParams({ category: next });
   };
 
-  const toggleDietary = (value: string) => {
-    const current = searchParams.getAll("dietary");
-    const next = current.includes(value)
-      ? current.filter((d) => d !== value)
-      : [...current, value];
-    updateParams({ dietary: next });
-  };
-
   const handlePriceChange = (field: "minPrice" | "maxPrice", value: string) => {
     updateParams({ [field]: value || null });
   };
@@ -98,121 +187,16 @@ export function ProductFilters({ className }: ProductFiltersProps) {
     updateParams({ sort: value });
   };
 
-  const handleSearchChange = (value: string) => {
-    updateParams({ search: value || null });
-  };
-
   const clearAllFilters = () => {
-    router.push(pathname, { scroll: false });
+    const currentSearch = searchParams.get("search") ?? "";
+    router.push(`${pathname}?search=${currentSearch}`, { scroll: false });
   };
 
   const activeFilterCount =
     selectedCategories.length +
-    selectedDietary.length +
     (minPrice ? 1 : 0) +
     (maxPrice ? 1 : 0) +
     (sort !== "featured" ? 1 : 0);
-
-  const FilterContent = () => (
-    <div className="flex flex-col gap-6">
-      {/* Sort */}
-      <div className="flex flex-col gap-2">
-        <Label className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-          Sort By
-        </Label>
-        <select
-          value={sort}
-          onChange={(e) => handleSortChange(e.target.value)}
-          className="h-8 w-full rounded-lg border border-input bg-transparent px-2.5 py-1 text-sm transition-colors focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
-        >
-          {SORT_OPTIONS.map((opt) => (
-            <option key={opt.value} value={opt.value}>
-              {opt.label}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      {/* Category */}
-      <div className="flex flex-col gap-3">
-        <Label className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-          Category
-        </Label>
-        <div className="flex flex-col gap-2">
-          {CATEGORIES.map((cat) => (
-            <Label
-              key={cat.value}
-              className="flex cursor-pointer items-center gap-2 text-sm font-normal"
-            >
-              <Checkbox
-                checked={selectedCategories.includes(cat.value)}
-                onCheckedChange={() => toggleCategory(cat.value)}
-              />
-              {cat.label}
-            </Label>
-          ))}
-        </div>
-      </div>
-
-      {/* Price Range */}
-      <div className="flex flex-col gap-3">
-        <Label className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-          Price Range
-        </Label>
-        <div className="flex items-center gap-2">
-          <Input
-            type="number"
-            placeholder="Min"
-            value={minPrice}
-            onChange={(e) => handlePriceChange("minPrice", e.target.value)}
-            className="h-8"
-            min={0}
-          />
-          <span className="text-muted-foreground">-</span>
-          <Input
-            type="number"
-            placeholder="Max"
-            value={maxPrice}
-            onChange={(e) => handlePriceChange("maxPrice", e.target.value)}
-            className="h-8"
-            min={0}
-          />
-        </div>
-      </div>
-
-      {/* Dietary */}
-      <div className="flex flex-col gap-3">
-        <Label className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-          Dietary
-        </Label>
-        <div className="flex flex-col gap-2">
-          {DIETARY_OPTIONS.map((opt) => (
-            <Label
-              key={opt.value}
-              className="flex cursor-pointer items-center gap-2 text-sm font-normal"
-            >
-              <Checkbox
-                checked={selectedDietary.includes(opt.value)}
-                onCheckedChange={() => toggleDietary(opt.value)}
-              />
-              {opt.label}
-            </Label>
-          ))}
-        </div>
-      </div>
-
-      {activeFilterCount > 0 && (
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={clearAllFilters}
-          className="mt-2"
-        >
-          Clear All Filters
-        </Button>
-      )}
-    </div>
-  );
 
   return (
     <>
@@ -232,7 +216,17 @@ export function ProductFilters({ className }: ProductFiltersProps) {
               </Badge>
             )}
           </div>
-          <FilterContent />
+          <FilterContent
+            sort={sort}
+            selectedCategories={selectedCategories}
+            minPrice={minPrice}
+            maxPrice={maxPrice}
+            activeFilterCount={activeFilterCount}
+            onToggleCategory={toggleCategory}
+            onSortChange={handleSortChange}
+            onPriceChange={handlePriceChange}
+            onClearAll={clearAllFilters}
+          />
         </div>
       </aside>
 
@@ -258,7 +252,17 @@ export function ProductFilters({ className }: ProductFiltersProps) {
               <DrawerTitle>Filters</DrawerTitle>
             </DrawerHeader>
             <div className="px-4 pb-6">
-              <FilterContent />
+              <FilterContent
+                sort={sort}
+                selectedCategories={selectedCategories}
+                minPrice={minPrice}
+                maxPrice={maxPrice}
+                activeFilterCount={activeFilterCount}
+                onToggleCategory={toggleCategory}
+                onSortChange={handleSortChange}
+                onPriceChange={handlePriceChange}
+                onClearAll={clearAllFilters}
+              />
             </div>
           </DrawerContent>
         </Drawer>

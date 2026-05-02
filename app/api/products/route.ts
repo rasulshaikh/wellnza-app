@@ -38,12 +38,12 @@ export async function GET(request: Request) {
     }
 
     // Price range filter
-    if (minPrice !== null || maxPrice !== null) {
+    if (minPrice || maxPrice) {
       where.basePrice = {};
-      if (minPrice !== null) {
+      if (minPrice && !isNaN(parseInt(minPrice, 10))) {
         where.basePrice.gte = parseInt(minPrice, 10);
       }
-      if (maxPrice !== null) {
+      if (maxPrice && !isNaN(parseInt(maxPrice, 10))) {
         where.basePrice.lte = parseInt(maxPrice, 10);
       }
     }
@@ -51,8 +51,8 @@ export async function GET(request: Request) {
     // Search filter
     if (search) {
       where.OR = [
-        { name: { contains: search, mode: "insensitive" } },
-        { description: { contains: search, mode: "insensitive" } },
+        { name: { contains: search } },
+        { description: { contains: search } },
       ];
     }
 
@@ -65,8 +65,28 @@ export async function GET(request: Request) {
         orderBy: sortKey,
         take: limit,
         skip: offset,
-        include: {
-          variants: true,
+        select: {
+          id: true,
+          name: true,
+          slug: true,
+          description: true,
+          category: true,
+          basePrice: true,
+          comparePrice: true,
+          images: true,
+          isActive: true,
+          featured: true,
+          variants: {
+            select: {
+              id: true,
+              flavor: true,
+              size: true,
+              price: true,
+              comparePrice: true,
+              sku: true,
+              weightG: true,
+            },
+          },
         },
       }),
       db.product.count({ where }),

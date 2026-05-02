@@ -45,26 +45,25 @@ export function ProductCard({
   images,
   variants,
 }: ProductCardProps) {
-  const addItem = useCartStore((s) => s.addItem);
-  const openCart = useCartStore((s) => s.openCart);
+  const store = useCartStore();
 
   const displayPrice = basePrice;
   const primaryVariant = variants[0];
 
   const handleAddToCart = () => {
     if (!primaryVariant) return;
-    addItem({
+    store.addItem({
       productVariantId: primaryVariant.id,
       name,
       flavor: primaryVariant.flavor,
       price: primaryVariant.price,
       quantity: 1,
-      image: images[0],
+      image: images?.[0] ?? null,
     });
-    openCart();
+    store.openCart();
   };
 
-  const displayImage = images[0];
+  const displayImage = images?.[0] ?? null;
 
   return (
     <div className="group flex flex-col overflow-hidden rounded-xl border border-border bg-card shadow-card transition-shadow hover:shadow-card-hover">
