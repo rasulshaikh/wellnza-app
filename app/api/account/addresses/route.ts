@@ -2,6 +2,9 @@ import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { NextResponse } from "next/server";
 
+const PHONE_REGEX = /^[6-9]\d{9}$/;
+const PIN_REGEX = /^[1-9]\d{5}$/;
+
 export async function GET() {
   const session = await auth();
 
@@ -30,6 +33,13 @@ export async function POST(req: Request) {
 
     if (!name?.trim() || !phone || !line1?.trim() || !city?.trim() || !state?.trim() || !pin) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+    }
+
+    if (!PHONE_REGEX.test(phone)) {
+      return NextResponse.json({ error: "Invalid phone" }, { status: 400 });
+    }
+    if (!PIN_REGEX.test(pin)) {
+      return NextResponse.json({ error: "Invalid PIN" }, { status: 400 });
     }
 
     // If this is set as default, unset other defaults

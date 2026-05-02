@@ -1,22 +1,66 @@
-import { auth } from "@/lib/auth";
-import { redirect } from "next/navigation";
-import { db } from "@/lib/db";
+"use client";
+
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { MapPin, Plus, Pencil, Trash2, ArrowLeft } from "lucide-react";
+import { MapPin, Plus, Pencil, Trash2, ArrowLeft, Loader2 } from "lucide-react";
 
-export default async function AddressesPage() {
-  const session = await auth();
+interface Address {
+  id: string;
+  name: string;
+  line1: string;
+  line2: string | null;
+  city: string;
+  state: string;
+  pin: string;
+  phone: string;
+  country: string;
+  isDefault: boolean;
+}
 
-  if (!session?.user?.id) {
-    redirect("/login?callbackUrl=/account/addresses");
+export default function AddressesPage() {
+  const router = useRouter();
+  const [addresses, setAddresses] = useState<Address[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetch("/api/account/addresses")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error) {
+          setAddresses([]);
+        } else {
+          setAddresses(data);
+        }
+      })
+      .finally(() => setLoading(false));
+  }, []);
+
+  async function handleDelete(id: string) {
+    if (!confirm("Delete this address?")) return;
+    setDeletingId(id);
+    try {
+      const res = await fetch(`/api/account/addresses/${id}`, {
+        method: "DELETE",
+      });
+      if (res.ok) {
+        router.refresh();
+      }
+    } finally {
+      setDeletingId(null);
+    }
   }
 
-  const addresses = await db.address.findMany({
-    where: { userId: session.user.id },
-    orderBy: [{ isDefault: "desc" }, { createdAt: "desc" }],
-  });
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-[#FAFAF7] py-8 flex items-center justify-center">
+        <Loader2 className="w-6 h-6 animate-spin text-[#6B6B6B]" />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#FAFAF7] py-8">
@@ -100,21 +144,16 @@ export default async function AddressesPage() {
                       Edit
                     </Button>
                   </Link>
-                  <form
-                    action={`/api/account/addresses/${address.id}`}
-                    method="DELETE"
-                    className="flex-1"
-                  >
-                    <Button
-                      type="submit"
+                  <Button
+                      onClick={() => handleDelete(address.id)}
+                      disabled={deletingId === address.id}
                       variant="outline"
                       size="sm"
-                      className="w-full h-8 border-[#E5E5E0] text-red-600 hover:bg-red-50"
+                      className="flex-1 h-8 border-[#E5E5E0] text-red-600 hover:bg-red-50"
                     >
                       <Trash2 className="w-3 h-3 mr-1" />
-                      Delete
+                      {deletingId === address.id ? "..." : "Delete"}
                     </Button>
-                  </form>
                 </div>
               </div>
             ))}

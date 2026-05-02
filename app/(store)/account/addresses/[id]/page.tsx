@@ -153,7 +153,7 @@ export default function EditAddressPage({ params }: EditAddressPageProps) {
         </div>
 
         {error && (
-          <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-700 text-sm">
+          <div role="alert" className="mb-4 p-3 bg-red-50 border border-red-200 text-red-700 text-sm">
             {error}
           </div>
         )}
@@ -239,16 +239,7 @@ export default function EditAddressPage({ params }: EditAddressPageProps) {
                 className="mt-1"
               />
             </div>
-            <div>
-              <Label htmlFor="country">Country</Label>
-              <Input
-                id="country"
-                value={form.country}
-                onChange={(e) => update("country", e.target.value)}
-                placeholder="India"
-                className="mt-1"
-              />
-            </div>
+            <input type="hidden" name="country" value={form.country} />
           </div>
 
           <div className="flex items-center gap-2">

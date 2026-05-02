@@ -12,6 +12,7 @@ import {
   Settings,
   ChevronRight,
 } from "lucide-react";
+import { ORDER_STATUS_COLORS } from "@/lib/status-colors";
 
 export default async function AccountDashboardPage() {
   const session = await auth();
@@ -36,15 +37,6 @@ export default async function AccountDashboardPage() {
   if (!user) {
     redirect("/login?callbackUrl=/account");
   }
-
-  const statusColors: Record<string, string> = {
-    PENDING: "bg-yellow-100 text-yellow-800",
-    PROCESSING: "bg-blue-100 text-blue-800",
-    SHIPPED: "bg-purple-100 text-purple-800",
-    DELIVERED: "bg-green-100 text-green-800",
-    CANCELLED: "bg-red-100 text-red-800",
-    REFUNDED: "bg-orange-100 text-orange-800",
-  };
 
   return (
     <div className="min-h-screen bg-[#FAFAF7] py-8">
@@ -126,7 +118,7 @@ export default async function AccountDashboardPage() {
                         #{order.orderNumber}
                       </span>
                       <Badge
-                        className={statusColors[order.status] || "bg-gray-100 text-gray-800"}
+                        className={ORDER_STATUS_COLORS[order.status] || "bg-gray-100 text-gray-800"}
                       >
                         {order.status}
                       </Badge>

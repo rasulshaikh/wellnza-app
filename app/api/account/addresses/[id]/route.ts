@@ -2,6 +2,9 @@ import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { NextResponse } from "next/server";
 
+const PHONE_REGEX = /^[6-9]\d{9}$/;
+const PIN_REGEX = /^[1-9]\d{5}$/;
+
 interface RouteParams {
   params: Promise<{ id: string }>;
 }
@@ -46,6 +49,13 @@ export async function PATCH(req: Request, { params }: RouteParams) {
   try {
     const body = await req.json();
     const { name, phone, line1, line2, city, state, pin, country, isDefault } = body;
+
+    if (phone !== undefined && !PHONE_REGEX.test(phone)) {
+      return NextResponse.json({ error: "Invalid phone" }, { status: 400 });
+    }
+    if (pin !== undefined && !PIN_REGEX.test(pin)) {
+      return NextResponse.json({ error: "Invalid PIN" }, { status: 400 });
+    }
 
     // If setting as default, unset other defaults first
     if (isDefault && !existing.isDefault) {

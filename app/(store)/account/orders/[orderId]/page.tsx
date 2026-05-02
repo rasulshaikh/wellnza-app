@@ -14,6 +14,7 @@ import {
   CreditCard,
   Truck,
 } from "lucide-react";
+import { ORDER_STATUS_COLORS } from "@/lib/status-colors";
 
 interface OrderDetailPageProps {
   params: Promise<{ orderId: string }>;
@@ -47,15 +48,6 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps) 
     notFound();
   }
 
-  const statusColors: Record<string, string> = {
-    PENDING: "bg-yellow-100 text-yellow-800",
-    PROCESSING: "bg-blue-100 text-blue-800",
-    SHIPPED: "bg-purple-100 text-purple-800",
-    DELIVERED: "bg-green-100 text-green-800",
-    CANCELLED: "bg-red-100 text-red-800",
-    REFUNDED: "bg-orange-100 text-orange-800",
-  };
-
   return (
     <div className="min-h-screen bg-[#FAFAF7] py-8">
       <div className="max-w-2xl mx-auto px-4">
@@ -73,7 +65,7 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps) 
             <p className="text-sm text-[#6B6B6B]">{formatDate(order.createdAt)}</p>
           </div>
           <Badge
-            className={`ml-auto ${statusColors[order.status] || "bg-gray-100 text-gray-800"}`}
+            className={`ml-auto ${ORDER_STATUS_COLORS[order.status] || "bg-gray-100 text-gray-800"}`}
           >
             {order.status}
           </Badge>
