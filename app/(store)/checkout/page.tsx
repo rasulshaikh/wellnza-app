@@ -583,7 +583,7 @@ export default function CheckoutPage() {
 
           {/* Items */}
           <div className="space-y-3 max-h-48 overflow-y-auto">
-            {items.map((item) => (
+            {items.map((item: import("@/store/cart-store").CartItem) => (
               <div key={item.id} className="flex items-center gap-3">
                 <div className="w-12 h-12 bg-[#F5F5F0] flex-shrink-0 flex items-center justify-center">
                   <Package className="w-5 h-5 text-[#CCCCCC]" />

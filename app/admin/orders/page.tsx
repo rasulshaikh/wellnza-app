@@ -159,7 +159,7 @@ export default async function AdminOrdersPage({
               </tr>
             </thead>
             <tbody className="divide-y divide-[#E5E7EB]">
-              {orders.map((order) => (
+              {orders.map((order: typeof orders[number]) => (
                 <tr key={order.id} className="hover:bg-[#FAFAFA]">
                   <td className="px-5 py-3 text-sm font-medium text-[#0A0A0A]">
                     #{order.orderNumber}

@@ -62,7 +62,7 @@ export default async function OrderConfirmationPage({
 
           {/* Items */}
           <div className="space-y-4 mb-6">
-            {order.items.map((item) => (
+            {order.items.map((item: typeof order.items[number]) => (
               <div key={item.id} className="flex items-center gap-4">
                 <div className="w-16 h-16 bg-[#F5F5F0] flex-shrink-0 flex items-center justify-center">
                   <Package className="w-6 h-6 text-[#CCCCCC]" />

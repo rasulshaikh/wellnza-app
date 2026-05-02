@@ -34,7 +34,7 @@ export function CartDrawer() {
             </div>
           ) : (
             <div className="space-y-4 py-4">
-              {items.map((item) => (
+              {items.map((item: import("@/store/cart-store").CartItem) => (
                 <div key={item.id} className="flex gap-3">
                   <div className="flex-1">
                     <p className="text-sm font-medium">{item.name}</p>

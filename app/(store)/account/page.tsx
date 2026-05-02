@@ -107,7 +107,7 @@ export default async function AccountDashboardPage() {
             </div>
           ) : (
             <div className="divide-y divide-[#E5E5E0]">
-              {user.orders.map((order) => (
+              {user.orders.map((order: typeof user.orders[number]) => (
                 <div
                   key={order.id}
                   className="p-4 flex items-center justify-between hover:bg-[#FAFAF7] transition-colors"

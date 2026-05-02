@@ -52,7 +52,7 @@ export default async function OrdersPage() {
           </div>
         ) : (
           <div className="space-y-4">
-            {orders.map((order) => (
+            {orders.map((order: typeof orders[number]) => (
               <Link
                 key={order.id}
                 href={`/account/orders/${order.id}`}
