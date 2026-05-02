@@ -4,7 +4,6 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 // NextAuth adapters
@@ -119,9 +118,7 @@ model Product {
   fat             Float?
 
   variants  ProductVariant[]
-  inventory Inventory[]
   reviews   Review[]
-  subscriptionItems SubscriptionItem[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
