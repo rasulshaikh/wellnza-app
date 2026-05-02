@@ -83,22 +83,32 @@ function TrustIcon({ type }: { type: string }) {
 export default function HomePage() {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const addItem = useCartStore((s) => s.addItem);
   const openCart = useCartStore((s) => s.openCart);
 
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
+    setIsSubmitting(true);
+    setError(null);
     try {
-      await fetch("/api/newsletter", {
+      const res = await fetch("/api/newsletter", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
       });
-      setSubscribed(true);
-      setEmail("");
+      if (res.ok) {
+        setSubscribed(true);
+        setEmail("");
+      } else {
+        setError("Something went wrong. Please try again.");
+      }
     } catch {
-      // silently fail
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -266,21 +276,28 @@ export default function HomePage() {
                 onSubmit={handleSubscribe}
                 className="mt-8 flex flex-col gap-3 sm:flex-row"
               >
+                {error && (
+                  <div className="rounded-lg bg-destructive/20 p-3 text-sm text-primary-foreground">
+                    {error}
+                  </div>
+                )}
                 <Input
                   type="email"
                   placeholder="your@email.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
+                  aria-label="Email address"
                   className="flex-1 bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/50 focus-visible:ring-primary-foreground/50"
                 />
                 <Button
                   type="submit"
                   variant="outline"
                   size="lg"
-                  className="shrink-0 border-primary-foreground/30 bg-primary-foreground/10 text-primary-foreground hover:bg-primary-foreground/20 hover:text-primary-foreground"
+                  disabled={isSubmitting}
+                  className="shrink-0 border-primary-foreground/30 bg-primary-foreground/10 text-primary-foreground hover:bg-primary-foreground/20 hover:text-primary-foreground disabled:opacity-50"
                 >
-                  Subscribe
+                  {isSubmitting ? "Subscribing..." : "Subscribe"}
                 </Button>
               </form>
             )}
