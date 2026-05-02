@@ -45,7 +45,7 @@ export async function POST(request: Request) {
     }
 
     // Require at least phone or email for guest checkouts
-    if (!guestAddress && !guestPhone && !guestEmail) {
+    if (!parsed.data.guestAddress && !parsed.data.guestPhone && !parsed.data.guestEmail) {
       return NextResponse.json(
         { error: "Phone or email is required for guest checkout" },
         { status: 400 }
@@ -113,8 +113,12 @@ export async function POST(request: Request) {
     }, 0);
 
     // Calculate shipping based on method and threshold
-    const shippingMethodKey = shippingMethod.toUpperCase() as keyof typeof SHIPPING_METHODS;
-    const shippingCost = calculateShipping(subtotal, shippingMethodKey);
+    const methodMap: Record<string, string> = {
+      STANDARD: "standard",
+      EXPRESS: "express",
+      FREE: "free",
+    };
+    const shippingCost = calculateShipping(subtotal, methodMap[shippingMethod] ?? "standard");
     const tax = 0; // No tax for now
     const total = subtotal + shippingCost + tax;
 
@@ -144,7 +148,7 @@ export async function POST(request: Request) {
             email: guestEmailAddr,
             name: guestName || "Guest",
             phone: guestPhone,
-            role: "GUEST",
+            role: "CUSTOMER",
           },
         });
       }

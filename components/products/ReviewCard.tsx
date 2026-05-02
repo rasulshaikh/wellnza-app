@@ -51,7 +51,7 @@ export function ReviewCard({ review }: ReviewCardProps) {
       )}
 
       {/* Body */}
-      <p className="text-sm text-muted-foreground leading-relaxed">{review.body}</p>
+      <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">{review.body}</p>
 
       {/* Footer */}
       {review.helpfulCount > 0 && (

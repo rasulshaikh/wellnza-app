@@ -1,6 +1,8 @@
 "use client";
 
+import { useMemo } from "react";
 import { cn } from "@/lib/utils";
+import { getVariantStockStatus, getVariantStockLabel } from "@/lib/product-utils";
 
 interface VariantStock {
   variantId: string;
@@ -19,6 +21,30 @@ interface VariantSelectorProps {
   onSelectVariant: (variantId: string) => void;
 }
 
+function stockBadge(variantId: string, inventory: VariantStock[]) {
+  const status = getVariantStockStatus(variantId, inventory);
+  const label = getVariantStockLabel(variantId, inventory);
+  if (status === "out_of_stock") {
+    return (
+      <span className="rounded bg-red-100 px-1.5 py-0.5 text-[10px] font-medium text-red-700">
+        {label}
+      </span>
+    );
+  }
+  if (status === "low_stock") {
+    return (
+      <span className="rounded bg-amber-100 px-1.5 py-0.5 text-[10px] font-medium text-amber-700">
+        {label}
+      </span>
+    );
+  }
+  return (
+    <span className="rounded bg-green-100 px-1.5 py-0.5 text-[10px] font-medium text-green-700">
+      {label}
+    </span>
+  );
+}
+
 export function VariantSelector({
   variants,
   inventory,
@@ -27,41 +53,8 @@ export function VariantSelector({
 }: VariantSelectorProps) {
   if (!variants || variants.length === 0) return null;
 
-  // Group by flavor
-  const flavors = [...new Set(variants.map((v) => v.flavor))];
+  const flavors = useMemo(() => [...new Set(variants.map((v) => v.flavor))], [variants]);
   const selectedVariant = variants.find((v) => v.id === selectedVariantId);
-
-  const getStockStatus = (variantId: string) => {
-    const inv = inventory.find((i) => i.variantId === variantId);
-    if (!inv) return "out_of_stock";
-    if (inv.quantity === 0) return "out_of_stock";
-    if (inv.quantity <= 5) return "low_stock";
-    return "in_stock";
-  };
-
-  const stockBadge = (variantId: string) => {
-    const status = getStockStatus(variantId);
-    if (status === "out_of_stock") {
-      return (
-        <span className="rounded bg-red-100 px-1.5 py-0.5 text-[10px] font-medium text-red-700">
-          Out of Stock
-        </span>
-      );
-    }
-    if (status === "low_stock") {
-      const inv = inventory.find((i) => i.variantId === variantId);
-      return (
-        <span className="rounded bg-amber-100 px-1.5 py-0.5 text-[10px] font-medium text-amber-700">
-          Low Stock ({inv?.quantity ?? 0} left)
-        </span>
-      );
-    }
-    return (
-      <span className="rounded bg-green-100 px-1.5 py-0.5 text-[10px] font-medium text-green-700">
-        In Stock
-      </span>
-    );
-  };
 
   // If flavors only, show flat list
   if (flavors.length === 1 && variants.length > 1 && variants[0].size) {
@@ -76,17 +69,18 @@ export function VariantSelector({
               <button
                 key={v.id}
                 onClick={() => onSelectVariant(v.id)}
-                disabled={getStockStatus(v.id) === "out_of_stock"}
+                disabled={getVariantStockStatus(v.id, inventory) === "out_of_stock"}
+                aria-label={`${v.flavor}${v.size ? ` / ${v.size}` : ''}`}
                 className={cn(
                   "flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-sm transition-all",
                   selectedVariantId === v.id
                     ? "border-primary bg-primary text-primary-foreground"
                     : "border-border hover:border-muted-foreground/50",
-                  getStockStatus(v.id) === "out_of_stock" && "opacity-50"
+                  getVariantStockStatus(v.id, inventory) === "out_of_stock" && "opacity-50"
                 )}
               >
                 <span>{v.size}</span>
-                {stockBadge(v.id)}
+                {stockBadge(v.id, inventory)}
               </button>
             ))}
           </div>
@@ -111,32 +105,34 @@ export function VariantSelector({
                   <button
                     key={v.id}
                     onClick={() => onSelectVariant(v.id)}
-                    disabled={getStockStatus(v.id) === "out_of_stock"}
+                    disabled={getVariantStockStatus(v.id, inventory) === "out_of_stock"}
+                    aria-label={`${flavor}${v.size ? ` / ${v.size}` : ''}`}
                     className={cn(
                       "flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-sm transition-all",
                       selectedVariantId === v.id
                         ? "border-primary bg-primary text-primary-foreground"
                         : "border-border hover:border-muted-foreground/50",
-                      getStockStatus(v.id) === "out_of_stock" && "opacity-50"
+                      getVariantStockStatus(v.id, inventory) === "out_of_stock" && "opacity-50"
                     )}
                   >
                     <span>{v.size}</span>
-                    {stockBadge(v.id)}
+                    {stockBadge(v.id, inventory)}
                   </button>
                 ))
               ) : (
                 <button
                   onClick={() => onSelectVariant(flavorVariants[0].id)}
-                  disabled={getStockStatus(flavorVariants[0].id) === "out_of_stock"}
+                  disabled={getVariantStockStatus(flavorVariants[0].id, inventory) === "out_of_stock"}
+                  aria-label={flavor}
                   className={cn(
                     "flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-sm transition-all",
                     selectedVariantId === flavorVariants[0].id
                       ? "border-primary bg-primary text-primary-foreground"
                       : "border-border hover:border-muted-foreground/50",
-                    getStockStatus(flavorVariants[0].id) === "out_of_stock" && "opacity-50"
+                    getVariantStockStatus(flavorVariants[0].id, inventory) === "out_of_stock" && "opacity-50"
                   )}
                 >
-                  {stockBadge(flavorVariants[0].id)}
+                  {stockBadge(flavorVariants[0].id, inventory)}
                 </button>
               )}
             </div>

@@ -1,11 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { Minus, Plus } from "lucide-react";
+import { Minus, Plus, Check } from "lucide-react";
 import { useCartStore } from "@/store/cart-store";
 import { formatCurrency } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { getVariantStockStatus } from "@/lib/product-utils";
 
 interface AddToCartSectionProps {
   hasVariants: boolean;
@@ -30,20 +31,13 @@ export function AddToCartSection({
 }: AddToCartSectionProps) {
   const [quantity, setQuantity] = useState(1);
   const [selectedVariantId, setSelectedVariantId] = useState<string | null>(defaultVariant?.id ?? null);
+  const [added, setAdded] = useState(false);
   const store = useCartStore();
 
   const selectedVariant = variants.find((v) => v.id === selectedVariantId);
   const displayPrice = selectedVariant?.price ?? defaultPrice;
 
-  const getStockStatus = (variantId: string) => {
-    const inv = inventory.find((i) => i.variantId === variantId);
-    if (!inv) return "out_of_stock";
-    if (inv.quantity === 0) return "out_of_stock";
-    if (inv.quantity <= 5) return "low_stock";
-    return "in_stock";
-  };
-
-  const isOutOfStock = selectedVariantId ? getStockStatus(selectedVariantId) === "out_of_stock" : !hasVariants;
+  const isOutOfStock = selectedVariantId ? getVariantStockStatus(selectedVariantId, inventory) === "out_of_stock" : !hasVariants;
 
   if (!hasVariants) {
     return (
@@ -52,6 +46,21 @@ export function AddToCartSection({
       </Button>
     );
   }
+
+  const handleAddToCart = () => {
+    if (!selectedVariantId || !selectedVariant) return;
+    store.addItem({
+      productVariantId: selectedVariantId,
+      name: productName,
+      flavor: selectedVariant.flavor,
+      price: selectedVariant.price,
+      quantity,
+      image: images[0] ?? undefined,
+    });
+    store.openCart();
+    setAdded(true);
+    setTimeout(() => setAdded(false), 1000);
+  };
 
   return (
     <div className="flex flex-col gap-3">
@@ -92,21 +101,19 @@ export function AddToCartSection({
       <Button
         className="w-full"
         size="lg"
-        disabled={isOutOfStock}
-        onClick={() => {
-          if (!selectedVariantId || !selectedVariant) return;
-          store.addItem({
-            productVariantId: selectedVariantId,
-            name: productName,
-            flavor: selectedVariant.flavor,
-            price: selectedVariant.price,
-            quantity,
-            image: images[0] ?? undefined,
-          });
-          store.openCart();
-        }}
+        disabled={isOutOfStock || added}
+        onClick={handleAddToCart}
       >
-        {isOutOfStock ? "Out of Stock" : "Add to Cart"}
+        {added ? (
+          <span className="flex items-center gap-2">
+            <Check className="size-4" />
+            Added!
+          </span>
+        ) : isOutOfStock ? (
+          "Out of Stock"
+        ) : (
+          "Add to Cart"
+        )}
       </Button>
     </div>
   );

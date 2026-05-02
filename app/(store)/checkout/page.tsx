@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useCartStore } from "@/store/cart-store";
 import { formatCurrency, cn } from "@/lib/utils";
-import { SHIPPING_METHODS, FREE_SHIPPING_THRESHOLD } from "@/lib/shipping";
+import { FREE_SHIPPING_THRESHOLD } from "@/lib/shipping";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
@@ -17,10 +17,6 @@ import {
   Package,
   Loader2,
 } from "lucide-react";
-
-const FREE_SHIPPING_THRESHOLD = 99900;
-const STANDARD_SHIPPING = 5000;
-const EXPRESS_SHIPPING = 10000;
 
 // Indian validation
 const PHONE_REGEX = /^[6-9]\d{9}$/;
@@ -51,14 +47,14 @@ const SHIPPING_METHODS: ShippingMethod[] = [
     id: "standard",
     name: "Standard Shipping",
     description: "Regular delivery",
-    price: STANDARD_SHIPPING,
+    price: 5000,
     days: "5-7 days",
   },
   {
     id: "express",
     name: "Express Shipping",
     description: "Fast delivery",
-    price: EXPRESS_SHIPPING,
+    price: 10000,
     days: "2-3 days",
   },
   {
@@ -167,6 +163,7 @@ export default function CheckoutPage() {
             quantity: i.quantity,
           })),
           paymentMethod: "RAZORPAY",
+          shippingMethod: shippingMethod.toUpperCase(),
           guestAddress: addressForm,
         }),
       });

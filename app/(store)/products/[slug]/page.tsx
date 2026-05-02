@@ -33,6 +33,8 @@ export async function generateMetadata({ params }: ProductDetailPageProps) {
   if (!product) return {};
   return {
     title: `${product.name} — Well NZ Nutrition`,
+    // Note: slice at character level; JS strings are UTF-16 so this won't
+    // split multi-byte characters, which is acceptable for metadata desc
     description: product.description.slice(0, 160),
   };
 }
@@ -73,13 +75,10 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
     },
   });
 
-  // Rating stats — fetch all approved reviews for accurate count
-  const allReviews = await db.review.findMany({
-    where: { productId: product.id, isApproved: true },
-    select: { rating: true },
-  });
-  const avgRating = allReviews.length
-    ? (allReviews.reduce((s, r) => s + r.rating, 0) / allReviews.length).toFixed(1)
+  // Rating stats — compute from already-fetched reviews
+  const approvedReviews = product.reviews.filter((r) => r.isApproved);
+  const avgRating = approvedReviews.length
+    ? (approvedReviews.reduce((total, r) => total + r.rating, 0) / approvedReviews.length).toFixed(1)
     : null;
 
   const images: string[] = product.images ?? [];
@@ -95,7 +94,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
 
   const inventoryData = product.variants.map((v) => ({
     variantId: v.id,
-    quantity: v.inventory.reduce((s, i) => s + i.quantity, 0),
+    quantity: v.inventory.reduce((total, inv) => total + inv.quantity, 0),
   }));
 
   // Nutrition facts
@@ -155,7 +154,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
                   ))}
                 </div>
                 <span className="text-sm font-medium text-foreground">{avgRating}</span>
-                <span className="text-sm text-muted-foreground">({allReviews.length} reviews)</span>
+                <span className="text-sm text-muted-foreground">({approvedReviews.length} reviews)</span>
               </div>
             )}
 
@@ -345,7 +344,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
         <div className="mt-12">
           <div className="flex items-center justify-between mb-6">
             <h2 className="font-heading text-xl font-bold text-foreground">Customer Reviews</h2>
-            <Button variant="outline" size="sm" disabled>Write a Review</Button>
+            <Button variant="outline" size="sm" disabled title="Review feature coming soon">Coming Soon</Button>
           </div>
 
           {product.reviews.length === 0 ? (
