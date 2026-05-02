@@ -2,30 +2,22 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { signOut, useSession } from "next-auth/react";
-import { ShoppingCart, User, Menu, X } from "lucide-react";
+import { ShoppingCart, User, Menu, X, Search } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
 import { useCartStore } from "@/store/cart-store";
 
 const navLinks = [
   { href: "/products", label: "Products" },
+  { href: "/products?category=PROTEIN", label: "Proteins" },
+  { href: "/products?category=PRE_WORKOUT", label: "Pre-Workout" },
+  { href: "/products?category=OMEGA_3", label: "Omega-3" },
   { href: "/about", label: "About" },
-  { href: "/subscribe", label: "Subscribe" },
-  { href: "/contact", label: "Contact" },
 ];
 
 export function Navbar() {
   const pathname = usePathname();
-  const { data: session } = useSession();
   const [mobileOpen, setMobileOpen] = useState(false);
   const itemCount = useCartStore((s) => s.items.reduce((sum, i) => sum + i.quantity, 0));
 
@@ -55,6 +47,11 @@ export function Navbar() {
 
         {/* Right actions */}
         <div className="flex items-center gap-2">
+          {/* Search */}
+          <Link href="/search" className="p-2">
+            <Search className="h-5 w-5 text-muted-foreground" />
+          </Link>
+
           {/* Cart */}
           <Link href="/cart" className="relative p-2">
             <ShoppingCart className="h-5 w-5 text-muted-foreground" />
@@ -66,35 +63,9 @@ export function Navbar() {
           </Link>
 
           {/* Account */}
-          {session ? (
-            <DropdownMenu>
-              <DropdownMenuTrigger className="flex h-8 w-8 items-center justify-center rounded-full hover:bg-muted transition-colors cursor-pointer">
-                <User className="h-5 w-5 text-muted-foreground" />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem>
-                  <Link href="/account" className="w-full">My Account</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Link href="/account/orders" className="w-full">Orders</Link>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem
-                  onClick={() => signOut({ callbackUrl: "/" })}
-                  className="text-destructive cursor-pointer"
-                >
-                  Sign out
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          ) : (
-            <Link
-              href="/login"
-              className="inline-flex h-7 items-center justify-center gap-1 rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] hover:bg-muted hover:text-foreground text-sm font-medium whitespace-nowrap transition-colors"
-            >
-              Sign in
-            </Link>
-          )}
+          <Link href="/account" className="p-2">
+            <User className="h-5 w-5 text-muted-foreground" />
+          </Link>
 
           {/* Mobile menu toggle */}
           <button

@@ -32,6 +32,14 @@ export function Footer() {
             <p className="text-sm text-muted-foreground">
               Precision Fuel for Performance. Premium sports nutrition made transparent.
             </p>
+            <p className="text-xs text-muted-foreground">
+              FSSAI License No: XXXXXXXXXXXXXX
+            </p>
+            <p className="text-sm text-muted-foreground">
+              <a href="mailto:support@wellnzanutrition.com" className="hover:text-background transition-colors">
+                support@wellnzanutrition.com
+              </a>
+            </p>
           </div>
 
           {/* Shop */}
