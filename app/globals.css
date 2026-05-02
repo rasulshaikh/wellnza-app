@@ -82,63 +82,66 @@
 }
 
 :root {
+  /* Brand Fonts */
   --font-outfit: "Outfit", sans-serif;
   --font-inter: "Inter", sans-serif;
   --font-jetbrains: "JetBrains Mono", monospace;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+
+  /* Brand Colors — override shadcn defaults with Well NZ palette */
+  --background: #FAFAFA;
+  --foreground: #0A0A0A;
+  --card: #FFFFFF;
+  --card-foreground: #0A0A0A;
+  --popover: #FFFFFF;
+  --popover-foreground: #0A0A0A;
+  --primary: #0055FF;           /* Brand blue */
+  --primary-foreground: #FFFFFF;
+  --secondary: #E5E7EB;
+  --secondary-foreground: #0A0A0A;
+  --muted: #F3F4F6;
+  --muted-foreground: #6B7280;
+  --accent: #00C2FF;            /* Brand accent blue */
+  --accent-foreground: #0A0A0A;
+  --destructive: #EF4444;
+  --border: #E5E7EB;
+  --input: #E5E7EB;
+  --ring: #0055FF;
+
+  /* Chart colors */
+  --chart-1: #0055FF;
+  --chart-2: #00C2FF;
+  --chart-3: #10B981;
+  --chart-4: #F59E0B;
+  --chart-5: #EF4444;
+
+  --radius: 0.5rem;
+
+  /* Sidebar (admin) */
+  --sidebar-background: #FAFAFA;
+  --sidebar-foreground: #0A0A0A;
+  --sidebar-primary: #0055FF;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #E5E7EB;
+  --sidebar-accent-foreground: #0A0A0A;
+  --sidebar-border: #E5E7EB;
+  --sidebar-ring: #0055FF;
 }
 
 @layer base {
   * {
-    border-color: var(--color-border);
-    @apply border-border outline-ring/50;
+    border-color: var(--border);
   }
 
   body {
-    background-color: var(--color-background);
-    color: var(--color-text-primary);
-    font-family: var(--font-body);
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-inter);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    @apply bg-background text-foreground;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-heading);
-  }
-  html {
-    @apply font-sans;
+    font-family: var(--font-outfit);
   }
 }
 
