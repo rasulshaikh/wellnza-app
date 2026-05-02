@@ -1,6 +1,5 @@
 generator client {
-  provider = "prisma-client"
-  output   = "../app/generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -316,7 +315,7 @@ model Review {
   rating           Int      // 1-5
   title            String?
   body             String
-  photos           String[] // JSON array of photo URLs
+  photos           String[] // JSON array of photo URLs (stored as JSONB)
   isVerifiedPurchase Boolean @default(false)
   helpfulCount     Int      @default(0)
   isApproved       Boolean  @default(false)
