@@ -39,7 +39,7 @@ export function ImageGallery({ images, productName }: ImageGalleryProps) {
           src={images[selectedIndex]}
           alt={`${productName} - Image ${selectedIndex + 1}`}
           fill
-          className="object-cover"
+          className="object-cover product-3d"
           priority
           sizes="(max-width: 768px) 100vw, 60vw"
         />

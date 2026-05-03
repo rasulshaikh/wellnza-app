@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Image from "next/image";
 import { db } from "@/lib/db";
 import { formatCurrency } from "@/lib/utils";
 import { NewsletterForm } from "./_components/newsletter-form";
@@ -87,11 +87,21 @@ export default async function HomePage() {
                   className="group bg-white border border-[#E7E5E4] border-b-2 border-b-[#D6D3D1] rounded-xl overflow-hidden"
                 >
                   <div className="relative">
-                    <img
-                      src={product.images[0]}
-                      alt={product.name}
-                      className="w-full aspect-square object-cover"
-                    />
+                    {product.images[0] ? (
+                      <Image
+                        src={product.images[0]}
+                        alt={product.name}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 50vw, 33vw"
+                      />
+                    ) : (
+                      <div className="w-full aspect-square bg-muted flex items-center justify-center">
+                        <span className="text-xs text-muted-foreground">
+                          {product.name.split(" ").map((w: string) => w[0]).join("").slice(0, 2).toUpperCase()}
+                        </span>
+                      </div>
+                    )}
                     <span className="absolute top-2 left-2 bg-[#166534] text-white text-xs px-2 py-1 uppercase font-bold">
                       {badge}
                     </span>

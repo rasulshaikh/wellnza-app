@@ -94,6 +94,21 @@ export default function AboutPage() {
           </div>
         </div>
 
+        {/* Video Section */}
+        <div className="max-w-4xl mx-auto mb-20">
+          <h2 className="font-heading text-3xl font-bold text-center text-[#1C1917] mb-8">
+            See the Difference
+          </h2>
+          <div className="aspect-video rounded-2xl overflow-hidden shadow-lg bg-[#1C1917]">
+            <iframe
+              src="https://www.youtube.com/embed/ugYy-kMWNtY"
+              className="w-full h-full"
+              allowFullScreen
+              title="Wellnza Quality"
+            />
+          </div>
+        </div>
+
         {/* Testimonials */}
         <div className="max-w-4xl mx-auto mb-16">
           <h2 className="font-heading text-3xl font-bold text-center text-[#1C1917] mb-12">

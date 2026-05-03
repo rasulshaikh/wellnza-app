@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 const slides = [
   {
@@ -52,10 +53,15 @@ export function HeroSlider() {
             }`}
           >
             {/* Background Image */}
-            <div
-              className="absolute inset-0 bg-cover bg-center"
-              style={{ backgroundImage: `url(${slide.image})` }}
-            />
+            <div className="absolute inset-0">
+              <Image
+                src={slide.image}
+                alt={slide.tagline}
+                fill
+                className="object-cover"
+                priority={index === 0}
+              />
+            </div>
             {/* Overlay */}
             <div className="absolute inset-0 bg-gradient-to-r from-[#1C1917]/90 via-[#1C1917]/70 to-transparent" />
             {/* Content */}

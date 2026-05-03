@@ -88,7 +88,7 @@ export function ProductCard({
             alt={name}
             width={400}
             height={400}
-            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110 product-3d"
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center">
