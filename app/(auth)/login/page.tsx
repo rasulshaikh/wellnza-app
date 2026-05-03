@@ -12,17 +12,21 @@ import { Navbar } from "@/components/layout/Navbar";
 
 export default function LoginPage() {
   const router = useRouter();
-  const { data: session } = useSession();
+  const sessionResult = useSession();
+  const session = sessionResult?.data;
+  const status = sessionResult?.status;
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   // Redirect if already authenticated
   useEffect(() => {
-    if (session) {
+    if (status === "authenticated") {
       router.replace("/account");
     }
-  }, [session, router]);
+  }, [status, router]);
+
+  const isCheckingSession = status === "loading";
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -42,6 +46,14 @@ export default function LoginPage() {
       router.push("/account");
       router.refresh();
     }
+  }
+
+  if (isCheckingSession) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#FAFAF5]">
+        <div className="animate-pulse">Loading...</div>
+      </div>
+    );
   }
 
   return (
