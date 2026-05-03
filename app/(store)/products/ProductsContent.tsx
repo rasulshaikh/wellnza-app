@@ -132,7 +132,7 @@ export function ProductsContent() {
       {/* Page header */}
       <div className="border-b border-border bg-background px-4 py-6 md:px-8">
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-4">
-          <h1 className="font-heading text-2xl font-bold tracking-tight md:text-3xl">
+          <h1 className="font-[Merriweather] text-[28px] font-bold tracking-tight">
             All Products
           </h1>
 
@@ -187,20 +187,20 @@ export function ProductsContent() {
                     }
                     router.push(`/products?${newParams.toString()}`);
                   }}
-                  className="border border-gray-300 px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                  className="border border-[#E7E5E4] px-3 py-1.5 text-sm font-[Raleway] focus:outline-none focus:ring-2 focus:ring-[#166534]"
                 >
                   {SORT_OPTIONS.map((opt) => (
                     <option key={opt.value} value={opt.value}>{opt.label}</option>
                   ))}
                 </select>
               </div>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-[14px] font-[Raleway] text-[#57534E]">
                 {total === 0 ? (
                   "No products found"
                 ) : (
                   <>
-                    Showing <span className="font-medium text-foreground">{showingStart}-{showingEnd}</span> of{" "}
-                    <span className="font-medium text-foreground">{total}</span> products
+                    Showing <span className="font-medium text-[#1C1917]">{showingStart}-{showingEnd}</span> of{" "}
+                    <span className="font-medium text-[#1C1917]">{total}</span> products
                   </>
                 )}
               </p>
@@ -214,14 +214,14 @@ export function ProductsContent() {
             )}
 
             {/* Testimonial */}
-            <div className="mt-16 py-12 bg-gray-50 text-center">
-              <p className="text-lg italic text-muted-foreground">
+            <div className="mt-16 py-12 bg-[#FAFAF5] text-center">
+              <p className="font-[Merriweather] text-lg italic text-[#1C1917]">
                 "Ultrahype gave me unmatched focus and energy during workouts—truly a game changer for my training sessions."
               </p>
-              <p className="mt-2 font-semibold">— Pranav</p>
+              <p className="mt-4 font-[Raleway] font-semibold text-[#1C1917]">— Pranav</p>
               <div className="mt-4 flex justify-center gap-0.5">
                 {[1,2,3,4,5].map((i) => (
-                  <span key={i} className="text-yellow-500 text-lg">★</span>
+                  <span key={i} className="text-[#86A873] text-lg">★</span>
                 ))}
               </div>
             </div>

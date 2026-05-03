@@ -60,13 +60,13 @@ function FilterContent({
     <div className="flex flex-col gap-6">
       {/* Sort */}
       <div className="flex flex-col gap-2">
-        <Label className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+        <Label className="font-raleway text-sm font-medium text-[#1C1917] mb-1.5">
           Sort By
         </Label>
         <select
           value={sort}
           onChange={(e) => onSortChange(e.target.value)}
-          className="h-8 w-full rounded-lg border border-input bg-transparent px-2.5 py-1 text-sm transition-colors focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
+          className="h-[44px] w-full rounded-[8px] border border-[#D6D3D1] bg-[#FFFFFF] px-3 py-2 text-sm text-[#1C1917] transition-colors focus:border-[#166534] focus:outline-2 focus:outline-[#166534]/20"
         >
           {SORT_OPTIONS.map((opt) => (
             <option key={opt.value} value={opt.value}>
@@ -78,18 +78,19 @@ function FilterContent({
 
       {/* Category */}
       <div className="flex flex-col gap-3">
-        <Label className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+        <Label className="font-raleway text-sm font-medium text-[#1C1917] mb-1.5">
           Category
         </Label>
         <div className="flex flex-col gap-2">
           {CATEGORIES.map((cat) => (
             <Label
               key={cat.value}
-              className="flex cursor-pointer items-center gap-2 text-sm font-normal"
+              className="flex cursor-pointer items-center gap-2 text-sm font-normal text-[#1C1917]"
             >
               <Checkbox
                 checked={selectedCategories.includes(cat.value)}
                 onCheckedChange={() => onToggleCategory(cat.value)}
+                className="data-[checked=true]:bg-[#166534] data-[checked=true]:border-[#166534] data-[checked=true]:text-white"
               />
               {cat.label}
             </Label>
@@ -99,7 +100,7 @@ function FilterContent({
 
       {/* Price Range */}
       <div className="flex flex-col gap-3">
-        <Label className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+        <Label className="font-raleway text-sm font-medium text-[#1C1917] mb-1.5">
           Price Range
         </Label>
         <div className="flex items-center gap-2">
@@ -108,16 +109,16 @@ function FilterContent({
             placeholder="Min"
             value={minPrice}
             onChange={(e) => onPriceChange("minPrice", e.target.value)}
-            className="h-8"
+            className="h-[44px]"
             min={0}
           />
-          <span className="text-muted-foreground">-</span>
+          <span className="text-[#57534E]">-</span>
           <Input
             type="number"
             placeholder="Max"
             value={maxPrice}
             onChange={(e) => onPriceChange("maxPrice", e.target.value)}
-            className="h-8"
+            className="h-[44px]"
             min={0}
           />
         </div>
@@ -125,10 +126,10 @@ function FilterContent({
 
       {activeFilterCount > 0 && (
         <Button
-          variant="outline"
+          variant="ghost"
           size="sm"
           onClick={onClearAll}
-          className="mt-2"
+          className="mt-2 text-[#166534] hover:bg-[#F5F5EB]"
         >
           Clear All Filters
         </Button>
@@ -203,13 +204,13 @@ export function ProductFilters({ className }: ProductFiltersProps) {
       {/* Desktop sidebar */}
       <aside
         className={cn(
-          "hidden w-56 shrink-0 flex-col gap-6 lg:flex",
+          "hidden w-56 shrink-0 flex-col gap-6 lg:flex bg-[#FAFAF5] p-4 rounded-[8px]",
           className
         )}
       >
         <div className="flex flex-col gap-6">
           <div className="flex items-center justify-between">
-            <h2 className="font-heading text-sm font-semibold">Filters</h2>
+            <h2 className="font-merriweather text-sm font-semibold text-[#1C1917]">Filters</h2>
             {activeFilterCount > 0 && (
               <Badge variant="secondary" className="text-xs">
                 {activeFilterCount}
@@ -232,12 +233,12 @@ export function ProductFilters({ className }: ProductFiltersProps) {
 
       {/* Mobile drawer */}
       <div className="flex items-center justify-between px-4 py-3 lg:hidden">
-        <span className="text-sm text-muted-foreground">
+        <span className="text-sm text-[#57534E]">
           {activeFilterCount > 0 ? `${activeFilterCount} filter${activeFilterCount > 1 ? "s" : ""} active` : "No filters applied"}
         </span>
         <Drawer direction="bottom">
           <DrawerTrigger asChild>
-            <Button variant="outline" size="sm" className="gap-2">
+            <Button variant="outline" size="sm" className="gap-2 border-[#D6D3D1] text-[#1C1917] hover:bg-[#F5F5EB]">
               <SlidersHorizontal className="size-4" />
               Filters
               {activeFilterCount > 0 && (
@@ -247,9 +248,9 @@ export function ProductFilters({ className }: ProductFiltersProps) {
               )}
             </Button>
           </DrawerTrigger>
-          <DrawerContent>
+          <DrawerContent className="bg-[#FAFAF5]">
             <DrawerHeader>
-              <DrawerTitle>Filters</DrawerTitle>
+              <DrawerTitle className="font-merriweather text-[#1C1917]">Filters</DrawerTitle>
             </DrawerHeader>
             <div className="px-4 pb-6">
               <FilterContent

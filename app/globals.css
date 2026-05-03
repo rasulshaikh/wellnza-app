@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Merriweather:wght@400;500;600;700&family=Raleway:wght@400;500;600&family=Fira+Code:wght@400;500&display=swap");
 
 @import "tailwindcss";
 
@@ -10,25 +10,30 @@
 
 @theme {
   /* Colors */
-  --color-background: #FAFAFA;
+  --color-background: #FAFAF5;
   --color-surface: #FFFFFF;
-  --color-primary: #0055FF;
-  --color-primary-hover: #0044CC;
+  --color-primary: #166534;
+  --color-primary-hover: #14532D;
+  --color-secondary: #86A873;
+  --color-tertiary: #A47148;
+  --color-neutral: #A8A29E;
   --color-accent: #00C2FF;
   --color-accent-hover: #00A8E0;
-  --color-dark: #0A0A0A;
-  --color-text-primary: #0A0A0A;
-  --color-text-secondary: #6B7280;
-  --color-border: #E5E7EB;
-  --color-success: #10B981;
-  --color-warning: #F59E0B;
-  --color-error: #EF4444;
-  --color-rating: #F59E0B;
+  --color-dark: #1C1917;
+  --color-text-primary: #1C1917;
+  --color-text-secondary: #57534E;
+  --color-border: #E7E5E4;
+  --color-border-subtle: #D6D3D1;
+  --color-success: #166534;
+  --color-warning: #CA8A04;
+  --color-error: #B91C1C;
+  --color-info: #0E7490;
+  --color-rating: #CA8A04;
 
   /* Font Families */
-  --font-heading: "Outfit", sans-serif;
-  --font-body: "Inter", sans-serif;
-  --font-mono: "JetBrains Mono", monospace;
+  --font-heading: "Merriweather", serif;
+  --font-body: "Raleway", sans-serif;
+  --font-mono: "Fira Code", monospace;
 
   /* Font Sizes */
   --text-2xs: 0.625rem;
@@ -55,10 +60,10 @@
   --radius-lg: 12px;
   --radius-xl: 16px;
 
-  /* Shadows */
-  --shadow-card: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px -1px rgba(0,0,0,0.1);
-  --shadow-card-hover: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
-  --shadow-drawer: -4px 0 20px rgba(0,0,0,0.15);
+  /* Shadows - flat with borders, no drop shadows */
+  --shadow-card: none;
+  --shadow-card-hover: none;
+  --shadow-drawer: none;
 
   /* Keyframes */
   --animate-fade-in: fade-in 0.4s ease-out;
@@ -83,48 +88,48 @@
 
 :root {
   /* Brand Fonts */
-  --font-outfit: "Outfit", sans-serif;
-  --font-inter: "Inter", sans-serif;
-  --font-jetbrains: "JetBrains Mono", monospace;
+  --font-merriweather: "Merriweather", serif;
+  --font-raleway: "Raleway", sans-serif;
+  --font-fira: "Fira Code", monospace;
 
-  /* Brand Colors — override shadcn defaults with Well NZ palette */
-  --background: #FAFAFA;
-  --foreground: #0A0A0A;
+  /* Brand Colors — GreenLeaf palette */
+  --background: #FAFAF5;
+  --foreground: #1C1917;
   --card: #FFFFFF;
-  --card-foreground: #0A0A0A;
+  --card-foreground: #1C1917;
   --popover: #FFFFFF;
-  --popover-foreground: #0A0A0A;
-  --primary: #0055FF;           /* Brand blue */
+  --popover-foreground: #1C1917;
+  --primary: #166534;
   --primary-foreground: #FFFFFF;
-  --secondary: #E5E7EB;
-  --secondary-foreground: #0A0A0A;
-  --muted: #F3F4F6;
-  --muted-foreground: #6B7280;
-  --accent: #00C2FF;            /* Brand accent blue */
-  --accent-foreground: #0A0A0A;
-  --destructive: #EF4444;
-  --border: #E5E7EB;
-  --input: #E5E7EB;
-  --ring: #0055FF;
+  --secondary: #86A873;
+  --secondary-foreground: #FFFFFF;
+  --muted: #F5F5F0;
+  --muted-foreground: #57534E;
+  --accent: #00C2FF;
+  --accent-foreground: #1C1917;
+  --destructive: #B91C1C;
+  --border: #E7E5E4;
+  --input: #E7E5E4;
+  --ring: #166534;
 
   /* Chart colors */
-  --chart-1: #0055FF;
-  --chart-2: #00C2FF;
-  --chart-3: #10B981;
-  --chart-4: #F59E0B;
-  --chart-5: #EF4444;
+  --chart-1: #166534;
+  --chart-2: #86A873;
+  --chart-3: #A47148;
+  --chart-4: #CA8A04;
+  --chart-5: #B91C1C;
 
   --radius: 0.5rem;
 
   /* Sidebar (admin) */
-  --sidebar-background: #FAFAFA;
-  --sidebar-foreground: #0A0A0A;
-  --sidebar-primary: #0055FF;
+  --sidebar-background: #FAFAF5;
+  --sidebar-foreground: #1C1917;
+  --sidebar-primary: #166534;
   --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #E5E7EB;
-  --sidebar-accent-foreground: #0A0A0A;
-  --sidebar-border: #E5E7EB;
-  --sidebar-ring: #0055FF;
+  --sidebar-accent: #86A873;
+  --sidebar-accent-foreground: #FFFFFF;
+  --sidebar-border: #E7E5E4;
+  --sidebar-ring: #166534;
 }
 
 @layer base {
@@ -135,13 +140,13 @@
   body {
     background-color: var(--background);
     color: var(--foreground);
-    font-family: var(--font-inter);
+    font-family: var(--font-raleway);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-outfit);
+    font-family: var(--font-merriweather);
   }
 }
 
@@ -195,37 +200,38 @@
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  /* Dark green palette */
+  --background: oklch(0.145 0.03 145);
+  --foreground: oklch(0.95 0.01 145);
+  --card: oklch(0.18 0.03 145);
+  --card-foreground: oklch(0.95 0.01 145);
+  --popover: oklch(0.18 0.03 145);
+  --popover-foreground: oklch(0.95 0.01 145);
+  --primary: oklch(0.55 0.12 145);
+  --primary-foreground: oklch(0.98 0.01 145);
+  --secondary: oklch(0.45 0.08 145);
+  --secondary-foreground: oklch(0.98 0.01 145);
+  --muted: oklch(0.25 0.03 145);
+  --muted-foreground: oklch(0.65 0.02 145);
+  --accent: oklch(0.60 0.15 200);
+  --accent-foreground: oklch(0.98 0.01 145);
+  --destructive: oklch(0.55 0.2 25);
+  --border: oklch(0.30 0.03 145);
+  --input: oklch(0.25 0.03 145);
+  --ring: oklch(0.55 0.12 145);
+  --chart-1: oklch(0.55 0.12 145);
+  --chart-2: oklch(0.45 0.08 145);
+  --chart-3: oklch(0.50 0.10 25);
+  --chart-4: oklch(0.60 0.15 85);
+  --chart-5: oklch(0.55 0.20 25);
+  --sidebar: oklch(0.18 0.03 145);
+  --sidebar-foreground: oklch(0.95 0.01 145);
+  --sidebar-primary: oklch(0.55 0.12 145);
+  --sidebar-primary-foreground: oklch(0.98 0.01 145);
+  --sidebar-accent: oklch(0.45 0.08 145);
+  --sidebar-accent-foreground: oklch(0.98 0.01 145);
+  --sidebar-border: oklch(0.30 0.03 145);
+  --sidebar-ring: oklch(0.55 0.12 145);
 }
 
 /* WhatsApp floating button - ensure it works on all backgrounds */

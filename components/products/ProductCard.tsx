@@ -65,10 +65,23 @@ export function ProductCard({
 
   const displayImage = images?.[0] ?? null;
 
+  const discountPercent = comparePrice && comparePrice > displayPrice
+    ? Math.round(((comparePrice - displayPrice) / comparePrice) * 100)
+    : null;
+
+  const isEcoCategory = ["PROTEIN", "PRE_WORKOUT", "OMEGA_3", "MULTIVITAMIN"].includes(category);
+
+  const cardClasses = [
+    "group flex flex-col overflow-hidden rounded-xl bg-white transition-colors duration-200",
+    "border border-[#E7E5E4]",
+    "border-b-2 border-b-[#D6D3D1]",
+    "hover:border-[#A8A29E]",
+  ].join(" ");
+
   return (
-    <div className="group flex flex-col overflow-hidden rounded-xl border border-border bg-card shadow-card transition-shadow hover:shadow-card-hover">
+    <div className={cardClasses}>
       {/* Image */}
-      <Link href={`/products/${slug}`} className="block aspect-square overflow-hidden bg-muted">
+      <Link href={`/products/${slug}`} className="block aspect-square overflow-hidden bg-muted relative">
         {displayImage ? (
           <Image
             src={displayImage}
@@ -91,40 +104,64 @@ export function ProductCard({
             </div>
           </div>
         )}
+        {discountPercent && (
+          <span className="absolute right-2 top-2 rounded-full bg-[#166534] px-2 py-0.5 text-xs font-semibold text-white">
+            -{discountPercent}%
+          </span>
+        )}
+        {isEcoCategory && (
+          <span className="absolute left-2 top-2 rounded-full bg-[#166534] px-2 py-0.5 text-xs font-semibold text-white">
+            Organic
+          </span>
+        )}
       </Link>
 
       {/* Content */}
       <div className="flex flex-1 flex-col p-4">
-        <Badge variant="secondary" className="mb-2 w-fit text-xs">
+        <span
+          className="mb-2 w-fit text-xs font-semibold uppercase tracking-[0.08em] text-[#166534]"
+          style={{ fontFamily: "Raleway, sans-serif" }}
+        >
           {CATEGORY_LABELS[category] ?? category}
-        </Badge>
+        </span>
 
         <Link href={`/products/${slug}`} className="block">
-          <h3 className="font-heading text-sm font-semibold text-foreground leading-tight line-clamp-2 hover:text-primary transition-colors">
+          <h3
+            className="text-[20px] font-normal leading-tight text-[#1C1917] line-clamp-2 hover:text-[#166534] transition-colors"
+            style={{ fontFamily: "Merriweather, serif" }}
+          >
             {name}
           </h3>
         </Link>
 
+        {variants.length > 0 && (
+          <p className="mt-1 text-sm text-[#A8A29E]" style={{ fontFamily: "Raleway, sans-serif" }}>
+            {variants[0].flavor}
+            {variants.length > 1 && ` +${variants.length - 1} more`}
+          </p>
+        )}
+
         <div className="mt-2 flex items-baseline gap-2">
-          <span className="font-heading text-base font-bold text-foreground">
+          <span
+            className="text-[16px] font-semibold text-[#1C1917]"
+            style={{ fontFamily: "Raleway, sans-serif" }}
+          >
             {formatCurrency(displayPrice)}
           </span>
           {comparePrice && comparePrice > displayPrice && (
-            <span className="text-sm text-muted-foreground line-through">
+            <span
+              className="text-[14px] font-normal text-[#A8A29E] line-through"
+              style={{ fontFamily: "Raleway, sans-serif" }}
+            >
               {formatCurrency(comparePrice)}
             </span>
           )}
         </div>
 
-        {variants.length > 1 && (
-          <p className="mt-1 text-xs text-muted-foreground">
-            {variants.length} variants
-          </p>
-        )}
-
         <Button
           className="mt-3 w-full"
           size="sm"
+          variant="default"
           onClick={handleAddToCart}
           disabled={variants.length === 0}
         >

@@ -21,7 +21,7 @@ export default async function HomePage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative bg-black text-white">
+      <section className="relative bg-[#FAFAF5] text-[#1C1917]">
         <div className="absolute inset-0">
           <img
             src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=2800,fit=crop/PQIno7kFVWk52uM2/gemini_generated_image_a36coaa36coaa36c-GpqVKDujnWLGwkc7.png"
@@ -30,18 +30,18 @@ export default async function HomePage() {
           />
         </div>
         <div className="relative z-10 container mx-auto px-4 py-32 text-center">
-          <h1 className="font-heading text-5xl md:text-7xl font-bold tracking-tight">
+          <h1 className="font-[Merriweather] text-4xl md:text-6xl font-bold tracking-tight">
             Unleash Energy
           </h1>
-          <p className="mt-4 text-xl md:text-2xl text-gray-200">
+          <p className="mt-6 text-lg md:text-xl font-[Raleway] text-[#1C1917]/80">
             Precision engineered for power, focus, and performance
           </p>
-          <p className="mt-6 text-sm tracking-widest text-gray-400 uppercase">
+          <p className="mt-6 text-sm tracking-widest text-[#57534E] uppercase font-[Raleway]">
             Feel the difference
           </p>
           <Link
             href="/products"
-            className="mt-10 inline-block bg-white text-black px-8 py-4 font-semibold hover:bg-gray-100 transition"
+            className="mt-10 inline-block bg-[#166534] text-white px-8 py-4 font-[Raleway] font-semibold hover:bg-[#14532d] transition"
           >
             View Products
           </Link>
@@ -51,7 +51,7 @@ export default async function HomePage() {
       {/* Categories Section */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
-          <h3 className="font-heading text-3xl font-bold text-center mb-12">Categories</h3>
+          <h3 className="font-[Merriweather] text-3xl font-bold text-center mb-12">Categories</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
@@ -76,11 +76,11 @@ export default async function HomePage() {
               <Link
                 key={cat.name}
                 href={cat.href}
-                className="group p-8 border border-gray-200 hover:border-primary transition text-center"
+                className="group p-8 border border-[#E7E5E4] border-b-2 border-b-[#D6D3D1] rounded-xl hover:border-[#86A873] transition text-center"
               >
                 <div className="text-4xl mb-4">{cat.icon}</div>
-                <h4 className="font-heading text-xl font-bold">{cat.name}</h4>
-                <p className="mt-2 text-muted-foreground">{cat.desc}</p>
+                <h4 className="font-[Merriweather] text-xl font-bold">{cat.name}</h4>
+                <p className="mt-2 text-muted-foreground font-[Raleway]">{cat.desc}</p>
               </Link>
             ))}
           </div>
@@ -88,14 +88,14 @@ export default async function HomePage() {
       </section>
 
       {/* Featured Products */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-[#FAFAF5]">
         <div className="container mx-auto px-4">
-          <h3 className="font-heading text-3xl font-bold text-center mb-12">
-            <Link href="/products" className="hover:text-primary transition">
+          <h3 className="font-[Merriweather] text-3xl font-bold text-center mb-12">
+            <Link href="/products" className="hover:text-[#166534] transition">
               Featured Products
             </Link>
           </h3>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
             {products.map((product) => {
               const badge = product.slug.includes("mass-gainer") ? "BEST SELLER"
                 : product.slug.includes("pre-workout") ? "NEW"
@@ -107,7 +107,7 @@ export default async function HomePage() {
                 <Link
                   key={product.id}
                   href={`/products/${product.slug}`}
-                  className="group bg-white"
+                  className="group bg-white border border-[#E7E5E4] border-b-2 border-b-[#D6D3D1] rounded-xl overflow-hidden"
                 >
                   <div className="relative">
                     <img
@@ -115,13 +115,13 @@ export default async function HomePage() {
                       alt={product.name}
                       className="w-full aspect-square object-cover"
                     />
-                    <span className="absolute top-2 left-2 bg-black text-white text-xs px-2 py-1 uppercase font-bold">
+                    <span className="absolute top-2 left-2 bg-[#166534] text-white text-xs px-2 py-1 uppercase font-bold">
                       {badge}
                     </span>
                   </div>
                   <div className="p-4">
-                    <h4 className="font-heading font-bold text-sm truncate">{product.name}</h4>
-                    <p className="mt-1 font-semibold">₹{product.basePrice.toLocaleString()}</p>
+                    <h4 className="font-[Merriweather] font-bold text-sm truncate">{product.name}</h4>
+                    <p className="mt-1 font-[Raleway] font-semibold">₹{product.basePrice.toLocaleString()}</p>
                   </div>
                 </Link>
               );
@@ -130,7 +130,7 @@ export default async function HomePage() {
           <div className="text-center mt-10">
             <Link
               href="/products"
-              className="text-primary font-semibold hover:underline"
+              className="text-[#166534] font-[Raleway] font-semibold hover:underline"
             >
               Shop Pre-Workout → Elevate your performance with our curated selection...
             </Link>
@@ -139,12 +139,14 @@ export default async function HomePage() {
       </section>
 
       {/* Newsletter */}
-      <section className="py-16 bg-black text-white">
+      <section className="py-16 bg-[#1C1917] text-white">
         <div className="container mx-auto px-4 text-center">
-          <h3 className="font-heading text-2xl font-bold">Join Our Elite Circle</h3>
-          <p className="mt-2 text-gray-400">Your Email</p>
-          <NewsletterForm />
-          <p className="mt-2 text-sm text-gray-500">Get exclusive offers and insider updates</p>
+          <h3 className="font-[Merriweather] text-2xl font-bold">Join Our Elite Circle</h3>
+          <p className="mt-4 text-gray-400 font-[Raleway]">Your Email</p>
+          <div className="mt-4">
+            <NewsletterForm />
+          </div>
+          <p className="mt-4 text-sm text-gray-500 font-[Raleway]">Get exclusive offers and insider updates</p>
         </div>
       </section>
 

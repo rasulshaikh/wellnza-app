@@ -4,7 +4,6 @@ import { useState } from "react";
 import { Minus, Plus, Check } from "lucide-react";
 import { useCartStore } from "@/store/cart-store";
 import { formatCurrency } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { getVariantStockStatus } from "@/lib/product-utils";
 
@@ -41,9 +40,9 @@ export function AddToCartSection({
 
   if (!hasVariants) {
     return (
-      <Button disabled className="w-full" size="lg">
+      <button disabled className="w-full h-12 rounded-lg bg-[#166534] text-[#FFFFFF] font-['Raleway'] font-semibold text-base opacity-50 cursor-not-allowed">
         Out of Stock
-      </Button>
+      </button>
     );
   }
 
@@ -63,50 +62,78 @@ export function AddToCartSection({
   };
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-4">
+      {/* Variant flavor selector */}
+      {variants.length > 1 && (
+        <div className="flex flex-wrap gap-2">
+          {variants.map((variant) => (
+            <button
+              key={variant.id}
+              type="button"
+              onClick={() => setSelectedVariantId(variant.id)}
+              className={cn(
+                "px-4 py-2 rounded-lg border text-sm font-['Raleway'] transition-all",
+                selectedVariantId === variant.id
+                  ? "border-[#166534] bg-[#166534] text-[#FFFFFF]"
+                  : "border-[#D6D3D1] bg-[#FFFFFF] text-[#1C1917] hover:border-[#166534]"
+              )}
+            >
+              {variant.flavor}
+              {variant.size ? ` / ${variant.size}` : ""}
+            </button>
+          ))}
+        </div>
+      )}
+
       {/* Selected variant display */}
       {selectedVariant && (
-        <div className="flex items-center justify-between text-sm">
-          <span className="text-muted-foreground">
+        <div className="flex items-center justify-between">
+          <span className="font-['Raleway'] text-sm text-[#78716C]">
             {selectedVariant.flavor}
             {selectedVariant.size ? ` / ${selectedVariant.size}` : ""}
           </span>
-          <span className="font-semibold text-foreground">{formatCurrency(displayPrice)}</span>
+          <span className="font-['Merriweather'] font-semibold text-[#1C1917] text-lg">{formatCurrency(displayPrice)}</span>
         </div>
       )}
 
       {/* Quantity selector */}
       <div className="flex items-center gap-3">
-        <span className="text-sm font-medium text-foreground">Qty</span>
-        <div className="flex items-center gap-1 rounded-lg border border-border">
+        <span className="font-['Raleway'] text-sm font-medium text-[#1C1917]">Qty</span>
+        <div className="flex items-center h-11 rounded-lg border border-[#D6D3D1] overflow-hidden">
           <button
             onClick={() => setQuantity(Math.max(1, quantity - 1))}
-            className="flex size-8 items-center justify-center hover:bg-muted transition-colors"
+            className="flex items-center justify-center w-11 h-full border-r border-[#D6D3D1] hover:bg-[#F5F5F4] transition-colors text-[#166534] disabled:opacity-50"
             disabled={quantity <= 1}
           >
-            <Minus className="size-3" />
+            <Minus className="size-4" />
           </button>
-          <span className="w-8 text-center text-sm font-medium">{quantity}</span>
+          <span className="font-['Raleway'] w-12 text-center text-sm font-medium text-[#1C1917]">{quantity}</span>
           <button
             onClick={() => setQuantity(Math.min(10, quantity + 1))}
-            className="flex size-8 items-center justify-center hover:bg-muted transition-colors"
+            className="flex items-center justify-center w-11 h-full border-l border-[#D6D3D1] hover:bg-[#F5F5F4] transition-colors text-[#166534] disabled:opacity-50"
             disabled={quantity >= 10}
           >
-            <Plus className="size-3" />
+            <Plus className="size-4" />
           </button>
         </div>
       </div>
 
       {/* Add to cart button */}
-      <Button
-        className="w-full"
-        size="lg"
-        disabled={isOutOfStock || added}
+      <button
+        className={cn(
+          "w-full h-12 rounded-lg font-['Raleway'] font-semibold text-base transition-all",
+          added
+            ? "bg-[#166534] text-[#FFFFFF] border-2 border-[#166534]"
+            : isOutOfStock
+            ? "bg-[#F5F5F4] text-[#B91C1C] cursor-not-allowed opacity-50"
+            : "bg-[#166534] text-[#FFFFFF] hover:bg-[#14532D]"
+        )}
+        disabled={isOutOfStock}
         onClick={handleAddToCart}
       >
         {added ? (
-          <span className="flex items-center gap-2">
-            <Check className="size-4" />
+          <span className="flex items-center justify-center gap-2">
+            <Check className="size-5" />
             Added!
           </span>
         ) : isOutOfStock ? (
@@ -114,7 +141,7 @@ export function AddToCartSection({
         ) : (
           "Add to Cart"
         )}
-      </Button>
+      </button>
     </div>
   );
 }
