@@ -43,13 +43,15 @@ export async function POST(request: Request) {
       );
     }
 
-    // Update order status to PROCESSING
-    await db.order.update({
-      where: { id: orderId },
-      data: {
-        status: "PROCESSING",
-        razorpayPaymentId,
-      },
+    // Update order status to PROCESSING within a transaction
+    await db.$transaction(async (tx) => {
+      await tx.order.update({
+        where: { id: orderId },
+        data: {
+          status: "PROCESSING",
+          razorpayPaymentId,
+        },
+      });
     });
 
     // Log email (placeholder for email sending)

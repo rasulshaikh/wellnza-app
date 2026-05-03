@@ -21,8 +21,10 @@ export async function GET(request: Request) {
     const maxPrice = searchParams.get("maxPrice");
     const sort = searchParams.get("sort");
     const search = searchParams.get("search");
-    const limit = Math.min(parseInt(searchParams.get("limit") ?? "20", 10), 100);
-    const offset = parseInt(searchParams.get("offset") ?? "0", 10);
+    const rawLimit = parseInt(searchParams.get("limit") ?? "20", 10);
+    const limit = isNaN(rawLimit) ? 20 : Math.min(Math.max(rawLimit, 1), 100);
+    const rawOffset = parseInt(searchParams.get("offset") ?? "0", 10);
+    const offset = isNaN(rawOffset) ? 0 : Math.max(rawOffset, 0);
 
     // Build where clause
     const where: Prisma.ProductWhereInput = {
@@ -48,11 +50,11 @@ export async function GET(request: Request) {
       }
     }
 
-    // Search filter
+    // Search filter (case-insensitive)
     if (search) {
       where.OR = [
-        { name: { contains: search } },
-        { description: { contains: search } },
+        { name: { contains: search, mode: "insensitive" } },
+        { description: { contains: search, mode: "insensitive" } },
       ];
     }
 

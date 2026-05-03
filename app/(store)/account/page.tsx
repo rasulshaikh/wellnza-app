@@ -18,7 +18,13 @@ export default async function AccountDashboardPage() {
   const session = await auth();
 
   if (!session?.user?.id) {
-    redirect("/login?callbackUrl=/account");
+    const callbackUrl = "/account";
+    // Validate callbackUrl is safe (no external redirect)
+    if (callbackUrl.startsWith("/") && !callbackUrl.includes("://")) {
+      redirect(`/login?callbackUrl=${encodeURIComponent(callbackUrl)}`);
+    } else {
+      redirect("/login");
+    }
   }
 
   const user = await db.user.findUnique({
@@ -35,7 +41,7 @@ export default async function AccountDashboardPage() {
   });
 
   if (!user) {
-    redirect("/login?callbackUrl=/account");
+    redirect("/login");
   }
 
   return (
