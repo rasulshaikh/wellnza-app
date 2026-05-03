@@ -1,60 +1,69 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 
 export default function AboutPage() {
   return (
     <div className="py-16 md:py-24">
       <div className="container mx-auto px-4">
-        <div className="mx-auto max-w-3xl">
-          <h1 className="font-heading text-4xl font-bold tracking-tight text-foreground md:text-5xl">
-            About Well NZ Nutrition
-          </h1>
-          <p className="mt-6 text-lg text-muted-foreground">
-            We are a New Zealand-based sports nutrition company dedicated to helping athletes and fitness enthusiasts achieve their peak performance through science-backed supplements.
-          </p>
+        <h1 className="font-heading text-4xl font-bold text-center mb-12">
+          Real Feedback
+        </h1>
+        <p className="text-center text-muted-foreground mb-16">
+          Hear from athletes who trust Wellnza Nutrition.
+        </p>
 
-          <div className="mt-12 space-y-8">
-            <div>
-              <h2 className="font-heading text-2xl font-bold text-foreground">Our Mission</h2>
-              <p className="mt-3 text-muted-foreground">
-                At Well NZ Nutrition, we believe that proper nutrition is the foundation of athletic success. Our products are formulated with the highest quality ingredients, rigorously tested, and designed to help you push beyond your limits.
-              </p>
-            </div>
-
-            <div>
-              <h2 className="font-heading text-2xl font-bold text-foreground">Why Choose Us</h2>
-              <ul className="mt-4 space-y-3">
-                {[
-                  "FSSAI Certified — meets highest safety standards",
-                  "Science-backed formulations with transparent labeling",
-                  "No artificial colors, flavors, or preservatives",
-                  "Tested for banned substances",
-                  "Proudly made in New Zealand",
-                ].map((item) => (
-                  <li key={item} className="flex items-center gap-3 text-muted-foreground">
-                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary text-xs font-bold">✓</span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div>
-              <h2 className="font-heading text-2xl font-bold text-foreground">Contact Us</h2>
-              <p className="mt-3 text-muted-foreground">
-                Have questions? We&apos;d love to hear from you. Reach out to us at{" "}
-                <a href="mailto:support@wellnznutrition.com" className="text-primary hover:underline">
-                  support@wellnznutrition.com
-                </a>
-              </p>
-            </div>
-
-            <div className="pt-4">
-              <Link href="/products">
-              <Button>Shop Now</Button>
-            </Link>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto">
+          {/* Testimonial 1 */}
+          <div className="bg-white p-8 border border-gray-100">
+            <p className="text-lg italic text-foreground">
+              "Ultrahype gave me unmatched focus and energy during my toughest workouts. It's a game changer."
+            </p>
+            <div className="mt-6 flex items-center gap-4">
+              <img
+                src="https://images.unsplash.com/photo-1502765782516-722af1ae6086?auto=format&fit=crop&w=96&h=96"
+                alt="Rahul"
+                className="w-12 h-12 rounded-full object-cover"
+              />
+              <div>
+                <p className="font-semibold">Rahul</p>
+                <p className="text-sm text-muted-foreground">Nagpur</p>
+              </div>
             </div>
           </div>
+
+          {/* Testimonial 2 */}
+          <div className="bg-white p-8 border border-gray-100">
+            <p className="text-lg italic text-foreground">
+              "The clean, powerful boost from Wellnza's pre-workout helped me push past my limits without the crash."
+            </p>
+            <div className="mt-6 flex items-center gap-4">
+              <img
+                src="https://images.unsplash.com/photo-1627889861259-fda7d3c6637d?auto=format&fit=crop&w=96&h=96"
+                alt="Sara"
+                className="w-12 h-12 rounded-full object-cover"
+              />
+              <div>
+                <p className="font-semibold">Sara</p>
+                <p className="text-sm text-muted-foreground">Mumbai</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-16 text-center">
+          <div className="flex justify-center gap-1 text-yellow-500 text-2xl">
+            {[1,2,3,4,5].map((i) => <span key={i}>★</span>)}
+          </div>
+          <div className="flex justify-center gap-1 text-yellow-500 text-2xl mt-2">
+            {[1,2,3,4,5].map((i) => <span key={i}>★</span>)}
+          </div>
+        </div>
+
+        <div className="mt-16 text-center">
+          <Link href="/products">
+            <button className="bg-black text-white px-8 py-4 font-semibold hover:bg-gray-800 transition">
+              Shop Now
+            </button>
+          </Link>
         </div>
       </div>
     </div>
