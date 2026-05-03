@@ -1,6 +1,6 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState, useTransition } from "react";
 import { ProductGrid } from "@/components/products/ProductGrid";
 import { ProductFilters } from "@/components/products/ProductFilters";
@@ -32,13 +32,21 @@ interface Product {
 
 const LIMIT = 20;
 
+const SORT_OPTIONS = [
+  { value: "default", label: "Default" },
+  { value: "price_asc", label: "Price (low to high)" },
+  { value: "price_desc", label: "Price (high to low)" },
+  { value: "newest", label: "Most recent" },
+];
+
 export function ProductsContent() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [data, setData] = useState<{ products: Product[]; total: number } | null>(null);
 
   const search = searchParams.get("search") ?? "";
-  const sort = searchParams.get("sort") ?? "featured";
+  const sort = searchParams.get("sort") ?? "default";
   const offset = parseInt(searchParams.get("offset") ?? "0", 10);
 
   const categories = searchParams.getAll("category");
@@ -51,7 +59,7 @@ export function ProductsContent() {
     categories.forEach((c) => params.append("category", c));
     dietary.forEach((d) => params.append("dietary", d));
     if (search) params.set("search", search);
-    if (sort && sort !== "featured") params.set("sort", sort);
+    if (sort && sort !== "default") params.set("sort", sort);
     if (minPrice) params.set("minPrice", minPrice);
     if (maxPrice) params.set("maxPrice", maxPrice);
     params.set("limit", String(LIMIT));
@@ -166,6 +174,26 @@ export function ProductsContent() {
           <div className="flex flex-1 flex-col py-6 pl-0 lg:pl-8">
             {/* Results info */}
             <div className="mb-4 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <span className="text-sm text-muted-foreground">Sort by:</span>
+                <select
+                  value={searchParams.get("sort") ?? "default"}
+                  onChange={(e) => {
+                    const newParams = new URLSearchParams(searchParams.toString());
+                    if (e.target.value === "default") {
+                      newParams.delete("sort");
+                    } else {
+                      newParams.set("sort", e.target.value);
+                    }
+                    router.push(`/products?${newParams.toString()}`);
+                  }}
+                  className="border border-gray-300 px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                >
+                  {SORT_OPTIONS.map((opt) => (
+                    <option key={opt.value} value={opt.value}>{opt.label}</option>
+                  ))}
+                </select>
+              </div>
               <p className="text-sm text-muted-foreground">
                 {total === 0 ? (
                   "No products found"
@@ -184,6 +212,19 @@ export function ProductsContent() {
             ) : (
               <ProductGrid products={products} />
             )}
+
+            {/* Testimonial */}
+            <div className="mt-16 py-12 bg-gray-50 text-center">
+              <p className="text-lg italic text-muted-foreground">
+                "Ultrahype gave me unmatched focus and energy during workouts—truly a game changer for my training sessions."
+              </p>
+              <p className="mt-2 font-semibold">— Pranav</p>
+              <div className="mt-4 flex justify-center gap-0.5">
+                {[1,2,3,4,5].map((i) => (
+                  <span key={i} className="text-yellow-500 text-lg">★</span>
+                ))}
+              </div>
+            </div>
 
             {/* Pagination */}
             {total > LIMIT && (
