@@ -100,6 +100,7 @@ export async function GET(request: Request) {
     });
   } catch (error) {
     console.error("[products API]", error);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    const message = error instanceof Error ? error.message : String(error);
+    return NextResponse.json({ error: "Internal server error", detail: message }, { status: 500 });
   }
 }
