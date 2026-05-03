@@ -2,12 +2,14 @@ import { db } from "../lib/db";
 
 const prisma = db;
 
-const products = [
+import { Prisma } from "@prisma/client";
+
+const products: Prisma.ProductCreateInput[] = [
   {
     slug: "ultra-bulk-mass-gainer",
     name: "ULTRA BULK Mass Gainer",
     description: "Fuel your muscle growth with Ultra Bulk Mass Gainer by Wellnza Nutrition. Designed for rapid mass gain, it delivers an optimal blend of protein, carbs, and calories in a delicious Alphonso Mango flavor. Perfect for athletes and bodybuilders who want to maximize bulk and strength. Comes in a 60-serving container—support your progress with every scoop!",
-    category: "MASS_GAINER",
+    category: "MASS_GAINER" as const,
     basePrice: 1999,
     comparePrice: 2499,
     featured: true,
@@ -24,7 +26,7 @@ const products = [
     slug: "ultrahype-pre-workout",
     name: "ULTRAHYPE Pre-Workout",
     description: "Experience explosive energy and razor-sharp focus with ULTRAHYPE Pre-Workout. Engineered for athletes who demand more from their training. No crash formula, just pure performance.",
-    category: "PRE_WORKOUT",
+    category: "PRE_WORKOUT" as const,
     basePrice: 1299,
     comparePrice: 1599,
     featured: true,
@@ -41,7 +43,7 @@ const products = [
     slug: "whey-protein-isolate",
     name: "ULTRA CORE Whey Isolate",
     description: "Pure, fast-absorbing whey protein isolate for maximum muscle recovery. 25g protein per serving with zero sugar.",
-    category: "PROTEIN",
+    category: "PROTEIN" as const,
     basePrice: 3499,
     comparePrice: 4199,
     featured: true,
@@ -58,7 +60,7 @@ const products = [
     slug: "ultraflex-whey-protein-supplement",
     name: "ULTRA FLEX Whey Protein",
     description: "Premium whey protein blend for lean muscle building and recovery.",
-    category: "PROTEIN",
+    category: "PROTEIN" as const,
     basePrice: 2199,
     comparePrice: 2699,
     featured: true,
@@ -75,7 +77,7 @@ const products = [
     slug: "whey-protein",
     name: "ULTRA FLEX Whey Protein",
     description: "Advanced formula whey protein for serious athletes seeking peak performance.",
-    category: "PROTEIN",
+    category: "PROTEIN" as const,
     basePrice: 4399,
     comparePrice: 5299,
     featured: false,
@@ -91,7 +93,7 @@ const products = [
     slug: "omega-3-supplement",
     name: "ULTRA SEA Omega-3",
     description: "Pure fish oil omega-3 capsules for heart, brain, and joint health.",
-    category: "OMEGA_3",
+    category: "OMEGA_3" as const,
     basePrice: 899,
     comparePrice: 1199,
     featured: true,
@@ -107,7 +109,7 @@ const products = [
     slug: "multivitamins",
     name: "ULTRA LIFE Multivitamins",
     description: "Complete daily multivitamin for men and women covering all essential nutrients.",
-    category: "MULTIVITAMIN",
+    category: "MULTIVITAMIN" as const,
     basePrice: 699,
     comparePrice: 999,
     featured: true,
