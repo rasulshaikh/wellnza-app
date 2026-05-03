@@ -324,3 +324,19 @@ model Review {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+// CartAbandonment
+model CartAbandonment {
+  id           String   @id @default(cuid())
+  email        String
+  name         String?
+  cartItems    Json     // Array of { name, flavor, price, quantity, image }
+  updatedAt    DateTime @default(now())
+  orderId      String?  // Set if user completes checkout
+  emailSent1hr Boolean  @default(false)
+  emailSent24hr Boolean @default(false)
+  createdAt    DateTime @default(now())
+
+  @@index([email])
+  @@index([updatedAt])
+}
