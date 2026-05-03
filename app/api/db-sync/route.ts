@@ -113,7 +113,8 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ fixResults: results });
   }
 
-  const results: Record<string, string> = {};
+  try {
+    const results: Record<string, string> {};
 
     // Test User table
     try {
