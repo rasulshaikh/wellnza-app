@@ -2,6 +2,29 @@ import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { checkRateLimit, getClientIP, rateLimitResponse } from "../../ratelimit";
 
+interface CartItem {
+  name: string;
+  flavor?: string;
+  price: number;
+  quantity: number;
+  image?: string;
+}
+
+function validateCartItems(cartItems: unknown): cartItems is CartItem[] {
+  if (!Array.isArray(cartItems)) {
+    return false;
+  }
+  return cartItems.every((item) => {
+    return (
+      typeof item === "object" &&
+      item !== null &&
+      typeof item.name === "string" &&
+      typeof item.price === "number" &&
+      typeof item.quantity === "number"
+    );
+  });
+}
+
 export async function POST(req: NextRequest) {
   // Rate limit: 10 cart tracks per minute per IP
   const ip = getClientIP(req);
@@ -9,10 +32,15 @@ export async function POST(req: NextRequest) {
     return rateLimitResponse();
   }
 
-  const { email, name, cartItems } = await req.json();
+  const body = await req.json();
+  const { email, name, cartItems } = body;
 
-  if (!email || !cartItems?.length) {
-    return NextResponse.json({ error: "Email and cart items required" }, { status: 400 });
+  if (!email) {
+    return NextResponse.json({ error: "Email required" }, { status: 400 });
+  }
+
+  if (!validateCartItems(cartItems)) {
+    return NextResponse.json({ error: "Invalid cart items" }, { status: 400 });
   }
 
   // CartAbandonment uses @@index([email]) not @@unique, so use findFirst + upsert pattern
@@ -22,7 +50,7 @@ export async function POST(req: NextRequest) {
     await db.cartAbandonment.update({
       where: { id: existing.id },
       data: {
-        cartItems: cartItems as any,
+        cartItems: cartItems as CartItem[],
         updatedAt: new Date(),
         emailSent1hr: false,
         emailSent24hr: false,
@@ -33,7 +61,7 @@ export async function POST(req: NextRequest) {
       data: {
         email,
         name: name || null,
-        cartItems: cartItems as any,
+        cartItems: cartItems as CartItem[],
       },
     });
   }

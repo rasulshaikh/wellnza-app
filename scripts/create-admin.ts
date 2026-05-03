@@ -2,9 +2,15 @@ import { db } from "../lib/db";
 import bcrypt from "bcryptjs";
 
 async function main() {
-  const email = "admin@wellnzanutrition.com";
-  const password = "Admin@123456";
+  const email = process.env.ADMIN_EMAIL;
+  const password = process.env.ADMIN_PASSWORD;
   const name = "Admin";
+
+  if (!email || !password) {
+    console.error("ADMIN_EMAIL and ADMIN_PASSWORD environment variables must be set");
+    console.error("Example: ADMIN_EMAIL=admin@example.com ADMIN_PASSWORD=secret npx tsx scripts/create-admin.ts");
+    process.exit(1);
+  }
 
   const hashedPassword = await bcrypt.hash(password, 12);
 

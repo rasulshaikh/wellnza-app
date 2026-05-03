@@ -1,7 +1,28 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
+import { ProductCategory } from "@prisma/client";
 
-const PRODUCTS_SEED = [
+interface ProductVariantSeed {
+  flavor: string;
+  size: string;
+  price: number;
+  sku: string;
+}
+
+interface ProductSeed {
+  slug: string;
+  name: string;
+  category: ProductCategory;
+  basePrice: number;
+  comparePrice: number;
+  featured: boolean;
+  isActive: boolean;
+  description: string;
+  image: string;
+  variants: ProductVariantSeed[];
+}
+
+const PRODUCTS_SEED: ProductSeed[] = [
   { slug: "ultra-bulk-mass-gainer", name: "ULTRA BULK Mass Gainer", category: "MASS_GAINER", basePrice: 1999, comparePrice: 2499, featured: true, isActive: true, description: "Fuel your muscle growth with Ultra Bulk Mass Gainer by Wellnza Nutrition. Designed for rapid mass gain, it delivers an optimal blend of protein, carbs, and calories in a delicious Alphonso Mango flavor.", image: "https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=960,fit=crop,q=100/cdn-ecommerce/store_01KJVXS44M9NNG532TH40JSYHE/assets/b1f35a43-b7f2-433a-bca7-46ee6a701d39.png", variants: [{ flavor: "Alphonso Mango", size: "60 servings", price: 1999, sku: "UBMG-AM" }, { flavor: "Chocolate Charge", size: "60 servings", price: 1999, sku: "UBMG-CC" }] },
   { slug: "ultrahype-pre-workout", name: "ULTRAHYPE Pre-Workout", category: "PRE_WORKOUT", basePrice: 1299, comparePrice: 1599, featured: true, isActive: true, description: "Experience explosive energy and razor-sharp focus with ULTRAHYPE Pre-Workout.", image: "https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=960,fit=crop,q=100/cdn-ecommerce/store_01KJVXS44M9NNG532TH40JSYHE/assets/2643346f-3234-479c-9a98-353043b45e2c.png", variants: [{ flavor: "Fruit Punch", size: "30 servings", price: 1299, sku: "UHP-FP" }, { flavor: "Blue Raspberry", size: "30 servings", price: 1299, sku: "UHP-BR" }] },
   { slug: "whey-protein-isolate", name: "ULTRA CORE Whey Isolate", category: "PROTEIN", basePrice: 3499, comparePrice: 4199, featured: true, isActive: true, description: "Pure, fast-absorbing whey protein isolate for maximum muscle recovery.", image: "https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=960,fit=crop,q=100/cdn-ecommerce/store_01KJVXS44M9NNG532TH40JSYHE/assets/d1ad28f5-ec9b-4d62-ba5c-91be9ef209d1.png", variants: [{ flavor: "Vanilla Ice Cream", size: "2 lb", price: 3499, sku: "UCWI-VI" }, { flavor: "Chocolate", size: "2 lb", price: 3499, sku: "UCWI-CH" }] },
@@ -32,9 +53,9 @@ export async function GET(req: NextRequest) {
       const createdProduct = await db.product.create({
         data: {
           ...productData,
-          category: p.category as any,
+          category: p.category,
           images: [image],
-          variants: { create: variants as any }
+          variants: { create: variants }
         }
       });
       created.push(createdProduct.slug);
