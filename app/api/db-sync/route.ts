@@ -71,13 +71,49 @@ export async function POST(req: NextRequest) {
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const secret = searchParams.get("secret");
+  const fix = searchParams.get("fix") === "true";
 
   if (secret !== SYNC_SECRET) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  try {
-    const results: Record<string, string> = {};
+  if (fix) {
+    const results: string[] = [];
+
+    try {
+      await db.$executeRaw`ALTER TABLE "User" ADD COLUMN IF NOT EXISTS "emailSent" BOOLEAN DEFAULT false;`;
+      results.push("emailSent: OK");
+    } catch (e: any) {
+      const msg = String(e);
+      results.push(msg.includes("already exists") || msg.includes("does not exist") ? "emailSent: already exists/skipped" : `emailSent: ${msg.substring(0, 100)}`);
+    }
+
+    try {
+      await db.$executeRaw`
+        CREATE TABLE IF NOT EXISTS "CartAbandonment" (
+          "id" TEXT NOT NULL,
+          "userId" TEXT,
+          "email" TEXT,
+          "phone" TEXT,
+          "cartData" JSONB,
+          "lastActiveAt" TIMESTAMP(3),
+          "createdAt" TIMESTAMP(3) NOT NULL DEFAULT now(),
+          "updatedAt" TIMESTAMP(3) NOT NULL,
+          "reminderSent" BOOLEAN DEFAULT false,
+          "recoveryLink" TEXT,
+          PRIMARY KEY ("id")
+        );
+      `;
+      results.push("CartAbandonment: OK");
+    } catch (e: any) {
+      const msg = String(e);
+      results.push(msg.includes("already exists") ? "CartAbandonment: already exists" : `CartAbandonment: ${msg.substring(0, 150)}`);
+    }
+
+    return NextResponse.json({ fixResults: results });
+  }
+
+  const results: Record<string, string> = {};
 
     // Test User table
     try {
