@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { db } from "@/lib/db";
+import { formatCurrency } from "@/lib/utils";
 import { NewsletterForm } from "./_components/newsletter-form";
 
 export const dynamic = "force-dynamic";
@@ -121,7 +122,7 @@ export default async function HomePage() {
                   </div>
                   <div className="p-4">
                     <h4 className="font-[Merriweather] font-bold text-sm truncate">{product.name}</h4>
-                    <p className="mt-1 font-[Raleway] font-semibold">₹{product.basePrice.toLocaleString()}</p>
+                    <p className="mt-1 font-[Raleway] font-semibold">{formatCurrency(product.basePrice)}</p>
                   </div>
                 </Link>
               );
