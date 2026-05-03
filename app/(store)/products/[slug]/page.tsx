@@ -138,7 +138,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
               {CATEGORY_LABELS[product.category] ?? product.category}
             </Badge>
 
-            <h1 className="font-[Merriweather] text-[28px] font-bold tracking-tight text-[#1C1917]">
+            <h1 className="text-[28px] font-bold tracking-tight text-[#1C1917]" style={{ fontFamily: "var(--font-heading)" }}>
               {product.name}
             </h1>
 
@@ -160,7 +160,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
 
             {/* Price */}
             <div className="flex items-baseline gap-3">
-              <span className="font-[Merriweather] text-[24px] font-semibold text-[#1C1917]">
+              <span className="text-[24px] font-semibold text-[#1C1917]" style={{ fontFamily: "var(--font-heading)" }}>
                 {formatCurrency(defaultVariant?.price ?? product.basePrice)}
               </span>
               {product.comparePrice && product.comparePrice > product.basePrice && (
@@ -358,7 +358,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
         {/* Reviews */}
         <div className="mt-12">
           <div className="mb-6">
-            <h2 className="font-[Merriweather] text-xl font-bold text-[#1C1917]">Customer Reviews</h2>
+            <h2 className="text-xl font-bold text-[#1C1917]" style={{ fontFamily: "var(--font-heading)" }}>Customer Reviews</h2>
           </div>
 
           {product.reviews.length === 0 ? (
@@ -377,10 +377,10 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
         {/* Related Products */}
         {relatedProducts.length > 0 && (
           <div className="mt-12">
-            <h2 className="font-[Merriweather] text-xl font-bold text-[#1C1917] mb-6">You may also like</h2>
+            <h2 className="font-merriweather text-xl font-bold text-[#1C1917] mb-6">You may also like</h2>
             <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
               {relatedProducts.map((p: typeof relatedProducts[number]) => (
-                <ProductCard key={p.id} {...p} className="border border-[#E7E5E4] border-b-2 border-b-[#D6D3D1] rounded-xl overflow-hidden" />
+                <ProductCard key={p.id} {...p} />
               ))}
             </div>
           </div>
