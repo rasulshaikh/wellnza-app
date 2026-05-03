@@ -9,10 +9,8 @@ import { Badge } from "@/components/ui/badge";
 import { useCartStore } from "@/store/cart-store";
 
 const navLinks = [
-  { href: "/products", label: "Products" },
-  { href: "/products?category=PROTEIN", label: "Proteins" },
-  { href: "/products?category=PRE_WORKOUT", label: "Pre-Workout" },
-  { href: "/products?category=OMEGA_3", label: "Omega-3" },
+  { href: "/", label: "Home" },
+  { href: "/products", label: "Shop" },
   { href: "/about", label: "About" },
 ];
 
@@ -26,7 +24,7 @@ export function Navbar() {
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
-          <span className="text-xl font-bold text-foreground">Well NZ</span>
+          <span className="text-xl font-bold text-foreground">Wellnza</span>
         </Link>
 
         {/* Desktop Nav */}
