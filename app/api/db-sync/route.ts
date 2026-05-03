@@ -114,7 +114,7 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    const results: Record<string, string> {};
+    const results: Record<string, string> = {};
 
     // Test User table
     try {
