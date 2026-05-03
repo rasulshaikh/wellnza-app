@@ -47,6 +47,14 @@ export async function GET(req: NextRequest) {
 
   if (reset === "products") {
     await db.product.deleteMany();
+    await db.inventory.deleteMany();
+    await db.location.deleteMany();
+
+    // Create default location for inventory
+    const location = await db.location.create({
+      data: { name: "Main Warehouse", address: "Auckland, NZ", isActive: true }
+    });
+
     const created = [];
     for (const p of PRODUCTS_SEED) {
       const { variants, image, ...productData } = p;
@@ -58,6 +66,23 @@ export async function GET(req: NextRequest) {
           variants: { create: variants }
         }
       });
+
+      // Create inventory for each variant
+      const productVariants = await db.productVariant.findMany({
+        where: { productId: createdProduct.id }
+      });
+
+      for (const variant of productVariants) {
+        await db.inventory.create({
+          data: {
+            productVariantId: variant.id,
+            locationId: location.id,
+            quantity: 100,
+            lowStockThreshold: 10
+          }
+        });
+      }
+
       created.push(createdProduct.slug);
     }
     return NextResponse.json({ reset: "products", count: created.length, products: created });
