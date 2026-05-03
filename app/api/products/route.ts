@@ -5,14 +5,12 @@ import { Prisma } from "@prisma/client";
 const PRODUCT_CATEGORIES = ["PRE_WORKOUT", "PROTEIN", "MASS_GAINER", "OMEGA_3", "MULTIVITAMIN"] as const;
 type ProductCategory = (typeof PRODUCT_CATEGORIES)[number];
 
-const SORT_OPTIONS = {
-  featured: [{ featured: "desc" }, { createdAt: "desc" }],
+const SORT_OPTIONS: Record<string, object> = {
+  featured: [{ featured: "desc" as const }, { createdAt: "desc" as const }],
   price_asc: { basePrice: "asc" as const },
   price_desc: { basePrice: "desc" as const },
   newest: { createdAt: "desc" as const },
-} as const;
-
-type SortKey = keyof typeof SORT_OPTIONS;
+};
 
 export async function GET(request: Request) {
   try {
@@ -59,7 +57,7 @@ export async function GET(request: Request) {
     }
 
     // Determine sort order
-    const sortKey = (sort && sort in SORT_OPTIONS) ? SORT_OPTIONS[sort as SortKey] : SORT_OPTIONS.featured;
+    const sortKey = SORT_OPTIONS[sort as string] ?? SORT_OPTIONS.featured;
 
     const [products, total] = await Promise.all([
       db.product.findMany({
