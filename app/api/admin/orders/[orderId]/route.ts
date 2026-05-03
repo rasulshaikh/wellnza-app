@@ -82,5 +82,41 @@ export async function PATCH(
     },
   });
 
+  // Send status email
+  try {
+    if (!order.user?.email) throw new Error("No user email");
+    const { sendEmail } = await import("@/lib/email");
+
+    if (status === "SHIPPED") {
+      const { OrderShippedEmail } = await import("@/lib/email-templates/order-shipped");
+      await sendEmail({
+        to: order.user.email,
+        subject: `Order #${order.orderNumber} Shipped — Wellnza Nutrition`,
+        react: OrderShippedEmail({
+          name: order.user.name || "Customer",
+          orderNumber: order.orderNumber,
+          trackingNumber: order.trackingNumber || undefined,
+          trackingCarrier: order.trackingCarrier || undefined,
+        }),
+      });
+    } else if (status === "DELIVERED") {
+      const { OrderDeliveredEmail } = await import("@/lib/email-templates/order-delivered");
+      await sendEmail({
+        to: order.user.email,
+        subject: `Order #${order.orderNumber} Delivered — Wellnza Nutrition`,
+        react: OrderDeliveredEmail({ name: order.user.name || "Customer", orderNumber: order.orderNumber }),
+      });
+    } else if (status === "CANCELLED") {
+      const { OrderCancelledEmail } = await import("@/lib/email-templates/order-cancelled");
+      await sendEmail({
+        to: order.user.email,
+        subject: `Order #${order.orderNumber} Cancelled — Wellnza Nutrition`,
+        react: OrderCancelledEmail({ name: order.user.name || "Customer", orderNumber: order.orderNumber }),
+      });
+    }
+  } catch (err) {
+    console.error("[order-status-email]", err);
+  }
+
   return NextResponse.json(order);
 }
