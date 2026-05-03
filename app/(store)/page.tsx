@@ -2,6 +2,8 @@ import Link from "next/link";
 import { db } from "@/lib/db";
 import { NewsletterForm } from "./_components/newsletter-form";
 
+export const dynamic = "force-dynamic";
+
 async function getFeaturedProducts() {
   return db.product.findMany({
     where: { isActive: true, featured: true },
