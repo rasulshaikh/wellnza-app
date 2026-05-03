@@ -132,7 +132,7 @@ export function ProductsContent() {
       {/* Page header */}
       <div className="border-b border-border bg-background px-4 py-6 md:px-8">
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-4">
-          <h1 className="font-[Merriweather] text-[28px] font-bold tracking-tight">
+          <h1 className="text-[28px] font-bold tracking-tight" style={{ fontFamily: "var(--font-heading)" }}>
             All Products
           </h1>
 
@@ -215,8 +215,8 @@ export function ProductsContent() {
 
             {/* Testimonial */}
             <div className="mt-16 py-12 bg-[#FAFAF5] text-center">
-              <p className="font-[Merriweather] text-lg italic text-[#1C1917]">
-                "Ultrahype gave me unmatched focus and energy during workouts—truly a game changer for my training sessions."
+              <p className="text-lg italic text-[#1C1917]" style={{ fontFamily: "var(--font-heading)" }}>
+                "Well NZ gave me unmatched focus and energy during workouts—truly a game changer for my training sessions."
               </p>
               <p className="mt-4 font-[Raleway] font-semibold text-[#1C1917]">— Pranav</p>
               <div className="mt-4 flex justify-center gap-0.5">

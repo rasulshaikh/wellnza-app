@@ -132,7 +132,7 @@ export default async function HomePage() {
               href="/products"
               className="text-[#166534] font-[Raleway] font-semibold hover:underline"
             >
-              Shop Pre-Workout → Elevate your performance with our curated selection...
+              View all products →
             </Link>
           </div>
         </div>
@@ -155,7 +155,7 @@ export default async function HomePage() {
         href="https://wa.me/918788396678"
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 z-50 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition"
+        className="fixed bottom-6 right-6 z-50 bg-green-500 text-white p-4 rounded-full hover:bg-green-600 transition"
         aria-label="Open WhatsApp"
       >
         <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">

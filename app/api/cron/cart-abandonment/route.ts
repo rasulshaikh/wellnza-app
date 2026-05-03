@@ -1,9 +1,18 @@
-// Vercel Cron — runs every hour via vercel.json cron config
+// Vercel Cron — runs daily via vercel.json cron config
 export const dynamic = "force-dynamic";
 
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET() {
+export async function GET(req: NextRequest) {
+  // Verify internal API key (skip for local dev)
+  if (
+    process.env.NODE_ENV === "production" &&
+    process.env.INTERNAL_API_KEY &&
+    req.headers.get("x-internal-key") !== process.env.INTERNAL_API_KEY
+  ) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   try {
     const { db } = await import("@/lib/db");
     const ONE_HOUR_AGO = new Date(Date.now() - 60 * 60 * 1000);

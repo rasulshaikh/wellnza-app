@@ -1,7 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
+import { checkRateLimit, getClientIP, rateLimitResponse } from "../../ratelimit";
 
 export async function POST(req: NextRequest) {
+  // Rate limit: 10 cart tracks per minute per IP
+  const ip = getClientIP(req);
+  if (!checkRateLimit(ip, 10, 60 * 1000)) {
+    return rateLimitResponse();
+  }
+
   const { email, name, cartItems } = await req.json();
 
   if (!email || !cartItems?.length) {
