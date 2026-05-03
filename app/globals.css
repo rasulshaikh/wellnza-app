@@ -227,3 +227,11 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
 }
+
+/* WhatsApp floating button - ensure it works on all backgrounds */
+a[href*="wa.me"] {
+  transition: transform 0.2s ease;
+}
+a[href*="wa.me"]:hover {
+  transform: scale(1.05);
+}
