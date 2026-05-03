@@ -227,7 +227,7 @@ export default function CheckoutPage() {
 
     const options = {
       key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
-      amount: total,
+      amount: total * 100, // Convert rupees to paise
       currency: "INR",
       name: "Well NZ Nutrition",
       description: `Order #${orderNumber}`,

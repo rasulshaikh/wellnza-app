@@ -6,12 +6,15 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function formatCurrency(amount: number, currency = "INR"): string {
+  // Detect paise vs rupees: if amount > 10000, likely stored in paise (e.g. 99900 = ₹999)
+  const inPaise = amount > 10000;
+  const value = inPaise ? amount / 100 : amount;
   return new Intl.NumberFormat("en-IN", {
     style: "currency",
     currency,
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
-  }).format(amount)
+  }).format(value)
 }
 
 export function formatDate(date: Date | string): string {

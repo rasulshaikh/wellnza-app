@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import crypto from "crypto";
+import { sendEmail } from "@/lib/email";
+import { OrderConfirmedEmail } from "@/lib/email-templates/order-confirmed";
 
 export async function POST(request: Request) {
   try {
@@ -44,18 +46,51 @@ export async function POST(request: Request) {
     }
 
     // Update order status to PROCESSING within a transaction
-    await db.$transaction(async (tx) => {
-      await tx.order.update({
+    const updatedOrder = await db.$transaction(async (tx) => {
+      return tx.order.update({
         where: { id: orderId },
         data: {
           status: "PROCESSING",
           razorpayPaymentId,
         },
+        include: {
+          user: { select: { email: true, name: true } },
+          items: {
+            include: {
+              productVariant: {
+                include: { product: { select: { name: true } } },
+              },
+            },
+          },
+        },
       });
     });
 
-    // Log email (placeholder for email sending)
-    console.log(`[EMAIL] Order confirmation email would be sent for order ${order.orderNumber}`);
+    // Send payment confirmed email
+    try {
+      const email = updatedOrder.user?.email || updatedOrder.guestEmail;
+      if (email) {
+        const deliveryDate = new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toLocaleDateString("en-IN", { weekday: "long", day: "numeric", month: "long" });
+        const orderItems = updatedOrder.items.map((i) => ({
+          name: i.productVariant.product.name,
+          quantity: i.quantity,
+          price: i.unitPrice,
+        }));
+        await sendEmail({
+          to: email,
+          subject: `Payment Confirmed — Order #${updatedOrder.orderNumber} | Wellnza Nutrition`,
+          react: OrderConfirmedEmail({
+            name: updatedOrder.user?.name || updatedOrder.guestName || "Customer",
+            orderNumber: updatedOrder.orderNumber,
+            total: updatedOrder.total,
+            items: orderItems,
+            estimatedDelivery: deliveryDate,
+          }),
+        });
+      }
+    } catch (err) {
+      console.error("[payment-confirmed-email]", err);
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {

@@ -261,7 +261,7 @@ export async function POST(request: Request) {
       });
 
       const razorpayOrder = await razorpay.orders.create({
-        amount: total,
+        amount: total * 100, // Convert rupees to paise
         currency: "INR",
         receipt: order.id,
         notes: {

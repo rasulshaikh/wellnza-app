@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -9,9 +7,7 @@ import { formatCurrency } from "@/lib/utils";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Trash2, Minus, Plus, ShoppingBag, ArrowLeft } from "lucide-react";
-
-const FREE_SHIPPING_THRESHOLD = 99900; // ₹999 in paise
-const SHIPPING_COST = 5000; // ₹50 in paise
+import { calculateShipping, SHIPPING_METHODS } from "@/lib/shipping";
 
 interface ValidatedItem {
   productVariantId: string;
@@ -28,7 +24,7 @@ export default function CartPage() {
     (sum, item) => sum + item.price * item.quantity,
     0
   );
-  const shipping = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_COST;
+  const shipping = calculateShipping(subtotal, "standard");
   const total = subtotal + shipping;
 
   async function handleProceedToCheckout() {
