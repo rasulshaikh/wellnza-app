@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+// NEXT_PUBLIC_FSSAI_LICENSE is a public license number - publicly displayed on website and marketing materials as required by Indian food safety regulations
 const FSSAI_LICENSE = process.env.NEXT_PUBLIC_FSSAI_LICENSE || "XXXXXXXXXXXXXX";
 
 const footerLinks = {

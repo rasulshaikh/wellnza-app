@@ -1,8 +1,14 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import bcrypt from "bcryptjs";
+import { checkRateLimit, getClientIP, rateLimitResponse } from "@/app/api/ratelimit";
 
 export async function POST(req: Request) {
+  const clientIP = getClientIP(req);
+  if (!checkRateLimit(clientIP, 10, 60000)) {
+    return rateLimitResponse();
+  }
+
   try {
     const { name, email, password } = await req.json();
 
@@ -36,7 +42,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ id: user.id, email: user.email });
   } catch (error) {
-    console.error("Register error:", error);
+    console.error("[register] Registration failed");
     return NextResponse.json({ error: "Something went wrong" }, { status: 500 });
   }
 }

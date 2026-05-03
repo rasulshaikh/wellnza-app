@@ -59,7 +59,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error("[verify-payment]", error);
+    console.error("[verify-payment] Signature mismatch");
     return NextResponse.json(
       { success: false, error: "Internal server error" },
       { status: 500 }

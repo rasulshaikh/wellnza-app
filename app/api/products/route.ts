@@ -6,6 +6,7 @@ const PRODUCT_CATEGORIES = ["PRE_WORKOUT", "PROTEIN", "MASS_GAINER", "OMEGA_3", 
 type ProductCategory = (typeof PRODUCT_CATEGORIES)[number];
 
 const SORT_OPTIONS: Record<string, object> = {
+  // featured uses array for multi-field sort in Prisma 7
   featured: [{ featured: "desc" as const }, { createdAt: "desc" as const }],
   price_asc: { basePrice: "asc" as const },
   price_desc: { basePrice: "desc" as const },
