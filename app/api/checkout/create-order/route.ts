@@ -197,6 +197,45 @@ export async function POST(request: Request) {
       },
     });
 
+    // Send order confirmed email after order created
+    try {
+      const userEmail = guestEmail || (userId ? (await db.user.findUnique({ where: { id: userId }, select: { email: true } }))?.email : null);
+      if (userEmail) {
+        const { sendEmail } = await import("@/lib/email");
+        const { OrderConfirmedEmail } = await import("@/lib/email-templates/order-confirmed");
+
+        // Fetch order with items
+        const orderWithItems = await db.order.findUnique({
+          where: { id: order.id },
+          include: {
+            items: { include: { productVariant: { include: { product: { select: { name: true } } } } } },
+          },
+        });
+
+        if (orderWithItems) {
+          const orderItems = orderWithItems.items.map(i => ({
+            name: i.productVariant?.product?.name || "Product",
+            quantity: i.quantity,
+            price: i.unitPrice,
+          }));
+          const deliveryDate = new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toLocaleDateString("en-IN", { weekday: "long", day: "numeric", month: "long" });
+          await sendEmail({
+            to: userEmail,
+            subject: `Order #${orderNumber} Confirmed — Wellnza Nutrition`,
+            react: OrderConfirmedEmail({
+              name: guestName || "Customer",
+              orderNumber,
+              total,
+              items: orderItems,
+              estimatedDelivery: deliveryDate,
+            }),
+          });
+        }
+      }
+    } catch (err) {
+      console.error("[order-confirmed-email]", err);
+    }
+
     // If Razorpay, create Razorpay order
     let razorpayOrderId: string | null = null;
 
