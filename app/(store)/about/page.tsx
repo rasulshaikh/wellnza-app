@@ -15,7 +15,7 @@ export default function AboutPage() {
           {/* Testimonial 1 */}
           <div className="bg-white p-8 border border-gray-100">
             <p className="text-lg italic text-foreground">
-              "Ultrahype gave me unmatched focus and energy during my toughest workouts. It's a game changer."
+              "Wellnza gave me unmatched focus and energy during my toughest workouts. It's a game changer."
             </p>
             <div className="mt-6 flex items-center gap-4">
               <img
@@ -51,9 +51,6 @@ export default function AboutPage() {
 
         <div className="mt-16 text-center">
           <div className="flex justify-center gap-1 text-yellow-500 text-2xl">
-            {[1,2,3,4,5].map((i) => <span key={i}>★</span>)}
-          </div>
-          <div className="flex justify-center gap-1 text-yellow-500 text-2xl mt-2">
             {[1,2,3,4,5].map((i) => <span key={i}>★</span>)}
           </div>
         </div>

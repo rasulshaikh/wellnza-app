@@ -176,7 +176,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
             </div>
 
             {/* Short description */}
-            <p className="font-[Raleway] text-[16px] leading-[1.6] text-[#1C1917]">
+            <p className="text-[16px] leading-[1.6] text-[#1C1917]" style={{ fontFamily: "var(--font-body), Cormorant Garamond, serif" }}>
               {product.description.slice(0, 200)}
               {product.description.length > 200 ? "..." : ""}
             </p>

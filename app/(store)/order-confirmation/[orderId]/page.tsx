@@ -14,21 +14,26 @@ export default async function OrderConfirmationPage({
 }: OrderConfirmationPageProps) {
   const { orderId } = await params;
 
-  const order = await db.order.findUnique({
-    where: { id: orderId },
-    include: {
-      items: {
-        include: {
-          productVariant: {
-            include: {
-              product: true,
+  let order = null;
+  try {
+    order = await db.order.findUnique({
+      where: { id: orderId },
+      include: {
+        items: {
+          include: {
+            productVariant: {
+              include: {
+                product: true,
+              },
             },
           },
         },
+        shippingAddress: true,
       },
-      shippingAddress: true,
-    },
-  });
+    });
+  } catch (error) {
+    console.error("[order-confirmation] Failed to load order:", error);
+  }
 
   if (!order) {
     notFound();

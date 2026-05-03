@@ -72,10 +72,10 @@ export function ProductCard({
   const isEcoCategory = ["PROTEIN", "PRE_WORKOUT", "OMEGA_3", "MULTIVITAMIN"].includes(category);
 
   const cardClasses = [
-    "group flex flex-col overflow-hidden rounded-xl bg-white transition-colors duration-200",
+    "group flex flex-col overflow-hidden rounded-xl bg-white transition-all duration-300",
     "border border-[#E7E5E4]",
-    "border-b-2 border-b-[#D6D3D1]",
-    "hover:border-[#A8A29E]",
+    "shadow-sm hover:shadow-xl",
+    "hover:border-[#A8A29E] hover:-translate-y-1",
   ].join(" ");
 
   return (
@@ -88,7 +88,7 @@ export function ProductCard({
             alt={name}
             width={400}
             height={400}
-            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center">
@@ -118,48 +118,36 @@ export function ProductCard({
 
       {/* Content */}
       <div className="flex flex-1 flex-col p-4">
-        <span
-          className="mb-2 w-fit text-xs font-semibold uppercase tracking-[0.08em] text-[#166534]"
-          style={{ fontFamily: "Raleway, sans-serif" }}
-        >
+        <span className="mb-2 w-fit text-xs font-semibold uppercase tracking-[0.08em] text-[#166534] font-raleway">
           {CATEGORY_LABELS[category] ?? category}
         </span>
 
         <Link href={`/products/${slug}`} className="block">
-          <h3
-            className="text-[20px] font-normal leading-tight text-[#1C1917] line-clamp-2 hover:text-[#166534] transition-colors"
-            style={{ fontFamily: "Merriweather, serif" }}
-          >
+          <h3 className="font-merriweather font-bold text-[18px] leading-tight text-[#1C1917] line-clamp-2 hover:text-[#166534] transition-colors">
             {name}
           </h3>
         </Link>
 
         {variants.length > 0 && (
-          <p className="mt-1 text-sm text-[#A8A29E]" style={{ fontFamily: "Raleway, sans-serif" }}>
+          <p className="mt-1 text-sm text-[#A8A29E] font-raleway">
             {variants[0].flavor}
             {variants.length > 1 && ` +${variants.length - 1} more`}
           </p>
         )}
 
-        <div className="mt-2 flex items-baseline gap-2">
-          <span
-            className="text-[16px] font-semibold text-[#1C1917]"
-            style={{ fontFamily: "Raleway, sans-serif" }}
-          >
+        <div className="mt-3 flex items-baseline gap-2">
+          <span className="text-[22px] font-bold text-[#166534] font-raleway">
             {formatCurrency(displayPrice)}
           </span>
           {comparePrice && comparePrice > displayPrice && (
-            <span
-              className="text-[14px] font-normal text-[#A8A29E] line-through"
-              style={{ fontFamily: "Raleway, sans-serif" }}
-            >
+            <span className="text-[15px] font-normal text-[#A8A29E] line-through font-raleway">
               {formatCurrency(comparePrice)}
             </span>
           )}
         </div>
 
         <Button
-          className="mt-3 w-full"
+          className="mt-4 w-full bg-[#166534] hover:bg-[#14532D] text-white font-semibold transition-all duration-200 hover:shadow-md hover:scale-[1.02] active:scale-[0.98]"
           size="sm"
           variant="default"
           onClick={handleAddToCart}

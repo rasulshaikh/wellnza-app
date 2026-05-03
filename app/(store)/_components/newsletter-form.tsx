@@ -24,7 +24,8 @@ export function NewsletterForm() {
       } else {
         setStatus("error");
       }
-    } catch {
+    } catch (err) {
+      console.error("[newsletter] submission error:", err);
       setStatus("error");
     }
   };
@@ -39,7 +40,9 @@ export function NewsletterForm() {
 
   return (
     <form className="mt-4 flex justify-center gap-2" onSubmit={handleSubmit}>
+      <label htmlFor="newsletter-email" className="sr-only">Email Address</label>
       <input
+        id="newsletter-email"
         type="email"
         placeholder="Email Address"
         value={email}

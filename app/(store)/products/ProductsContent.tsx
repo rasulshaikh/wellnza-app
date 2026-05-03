@@ -94,9 +94,7 @@ export function ProductsContent() {
     } else {
       params.set("offset", String(newOffset));
     }
-    window.history.pushState(null, "", `?${params.toString()}`);
-    const event = new PopStateEvent("popstate");
-    window.dispatchEvent(event);
+    router.push(`?${params.toString()}`);
   };
 
   const prevOffset = Math.max(0, offset - LIMIT);
@@ -113,18 +111,14 @@ export function ProductsContent() {
       params.delete("search");
     }
     params.delete("offset");
-    window.history.pushState(null, "", `?${params.toString()}`);
-    const event = new PopStateEvent("popstate");
-    window.dispatchEvent(event);
+    router.push(`?${params.toString()}`);
   };
 
   const clearSearch = () => {
     const params = new URLSearchParams(searchParams.toString());
     params.delete("search");
     params.delete("offset");
-    window.history.pushState(null, "", `?${params.toString()}`);
-    const event = new PopStateEvent("popstate");
-    window.dispatchEvent(event);
+    router.push(`?${params.toString()}`);
   };
 
   return (
@@ -187,14 +181,14 @@ export function ProductsContent() {
                     }
                     router.push(`/products?${newParams.toString()}`);
                   }}
-                  className="border border-[#E7E5E4] px-3 py-1.5 text-sm font-[Raleway] focus:outline-none focus:ring-2 focus:ring-[#166534]"
+                  className="border border-[#E7E5E4] px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#166534]" style={{ fontFamily: "var(--font-body), Cormorant Garamond, serif" }}
                 >
                   {SORT_OPTIONS.map((opt) => (
                     <option key={opt.value} value={opt.value}>{opt.label}</option>
                   ))}
                 </select>
               </div>
-              <p className="text-[14px] font-[Raleway] text-[#57534E]">
+              <p className="text-[14px] text-[#57534E]" style={{ fontFamily: "var(--font-body), Cormorant Garamond, serif" }}>
                 {total === 0 ? (
                   "No products found"
                 ) : (
@@ -218,7 +212,7 @@ export function ProductsContent() {
               <p className="text-lg italic text-[#1C1917]" style={{ fontFamily: "var(--font-heading)" }}>
                 "Well NZ gave me unmatched focus and energy during workouts—truly a game changer for my training sessions."
               </p>
-              <p className="mt-4 font-[Raleway] font-semibold text-[#1C1917]">— Pranav</p>
+              <p className="mt-4 font-semibold text-[#1C1917]" style={{ fontFamily: "var(--font-body), Cormorant Garamond, serif" }}>— Pranav</p>
               <div className="mt-4 flex justify-center gap-0.5">
                 {[1,2,3,4,5].map((i) => (
                   <span key={i} className="text-[#86A873] text-lg">★</span>

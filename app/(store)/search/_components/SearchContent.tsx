@@ -1,6 +1,6 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { ProductGrid } from "@/components/products/ProductGrid";
 import { Input } from "@/components/ui/input";
@@ -31,6 +31,7 @@ interface Product {
 
 export function SearchContent() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const query = searchParams.get("q") ?? "";
   const [inputValue, setInputValue] = useState(query);
   const [data, setData] = useState<{ products: Product[]; total: number } | null>(null);
@@ -52,7 +53,7 @@ export function SearchContent() {
     e.preventDefault();
     const params = new URLSearchParams();
     if (inputValue) params.set("q", inputValue);
-    window.location.href = `/search?${params.toString()}`;
+    router.push(`/search?${params.toString()}`);
   };
 
   return (
@@ -73,7 +74,7 @@ export function SearchContent() {
                   type="button"
                   onClick={() => {
                     setInputValue("");
-                    window.location.href = "/search";
+                    router.push("/search");
                   }}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
                 >

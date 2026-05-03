@@ -27,18 +27,23 @@ export default async function AccountDashboardPage() {
     }
   }
 
-  const user = await db.user.findUnique({
-    where: { id: session.user.id },
-    include: {
-      orders: {
-        orderBy: { createdAt: "desc" },
-        take: 3,
-        include: {
-          items: true,
+  let user = null;
+  try {
+    user = await db.user.findUnique({
+      where: { id: session.user.id },
+      include: {
+        orders: {
+          orderBy: { createdAt: "desc" },
+          take: 3,
+          include: {
+            items: true,
+          },
         },
       },
-    },
-  });
+    });
+  } catch (error) {
+    console.error("[account] Failed to load user:", error);
+  }
 
   if (!user) {
     redirect("/login");

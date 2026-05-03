@@ -7,7 +7,7 @@ export interface CartItem {
   name: string;
   flavor: string;
   size?: string;
-  price: number; // in paise
+  price: number; // in rupees (INR)
   quantity: number;
   image?: string;
 }

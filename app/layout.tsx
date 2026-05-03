@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Cormorant_Garamond } from "next/font/google";
+import { Playfair_Display, Cormorant_Garamond, Merriweather, Raleway } from "next/font/google";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -12,6 +12,20 @@ const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-cormorant",
+  display: "swap",
+});
+
+const merriweather = Merriweather({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-merriweather",
+  display: "swap",
+});
+
+const raleway = Raleway({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-raleway",
   display: "swap",
 });
 
@@ -46,7 +60,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${playfair.variable} ${cormorant.variable}`}>
+    <html lang="en" className={`${playfair.variable} ${cormorant.variable} ${merriweather.variable} ${raleway.variable}`}>
       <body>{children}</body>
     </html>
   );

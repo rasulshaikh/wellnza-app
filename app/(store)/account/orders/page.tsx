@@ -17,13 +17,18 @@ export default async function OrdersPage() {
     redirect("/login?callbackUrl=/account/orders");
   }
 
-  const orders = await db.order.findMany({
-    where: { userId: session.user.id },
-    orderBy: { createdAt: "desc" },
-    include: {
-      items: true,
-    },
-  });
+  let orders: (import("@prisma/client").Order & { items: import("@prisma/client").OrderItem[] })[] = [];
+  try {
+    orders = await db.order.findMany({
+      where: { userId: session.user.id },
+      orderBy: { createdAt: "desc" },
+      include: {
+        items: true,
+      },
+    });
+  } catch (error) {
+    console.error("[orders] Failed to load orders:", error);
+  }
 
   return (
     <div className="min-h-screen bg-[#FAFAF7] py-8">

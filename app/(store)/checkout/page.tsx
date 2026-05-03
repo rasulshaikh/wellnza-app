@@ -267,7 +267,7 @@ export default function CheckoutPage() {
         contact: addressForm.phone,
       },
       theme: {
-        color: "#0055FF",
+        color: "#166534",
       },
       modal: {
         ondismiss: () => {
@@ -306,9 +306,9 @@ export default function CheckoutPage() {
                 className={cn(
                   "w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition-colors",
                   step > s.num
-                    ? "bg-[#0055FF] text-white"
+                    ? "bg-[#166534] text-white"
                     : step === s.num
-                    ? "bg-[#0055FF] text-white"
+                    ? "bg-[#166534] text-white"
                     : "bg-[#E5E5E0] text-[#6B6B6B]"
                 )}
               >
@@ -326,7 +326,7 @@ export default function CheckoutPage() {
                 <div
                   className={cn(
                     "w-12 sm:w-20 h-0.5 mx-3",
-                    step > s.num ? "bg-[#0055FF]" : "bg-[#E5E5E0]"
+                    step > s.num ? "bg-[#166534]" : "bg-[#E5E5E0]"
                   )}
                 />
               )}
@@ -445,7 +445,7 @@ export default function CheckoutPage() {
 
         <Button
           onClick={handleContinueToShipping}
-          className="w-full bg-[#1C1C1C] hover:bg-[#2D2D2D] text-white h-11"
+          className="w-full bg-[#166534] hover:bg-[#14532D] text-white h-11"
         >
           Continue to Shipping
         </Button>
@@ -482,7 +482,7 @@ export default function CheckoutPage() {
             </div>
             <button
               onClick={() => setStep(1)}
-              className="text-sm text-[#0055FF] hover:underline"
+              className="text-sm text-[#166534] hover:underline"
             >
               Edit
             </button>
@@ -504,7 +504,7 @@ export default function CheckoutPage() {
                 className={cn(
                   "flex items-center gap-4 p-4 border rounded-lg cursor-pointer transition-colors",
                   shippingMethod === method.id
-                    ? "border-[#0055FF] bg-blue-50"
+                    ? "border-[#166534] bg-green-50"
                     : "border-[#E5E5E0] hover:border-[#CCCCCC]",
                   isFree && "opacity-50 cursor-not-allowed"
                 )}
@@ -516,7 +516,7 @@ export default function CheckoutPage() {
                   checked={shippingMethod === method.id}
                   onChange={() => !isFree && setShippingMethod(method.id)}
                   disabled={isFree}
-                  className="w-4 h-4 accent-[#0055FF]"
+                  className="w-4 h-4 accent-[#166534]"
                 />
                 <div className="flex-1">
                   <div className="flex items-center gap-2">
@@ -545,7 +545,7 @@ export default function CheckoutPage() {
           <Button
             variant="outline"
             onClick={() => setStep(1)}
-            className="flex-1 h-11"
+            className="flex-1 h-11 border-[#E7E5E4] hover:border-[#166534] hover:bg-[#FAFAF5]"
           >
             <ChevronLeft className="w-4 h-4 mr-1" />
             Back
@@ -553,7 +553,7 @@ export default function CheckoutPage() {
           <Button
             onClick={handleContinueToPayment}
             disabled={loading}
-            className="flex-1 bg-[#1C1C1C] hover:bg-[#2D2D2D] text-white h-11"
+            className="flex-1 bg-[#166534] hover:bg-[#14532D] text-white h-11"
           >
             {loading ? (
               <>
@@ -643,7 +643,7 @@ export default function CheckoutPage() {
             </div>
             <button
               onClick={() => setStep(2)}
-              className="text-sm text-[#0055FF] hover:underline"
+              className="text-sm text-[#166534] hover:underline"
             >
               Edit
             </button>
@@ -654,7 +654,7 @@ export default function CheckoutPage() {
         <Button
           onClick={handlePayment}
           disabled={loading}
-          className="w-full bg-[#0055FF] hover:bg-[#0044CC] text-white h-12 text-base"
+          className="w-full bg-[#166534] hover:bg-[#14532D] text-white h-12 text-base"
         >
           {loading ? (
             <>
@@ -674,7 +674,7 @@ export default function CheckoutPage() {
             variant="outline"
             onClick={() => setStep(2)}
             disabled={loading}
-            className="flex-1 h-11"
+            className="flex-1 h-11 border-[#E7E5E4] hover:border-[#166534] hover:bg-[#FAFAF5]"
           >
             <ChevronLeft className="w-4 h-4 mr-1" />
             Back

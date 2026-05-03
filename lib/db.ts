@@ -13,16 +13,15 @@ function createPrismaClient() {
     throw new Error("DATABASE_URL environment variable is not set");
   }
 
-  // SSL config: Neon.tech requires rejectUnauthorized: false in production only
-  // This is safe because Neon uses trusted certificates; we just skip OS-level CA verification
+  // SSL config: Neon.tech uses trusted certificates, enable SSL in production
   const isNeon = connectionString.includes("neon.tech");
   const sslConfig = isNeon && process.env.NODE_ENV === "production"
-    ? { rejectUnauthorized: false }
-    : true;
+    ? { ssl: { rejectUnauthorized: true } }
+    : false;
 
   const pool = new Pool({
     connectionString,
-    ssl: sslConfig,
+    ...sslConfig,
   });
   const adapter = new PrismaPg(pool);
 

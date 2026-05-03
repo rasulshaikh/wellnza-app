@@ -2,12 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import bcrypt from "bcryptjs";
 
-const ADMIN_SECRET = process.env.ADMIN_SETUP_SECRET || "wellnza-admin-setup-2026";
+const ADMIN_SECRET = process.env.ADMIN_SETUP_SECRET;
 
 export async function POST(req: NextRequest) {
   const { secret, email, password, name } = await req.json();
 
-  if (secret !== ADMIN_SECRET) {
+  if (!ADMIN_SECRET || secret !== ADMIN_SECRET) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -48,7 +48,7 @@ export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const secret = searchParams.get("secret");
 
-  if (secret !== ADMIN_SECRET) {
+  if (!ADMIN_SECRET || secret !== ADMIN_SECRET) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { db } from "@/lib/db";
 import { formatCurrency } from "@/lib/utils";
 import { NewsletterForm } from "./_components/newsletter-form";
+import { HeroSlider } from "./_components/HeroSlider";
 
 export const dynamic = "force-dynamic";
 
@@ -21,38 +22,13 @@ export default async function HomePage() {
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="relative bg-[#FAFAF5] text-[#1C1917]">
-        <div className="absolute inset-0">
-          <img
-            src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=2800,fit=crop/PQIno7kFVWk52uM2/gemini_generated_image_a36coaa36coaa36c-GpqVKDujnWLGwkc7.png"
-            alt="Hero"
-            className="w-full h-full object-cover opacity-60"
-          />
-        </div>
-        <div className="relative z-10 container mx-auto px-4 py-32 text-center">
-          <h1 className="font-[Merriweather] text-4xl md:text-6xl font-bold tracking-tight">
-            Unleash Energy
-          </h1>
-          <p className="mt-6 text-lg md:text-xl font-[Raleway] text-[#1C1917]/80">
-            Precision engineered for power, focus, and performance
-          </p>
-          <p className="mt-6 text-sm tracking-widest text-[#57534E] uppercase font-[Raleway]">
-            Feel the difference
-          </p>
-          <Link
-            href="/products"
-            className="mt-10 inline-block bg-[#166534] text-white px-8 py-4 font-[Raleway] font-semibold hover:bg-[#14532d] transition"
-          >
-            View Products
-          </Link>
-        </div>
-      </section>
+      {/* Hero Slider */}
+      <HeroSlider />
 
       {/* Categories Section */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
-          <h3 className="font-[Merriweather] text-3xl font-bold text-center mb-12">Categories</h3>
+          <h3 className="text-3xl font-bold text-center mb-12" style={{ fontFamily: "var(--font-heading), Playfair Display, serif" }}>Categories</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
@@ -80,8 +56,8 @@ export default async function HomePage() {
                 className="group p-8 border border-[#E7E5E4] border-b-2 border-b-[#D6D3D1] rounded-xl hover:border-[#86A873] transition text-center"
               >
                 <div className="text-4xl mb-4">{cat.icon}</div>
-                <h4 className="font-[Merriweather] text-xl font-bold">{cat.name}</h4>
-                <p className="mt-2 text-muted-foreground font-[Raleway]">{cat.desc}</p>
+                <h4 className="text-xl font-bold" style={{ fontFamily: "var(--font-heading), Playfair Display, serif" }}>{cat.name}</h4>
+                <p className="mt-2 text-muted-foreground" style={{ fontFamily: "var(--font-body), Cormorant Garamond, serif" }}>{cat.desc}</p>
               </Link>
             ))}
           </div>
@@ -91,7 +67,7 @@ export default async function HomePage() {
       {/* Featured Products */}
       <section className="py-20 bg-[#FAFAF5]">
         <div className="container mx-auto px-4">
-          <h3 className="font-[Merriweather] text-3xl font-bold text-center mb-12">
+          <h3 className="text-3xl font-bold text-center mb-12" style={{ fontFamily: "var(--font-heading), Playfair Display, serif" }}>
             <Link href="/products" className="hover:text-[#166534] transition">
               Featured Products
             </Link>
@@ -121,8 +97,8 @@ export default async function HomePage() {
                     </span>
                   </div>
                   <div className="p-4">
-                    <h4 className="font-[Merriweather] font-bold text-sm truncate">{product.name}</h4>
-                    <p className="mt-1 font-[Raleway] font-semibold">{formatCurrency(product.basePrice)}</p>
+                    <h4 className="text-sm font-bold truncate" style={{ fontFamily: "var(--font-heading), Playfair Display, serif" }}>{product.name}</h4>
+                    <p className="mt-1 font-semibold" style={{ fontFamily: "var(--font-body), Cormorant Garamond, serif" }}>{formatCurrency(product.basePrice)}</p>
                   </div>
                 </Link>
               );
@@ -131,7 +107,8 @@ export default async function HomePage() {
           <div className="text-center mt-10">
             <Link
               href="/products"
-              className="text-[#166534] font-[Raleway] font-semibold hover:underline"
+              className="text-[#166534] font-semibold hover:underline"
+              style={{ fontFamily: "var(--font-body), Cormorant Garamond, serif" }}
             >
               View all products →
             </Link>
@@ -142,12 +119,12 @@ export default async function HomePage() {
       {/* Newsletter */}
       <section className="py-16 bg-[#1C1917] text-white">
         <div className="container mx-auto px-4 text-center">
-          <h3 className="font-[Merriweather] text-2xl font-bold">Join Our Elite Circle</h3>
-          <p className="mt-4 text-gray-400 font-[Raleway]">Your Email</p>
+          <h3 className="text-2xl font-bold" style={{ fontFamily: "var(--font-heading), Playfair Display, serif" }}>Join Our Elite Circle</h3>
+          <p className="mt-4 text-gray-400" style={{ fontFamily: "var(--font-body), Cormorant Garamond, serif" }}>Your Email</p>
           <div className="mt-4">
             <NewsletterForm />
           </div>
-          <p className="mt-4 text-sm text-gray-500 font-[Raleway]">Get exclusive offers and insider updates</p>
+          <p className="mt-4 text-sm text-gray-500" style={{ fontFamily: "var(--font-body), Cormorant Garamond, serif" }}>Get exclusive offers and insider updates</p>
         </div>
       </section>
 

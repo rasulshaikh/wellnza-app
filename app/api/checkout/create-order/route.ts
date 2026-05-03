@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
+import { auth } from "@/lib/auth";
 import { generateOrderNumber } from "@/lib/utils";
 import { SHIPPING_METHODS, FREE_SHIPPING_THRESHOLD, calculateShipping } from "@/lib/shipping";
 import { z } from "zod";
@@ -15,6 +16,8 @@ const createOrderSchema = z.object({
   shippingAddressId: z.string().optional(),
   paymentMethod: z.enum(["RAZORPAY", "COD"]),
   shippingMethod: z.enum(["STANDARD", "EXPRESS", "FREE"]).optional().default("STANDARD"),
+  // Logged-in user ID (required when session exists)
+  userId: z.string().optional(),
   // Guest checkout fields
   guestEmail: z.string().email().optional(),
   guestPhone: z.string().optional(),
@@ -52,8 +55,25 @@ export async function POST(request: Request) {
       );
     }
 
-    const { cartItems, shippingAddressId, paymentMethod, shippingMethod, guestEmail, guestPhone, guestName, guestAddress } =
+    const { cartItems, shippingAddressId, paymentMethod, shippingMethod, userId: userIdFromRequest, guestEmail, guestPhone, guestName, guestAddress } =
       parsed.data;
+
+    // Validate session for logged-in users
+    const session = await auth();
+
+    let userId: string | null = null;
+
+    if (session?.user?.id) {
+      // User is logged in - require valid userId that matches session
+      if (!userIdFromRequest || userIdFromRequest !== session.user.id) {
+        return NextResponse.json(
+          { error: "Unauthorized - user ID mismatch" },
+          { status: 401 }
+        );
+      }
+      userId = session.user.id;
+    }
+    // If no session, guest checkout is fine (userId stays null)
 
     // Validate variants exist and get prices
     const variantIds = cartItems.map((i) => i.productVariantId);
@@ -124,11 +144,6 @@ export async function POST(request: Request) {
 
     // Generate order number
     const orderNumber = generateOrderNumber();
-
-    // Determine userId (if logged in)
-    let userId: string | null = null;
-    // For now, we don't have session access here directly - client will pass userId if logged in
-    // In a real implementation, you'd get this from the session
 
     // Create address for guest checkout
     let finalShippingAddressId = shippingAddressId;

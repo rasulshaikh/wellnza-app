@@ -20,11 +20,11 @@ export function Navbar() {
   const itemCount = useCartStore((s) => s.items.reduce((sum, i) => sum + i.quantity, 0));
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-white border-b border-[#E7E5E4]">
+    <header className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-md border-b border-[#E7E5E4]">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
-          <span className="text-xl font-bold text-[#166534] font-merriweather">Wellnza</span>
+          <span className="text-2xl font-bold text-[#166534] tracking-tight" style={{ fontFamily: "var(--font-playfair), Playfair Display, serif" }}>Wellnza</span>
         </Link>
 
         {/* Desktop Nav */}
@@ -34,9 +34,10 @@ export function Navbar() {
               key={link.href}
               href={link.href}
               className={cn(
-                "text-sm font-medium font-raleway transition-colors hover:text-[#166534]",
+                "text-sm font-medium transition-colors hover:text-[#166534]",
                 pathname === link.href ? "text-[#166534]" : "text-[#1C1917]"
               )}
+              style={{ fontFamily: "var(--font-body), Cormorant Garamond, serif" }}
             >
               {link.label}
             </Link>
@@ -89,9 +90,10 @@ export function Navbar() {
                 href={link.href}
                 onClick={() => setMobileOpen(false)}
                 className={cn(
-                  "text-sm font-medium font-raleway py-2",
+                  "text-sm font-medium py-2",
                   pathname === link.href ? "text-[#166534]" : "text-[#1C1917]"
                 )}
+                style={{ fontFamily: "var(--font-body), Cormorant Garamond, serif" }}
               >
                 {link.label}
               </Link>

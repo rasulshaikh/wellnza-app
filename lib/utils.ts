@@ -5,13 +5,13 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export function formatCurrency(amountPaise: number, currency = "INR"): string {
+export function formatCurrency(amount: number, currency = "INR"): string {
   return new Intl.NumberFormat("en-IN", {
     style: "currency",
     currency,
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
-  }).format(amountPaise / 100)
+  }).format(amount)
 }
 
 export function formatDate(date: Date | string): string {
