@@ -70,7 +70,7 @@ export function HeroSlider() {
                 <Link
                   href={slide.href}
                   className="inline-block bg-[#166534] text-white px-8 py-4 font-semibold hover:bg-[#14532D] transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5"
-                  style={{ fontFamily: "Raleway, sans-serif" }}
+                  style={{ fontFamily: "var(--font-raleway), Raleway, sans-serif" }}
                 >
                   {slide.cta}
                 </Link>

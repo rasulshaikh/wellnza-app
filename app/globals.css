@@ -29,11 +29,11 @@
   --color-rating: #CA8A04;
 
   /* Font Families */
-  --font-heading: var(--font-playfair), "Playfair Display", serif;
-  --font-body: var(--font-cormorant), "Cormorant Garamond", serif;
+  --font-heading: "Playfair Display", serif;
+  --font-body: "Cormorant Garamond", serif;
   --font-mono: "Fira Code", monospace;
-  --font-merriweather: var(--font-merriweather), "Merriweather", serif;
-  --font-raleway: var(--font-raleway), "Raleway", sans-serif;
+  --font-merriweather: "Merriweather", serif;
+  --font-raleway: "Raleway", sans-serif;
 
   /* Font Sizes */
   --text-2xs: 0.625rem;
@@ -93,6 +93,7 @@
   --font-fira: "Fira Code", monospace;
   --font-merriweather: "Merriweather", serif;
   --font-raleway: "Raleway", sans-serif;
+  --font-body: "Cormorant Garamond", serif;
 
   /* Brand Colors — GreenLeaf palette */
   --background: #FAFAF5;
@@ -159,10 +160,10 @@
 }
 
 @theme inline {
-  --font-heading: var(--font-playfair), "Playfair Display", serif;
-  --font-sans: var(--font-cormorant), "Cormorant Garamond", serif;
-  --font-merriweather: var(--font-merriweather), "Merriweather", serif;
-  --font-raleway: var(--font-raleway), "Raleway", sans-serif;
+  --font-heading: "Playfair Display", serif;
+  --font-sans: "Cormorant Garamond", serif;
+  --font-merriweather: "Merriweather", serif;
+  --font-raleway: "Raleway", sans-serif;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);

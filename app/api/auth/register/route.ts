@@ -10,7 +10,7 @@ export async function POST(req: Request) {
   }
 
   try {
-    const { name, email, password } = await req.json();
+    const { name, email, phone, password } = await req.json();
 
     if (!name || !email || !password) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
@@ -37,7 +37,7 @@ export async function POST(req: Request) {
 
     const hashed = await bcrypt.hash(password, 12);
     const user = await db.user.create({
-      data: { name, email, password: hashed },
+      data: { name, email, phone: phone || null, password: hashed },
     });
 
     return NextResponse.json({ id: user.id, email: user.email });
