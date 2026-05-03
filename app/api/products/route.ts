@@ -6,11 +6,13 @@ const PRODUCT_CATEGORIES = ["PRE_WORKOUT", "PROTEIN", "MASS_GAINER", "OMEGA_3", 
 type ProductCategory = (typeof PRODUCT_CATEGORIES)[number];
 
 const SORT_OPTIONS = {
-  featured: { featured: "desc", createdAt: "desc" },
-  price_asc: { basePrice: "asc" },
-  price_desc: { basePrice: "desc" },
-  newest: { createdAt: "desc" },
+  featured: [{ featured: "desc" }, { createdAt: "desc" }],
+  price_asc: { basePrice: "asc" as const },
+  price_desc: { basePrice: "desc" as const },
+  newest: { createdAt: "desc" as const },
 } as const;
+
+type SortKey = keyof typeof SORT_OPTIONS;
 
 export async function GET(request: Request) {
   try {
@@ -19,7 +21,7 @@ export async function GET(request: Request) {
     const category = searchParams.get("category");
     const minPrice = searchParams.get("minPrice");
     const maxPrice = searchParams.get("maxPrice");
-    const sort = searchParams.get("sort") as keyof typeof SORT_OPTIONS | null;
+    const sort = searchParams.get("sort");
     const search = searchParams.get("search");
     const limit = Math.min(parseInt(searchParams.get("limit") ?? "20", 10), 100);
     const offset = parseInt(searchParams.get("offset") ?? "0", 10);
@@ -57,7 +59,7 @@ export async function GET(request: Request) {
     }
 
     // Determine sort order
-    const sortKey = (sort && SORT_OPTIONS[sort]) ? SORT_OPTIONS[sort] : SORT_OPTIONS.featured;
+    const sortKey = (sort && sort in SORT_OPTIONS) ? SORT_OPTIONS[sort as SortKey] : SORT_OPTIONS.featured;
 
     const [products, total] = await Promise.all([
       db.product.findMany({
@@ -100,7 +102,6 @@ export async function GET(request: Request) {
     });
   } catch (error) {
     console.error("[products API]", error);
-    const message = error instanceof Error ? error.message : String(error);
-    return NextResponse.json({ error: "Internal server error", detail: message }, { status: 500 });
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
