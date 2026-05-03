@@ -50,7 +50,7 @@ export async function POST(req: NextRequest) {
     await db.cartAbandonment.update({
       where: { id: existing.id },
       data: {
-        cartItems: cartItems as CartItem[],
+        cartItems: JSON.parse(JSON.stringify(cartItems)),
         updatedAt: new Date(),
         emailSent1hr: false,
         emailSent24hr: false,
@@ -61,7 +61,7 @@ export async function POST(req: NextRequest) {
       data: {
         email,
         name: name || null,
-        cartItems: cartItems as CartItem[],
+        cartItems: JSON.parse(JSON.stringify(cartItems)),
       },
     });
   }
