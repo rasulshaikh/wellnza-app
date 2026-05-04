@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
 import { formatCurrency } from "@/lib/utils";
@@ -115,11 +116,11 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
       <div className="border-b border-border bg-background px-4 py-3 md:px-8">
         <div className="mx-auto max-w-7xl">
           <p className="text-xs text-muted-foreground">
-            <a href="/products" className="hover:text-foreground transition-colors">Products</a>
+            <Link href="/products" className="hover:text-foreground transition-colors">Products</Link>
             {" / "}
-            <a href={`/products?category=${product.category.toLowerCase()}`} className="hover:text-foreground transition-colors">
+            <Link href={`/products?category=${product.category.toLowerCase()}`} className="hover:text-foreground transition-colors">
               {CATEGORY_LABELS[product.category] ?? product.category}
-            </a>
+            </Link>
             {" / "}
             <span className="text-foreground">{product.name}</span>
           </p>
