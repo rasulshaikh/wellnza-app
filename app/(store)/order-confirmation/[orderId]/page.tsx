@@ -4,8 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Check, Package, MapPin, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
+import { auth } from "@/lib/auth";
 
 interface OrderConfirmationPageProps {
   params: Promise<{ orderId: string }>;
@@ -15,7 +14,7 @@ export default async function OrderConfirmationPage({
   params,
 }: OrderConfirmationPageProps) {
   const { orderId } = await params;
-  const session = await getServerSession(authOptions);
+  const session = await auth();
 
   let order = null;
   try {
@@ -39,7 +38,7 @@ export default async function OrderConfirmationPage({
     console.error("[order-confirmation] Failed to load order:", error);
   }
 
-  if (!order || (session && order.userId && order.userId !== session.user.id)) {
+  if (!order || (session?.user && order.userId && order.userId !== session.user.id)) {
     notFound();
   }
 
