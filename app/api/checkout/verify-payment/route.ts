@@ -68,7 +68,8 @@ export async function POST(request: Request) {
 
     // Send payment confirmed email
     try {
-      const email = updatedOrder.user?.email || updatedOrder.guestEmail;
+      // Get email from user relation or fall back to guest lookup via address
+      const email = updatedOrder.user?.email;
       if (email) {
         const deliveryDate = new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toLocaleDateString("en-IN", { weekday: "long", day: "numeric", month: "long" });
         const orderItems = updatedOrder.items.map((i) => ({
@@ -80,7 +81,7 @@ export async function POST(request: Request) {
           to: email,
           subject: `Payment Confirmed — Order #${updatedOrder.orderNumber} | Wellnza Nutrition`,
           react: OrderConfirmedEmail({
-            name: updatedOrder.user?.name || updatedOrder.guestName || "Customer",
+            name: updatedOrder.user?.name || "Customer",
             orderNumber: updatedOrder.orderNumber,
             total: updatedOrder.total,
             items: orderItems,
