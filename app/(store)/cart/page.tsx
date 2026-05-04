@@ -9,7 +9,7 @@ import { formatCurrency } from "@/lib/utils";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Trash2, Minus, Plus, ShoppingBag, ArrowLeft } from "lucide-react";
-import { calculateShipping, SHIPPING_METHODS } from "@/lib/shipping";
+import { calculateShipping, SHIPPING_METHODS, FREE_SHIPPING_THRESHOLD } from "@/lib/shipping";
 
 interface ValidatedItem {
   productVariantId: string;
