@@ -65,7 +65,7 @@ const products: Prisma.ProductCreateInput[] = [
     comparePrice: 2699,
     featured: true,
     isActive: true,
-    images: ["https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=960,fit=crop,q=100/cdn-ecommerce/store_01KJVXS44M9NNG532TH40JSYHE/assets/1b9a2c29-ce25-4c88-bb70-b0f8ccf93c42b.png"],
+    images: ["https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=960,fit=crop,q=100/cdn-ecommerce/store_01KJVXS44M9NNG532TH40JSYHE/assets/49186a64-8a51-474b-a0b6-d50e2f3dfb46.png"],
     variants: {
       create: [
         { flavor: "Chocolate", size: "2 lb", price: 2199, comparePrice: 2699, sku: "UFWP-CH", weightG: 907 },

@@ -15,7 +15,7 @@ export function CartAbandoned1hrEmail({ items, name }: {
               You left something behind 🏋️
             </Text>
             <Text style={{ color: "#6B6B6B", fontSize: "14px", margin: "0 0 24px" }}>
-              Hi {name || "there"}, your cart is waiting. Don't let your fitness goals wait.
+              Hi {name || "there"}, your cart is waiting. Don&apos;t let your fitness goals wait.
             </Text>
             {items.map((item, i) => (
               <Section key={i} style={{ display: "flex", alignItems: "center", marginBottom: "16px", padding: "12px", backgroundColor: "#F5F5F5", borderRadius: "6px" }}>

@@ -5,9 +5,10 @@
       "schedule": "0 9 * * *"
     }
   ],
-  "redirects": [
-    { "source": "/products", "destination": "/wellnza-nutrition", "permanent": false },
-    { "source": "/shop", "destination": "/wellnza-nutrition", "permanent": false },
-    { "source": "/store", "destination": "/wellnza-nutrition", "permanent": false }
+  "redirects": [],
+  "rewrites": [
+    { "source": "/cart", "destination": "/cart" },
+    { "source": "/login", "destination": "/login" },
+    { "source": "/register", "destination": "/register" }
   ]
 }

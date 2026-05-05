@@ -1,13 +1,15 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useState, useTransition } from "react";
+import { useCallback, useEffect, useState, useTransition, useRef } from "react";
 import { ProductGrid } from "@/components/products/ProductGrid";
 import { ProductFilters } from "@/components/products/ProductFilters";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { ChevronLeft, ChevronRight, Search, X } from "lucide-react";
+
+const DEBOUNCE_MS = 400;
 
 interface ProductVariant {
   id: string;
@@ -44,6 +46,7 @@ export function ProductsContent() {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [data, setData] = useState<{ products: Product[]; total: number } | null>(null);
+  const debounceRef = useRef<NodeJS.Timeout | null>(null);
 
   const search = searchParams.get("search") ?? "";
   const sort = searchParams.get("sort") ?? "default";
@@ -79,7 +82,17 @@ export function ProductsContent() {
   }, [categories, dietary, search, sort, minPrice, maxPrice, offset]);
 
   useEffect(() => {
-    fetchProducts();
+    if (debounceRef.current) {
+      clearTimeout(debounceRef.current);
+    }
+    debounceRef.current = setTimeout(() => {
+      fetchProducts();
+    }, DEBOUNCE_MS);
+    return () => {
+      if (debounceRef.current) {
+        clearTimeout(debounceRef.current);
+      }
+    };
   }, [fetchProducts]);
 
   const products = data?.products ?? [];
@@ -210,7 +223,7 @@ export function ProductsContent() {
             {/* Testimonial */}
             <div className="mt-16 py-12 bg-[#FAFAF5] text-center">
               <p className="text-lg italic text-[#1C1917]" style={{ fontFamily: "var(--font-heading)" }}>
-                "Well NZ gave me unmatched focus and energy during workouts—truly a game changer for my training sessions."
+                &ldquo;Well NZ gave me unmatched focus and energy during workouts—truly a game changer for my training sessions.&rdquo;
               </p>
               <p className="mt-4 font-semibold text-[#1C1917]" style={{ fontFamily: "var(--font-body), Cormorant Garamond, serif" }}>— Pranav</p>
               <div className="mt-4 flex justify-center gap-0.5">

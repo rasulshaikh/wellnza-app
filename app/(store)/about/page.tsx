@@ -49,7 +49,7 @@ export default function AboutPage() {
                 </svg>
               </div>
               <h3 className="font-semibold text-lg text-[#1C1917] mb-2">100% Transparent</h3>
-              <p className="text-[#57534E] text-sm">Full label disclosure. No proprietary blends. You know exactly what you're taking.</p>
+              <p className="text-[#57534E] text-sm">Full label disclosure. No proprietary blends. You know exactly what you&apos;re taking.</p>
             </div>
             <div className="text-center p-6">
               <div className="w-16 h-16 bg-[#166534] rounded-full flex items-center justify-center mx-auto mb-4">
@@ -118,7 +118,7 @@ export default function AboutPage() {
             <div className="bg-white p-8 rounded-xl border border-[#E7E5E4]">
               <div className="flex gap-1 text-yellow-500 mb-4">★★★★★</div>
               <p className="text-[#1C1917] leading-relaxed mb-6">
-                "Wellnza gave me unmatched focus and energy during my toughest workouts. It's a game changer for my training."
+                &ldquo;Wellnza gave me unmatched focus and energy during my toughest workouts. It&apos;s a game changer for my training.&rdquo;
               </p>
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-[#166534] rounded-full flex items-center justify-center text-white font-semibold">R</div>
@@ -131,7 +131,7 @@ export default function AboutPage() {
             <div className="bg-white p-8 rounded-xl border border-[#E7E5E4]">
               <div className="flex gap-1 text-yellow-500 mb-4">★★★★★</div>
               <p className="text-[#1C1917] leading-relaxed mb-6">
-                "The clean, powerful boost from Wellnza's pre-workout helped me push past my limits without the crash."
+                &ldquo;The clean, powerful boost from Wellnza&apos;s pre-workout helped me push past my limits without the crash.&rdquo;
               </p>
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-[#166534] rounded-full flex items-center justify-center text-white font-semibold">S</div>

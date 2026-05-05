@@ -2,13 +2,22 @@ import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 
+async function getRoleFromToken(): Promise<string | null> {
+  const session = await auth();
+  if (!session?.user?.id) return null;
+  const dbUser = await db.user.findUnique({
+    where: { id: session.user.id },
+    select: { role: true },
+  });
+  return dbUser?.role ?? null;
+}
+
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ productId: string }> }
 ) {
-  const session = await auth();
-
-  if (!session || session.user.role !== "ADMIN") {
+  const role = await getRoleFromToken();
+  if (role !== "ADMIN") {
     return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
   }
 
@@ -36,9 +45,8 @@ export async function PATCH(
   request: NextRequest,
   { params }: { params: Promise<{ productId: string }> }
 ) {
-  const session = await auth();
-
-  if (!session || session.user.role !== "ADMIN") {
+  const role = await getRoleFromToken();
+  if (role !== "ADMIN") {
     return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
   }
 

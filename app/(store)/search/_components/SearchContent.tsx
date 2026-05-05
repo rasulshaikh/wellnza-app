@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams, useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { ProductGrid } from "@/components/products/ProductGrid";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -38,15 +38,24 @@ export function SearchContent() {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    if (!query) return;
-    setIsLoading(true);
+    if (!query) {
+      queueMicrotask(() => {
+        setData(null);
+        setIsLoading(false);
+      });
+      return;
+    }
+    queueMicrotask(() => setIsLoading(true));
     fetch(`/api/products?search=${encodeURIComponent(query)}&limit=20`)
       .then((r) => r.json())
       .then((d: { products: Product[]; total: number }) => {
         setData(d);
         setIsLoading(false);
       })
-      .catch(() => setIsLoading(false));
+      .catch(() => {
+        setData(null);
+        setIsLoading(false);
+      });
   }, [query]);
 
   const handleSearch = (e: React.FormEvent) => {

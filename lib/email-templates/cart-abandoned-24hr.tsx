@@ -13,7 +13,7 @@ export function CartAbandoned24hrEmail({ items, name, discountCode = "COMEBACK10
         <Container style={{ maxWidth: "480px", margin: "0 auto", padding: "40px 20px" }}>
           <Section style={{ backgroundColor: "#fff", borderRadius: "8px", padding: "32px", border: "1px solid #E5E5E0" }}>
             <Text style={{ fontSize: "24px", fontWeight: "bold", color: "#0A0A0A", margin: "0 0 8px" }}>
-              Still thinking? Here's 10% off ⚡
+              Still thinking? Here&apos;s 10% off ⚡
             </Text>
             <Text style={{ color: "#6B6B6B", fontSize: "14px", margin: "0 0 16px" }}>
               Hi {name || "there"}, your cart is still waiting. Use the code below for 10% off your order.

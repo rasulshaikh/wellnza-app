@@ -6,9 +6,8 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function formatCurrency(amount: number, currency = "INR"): string {
-  // Detect paise vs rupees: if amount > 10000, likely stored in paise (e.g. 99900 = ₹999)
-  const inPaise = amount > 10000;
-  const value = inPaise ? amount / 100 : amount;
+  // Always convert from paise (stored as paise in DB: ₹999 = 99900)
+  const value = amount / 100;
   return new Intl.NumberFormat("en-IN", {
     style: "currency",
     currency,

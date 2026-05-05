@@ -38,7 +38,7 @@ export default async function OrderConfirmationPage({
     console.error("[order-confirmation] Failed to load order:", error);
   }
 
-  if (!order || (session?.user && order.userId && order.userId !== session.user.id)) {
+  if (!order || (order.userId && session?.user?.id && order.userId !== session.user.id)) {
     notFound();
   }
 

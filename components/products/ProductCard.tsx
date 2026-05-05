@@ -70,27 +70,28 @@ export function ProductCard({
   const isEcoCategory = ["PROTEIN", "PRE_WORKOUT", "OMEGA_3", "MULTIVITAMIN"].includes(category);
 
   const cardClasses = [
-    "group flex flex-col overflow-hidden rounded-xl bg-white transition-all duration-300",
-    "border border-[#E7E5E4]",
-    "shadow-sm hover:shadow-xl",
-    "hover:border-[#A8A29E] hover:-translate-y-1",
+    "group flex flex-col overflow-hidden rounded-3xl bg-white transition-all duration-300",
+    "border border-[#E7E5E4]/60",
+    "shadow-card-warm hover:shadow-card-warm-hover",
+    "hover:-translate-y-[4px]",
   ].join(" ");
 
   return (
     <div className={cardClasses}>
       {/* Image */}
-      <Link href={`/products/${slug}`} className="block aspect-square overflow-hidden bg-muted relative">
+      <Link href={`/products/${slug}`} className="block aspect-square relative organic-frame">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#86A873]/20 via-transparent to-transparent rounded-full" />
         {displayImage ? (
           <Image
             src={displayImage}
             alt={name}
             fill
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110 product-3d"
+            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110 product-pill relative z-10"
           />
         ) : (
-          <div className="flex h-full w-full items-center justify-center">
-            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-muted-foreground/10">
+          <div className="flex h-full w-full items-center justify-center relative z-10">
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-muted-foreground/10 product-pill">
               <span className="text-xs font-medium text-muted-foreground">
                 {name
                   .split(" ")
@@ -103,12 +104,12 @@ export function ProductCard({
           </div>
         )}
         {discountPercent && (
-          <span className="absolute right-2 top-2 rounded-full bg-[#166534] px-2 py-0.5 text-xs font-semibold text-white">
+          <span className="absolute right-2 top-2 rounded-full bg-[#B85C38] px-2 py-0.5 text-xs font-semibold text-white z-20">
             -{discountPercent}%
           </span>
         )}
         {isEcoCategory && (
-          <span className="absolute left-2 top-2 rounded-full bg-[#166534] px-2 py-0.5 text-xs font-semibold text-white">
+          <span className="absolute left-2 top-2 rounded-full bg-[#86A873] px-2 py-0.5 text-xs font-semibold text-white z-20">
             Organic
           </span>
         )}
@@ -116,7 +117,7 @@ export function ProductCard({
 
       {/* Content */}
       <div className="flex flex-1 flex-col p-4">
-        <span className="mb-2 w-fit text-xs font-semibold uppercase tracking-[0.08em] text-[#166534] font-raleway">
+        <span className="mb-2 w-fit text-xs font-semibold uppercase tracking-[0.1em] text-[#86A873] font-raleway">
           {CATEGORY_LABELS[category] ?? category}
         </span>
 
@@ -145,7 +146,7 @@ export function ProductCard({
         </div>
 
         <Button
-          className="mt-4 w-full bg-[#166534] hover:bg-[#14532D] text-white font-semibold transition-all duration-200 hover:shadow-md hover:scale-[1.02] active:scale-[0.98]"
+          className="mt-4 w-full bg-[#8B6B4F] hover:bg-[#B85C38] text-white font-semibold transition-all duration-300 hover:shadow-md hover:scale-[1.02] active:scale-[0.98] rounded-full"
           size="sm"
           variant="default"
           onClick={handleAddToCart}

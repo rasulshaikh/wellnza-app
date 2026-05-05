@@ -51,9 +51,8 @@ export function VariantSelector({
   selectedVariantId,
   onSelectVariant,
 }: VariantSelectorProps) {
-  if (!variants || variants.length === 0) return null;
-
   const flavors = useMemo(() => [...new Set(variants.map((v) => v.flavor))], [variants]);
+  if (!variants || variants.length === 0) return null;
   const selectedVariant = variants.find((v) => v.id === selectedVariantId);
 
   // If flavors only, show flat list

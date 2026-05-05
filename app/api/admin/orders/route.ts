@@ -2,10 +2,20 @@ import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 
-export async function GET(request: NextRequest) {
+async function getRoleFromToken(): Promise<string | null> {
   const session = await auth();
+  if (!session?.user?.id) return null;
+  const dbUser = await db.user.findUnique({
+    where: { id: session.user.id },
+    select: { role: true },
+  });
+  return dbUser?.role ?? null;
+}
 
-  if (!session || session.user.role !== "ADMIN") {
+export async function GET(request: NextRequest) {
+  const role = await getRoleFromToken();
+
+  if (role !== "ADMIN") {
     return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
   }
 
