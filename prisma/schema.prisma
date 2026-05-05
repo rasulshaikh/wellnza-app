@@ -329,16 +329,20 @@ model Review {
 
 // CartAbandonment
 model CartAbandonment {
-  id           String   @id @default(cuid())
-  email        String
-  name         String?
-  cartItems    Json     // Array of { name, flavor, price, quantity, image }
-  updatedAt    DateTime @default(now())
-  orderId      String?  // Set if user completes checkout
-  emailSent1hr Boolean  @default(false)
-  emailSent24hr Boolean @default(false)
-  createdAt    DateTime @default(now())
+  id            String   @id @default(cuid())
+  userId        String?
+  email         String?
+  phone         String?
+  guestName     String?
+  cartData      Json?    // { items: [{name, flavor, price, quantity}], couponCode, discount, shippingCost }
+  lastActiveAt  DateTime @default(now())
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  reminderSent  Boolean  @default(false)
+  recoveryLink  String?
+  orderId       String?  // Set if user completes checkout
 
   @@index([email])
-  @@index([updatedAt])
+  @@index([phone])
+  @@index([lastActiveAt])
 }
