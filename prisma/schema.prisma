@@ -16,6 +16,8 @@ model User {
   emailVerified DateTime?
   image         String?
   password      String?
+  resetToken    String?
+  resetTokenExpiry DateTime?
   emailSent    Boolean?  @default(false)
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
