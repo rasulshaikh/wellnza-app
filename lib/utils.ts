@@ -6,14 +6,13 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function formatCurrency(amount: number, currency = "INR"): string {
-  // Always convert from paise (stored as paise in DB: ₹999 = 99900)
-  const value = amount / 100;
+  // amount is stored and transmitted as rupees (not paise)
   return new Intl.NumberFormat("en-IN", {
     style: "currency",
     currency,
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
-  }).format(value)
+  }).format(amount)
 }
 
 export function formatDate(date: Date | string): string {
