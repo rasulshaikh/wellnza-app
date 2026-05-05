@@ -494,7 +494,8 @@ export function HeroSlider() {
                   alt={`Featured product: ${slide.tagline}`}
                   width={360}
                   height={460}
-                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 400px"
+                  className="object-contain"
                   style={{
                     width: "100%",
                     height: "auto",
@@ -502,31 +503,12 @@ export function HeroSlider() {
                     objectFit: "contain",
                   }}
                   priority={currentSlide === 0}
+                  placeholder="blur"
+                  blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+P+/HgAFhAJ/wlseKgAAAABJRU5ErkJggg=="
                 />
               </div>
             </div>
 
-            {/* Product Label - Angular Cut */}
-            <div
-              style={{
-                background: "#166534",
-                padding: "16px 24px",
-                clipPath:
-                  "polygon(0 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%)",
-              }}
-            >
-              <span
-                style={{
-                  fontFamily: "var(--font-bebas), Bebas Neue, sans-serif",
-                  fontSize: "18px",
-                  color: "#0D0D0D",
-                  letterSpacing: "2px",
-                  textTransform: "uppercase",
-                }}
-              >
-                WELL NZ - PREMIUM SERIES
-              </span>
-            </div>
           </div>
         </div>
       </div>
