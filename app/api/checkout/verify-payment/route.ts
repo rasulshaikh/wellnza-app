@@ -1,11 +1,17 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
+import { auth } from "@/lib/auth";
 import crypto from "crypto";
 import { sendEmail } from "@/lib/email";
 import { OrderConfirmedEmail } from "@/lib/email-templates/order-confirmed";
 
 export async function POST(request: Request) {
   try {
+    const session = await auth();
+    if (!session?.user?.id) {
+      return NextResponse.json({ success: false, error: "Unauthorized" }, { status: 401 });
+    }
+
     const body = await request.json();
     const { orderId, razorpayPaymentId, razorpayOrderId, razorpaySignature } = body;
 
@@ -18,7 +24,7 @@ export async function POST(request: Request) {
 
     // Find the order
     const order = await db.order.findUnique({
-      where: { id: orderId },
+      where: { id: orderId, userId: session.user.id },
     });
 
     if (!order) {
@@ -28,6 +34,11 @@ export async function POST(request: Request) {
       );
     }
 
+    // Already processed
+    if (order.status !== "PENDING") {
+      return NextResponse.json({ success: true, alreadyVerified: true });
+    }
+
     // Verify signature
     const expectedSignature = crypto
       .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET!)
@@ -35,10 +46,7 @@ export async function POST(request: Request) {
       .digest("hex");
 
     if (expectedSignature !== razorpaySignature) {
-      console.error("[verify-payment] Signature mismatch", {
-        expected: expectedSignature,
-        received: razorpaySignature,
-      });
+      console.error("[verify-payment] Signature mismatch for order:", orderId);
       return NextResponse.json(
         { success: false, error: "Invalid payment signature" },
         { status: 400 }

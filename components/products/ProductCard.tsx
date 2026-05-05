@@ -4,9 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useCartStore } from "@/store/cart-store";
 import { formatCurrency } from "@/lib/utils";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 
 interface ProductCardProps {
   id: string;
@@ -86,8 +84,8 @@ export function ProductCard({
           <Image
             src={displayImage}
             alt={name}
-            width={400}
-            height={400}
+            fill
+            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
             className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110 product-3d"
           />
         ) : (

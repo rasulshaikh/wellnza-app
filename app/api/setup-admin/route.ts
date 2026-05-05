@@ -39,8 +39,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ email: created.email, role: created.role, action: "created" });
     }
   } catch (error) {
-    console.error("[setup-admin]", String(error), error instanceof Error ? error.message : String(error), Object.keys(error || {}));
-    return NextResponse.json({ error: "Setup failed", detail: String(error) }, { status: 500 });
+    console.error("[setup-admin]", error);
+    return NextResponse.json({ error: "Setup failed" }, { status: 500 });
   }
 }
 
@@ -66,7 +66,7 @@ export async function GET(req: NextRequest) {
       createdAt: admin.createdAt,
     });
   } catch (error) {
-    console.error("[setup-admin-get]", String(error), error instanceof Error ? error.message : String(error));
-    return NextResponse.json({ error: "Check failed", detail: String(error) }, { status: 500 });
+    console.error("[setup-admin-get]", error);
+    return NextResponse.json({ error: "Check failed" }, { status: 500 });
   }
 }

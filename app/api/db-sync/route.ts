@@ -165,9 +165,9 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json({ diagnostic: results });
   } catch (error) {
+    console.error("[db-sync] Diagnostic failed:", error);
     return NextResponse.json({
-      error: "Diagnostic failed",
-      detail: String(error).substring(0, 500)
+      error: "Diagnostic failed"
     }, { status: 500 });
   }
 }
