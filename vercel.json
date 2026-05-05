@@ -4,5 +4,10 @@
       "path": "/api/cron/cart-abandonment",
       "schedule": "0 9 * * *"
     }
+  ],
+  "redirects": [
+    { "source": "/products", "destination": "/wellnza-nutrition", "permanent": false },
+    { "source": "/shop", "destination": "/wellnza-nutrition", "permanent": false },
+    { "source": "/store", "destination": "/wellnza-nutrition", "permanent": false }
   ]
 }
