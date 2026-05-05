@@ -35,10 +35,10 @@ interface Product {
 const LIMIT = 20;
 
 const SORT_OPTIONS = [
-  { value: "default", label: "Default" },
-  { value: "price_asc", label: "Price (low to high)" },
-  { value: "price_desc", label: "Price (high to low)" },
-  { value: "newest", label: "Most recent" },
+  { value: "default", label: "DEFAULT" },
+  { value: "price_asc", label: "PRICE: LOW TO HIGH" },
+  { value: "price_desc", label: "PRICE: HIGH TO LOW" },
+  { value: "newest", label: "MOST RECENT" },
 ];
 
 export function ProductsContent() {
@@ -135,39 +135,98 @@ export function ProductsContent() {
   };
 
   return (
-    <div className="flex flex-1 flex-col">
-      {/* Page header */}
-      <div className="border-b border-border bg-background px-4 py-6 md:px-8">
-        <div className="mx-auto flex w-full max-w-7xl flex-col gap-4">
-          <h1 className="text-[28px] font-bold tracking-tight" style={{ fontFamily: "var(--font-heading)" }}>
-            All Products
+    <div className="flex flex-1 flex-col" style={{ background: "#0D0D0D", minHeight: "100vh" }}>
+      {/* Page header - Athletic Dark Theme */}
+      <div
+        className="border-b border-[#166534]/30 px-4 py-8 md:px-8"
+        style={{ background: "linear-gradient(180deg, #0D0D0D 0%, #1A1A1A 100%)" }}
+      >
+        <div className="mx-auto flex w-full max-w-7xl flex-col gap-5">
+          {/* Athletic Tag Line */}
+          <div className="flex items-center gap-3">
+            <div className="h-[2px] w-8 bg-[#166534]" />
+            <span
+              className="text-[12px] tracking-[3px] text-[#22C55E]"
+              style={{ fontFamily: "'Oswald', sans-serif" }}
+            >
+              EVERY REP. EVERY SET. EVERY DAY.
+            </span>
+          </div>
+
+          {/* Main Heading */}
+          <h1
+            className="text-[48px] font-bold tracking-tight text-white md:text-[64px]"
+            style={{ fontFamily: "'Bebas Neue', sans-serif", letterSpacing: "3px" }}
+          >
+            LOCK IN YOUR <span className="text-[#22C55E]">GAINS</span>
           </h1>
 
-          {/* Search bar */}
-          <form onSubmit={handleSearchSubmit} className="flex gap-2">
+          {/* Subheading - Athletic Copy */}
+          <p
+            className="max-w-xl text-[14px] text-[#888888]"
+            style={{ fontFamily: "'Oswald', sans-serif", letterSpacing: "1px" }}
+          >
+            BUILT FOR ATHLETES WHO DEMAND MAXIMUM PERFORMANCE. NO SHORTCUTS. NO COMPROMISE. STACK YOUR SUPPLEMENTS, DOMINATE YOUR GOALS.
+          </p>
+
+          {/* Search bar - Angular Style */}
+          <form onSubmit={handleSearchSubmit} className="flex gap-2 max-w-lg">
             <div className="relative flex-1">
-              <Search className="pointer-events-none absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+              <Search
+                className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-[#888888]"
+                aria-hidden="true"
+              />
               <Input
                 name="search"
                 type="search"
-                placeholder="Search products..."
+                placeholder="SEARCH PRODUCTS..."
                 defaultValue={search}
-                className="pl-9 pr-9"
+                className="h-12 flex-1 border border-[#166534]/40 bg-[#1A1A1A] pl-10 pr-10 text-[13px] text-white placeholder:text-[#888888] focus:border-[#22C55E] focus:outline-none focus:ring-1 focus:ring-[#22C55E]"
+                style={{ fontFamily: "'Oswald', sans-serif", letterSpacing: "1px" }}
+                aria-label="Search products"
               />
               {search && (
                 <button
                   type="button"
                   onClick={clearSearch}
-                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#888888] hover:text-white transition-colors"
+                  aria-label="Clear search"
                 >
                   <X className="size-4" />
                 </button>
               )}
             </div>
-            <Button type="submit" variant="outline">
-              Search
+            <Button
+              type="submit"
+              className="athletic-cta h-12 !px-6"
+              style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+              aria-label="Submit search"
+            >
+              SEARCH
             </Button>
           </form>
+
+          {/* Trust Badges Row */}
+          <div className="flex flex-wrap gap-3 pt-2">
+            <div className="athletic-trust-badge" aria-label="Free shipping on all orders">
+              <svg className="h-3.5 w-3.5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M18 1l-4 4-3-3-5 5 3 3-5 5 5 5 3-3 4 4 1-1-4-4 4-4-1-1zm-6 8l-2 2 4 4 4-4-2-2-2 2-2-2z"/>
+              </svg>
+              FREE SHIPPING
+            </div>
+            <div className="athletic-trust-badge" aria-label="Lab tested products">
+              <svg className="h-3.5 w-3.5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 2L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
+              </svg>
+              LAB TESTED
+            </div>
+            <div className="athletic-trust-badge" aria-label="100% authentic products">
+              <svg className="h-3.5 w-3.5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+              </svg>
+              100% AUTHENTIC
+            </div>
+          </div>
         </div>
       </div>
 
@@ -175,14 +234,26 @@ export function ProductsContent() {
       <div className="flex flex-1">
         <div className="mx-auto flex w-full max-w-7xl px-4 md:px-8">
           {/* Filters sidebar */}
-          <ProductFilters className="py-6" />
+          <div className="py-6 pr-8 hidden lg:block">
+            <div
+              className="w-56 shrink-0 p-4 rounded-none"
+              style={{ background: "#1A1A1A", border: "1px solid rgba(22, 101, 52, 0.3)" }}
+            >
+              <ProductFilters className="!p-0" />
+            </div>
+          </div>
 
           {/* Product area */}
-          <div className="flex flex-1 flex-col py-6 pl-0 lg:pl-8">
-            {/* Results info */}
-            <div className="mb-4 flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <span className="text-sm text-muted-foreground">Sort by:</span>
+          <div className="flex flex-1 flex-col py-6 pl-0 lg:pl-0">
+            {/* Results info - Athletic Style */}
+            <div className="mb-6 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <span
+                  className="text-[12px] text-[#888888]"
+                  style={{ fontFamily: "'Oswald', sans-serif", letterSpacing: "2px" }}
+                >
+                  SORT BY:
+                </span>
                 <select
                   value={searchParams.get("sort") ?? "default"}
                   onChange={(e) => {
@@ -194,20 +265,26 @@ export function ProductsContent() {
                     }
                     router.push(`/products?${newParams.toString()}`);
                   }}
-                  className="border border-[#E7E5E4] px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#166534]" style={{ fontFamily: "var(--font-body), Cormorant Garamond, serif" }}
+                  className="h-10 border border-[#166534]/40 bg-[#1A1A1A] px-3 py-1.5 text-[13px] text-white focus:border-[#22C55E] focus:outline-none focus:ring-1 focus:ring-[#22C55E]"
+                  style={{ fontFamily: "'Oswald', sans-serif", letterSpacing: "1px" }}
+                  aria-label="Sort products"
                 >
                   {SORT_OPTIONS.map((opt) => (
                     <option key={opt.value} value={opt.value}>{opt.label}</option>
                   ))}
                 </select>
               </div>
-              <p className="text-[14px] text-[#57534E]" style={{ fontFamily: "var(--font-body), Cormorant Garamond, serif" }}>
+              <p
+                className="text-[13px] text-[#888888]"
+                style={{ fontFamily: "'Oswald', sans-serif", letterSpacing: "1px" }}
+                aria-live="polite"
+              >
                 {total === 0 ? (
-                  "No products found"
+                  "NO PRODUCTS FOUND"
                 ) : (
                   <>
-                    Showing <span className="font-medium text-[#1C1917]">{showingStart}-{showingEnd}</span> of{" "}
-                    <span className="font-medium text-[#1C1917]">{total}</span> products
+                    SHOWING <span className="font-semibold text-white">{showingStart}-{showingEnd}</span> OF{" "}
+                    <span className="font-semibold text-white">{total}</span> PRODUCTS
                   </>
                 )}
               </p>
@@ -220,47 +297,94 @@ export function ProductsContent() {
               <ProductGrid products={products} />
             )}
 
-            {/* Testimonial */}
-            <div className="mt-16 py-12 bg-[#FAFAF5] text-center">
-              <p className="text-lg italic text-[#1C1917]" style={{ fontFamily: "var(--font-heading)" }}>
-                &ldquo;Well NZ gave me unmatched focus and energy during workouts—truly a game changer for my training sessions.&rdquo;
+            {/* Testimonial - Athletic Dark Section */}
+            <div
+              className="mt-16 py-16 text-center"
+              style={{ background: "linear-gradient(180deg, #1A1A1A 0%, #0D0D0D 100%)", borderTop: "1px solid rgba(22, 101, 52, 0.3)" }}
+            >
+              <div className="mb-4 flex justify-center">
+                <svg className="h-6 w-6 text-[#22C55E]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 2L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
+                </svg>
+              </div>
+              <blockquote>
+                <p
+                  className="text-lg leading-relaxed text-white md:text-xl"
+                  style={{ fontFamily: "'Bebas Neue', sans-serif", letterSpacing: "1px" }}
+                >
+                  &ldquo;WELL NZ GAVE ME UNMATCHED FOCUS AND ENERGY DURING WORKOUTS - TRULY A GAME CHANGER FOR MY TRAINING SESSIONS.&rdquo;
+                </p>
+              </blockquote>
+              <p
+                className="mt-6 font-semibold text-[#22C55E]"
+                style={{ fontFamily: "'Oswald', sans-serif", letterSpacing: "2px" }}
+              >
+                - PRANAV
               </p>
-              <p className="mt-4 font-semibold text-[#1C1917]" style={{ fontFamily: "var(--font-body), Cormorant Garamond, serif" }}>— Pranav</p>
-              <div className="mt-4 flex justify-center gap-0.5">
+              <div className="mt-4 flex justify-center gap-1">
                 {[1,2,3,4,5].map((i) => (
-                  <span key={i} className="text-[#86A873] text-lg">★</span>
+                  <svg key={i} className="h-5 w-5 text-[#22C55E]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 2L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
+                  </svg>
                 ))}
               </div>
             </div>
 
-            {/* Pagination */}
+            {/* Pagination - Athletic Style */}
             {total > LIMIT && (
-              <div className="mt-8 flex items-center justify-center gap-2">
-                <Button
-                  variant="outline"
-                  size="sm"
+              <div className="mt-8 flex items-center justify-center gap-4">
+                <button
                   onClick={() => navigateToOffset(prevOffset)}
                   disabled={offset === 0}
-                  className="gap-1"
+                  className="flex items-center gap-2 px-4 py-2 text-[13px] text-white border border-[#166534]/40 hover:border-[#22C55E] hover:text-[#22C55E] transition-colors disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:border-[#166534]/40 disabled:hover:text-white"
+                  style={{ fontFamily: "'Oswald', sans-serif", letterSpacing: "2px" }}
+                  aria-label="Previous page"
                 >
-                  <ChevronLeft className="size-4" />
-                  Previous
-                </Button>
-                <span className="px-3 text-sm text-muted-foreground">
-                  Page {Math.floor(offset / LIMIT) + 1} of {Math.ceil(total / LIMIT)}
+                  <ChevronLeft className="size-4" aria-hidden="true" />
+                  PREV
+                </button>
+                <span
+                  className="px-4 text-[13px] text-[#888888]"
+                  style={{ fontFamily: "'Oswald', sans-serif", letterSpacing: "1px" }}
+                  aria-current="page"
+                >
+                  PAGE {Math.floor(offset / LIMIT) + 1} OF {Math.ceil(total / LIMIT)}
                 </span>
-                <Button
-                  variant="outline"
-                  size="sm"
+                <button
                   onClick={() => navigateToOffset(nextOffset)}
                   disabled={offset + LIMIT >= total}
-                  className="gap-1"
+                  className="flex items-center gap-2 px-4 py-2 text-[13px] text-white border border-[#166534]/40 hover:border-[#22C55E] hover:text-[#22C55E] transition-colors disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:border-[#166534]/40 disabled:hover:text-white"
+                  style={{ fontFamily: "'Oswald', sans-serif", letterSpacing: "2px" }}
+                  aria-label="Next page"
                 >
-                  Next
-                  <ChevronRight className="size-4" />
-                </Button>
+                  NEXT
+                  <ChevronRight className="size-4" aria-hidden="true" />
+                </button>
               </div>
             )}
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom Tagline */}
+      <div
+        className="py-6 px-4 md:px-8"
+        style={{ background: "#0D0D0D", borderTop: "1px solid rgba(22, 101, 52, 0.2)" }}
+      >
+        <div className="mx-auto max-w-7xl flex flex-wrap items-center justify-between gap-4">
+          <p
+            className="text-[12px] text-[#888888]"
+            style={{ fontFamily: "'Oswald', sans-serif", letterSpacing: "2px" }}
+          >
+            BUILT FOR <span className="text-[#22C55E]">ATHLETES</span>. PROVEN BY <span className="text-[#22C55E]">GAINS</span>.
+          </p>
+          <div className="flex items-center gap-4">
+            <span
+              className="text-[10px] text-[#888888]"
+              style={{ fontFamily: "'Oswald', sans-serif", letterSpacing: "1px" }}
+            >
+              SOURCE DIRECT - NO MIDDLEMEN
+            </span>
           </div>
         </div>
       </div>
