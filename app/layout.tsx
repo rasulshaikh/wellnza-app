@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Cormorant_Garamond, Merriweather, Raleway } from "next/font/google";
+import { Playfair_Display, Cormorant_Garamond, Merriweather, Raleway, Bebas_Neue, Oswald } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 
@@ -27,6 +27,20 @@ const raleway = Raleway({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-raleway",
+  display: "swap",
+});
+
+const bebasNeue = Bebas_Neue({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-bebas",
+  display: "swap",
+});
+
+const oswald = Oswald({
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
+  variable: "--font-oswald",
   display: "swap",
 });
 
@@ -61,7 +75,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${playfair.variable} ${cormorant.variable} ${merriweather.variable} ${raleway.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${playfair.variable} ${cormorant.variable} ${merriweather.variable} ${raleway.variable} ${bebasNeue.variable} ${oswald.variable}`} suppressHydrationWarning>
       <body><Providers>{children}</Providers></body>
     </html>
   );
