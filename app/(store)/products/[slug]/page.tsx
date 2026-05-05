@@ -113,16 +113,16 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
   return (
     <div className="min-h-screen">
       {/* Breadcrumb */}
-      <div className="border-b border-border bg-background px-4 py-3 md:px-8">
+      <div className="border-b border-[#166534]/30 bg-[#0D0D0D] px-4 py-3 md:px-8">
         <div className="mx-auto max-w-7xl">
-          <p className="text-xs text-muted-foreground">
-            <Link href="/products" className="hover:text-foreground transition-colors">Products</Link>
+          <p className="text-xs text-[#888888]">
+            <Link href="/products" className="hover:text-white transition-colors">Products</Link>
             {" / "}
-            <Link href={`/products?category=${product.category.toLowerCase()}`} className="hover:text-foreground transition-colors">
+            <Link href={`/products?category=${product.category.toLowerCase()}`} className="hover:text-white transition-colors">
               {CATEGORY_LABELS[product.category] ?? product.category}
             </Link>
             {" / "}
-            <span className="text-foreground">{product.name}</span>
+            <span className="text-white">{product.name}</span>
           </p>
         </div>
       </div>
@@ -135,11 +135,11 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
 
           {/* RIGHT — Product info */}
           <div className="flex flex-col gap-5">
-            <Badge variant="secondary" className="w-fit text-xs">
+            <Badge className="w-fit text-xs bg-[#166534] text-white">
               {CATEGORY_LABELS[product.category] ?? product.category}
             </Badge>
 
-            <h1 className="text-[28px] font-bold tracking-tight text-[#1C1917]" style={{ fontFamily: "var(--font-heading)" }}>
+            <h1 className="text-[28px] font-bold tracking-tight text-white" style={{ fontFamily: "var(--font-bebas)" }}>
               {product.name}
             </h1>
 
@@ -150,26 +150,26 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
                   {Array.from({ length: 5 }).map((_, i) => (
                     <Star
                       key={i}
-                      className={`size-4 ${i < Math.round(Number(avgRating)) ? "fill-amber-400 text-amber-400" : "text-muted-foreground/30"}`}
+                      className={`size-4 ${i < Math.round(Number(avgRating)) ? "fill-[#22C55E] text-[#22C55E]" : "text-[#888888]/30"}`}
                     />
                   ))}
                 </div>
-                <span className="text-sm font-medium text-foreground">{avgRating}</span>
-                <span className="text-sm text-muted-foreground">({approvedReviews.length} reviews)</span>
+                <span className="text-sm font-medium text-white">{avgRating}</span>
+                <span className="text-sm text-[#888888]">({approvedReviews.length} reviews)</span>
               </div>
             )}
 
             {/* Price */}
             <div className="flex items-baseline gap-3">
-              <span className="text-[24px] font-semibold text-[#1C1917]" style={{ fontFamily: "var(--font-heading)" }}>
+              <span className="text-[24px] font-semibold text-white" style={{ fontFamily: "var(--font-bebas)" }}>
                 {formatCurrency(defaultVariant?.price ?? product.basePrice)}
               </span>
               {product.comparePrice && product.comparePrice > product.basePrice && (
                 <>
-                  <span className="text-lg text-muted-foreground line-through">
+                  <span className="text-lg text-[#888888] line-through">
                     {formatCurrency(product.comparePrice)}
                   </span>
-                  <span className="rounded-md bg-green-100 px-2 py-1 text-xs font-semibold text-green-700">
+                  <span className="rounded-md bg-[#166534] px-2 py-1 text-xs font-semibold text-white">
                     Save {Math.round(((product.comparePrice - product.basePrice) / product.comparePrice) * 100)}%
                   </span>
                 </>
@@ -177,13 +177,13 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
             </div>
 
             {/* Short description */}
-            <p className="text-[16px] leading-[1.6] text-[#1C1917]" style={{ fontFamily: "var(--font-body), Cormorant Garamond, serif" }}>
+            <p className="text-[16px] leading-[1.6] text-[#888888]" style={{ fontFamily: "var(--font-oswald)" }}>
               {product.description.slice(0, 200)}
               {product.description.length > 200 ? "..." : ""}
             </p>
 
             {product.servingSize && (
-              <Badge variant="outline" className="w-fit text-xs">
+              <Badge variant="outline" className="w-fit text-xs border-[#166534]/30 text-[#888888]">
                 Serving Size: {product.servingSize}
               </Badge>
             )}
@@ -193,7 +193,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
             {/* Variant selector */}
             {hasVariants && (
               <div className="flex flex-col gap-3">
-                <span className="text-sm font-semibold text-foreground">Select Option</span>
+                <span className="text-sm font-semibold text-white" style={{ fontFamily: "var(--font-oswald)" }}>Select Option</span>
                 <VariantSelectorClient
                   variants={variantData}
                   inventory={inventoryData}
@@ -214,16 +214,16 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
             />
 
             {!hasVariants && (
-              <p className="text-sm text-muted-foreground">This product is currently unavailable.</p>
+              <p className="text-sm text-[#888888]">This product is currently unavailable.</p>
             )}
 
             {/* WhatsApp Chat Link */}
             <div className="mt-4">
               <a
-                href={`https://wa.me/918788396678?text=Hi!%20I%27m%20interested%20in%20purchasing%20${encodeURIComponent(product.name)}.%20https%3A%2F%2Fwww.wellnzanutrition.com%2F${product.slug}`}
+                href={`https://wa.me/6421XXXXXX?text=Hi!%20I%27m%20interested%20in%20purchasing%20${encodeURIComponent(product.name)}.%20https%3A%2F%2Fwww.wellnzanutrition.com%2F${product.slug}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-green-600 hover:text-green-700 font-medium text-sm"
+                className="flex items-center gap-2 text-[#22C55E] hover:text-[#166534] font-medium text-sm"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
@@ -237,94 +237,94 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
         {/* Tabs */}
         <div className="mt-12">
           <Tabs defaultValue="description">
-            <TabsList className="w-full justify-start gap-0 rounded-none border-b bg-transparent p-0">
+            <TabsList className="w-full justify-start gap-0 rounded-none border-b border-[#166534]/30 bg-transparent p-0">
               <TabsTrigger
                 value="description"
-                className="rounded-none border-b-2 border-transparent data-active:border-primary data-active:bg-transparent data-active:text-foreground"
+                className="rounded-none border-b-2 border-transparent data-active:border-[#22C55E] data-active:bg-transparent data-active:text-white text-[#888888]"
               >
                 Description
               </TabsTrigger>
               <TabsTrigger
                 value="nutrition"
-                className="rounded-none border-b-2 border-transparent data-active:border-primary data-active:bg-transparent data-active:text-foreground"
+                className="rounded-none border-b-2 border-transparent data-active:border-[#22C55E] data-active:bg-transparent data-active:text-white text-[#888888]"
               >
                 Nutrition Facts
               </TabsTrigger>
               <TabsTrigger
                 value="how-to-use"
-                className="rounded-none border-b-2 border-transparent data-active:border-primary data-active:bg-transparent data-active:text-foreground"
+                className="rounded-none border-b-2 border-transparent data-active:border-[#22C55E] data-active:bg-transparent data-active:text-white text-[#888888]"
               >
                 How to Use
               </TabsTrigger>
             </TabsList>
 
             <TabsContent value="description" className="py-6">
-              <p className="text-sm leading-relaxed text-muted-foreground whitespace-pre-wrap">{product.description}</p>
+              <p className="text-sm leading-relaxed text-[#888888] whitespace-pre-wrap" style={{ fontFamily: "var(--font-oswald)" }}>{product.description}</p>
               {product.ingredients && (
                 <div className="mt-4">
-                  <h3 className="text-sm font-semibold text-foreground mb-1">Ingredients</h3>
-                  <p className="text-sm text-muted-foreground whitespace-pre-wrap">{product.ingredients}</p>
+                  <h3 className="text-sm font-semibold text-white mb-1" style={{ fontFamily: "var(--font-bebas)" }}>Ingredients</h3>
+                  <p className="text-sm text-[#888888] whitespace-pre-wrap" style={{ fontFamily: "var(--font-oswald)" }}>{product.ingredients}</p>
                 </div>
               )}
             </TabsContent>
 
             <TabsContent value="nutrition" className="py-6">
               {nutritionFacts ? (
-                <div className="rounded-lg border border-border">
+                <div className="rounded-lg border border-[#166534]/30 bg-[#0D0D0D]">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="border-b border-border bg-muted">
-                        <th className="px-4 py-2 text-left font-semibold">Nutrient</th>
-                        <th className="px-4 py-2 text-right font-semibold">Per Serving</th>
+                      <tr className="border-b border-[#166534]/30 bg-[#1A1A1A]">
+                        <th className="px-4 py-2 text-left font-semibold text-white" style={{ fontFamily: "var(--font-bebas)" }}>Nutrient</th>
+                        <th className="px-4 py-2 text-right font-semibold text-white" style={{ fontFamily: "var(--font-bebas)" }}>Per Serving</th>
                       </tr>
                     </thead>
                     <tbody>
                       {Object.entries(nutritionFacts).map(([key, value]: [string, string]) => (
-                        <tr key={key} className="border-b border-border last:border-0">
-                          <td className="px-4 py-2 text-foreground capitalize">{key.replace(/_/g, " ")}</td>
-                          <td className="px-4 py-2 text-right text-muted-foreground">{value}</td>
+                        <tr key={key} className="border-b border-[#166534]/30 last:border-0">
+                          <td className="px-4 py-2 text-white capitalize" style={{ fontFamily: "var(--font-oswald)" }}>{key.replace(/_/g, " ")}</td>
+                          <td className="px-4 py-2 text-right text-[#888888]" style={{ fontFamily: "var(--font-oswald)" }}>{value}</td>
                         </tr>
                       ))}
                     </tbody>
                   </table>
                 </div>
               ) : (
-                <div className="rounded-lg border border-border">
+                <div className="rounded-lg border border-[#166534]/30 bg-[#0D0D0D]">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="border-b border-border bg-muted">
-                        <th className="px-4 py-2 text-left font-semibold">Nutrient</th>
-                        <th className="px-4 py-2 text-right font-semibold">Per Serving</th>
+                      <tr className="border-b border-[#166534]/30 bg-[#1A1A1A]">
+                        <th className="px-4 py-2 text-left font-semibold text-white" style={{ fontFamily: "var(--font-bebas)" }}>Nutrient</th>
+                        <th className="px-4 py-2 text-right font-semibold text-white" style={{ fontFamily: "var(--font-bebas)" }}>Per Serving</th>
                       </tr>
                     </thead>
                     <tbody>
                       {product.calories != null && (
-                        <tr className="border-b border-border">
-                          <td className="px-4 py-2 text-foreground">Calories</td>
-                          <td className="px-4 py-2 text-right text-muted-foreground">{product.calories}</td>
+                        <tr className="border-b border-[#166534]/30">
+                          <td className="px-4 py-2 text-white" style={{ fontFamily: "var(--font-oswald)" }}>Calories</td>
+                          <td className="px-4 py-2 text-right text-[#888888]" style={{ fontFamily: "var(--font-oswald)" }}>{product.calories}</td>
                         </tr>
                       )}
                       {product.protein != null && (
-                        <tr className="border-b border-border">
-                          <td className="px-4 py-2 text-foreground">Protein</td>
-                          <td className="px-4 py-2 text-right text-muted-foreground">{product.protein}g</td>
+                        <tr className="border-b border-[#166534]/30">
+                          <td className="px-4 py-2 text-white" style={{ fontFamily: "var(--font-oswald)" }}>Protein</td>
+                          <td className="px-4 py-2 text-right text-[#888888]" style={{ fontFamily: "var(--font-oswald)" }}>{product.protein}g</td>
                         </tr>
                       )}
                       {product.carbs != null && (
-                        <tr className="border-b border-border">
-                          <td className="px-4 py-2 text-foreground">Carbohydrates</td>
-                          <td className="px-4 py-2 text-right text-muted-foreground">{product.carbs}g</td>
+                        <tr className="border-b border-[#166534]/30">
+                          <td className="px-4 py-2 text-white" style={{ fontFamily: "var(--font-oswald)" }}>Carbohydrates</td>
+                          <td className="px-4 py-2 text-right text-[#888888]" style={{ fontFamily: "var(--font-oswald)" }}>{product.carbs}g</td>
                         </tr>
                       )}
                       {product.fat != null && (
-                        <tr className="border-b border-border">
-                          <td className="px-4 py-2 text-foreground">Fat</td>
-                          <td className="px-4 py-2 text-right text-muted-foreground">{product.fat}g</td>
+                        <tr className="border-b border-[#166534]/30">
+                          <td className="px-4 py-2 text-white" style={{ fontFamily: "var(--font-oswald)" }}>Fat</td>
+                          <td className="px-4 py-2 text-right text-[#888888]" style={{ fontFamily: "var(--font-oswald)" }}>{product.fat}g</td>
                         </tr>
                       )}
                       {!product.calories && !product.protein && !product.carbs && !product.fat && (
                         <tr>
-                          <td colSpan={2} className="px-4 py-4 text-center text-muted-foreground">
+                          <td colSpan={2} className="px-4 py-4 text-center text-[#888888]">
                             Nutrition information not available.
                           </td>
                         </tr>
@@ -339,17 +339,17 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
               <div className="space-y-3">
                 {product.directions && (
                   <div>
-                    <h3 className="text-sm font-semibold text-foreground mb-1">Directions</h3>
-                    <p className="text-sm text-muted-foreground whitespace-pre-wrap">{product.directions}</p>
+                    <h3 className="text-sm font-semibold text-white mb-1" style={{ fontFamily: "var(--font-bebas)" }}>Directions</h3>
+                    <p className="text-sm text-[#888888] whitespace-pre-wrap" style={{ fontFamily: "var(--font-oswald)" }}>{product.directions}</p>
                   </div>
                 )}
                 {product.servingSize && (
-                  <p className="text-sm text-muted-foreground">
-                    <span className="font-semibold text-foreground">Serving Size:</span> {product.servingSize}
+                  <p className="text-sm text-[#888888]" style={{ fontFamily: "var(--font-oswald)" }}>
+                    <span className="font-semibold text-white">Serving Size:</span> {product.servingSize}
                   </p>
                 )}
                 {!product.directions && !product.servingSize && (
-                  <p className="text-sm text-muted-foreground">Usage instructions not available.</p>
+                  <p className="text-sm text-[#888888]">Usage instructions not available.</p>
                 )}
               </div>
             </TabsContent>
@@ -359,11 +359,11 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
         {/* Reviews */}
         <div className="mt-12">
           <div className="mb-6">
-            <h2 className="text-xl font-bold text-[#1C1917]" style={{ fontFamily: "var(--font-heading)" }}>Customer Reviews</h2>
+            <h2 className="text-xl font-bold text-white" style={{ fontFamily: "var(--font-bebas)" }}>Customer Reviews</h2>
           </div>
 
           {product.reviews.length === 0 ? (
-            <p className="py-8 text-center text-sm text-muted-foreground">
+            <p className="py-8 text-center text-sm text-[#888888]">
               Be the first to review this product.
             </p>
           ) : (
@@ -378,7 +378,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
         {/* Related Products */}
         {relatedProducts.length > 0 && (
           <div className="mt-12">
-            <h2 className="font-merriweather text-xl font-bold text-[#1C1917] mb-6">You may also like</h2>
+            <h2 className="text-xl font-bold text-white mb-6" style={{ fontFamily: "var(--font-bebas)" }}>You may also like</h2>
             <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
               {relatedProducts.map((p: typeof relatedProducts[number]) => (
                 <ProductCard key={p.id} {...p} />
