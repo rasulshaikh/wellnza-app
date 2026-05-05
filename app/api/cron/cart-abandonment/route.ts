@@ -1,4 +1,4 @@
-// Vercel Cron — runs daily via vercel.json cron config
+// Vercel Cron - runs daily via vercel.json cron config
 export const dynamic = "force-dynamic";
 
 import { NextRequest, NextResponse } from "next/server";
@@ -21,19 +21,19 @@ export async function GET(req: NextRequest) {
     // 1hr abandoned carts not yet emailed
     const oneHourCarts = await db.cartAbandonment.findMany({
       where: {
-        updatedAt: { lt: ONE_HOUR_AGO },
-        emailSent1hr: false,
+        lastActiveAt: { lt: ONE_HOUR_AGO },
+        reminderSent: false,
         orderId: null,
+        email: { not: null },
       },
     });
 
     // 24hr abandoned carts not yet emailed (already got 1hr email)
     const twentyFourHourCarts = await db.cartAbandonment.findMany({
       where: {
-        updatedAt: { lt: TWENTY_FOUR_HOURS_AGO },
-        emailSent24hr: false,
-        emailSent1hr: true,
+        lastActiveAt: { lt: TWENTY_FOUR_HOURS_AGO },
         orderId: null,
+        email: { not: null },
       },
     });
 
@@ -45,15 +45,18 @@ export async function GET(req: NextRequest) {
         const { CartAbandoned1hrEmail } = await import(
           "@/lib/email-templates/cart-abandoned-1hr"
         );
-        const items = (cart.cartItems as Array<{ name: string; quantity: number; price: number; image?: string }>) ?? [];
-        await sendEmail({
-          to: cart.email,
-          subject: "You left something behind 🏋️ — Wellnza Nutrition",
-          react: CartAbandoned1hrEmail({ items, name: cart.name || "there" }),
-        });
+        const cartData = cart.cartData as { items?: Array<{ name: string; quantity: number; price: number; image?: string }> } | null;
+        const items = cartData?.items ?? [];
+        if (cart.email) {
+          await sendEmail({
+            to: cart.email,
+            subject: "You left something behind 🏋️ — Well NZ Nutrition",
+            react: CartAbandoned1hrEmail({ items, name: cart.guestName || "there" }),
+          });
+        }
         await db.cartAbandonment.update({
           where: { id: cart.id },
-          data: { emailSent1hr: true },
+          data: { reminderSent: true },
         });
       } catch (err) {
         console.error("[cart-abandoned-1hr]", cart.email, err);
@@ -66,19 +69,22 @@ export async function GET(req: NextRequest) {
         const { CartAbandoned24hrEmail } = await import(
           "@/lib/email-templates/cart-abandoned-24hr"
         );
-        const items = (cart.cartItems as Array<{ name: string; quantity: number; price: number; image?: string }>) ?? [];
-        await sendEmail({
-          to: cart.email,
-          subject: "Still thinking? 🏋️ — Here's 10% off your order",
-          react: CartAbandoned24hrEmail({
-            items,
-            name: cart.name || "there",
-            discountCode: "COMEBACK10",
-          }),
-        });
+        const cartData = cart.cartData as { items?: Array<{ name: string; quantity: number; price: number; image?: string }> } | null;
+        const items = cartData?.items ?? [];
+        if (cart.email) {
+          await sendEmail({
+            to: cart.email,
+            subject: "Still thinking? 🏋️ — Here's 10% off your order",
+            react: CartAbandoned24hrEmail({
+              items,
+              name: cart.guestName || "there",
+              discountCode: "COMEBACK10",
+            }),
+          });
+        }
         await db.cartAbandonment.update({
           where: { id: cart.id },
-          data: { emailSent24hr: true },
+          data: { reminderSent: true },
         });
       } catch (err) {
         console.error("[cart-abandoned-24hr]", cart.email, err);

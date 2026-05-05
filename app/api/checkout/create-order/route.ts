@@ -33,6 +33,9 @@ const createOrderSchema = z.object({
       pin: z.string().regex(/^[1-9]\d{5}$/),
     })
     .optional(),
+  // Coupon fields
+  couponCode: z.string().optional(),
+  discount: z.number().optional(),
 });
 
 export async function POST(request: Request) {
@@ -55,7 +58,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const { cartItems, shippingAddressId, paymentMethod, shippingMethod, userId: userIdFromRequest, guestEmail, guestPhone, guestName, guestAddress } =
+    const { cartItems, shippingAddressId, paymentMethod, shippingMethod, userId: userIdFromRequest, guestEmail, guestPhone, guestName, guestAddress, couponCode, discount: clientDiscount } =
       parsed.data;
 
     // Validate session for logged-in users
@@ -140,7 +143,28 @@ export async function POST(request: Request) {
     };
     const shippingCost = calculateShipping(subtotal, methodMap[shippingMethod] ?? "standard");
     const tax = 0; // No tax for now
-    const total = subtotal + shippingCost + tax;
+
+    // Server-side coupon validation and discount calculation
+    let finalDiscount = 0;
+    if (couponCode && clientDiscount !== undefined) {
+      const code = couponCode.trim().toUpperCase();
+      if (code === "XEME20") {
+        finalDiscount = Math.round(subtotal * 0.2);
+      } else if (code === "XEME15") {
+        finalDiscount = Math.round(subtotal * 0.15);
+      } else if (code === "XEME10") {
+        finalDiscount = Math.round(subtotal * 0.1);
+      }
+      // Enforce the discount matches client calculation (within rounding tolerance)
+      if (Math.abs(finalDiscount - clientDiscount) > 1) {
+        return NextResponse.json(
+          { error: "Invalid discount calculation" },
+          { status: 400 }
+        );
+      }
+    }
+
+    const total = subtotal + shippingCost + tax - finalDiscount;
 
     // Generate order number
     const orderNumber = generateOrderNumber();
@@ -196,7 +220,7 @@ export async function POST(request: Request) {
         subtotal,
         shippingCost,
         tax,
-        discount: 0,
+        discount: finalDiscount,
         total,
         paymentMethod: paymentMethod as "RAZORPAY" | "COD",
         items: {
@@ -286,6 +310,7 @@ export async function POST(request: Request) {
       subtotal,
       shippingCost,
       tax,
+      discount: finalDiscount,
       paymentMethod,
     });
   } catch (error) {

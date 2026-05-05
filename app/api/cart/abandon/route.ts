@@ -33,38 +33,47 @@ export async function POST(req: NextRequest) {
   }
 
   const body = await req.json();
-  const { email, name, cartItems } = body;
+  const { email, name, cartItems, phone } = body;
 
-  if (!email) {
-    return NextResponse.json({ error: "Email required" }, { status: 400 });
+  if (!email && !phone) {
+    return NextResponse.json({ error: "Email or phone required" }, { status: 400 });
   }
 
   if (!validateCartItems(cartItems)) {
     return NextResponse.json({ error: "Invalid cart items" }, { status: 400 });
   }
 
-  // CartAbandonment uses @@index([email]) not @@unique, so use findFirst + upsert pattern
-  const existing = await db.cartAbandonment.findFirst({ where: { email } });
+  // Find existing record by email or phone
+  const existing = await db.cartAbandonment.findFirst({
+    where: email ? { email } : { phone },
+  });
+
+  const recoveryLink = `https://wellnza.com/checkout?recovery=${Date.now().toString(36)}`;
 
   if (existing) {
     await db.cartAbandonment.update({
       where: { id: existing.id },
       data: {
-        cartItems: JSON.parse(JSON.stringify(cartItems)),
+        cartData: JSON.parse(JSON.stringify({ items: cartItems })),
+        lastActiveAt: new Date(),
         updatedAt: new Date(),
-        emailSent1hr: false,
-        emailSent24hr: false,
+        reminderSent: false,
+        recoveryLink,
+        guestName: name || null,
       },
     });
   } else {
     await db.cartAbandonment.create({
       data: {
-        email,
-        name: name || null,
-        cartItems: JSON.parse(JSON.stringify(cartItems)),
+        email: email || null,
+        phone: phone || null,
+        guestName: name || null,
+        cartData: JSON.parse(JSON.stringify({ items: cartItems })),
+        lastActiveAt: new Date(),
+        recoveryLink,
       },
     });
   }
 
-  return NextResponse.json({ email });
+  return NextResponse.json({ email, recoveryLink });
 }
