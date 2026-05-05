@@ -312,7 +312,7 @@ export function ProductsContent() {
                   className="text-lg leading-relaxed text-white md:text-xl"
                   style={{ fontFamily: "'Bebas Neue', sans-serif", letterSpacing: "1px" }}
                 >
-                  &ldquo;WELL NZ GAVE ME UNMATCHED FOCUS AND ENERGY DURING WORKOUTS - TRULY A GAME CHANGER FOR MY TRAINING SESSIONS.&rdquo;
+                  &ldquo;WELLNZA GAVE ME UNMATCHED FOCUS AND ENERGY DURING WORKOUTS - TRULY A GAME CHANGER FOR MY TRAINING SESSIONS.&rdquo;
                 </p>
               </blockquote>
               <p

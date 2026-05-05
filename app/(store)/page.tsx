@@ -362,7 +362,7 @@ export default async function HomePage() {
               marginBottom: "8px",
             }}
           >
-            LOCK IN WITH <span style={{ color: "#166534" }}>WELL NZ</span>
+            LOCK IN WITH <span style={{ color: "#166534" }}>WELLNZA</span>
           </h3>
           <p
             style={{

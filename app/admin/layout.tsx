@@ -45,7 +45,7 @@ export default async function AdminLayout({
               <span className="text-white font-bold text-sm">W</span>
             </div>
             <div>
-              <span className="font-semibold text-[#0A0A0A]">Well NZ</span>
+              <span className="font-semibold text-[#0A0A0A]">Wellnza</span>
               <span className="text-xs text-[#6B7280] block">Admin</span>
             </div>
           </div>

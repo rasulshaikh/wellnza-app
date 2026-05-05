@@ -10,11 +10,11 @@ export default function TermsPage() {
           </section>
           <section>
             <h2 className="font-semibold text-[#1C1C1C] text-base mb-2">2. Products & Information</h2>
-            <p>All products displayed on this website are subject to availability. Product descriptions, images, and pricing are for informational purposes only and may change without prior notice. Well NZ Nutrition reserves the right to modify product information at any time.</p>
+            <p>All products displayed on this website are subject to availability. Product descriptions, images, and pricing are for informational purposes only and may change without prior notice. Wellnza Nutrition reserves the right to modify product information at any time.</p>
           </section>
           <section>
             <h2 className="font-semibold text-[#1C1C1C] text-base mb-2">3. Pricing & Payment</h2>
-            <p>All prices are in Indian Rupees (₹) and include applicable taxes where applicable. Payments are processed securely through Razorpay. Well NZ Nutrition reserves the right to change prices without notice.</p>
+            <p>All prices are in Indian Rupees (₹) and include applicable taxes where applicable. Payments are processed securely through Razorpay. Wellnza Nutrition reserves the right to change prices without notice.</p>
           </section>
           <section>
             <h2 className="font-semibold text-[#1C1C1C] text-base mb-2">4. Shipping & Delivery</h2>

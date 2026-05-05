@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: ProductDetailPageProps) {
   });
   if (!product) return {};
   return {
-    title: `${product.name} — Well NZ Nutrition`,
+    title: `${product.name} — Wellnza Nutrition`,
     // Note: slice at character level; JS strings are UTF-16 so this won't
     // split multi-byte characters, which is acceptable for metadata desc
     description: product.description.slice(0, 160),
