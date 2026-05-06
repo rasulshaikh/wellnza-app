@@ -23,10 +23,13 @@ export async function POST(req: Request) {
     const resetToken = crypto.randomBytes(32).toString("hex");
     const resetTokenExpiry = new Date(Date.now() + 60 * 60 * 1000);
 
+    // Hash token before storing - never store plaintext tokens
+    const hashedToken = crypto.createHash("sha256").update(resetToken).digest("hex");
+
     await db.user.update({
       where: { id: user.id },
       data: {
-        resetToken,
+        resetToken: hashedToken,
         resetTokenExpiry,
       },
     });

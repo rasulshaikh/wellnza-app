@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import bcrypt from "bcryptjs";
+import crypto from "crypto";
 
 export async function POST(req: Request) {
   try {
@@ -24,9 +25,12 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Password must contain at least one special character" }, { status: 400 });
     }
 
+    // Hash incoming token to compare with stored hash
+    const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
+
     const user = await db.user.findFirst({
       where: {
-        resetToken: token,
+        resetToken: hashedToken,
         resetTokenExpiry: { gt: new Date() },
       },
     });
