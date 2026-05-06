@@ -48,27 +48,27 @@ export default function RegisterPage() {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen flex items-center justify-center bg-[#0D0D0D] px-4 py-12">
+      <div className="min-h-screen flex items-center justify-center bg-[#FAFAF8] px-4 py-12">
         <div className="w-full max-w-md space-y-8">
           <div className="text-center">
             <Link href="/" className="inline-block">
-              <span className="text-3xl font-bold text-[#22C55E] tracking-wider" style={{ fontFamily: "var(--font-bebas)" }}>
-                WELLNZA
+              <span className="text-3xl font-bold tracking-wider" style={{ fontFamily: "'Playfair Display', serif" }}>
+                Well<span className="text-[#2E7D32]">nza</span>
               </span>
             </Link>
           </div>
 
-          <div className="bg-[#1A1A1A] rounded-lg p-8 border border-[rgba(22,101,52,0.3)]" style={{ clipPath: "polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px))" }}>
+          <div className="bg-[#fff] rounded-lg p-8 border border-[rgba(46,125,50,0.15)]">
             <div className="text-center mb-8">
-              <h1 className="text-4xl font-bold text-white mb-2 tracking-wider" style={{ fontFamily: "var(--font-bebas)" }}>
-                JOIN THE SQUAD
+              <h1 className="text-4xl font-bold text-[#1a1a1a] mb-2" style={{ fontFamily: "'Playfair Display', serif" }}>
+                Create your account
               </h1>
-              <p className="text-[#888888]" style={{ fontFamily: "var(--font-oswald)" }}>Create your account</p>
+              <p className="text-[#7B9E6B]" style={{ fontFamily: "'DM Sans', sans-serif" }}>Create your account</p>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
-                <Label htmlFor="name" className="text-white font-medium" style={{ fontFamily: "var(--font-oswald)" }}>Full Name</Label>
+                <Label htmlFor="name" className="text-[#1a1a1a] font-medium" style={{ fontFamily: "'DM Sans', sans-serif" }}>Full Name</Label>
                 <Input
                   id="name"
                   type="text"
@@ -76,11 +76,11 @@ export default function RegisterPage() {
                   onChange={(e) => setName(e.target.value)}
                   required
                   disabled={isLoading}
-                  className="mt-1.5 bg-[#0D0D0D] border-[rgba(22,101,52,0.3)] text-white placeholder-[#666666] focus:border-[#166534] focus:ring-[#166534]"
+                  className="mt-1.5 bg-[#FAFAF8] border-[rgba(46,125,50,0.15)] text-[#1a1a1a] placeholder-[#7B9E6B] focus:border-[#2E7D32] focus:ring-[#2E7D32]"
                 />
               </div>
               <div>
-                <Label htmlFor="email" className="text-white font-medium" style={{ fontFamily: "var(--font-oswald)" }}>Email</Label>
+                <Label htmlFor="email" className="text-[#1a1a1a] font-medium" style={{ fontFamily: "'DM Sans', sans-serif" }}>Email</Label>
                 <Input
                   id="email"
                   type="email"
@@ -88,12 +88,12 @@ export default function RegisterPage() {
                   onChange={(e) => setEmail(e.target.value)}
                   required
                   disabled={isLoading}
-                  className="mt-1.5 bg-[#0D0D0D] border-[rgba(22,101,52,0.3)] text-white placeholder-[#666666] focus:border-[#166534] focus:ring-[#166534]"
+                  className="mt-1.5 bg-[#FAFAF8] border-[rgba(46,125,50,0.15)] text-[#1a1a1a] placeholder-[#7B9E6B] focus:border-[#2E7D32] focus:ring-[#2E7D32]"
                 />
               </div>
               <div>
-                <Label htmlFor="phone" className="text-white font-medium" style={{ fontFamily: "var(--font-oswald)" }}>
-                  Phone <span className="text-[#888888] font-normal">(optional)</span>
+                <Label htmlFor="phone" className="text-[#1a1a1a] font-medium" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+                  Phone <span className="text-[#7B9E6B] font-normal">(optional)</span>
                 </Label>
                 <Input
                   id="phone"
@@ -102,11 +102,11 @@ export default function RegisterPage() {
                   onChange={(e) => setPhone(e.target.value)}
                   placeholder="+64 21 123 4567"
                   disabled={isLoading}
-                  className="mt-1.5 bg-[#0D0D0D] border-[rgba(22,101,52,0.3)] text-white placeholder-[#666666] focus:border-[#166534] focus:ring-[#166534]"
+                  className="mt-1.5 bg-[#FAFAF8] border-[rgba(46,125,50,0.15)] text-[#1a1a1a] placeholder-[#7B9E6B] focus:border-[#2E7D32] focus:ring-[#2E7D32]"
                 />
               </div>
               <div>
-                <Label htmlFor="password" className="text-white font-medium" style={{ fontFamily: "var(--font-oswald)" }}>Password</Label>
+                <Label htmlFor="password" className="text-[#1a1a1a] font-medium" style={{ fontFamily: "'DM Sans', sans-serif" }}>Password</Label>
                 <Input
                   id="password"
                   type="password"
@@ -115,14 +115,14 @@ export default function RegisterPage() {
                   required
                   minLength={8}
                   disabled={isLoading}
-                  className="mt-1.5 bg-[#0D0D0D] border-[rgba(22,101,52,0.3)] text-white placeholder-[#666666] focus:border-[#166534] focus:ring-[#166534]"
+                  className="mt-1.5 bg-[#FAFAF8] border-[rgba(46,125,50,0.15)] text-[#1a1a1a] placeholder-[#7B9E6B] focus:border-[#2E7D32] focus:ring-[#2E7D32]"
                 />
-                <p className="text-xs text-[#888888] mt-1.5" style={{ fontFamily: "var(--font-oswald)" }}>Minimum 8 characters</p>
+                <p className="text-xs text-[#7B9E6B] mt-1.5" style={{ fontFamily: "'DM Sans', sans-serif" }}>Minimum 8 characters</p>
               </div>
               <Button
                 type="submit"
-                className="w-full bg-[#166534] hover:bg-[#14532D] text-white font-semibold h-12"
-                style={{ fontFamily: "var(--font-bebas)", clipPath: "polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%)" }}
+                className="w-full bg-[#2E7D32] hover:bg-[#235F27] text-white font-semibold h-12"
+                style={{ fontFamily: "'DM Sans', sans-serif" }}
                 disabled={isLoading}
               >
                 {isLoading ? "CREATING ACCOUNT..." : "CREATE ACCOUNT"}
@@ -131,18 +131,18 @@ export default function RegisterPage() {
 
             <div className="relative mt-6">
               <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t border-[rgba(22,101,52,0.3)]" />
+                <span className="w-full border-t border-[rgba(46,125,50,0.15)]" />
               </div>
               <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-[#1A1A1A] px-3 text-[#888888]" style={{ fontFamily: "var(--font-oswald)" }}>Or continue with</span>
+                <span className="bg-[#fff] px-3 text-[#7B9E6B]" style={{ fontFamily: "'DM Sans', sans-serif" }}>Or continue with</span>
               </div>
             </div>
 
             <Button
               type="button"
               variant="outline"
-              className="w-full mt-6 h-12 border-[rgba(22,101,52,0.3)] text-[#888888] hover:text-[#22C55E] hover:border-[#166534] hover:bg-[#0D0D0D]"
-              style={{ fontFamily: "var(--font-oswald)" }}
+              className="w-full mt-6 h-12 border-[rgba(46,125,50,0.15)] text-[#7B9E6B] hover:text-[#2E7D32] hover:border-[#2E7D32] hover:bg-[#FAFAF8]"
+              style={{ fontFamily: "'DM Sans', sans-serif" }}
               onClick={() => signIn("google", { callbackUrl: "/account" })}
               disabled={isLoading}
             >
@@ -155,9 +155,9 @@ export default function RegisterPage() {
               CONTINUE WITH GOOGLE
             </Button>
 
-            <p className="text-center text-sm text-[#888888] mt-6" style={{ fontFamily: "var(--font-oswald)" }}>
+            <p className="text-center text-sm text-[#7B9E6B] mt-6" style={{ fontFamily: "'DM Sans', sans-serif" }}>
               Already have an account?{" "}
-              <Link href="/login" className="text-[#22C55E] font-semibold hover:underline">
+              <Link href="/login" className="text-[#2E7D32] font-semibold hover:underline">
                 Sign in
               </Link>
             </p>

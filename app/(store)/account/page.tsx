@@ -108,7 +108,7 @@ export default async function AccountDashboardPage() {
                 Subscription
               </p>
               <p className="text-xs text-[#7B9E6B] mt-1" style={{ fontFamily: "DM Sans, sans-serif" }}>
-                Manage recurring
+                Manage recurring orders
               </p>
             </div>
           </Link>
