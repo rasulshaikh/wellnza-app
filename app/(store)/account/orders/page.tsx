@@ -31,28 +31,28 @@ export default async function OrdersPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FAFAF7] py-8">
+    <div className="min-h-screen bg-[#FAFAF8] py-8">
       <div className="max-w-4xl mx-auto px-4">
         {/* Header */}
         <div className="flex items-center gap-4 mb-6">
           <Link href="/account">
-            <Button variant="outline" size="icon" className="h-9 w-9 border-[#E5E5E0]">
+            <Button variant="outline" size="icon" className="h-9 w-9 border-[rgba(46,125,50,0.15)] text-[#1a1a1a] hover:bg-[#FFFFFF]">
               <ArrowLeft className="w-4 h-4" />
             </Button>
           </Link>
           <div>
-            <h1 className="text-2xl font-bold text-[#1C1C1C]">My Orders</h1>
-            <p className="text-sm text-[#6B6B6B]">{orders.length} order{orders.length !== 1 ? "s" : ""}</p>
+            <h1 className="text-2xl font-bold text-[#1a1a1a]" style={{ fontFamily: "'Playfair Display', serif" }}>My Orders</h1>
+            <p className="text-sm text-[#7B9E6B]">{orders.length} order{orders.length !== 1 ? "s" : ""}</p>
           </div>
         </div>
 
         {orders.length === 0 ? (
-          <div className="bg-white border border-[#E5E5E0] p-12 text-center">
-            <Package className="w-12 h-12 text-[#CCCCCC] mx-auto mb-4" />
-            <h2 className="text-lg font-semibold text-[#1C1C1C] mb-2">No orders yet</h2>
-            <p className="text-[#6B6B6B] mb-6">When you place an order, it will appear here.</p>
+          <div className="bg-[#FFFFFF] border border-[rgba(46,125,50,0.15)] p-12 text-center rounded-lg shadow-[0_2px_8px_rgba(46,125,50,0.06)]">
+            <Package className="w-12 h-12 text-[#7B9E6B] mx-auto mb-4" />
+            <h2 className="text-lg font-semibold text-[#1a1a1a] mb-2">No orders yet</h2>
+            <p className="text-[#7B9E6B] mb-6">When you place an order, it will appear here.</p>
             <Link href="/products">
-              <Button className="bg-[#1C1C1C] hover:bg-[#2D2D2D] text-white h-10">
+              <Button className="bg-[#2E7D32] hover:bg-[#1B5E20] text-white h-10">
                 Start Shopping
               </Button>
             </Link>
@@ -65,31 +65,31 @@ export default async function OrdersPage() {
                 href={`/account/orders/${order.id}`}
                 className="block"
               >
-                <div className="bg-white border border-[#E5E5E0] hover:border-[#CCCCCC] transition-colors">
+                <div className="bg-[#FFFFFF] border border-[rgba(46,125,50,0.15)] hover:border-[rgba(46,125,50,0.3)] transition-colors rounded-lg shadow-[0_2px_8px_rgba(46,125,50,0.06)]">
                   <div className="p-4 flex items-center justify-between">
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-3 mb-1">
-                        <span className="font-semibold text-[#1C1C1C]">
+                        <span className="font-semibold text-[#1a1a1a]" style={{ fontFamily: "'Playfair Display', serif" }}>
                           #{order.orderNumber}
                         </span>
                         <Badge
                           className={
                             ORDER_STATUS_COLORS[order.status] ||
-                            "bg-gray-100 text-gray-800"
+                            "bg-[#FFFFFF] text-[#7B9E6B] border border-[rgba(46,125,50,0.15)]"
                           }
                         >
                           {order.status}
                         </Badge>
                       </div>
-                      <p className="text-sm text-[#6B6B6B]">
+                      <p className="text-sm text-[#7B9E6B]">
                         {formatDate(order.createdAt)}
                       </p>
                     </div>
                     <div className="text-right">
-                      <p className="font-semibold text-[#1C1C1C]">
+                      <p className="font-semibold text-[#1a1a1a]">
                         {formatCurrency(order.total)}
                       </p>
-                      <p className="text-sm text-[#6B6B6B]">
+                      <p className="text-sm text-[#7B9E6B]">
                         {order.items.length} item{order.items.length !== 1 ? "s" : ""}
                       </p>
                     </div>

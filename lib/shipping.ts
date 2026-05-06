@@ -2,8 +2,8 @@ export const SHIPPING_METHODS = [
   {
     id: "standard",
     name: "Standard Shipping",
-    description: "Free delivery on all orders",
-    price: 0,
+    description: "Regular delivery",
+    price: 5000,
     days: "5-7 days",
   },
   {
@@ -15,12 +15,11 @@ export const SHIPPING_METHODS = [
   },
 ] as const;
 
-export const FREE_SHIPPING_THRESHOLD = 0; // Free shipping always
+export const FREE_SHIPPING_THRESHOLD = 0;
 
 export function calculateShipping(
   subtotal: number,
   method: string = "standard"
 ): number {
-  if (method === "express") return 10000;
-  return 0; // Always free
+  return 0; // Always free shipping
 }

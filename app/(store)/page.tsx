@@ -2,8 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { db } from "@/lib/db";
 import { formatCurrency } from "@/lib/utils";
+import { getWhatsAppUrl } from "@/lib/whatsapp";
 import { NewsletterForm } from "./_components/newsletter-form";
-import { HeroSlider } from "./_components/HeroSlider";
+import { Navbar } from "@/components/layout/Navbar";
 
 export const dynamic = "force-dynamic";
 
@@ -20,82 +21,304 @@ async function getFeaturedProducts() {
 
 function getProductBadge(slug: string): { text: string; color: string } {
   if (slug.includes("mass-gainer")) {
-    return { text: "MASS", color: "#166534" };
+    return { text: "MASS GAINER", color: "#7B9E6B" };
   }
   if (slug.includes("pre-workout")) {
-    return { text: "PRE", color: "#22C55E" };
+    return { text: "PRE-WORKOUT", color: "#2E7D32" };
   }
   if (slug.includes("isolate")) {
-    return { text: "BEST SELLER", color: "#888888" };
+    return { text: "ISOLATE", color: "#C9A227" };
   }
   if (slug.includes("omega")) {
-    return { text: "BEST SELLER", color: "#888888" };
+    return { text: "OMEGA-3", color: "#C9A227" };
   }
   if (slug.includes("multivitamin")) {
-    return { text: "NEW", color: "#166534" };
+    return { text: "NEW", color: "#2E7D32" };
   }
-  return { text: "BEST SELLER", color: "#888888" };
+  return { text: "BESTSELLER", color: "#2E7D32" };
 }
 
 export default async function HomePage() {
   const products = await getFeaturedProducts();
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: "#0D0D0D" }}>
-      {/* Hero Slider */}
-      <HeroSlider />
+    <div className="min-h-screen" style={{ backgroundColor: "#FAFAF8" }}>
+      {/* Sticky White Navbar */}
+      <Navbar />
 
-      {/* Categories Section - Athletic Dark Theme */}
+      {/* Split Hero Section */}
       <section
-        className="py-20"
+        className="relative overflow-hidden"
+        style={{ backgroundColor: "#FAFAF8" }}
+      >
+        <div className="container mx-auto px-4 py-16 md:py-24">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            {/* Left: Headline & CTA */}
+            <div className="text-center md:text-left">
+              <p
+                className="mb-4"
+                style={{
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontSize: "14px",
+                  letterSpacing: "2px",
+                  color: "#7B9E6B",
+                  textTransform: "uppercase",
+                }}
+              >
+                Premium Nutrition
+              </p>
+              <h1
+                style={{
+                  fontFamily: "'Playfair Display', serif",
+                  fontSize: "clamp(36px, 5vw, 56px)",
+                  fontWeight: "600",
+                  color: "#2E7D32",
+                  lineHeight: 1.2,
+                  marginBottom: "24px",
+                }}
+              >
+                Wellness, Rooted in Nature
+              </h1>
+              <p
+                className="mb-8"
+                style={{
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontSize: "18px",
+                  color: "#6B7280",
+                  lineHeight: 1.7,
+                  maxWidth: "480px",
+                }}
+              >
+                Clean, transparent supplements crafted from whole-food ingredients.
+                No artificial fillers. Just nature working for you.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                <Link
+                  href="/products"
+                  style={{
+                    display: "inline-block",
+                    padding: "14px 32px",
+                    backgroundColor: "#2E7D32",
+                    color: "#FFFFFF",
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontWeight: "600",
+                    fontSize: "14px",
+                    letterSpacing: "1px",
+                    textTransform: "uppercase",
+                    textDecoration: "none",
+                    borderRadius: "4px",
+                    transition: "all 0.3s ease",
+                  }}
+                >
+                  Shop Collection
+                </Link>
+                <Link
+                  href="/about"
+                  style={{
+                    display: "inline-block",
+                    padding: "14px 32px",
+                    backgroundColor: "transparent",
+                    color: "#2E7D32",
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontWeight: "600",
+                    fontSize: "14px",
+                    letterSpacing: "1px",
+                    textTransform: "uppercase",
+                    textDecoration: "none",
+                    borderRadius: "4px",
+                    border: "1px solid #2E7D32",
+                    transition: "all 0.3s ease",
+                  }}
+                >
+                  Our Story
+                </Link>
+              </div>
+            </div>
+
+            {/* Right: Botanical Image */}
+            <div className="relative">
+              <div
+                style={{
+                  position: "relative",
+                  width: "100%",
+                  aspectRatio: "1",
+                  maxWidth: "500px",
+                  margin: "0 auto",
+                  borderRadius: "8px",
+                  overflow: "hidden",
+                }}
+              >
+                <div
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    background: "linear-gradient(135deg, #7B9E6B 0%, #2E7D32 100%)",
+                    opacity: 0.1,
+                    borderRadius: "8px",
+                  }}
+                />
+                <div
+                  style={{
+                    position: "absolute",
+                    inset: "20px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  {/* Decorative botanical leaves */}
+                  <svg
+                    viewBox="0 0 200 200"
+                    style={{ width: "80%", height: "80%", opacity: 0.3 }}
+                    fill="none"
+                  >
+                    <path
+                      d="M100 20C100 20 140 60 140 100C140 140 100 180 100 180C100 180 60 140 60 100C60 60 100 20 100 20Z"
+                      stroke="#2E7D32"
+                      strokeWidth="2"
+                    />
+                    <path
+                      d="M100 40C100 40 130 70 130 100C130 130 100 160 100 160"
+                      stroke="#7B9E6B"
+                      strokeWidth="1.5"
+                    />
+                    <circle cx="100" cy="100" r="8" fill="#2E7D32" opacity="0.3" />
+                  </svg>
+                </div>
+                <div
+                  style={{
+                    position: "absolute",
+                    bottom: "-10px",
+                    right: "-10px",
+                    width: "120px",
+                    height: "120px",
+                    borderRadius: "50%",
+                    background: "linear-gradient(135deg, #C9A227 0%, #7B9E6B 100%)",
+                    opacity: 0.15,
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Trust Bar */}
+      <section
+        className="py-8"
         style={{
-          background: "linear-gradient(180deg, #0D0D0D 0%, #1A1A1A 100%)",
-          borderTop: "1px solid rgba(22, 101, 52, 0.2)",
+          backgroundColor: "#FFFFFF",
+          borderTop: "1px solid rgba(46, 125, 50, 0.1)",
+          borderBottom: "1px solid rgba(46, 125, 50, 0.1)",
         }}
       >
         <div className="container mx-auto px-4">
-          <h3
-            className="text-center mb-12"
+          <div className="flex flex-wrap justify-center gap-8 md:gap-16">
+            {[
+              { icon: "GMP", label: "GMP Certified" },
+              { icon: "100%", label: "Natural Ingredients" },
+              { icon: "0", label: "Artificial Fillers" },
+              { icon: "Lab", label: "Third-Party Tested" },
+            ].map((trust) => (
+              <div
+                key={trust.icon}
+                className="flex items-center gap-3"
+              >
+                <span
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: "40px",
+                    height: "40px",
+                    borderRadius: "50%",
+                    backgroundColor: "#2E7D32",
+                    color: "#FFFFFF",
+                    fontFamily: "'Playfair Display', serif",
+                    fontSize: "12px",
+                    fontWeight: "600",
+                  }}
+                >
+                  {trust.icon}
+                </span>
+                <span
+                  style={{
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontSize: "14px",
+                    color: "#6B7280",
+                  }}
+                >
+                  {trust.label}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Categories Section */}
+      <section className="py-20" style={{ backgroundColor: "#FAFAF8" }}>
+        <div className="container mx-auto px-4">
+          <h2
+            className="text-center mb-4"
             style={{
-              fontFamily: "var(--font-bebas), Bebas Neue, sans-serif",
-              fontSize: "clamp(32px, 5vw, 48px)",
-              letterSpacing: "4px",
-              textTransform: "uppercase",
-              color: "#FFFFFF",
+              fontFamily: "'Playfair Display', serif",
+              fontSize: "clamp(28px, 4vw, 40px)",
+              fontWeight: "600",
+              color: "#2E7D32",
             }}
           >
-            CHOOSE YOUR <span style={{ color: "#166534" }}>WEAPONS</span>
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            Shop by Category
+          </h2>
+          <p
+            className="text-center mb-12"
+            style={{
+              fontFamily: "'DM Sans', sans-serif",
+              fontSize: "16px",
+              color: "#6B7280",
+            }}
+          >
+            Clean formulas for every wellness goal
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             {[
               {
                 name: "PRE-WORKOUT",
-                desc: "FUEL UP. CRUSH IT. REPEAT. Pre-workout formulas engineered for explosive energy, razor-sharp focus.",
+                desc: "Clean energy from natural sources. Focus without the crash.",
                 href: "/products?category=PRE_WORKOUT",
                 icon: (
-                  <svg className="w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="#166534" strokeWidth="1.5">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 18a3.75 3.75 0 00.495-7.467 5.99 5.99 0 00-1.925 3.546 5.974 5.974 0 01-2.133-1A3.75 3.75 0 0012 18z" />
+                  <svg className="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="#2E7D32" strokeWidth="1.5">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
                   </svg>
                 ),
               },
               {
                 name: "PROTEINS",
-                desc: "PURE PROTEIN. MAXIMUM RECOVERY. Fast-absorbing whey built for athletes who train hard.",
+                desc: "Pure protein for recovery. Clean ingredients, complete transparency.",
                 href: "/products?category=PROTEIN",
                 icon: (
-                  <svg className="w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="#166534" strokeWidth="1.5">
+                  <svg className="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="#2E7D32" strokeWidth="1.5">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 8.25v-1.5m0 1.5c-1.355 0-2.697.056-4.024.166C6.845 8.51 6 9.473 6 10.608v2.513m6-4.87c1.355 0 2.697.055 4.024.165C17.155 8.51 18 9.473 18 10.608v2.513m-3-4.87v-1.5m-6 1.5v-1.5m12 9.75l-1.5.75a3.354 3.354 0 01-3 0 3.354 3.354 0 00-3 0 3.354 3.354 0 01-3 0 3.354 3.354 0 00-3 0 3.354 3.354 0 01-3 0L3 16.5m15-3.379a48.474 48.474 0 00-6-.371c-2.032 0-4.034.126-6 .371m12 0c.39.049.777.102 1.163.16 1.07.16 1.837 1.094 1.837 2.175v5.169c0 .621-.504 1.125-1.125 1.125H4.125A1.125 1.125 0 013 20.625v-5.17c0-1.08.768-2.014 1.837-2.174A47.78 47.78 0 016 13.12M12.265 3.11a.375.375 0 11-.53 0L12 2.845l.265.265zm-3 0a.375.375 0 11-.53 0L9 2.845l.265.265zm6 0a.375.375 0 11-.53 0L15 2.845l.265.265z" />
                   </svg>
                 ),
               },
               {
                 name: "MASS GAINER",
-                desc: "LOAD UP. BULK UP. BREAK THROUGH. High-calorie mass gainers designed for serious size.",
+                desc: "Clean calories from whole foods. Size without compromise.",
                 href: "/products?category=MASS_GAINER",
                 icon: (
-                  <svg className="w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="#166534" strokeWidth="1.5">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
+                  <svg className="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="#2E7D32" strokeWidth="1.5">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+                  </svg>
+                ),
+              },
+              {
+                name: "OMEGA-3",
+                desc: "Essential fatty acids from fish oil. Heart and brain health.",
+                href: "/products?category=OMEGA_3",
+                icon: (
+                  <svg className="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="#2E7D32" strokeWidth="1.5">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
                   </svg>
                 ),
               },
@@ -103,35 +326,43 @@ export default async function HomePage() {
               <Link
                 key={cat.name}
                 href={cat.href}
-                className="group p-8 transition-all duration-300"
+                className="group"
                 style={{
-                  background: "linear-gradient(135deg, #1A1A1A 0%, rgba(26,26,26,0.6) 100%)",
-                  border: "1px solid rgba(22, 101, 52, 0.2)",
-                  clipPath: "polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px))",
+                  backgroundColor: "#FFFFFF",
+                  border: "1px solid rgba(46, 125, 50, 0.15)",
+                  borderRadius: "4px",
+                  padding: "32px 24px",
                   textDecoration: "none",
+                  transition: "all 0.3s ease",
+                  boxShadow: "0 1px 3px rgba(0,0,0,0.05)",
                 }}
               >
-                <div className="relative flex flex-col items-center text-center">
-                  <div className="mb-6 p-4" style={{ background: "rgba(22, 101, 52, 0.1)", borderRadius: "0" }}>
+                <div className="flex flex-col items-center text-center">
+                  <div
+                    className="mb-5 p-4"
+                    style={{
+                      backgroundColor: "rgba(46, 125, 50, 0.08)",
+                      borderRadius: "50%",
+                    }}
+                  >
                     {cat.icon}
                   </div>
-                  <h4
+                  <h3
                     style={{
-                      fontFamily: "var(--font-bebas), Bebas Neue, sans-serif",
-                      fontSize: "24px",
-                      letterSpacing: "3px",
-                      color: "#FFFFFF",
-                      marginBottom: "12px",
+                      fontFamily: "'Playfair Display', serif",
+                      fontSize: "18px",
+                      fontWeight: "600",
+                      color: "#2E7D32",
+                      marginBottom: "8px",
                     }}
                   >
                     {cat.name}
-                  </h4>
+                  </h3>
                   <p
                     style={{
-                      fontFamily: "var(--font-oswald), Oswald, sans-serif",
+                      fontFamily: "'DM Sans', sans-serif",
                       fontSize: "14px",
-                      letterSpacing: "1px",
-                      color: "#888888",
+                      color: "#6B7280",
                       lineHeight: 1.6,
                     }}
                   >
@@ -144,48 +375,35 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Featured Products - Athletic Grid */}
+      {/* Bestsellers Section */}
       <section
         className="py-20"
         style={{
-          background: "#0D0D0D",
-          borderTop: "1px solid rgba(22, 101, 52, 0.1)",
+          backgroundColor: "#FFFFFF",
         }}
       >
         <div className="container mx-auto px-4">
-          <p
+          <h2
             className="text-center mb-4"
             style={{
-              fontFamily: "var(--font-oswald), Oswald, sans-serif",
-              fontSize: "12px",
-              letterSpacing: "4px",
-              color: "#166534",
-              textTransform: "uppercase",
+              fontFamily: "'Playfair Display', serif",
+              fontSize: "clamp(28px, 4vw, 40px)",
+              fontWeight: "600",
+              color: "#2E7D32",
             }}
           >
-            BESTSELLERS
-          </p>
-          <h3
+            Our Bestsellers
+          </h2>
+          <p
             className="text-center mb-12"
             style={{
-              fontFamily: "var(--font-bebas), Bebas Neue, sans-serif",
-              fontSize: "clamp(32px, 5vw, 48px)",
-              letterSpacing: "4px",
-              textTransform: "uppercase",
-              color: "#FFFFFF",
+              fontFamily: "'DM Sans', sans-serif",
+              fontSize: "16px",
+              color: "#6B7280",
             }}
           >
-            <Link
-              href="/products"
-              style={{
-                color: "#FFFFFF",
-                textDecoration: "none",
-                transition: "color 0.3s ease",
-              }}
-            >
-              DOMINATE YOUR GOALS
-            </Link>
-          </h3>
+            Trusted by thousands for clean, effective nutrition
+          </p>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
             {products.map((product) => {
               const badge = getProductBadge(product.slug);
@@ -195,28 +413,21 @@ export default async function HomePage() {
                   href={`/products/${product.slug}`}
                   className="group"
                   style={{
-                    background: "linear-gradient(135deg, #1A1A1A 0%, rgba(26,26,26,0.8) 100%)",
-                    border: "1px solid rgba(22, 101, 52, 0.2)",
-                    clipPath: "polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))",
+                    backgroundColor: "#FFFFFF",
+                    border: "1px solid rgba(46, 125, 50, 0.12)",
+                    borderRadius: "4px",
                     textDecoration: "none",
                     transition: "all 0.3s ease",
+                    overflow: "hidden",
                   }}
                 >
                   <div className="relative p-6">
                     <div className="relative w-full aspect-square">
-                      {/* Angular Frame */}
                       <div
-                        className="absolute -inset-2"
+                        className="absolute inset-0 flex items-center justify-center"
                         style={{
-                          background: "rgba(22, 101, 52, 0.1)",
-                          clipPath: "polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))",
-                        }}
-                      />
-                      <div
-                        className="relative w-full h-full flex items-center justify-center"
-                        style={{
-                          background: "#0D0D0D",
-                          clipPath: "polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))",
+                          backgroundColor: "#FAFAF8",
+                          borderRadius: "4px",
                         }}
                       >
                         {product.images[0] ? (
@@ -228,12 +439,11 @@ export default async function HomePage() {
                             sizes="(max-width: 768px) 50vw, 33vw"
                           />
                         ) : (
-                          <div
-                            className="w-full h-full flex items-center justify-center"
+                          <span
                             style={{
-                              fontFamily: "var(--font-bebas), Bebas Neue, sans-serif",
+                              fontFamily: "'Playfair Display', serif",
                               fontSize: "24px",
-                              color: "#166534",
+                              color: "#7B9E6B",
                             }}
                           >
                             {product.name
@@ -242,7 +452,7 @@ export default async function HomePage() {
                               .join("")
                               .slice(0, 2)
                               .toUpperCase()}
-                          </div>
+                          </span>
                         )}
                       </div>
                     </div>
@@ -251,38 +461,39 @@ export default async function HomePage() {
                       style={{
                         position: "absolute",
                         top: "12px",
-                        right: "12px",
-                        background: badge.color,
-                        color: badge.color === "#888888" ? "#0D0D0D" : "#0D0D0D",
+                        left: "12px",
+                        backgroundColor: badge.color,
+                        color: "#FFFFFF",
                         fontSize: "10px",
-                        padding: "4px 12px",
-                        fontFamily: "var(--font-bebas), Bebas Neue, sans-serif",
-                        letterSpacing: "2px",
+                        padding: "4px 10px",
+                        fontFamily: "'DM Sans', sans-serif",
+                        fontWeight: "600",
+                        letterSpacing: "1px",
                         textTransform: "uppercase",
+                        borderRadius: "2px",
                       }}
                     >
                       {badge.text}
                     </span>
                   </div>
                   <div className="px-6 pb-6">
-                    <h4
+                    <h3
                       style={{
-                        fontFamily: "var(--font-bebas), Bebas Neue, sans-serif",
-                        fontSize: "18px",
-                        letterSpacing: "2px",
-                        color: "#FFFFFF",
+                        fontFamily: "'Playfair Display', serif",
+                        fontSize: "16px",
+                        fontWeight: "600",
+                        color: "#2E7D32",
                         marginBottom: "4px",
-                        textTransform: "uppercase",
                       }}
                     >
                       {product.name}
-                    </h4>
+                    </h3>
                     <p
                       style={{
-                        fontFamily: "var(--font-oswald), Oswald, sans-serif",
+                        fontFamily: "'DM Sans', sans-serif",
                         fontSize: "12px",
-                        letterSpacing: "2px",
-                        color: "#888888",
+                        letterSpacing: "1px",
+                        color: "#6B7280",
                         textTransform: "uppercase",
                         marginBottom: "16px",
                       }}
@@ -292,10 +503,10 @@ export default async function HomePage() {
                     <div className="flex items-center justify-between">
                       <p
                         style={{
-                          fontFamily: "var(--font-bebas), Bebas Neue, sans-serif",
-                          fontSize: "20px",
-                          color: "#22C55E",
-                          letterSpacing: "1px",
+                          fontFamily: "'DM Sans', sans-serif",
+                          fontSize: "18px",
+                          fontWeight: "600",
+                          color: "#2E7D32",
                         }}
                       >
                         {formatCurrency(product.basePrice)}
@@ -303,20 +514,21 @@ export default async function HomePage() {
                       <button
                         className="add-to-cart-btn"
                         style={{
-                          background: "#166534",
-                          color: "#0D0D0D",
+                          backgroundColor: "#2E7D32",
+                          color: "#FFFFFF",
                           padding: "8px 16px",
                           fontSize: "12px",
-                          fontFamily: "var(--font-bebas), Bebas Neue, sans-serif",
-                          letterSpacing: "2px",
+                          fontFamily: "'DM Sans', sans-serif",
+                          fontWeight: "600",
+                          letterSpacing: "1px",
                           textTransform: "uppercase",
                           border: "none",
                           cursor: "pointer",
-                          clipPath: "polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%)",
+                          borderRadius: "4px",
                           transition: "all 0.3s ease",
                         }}
                       >
-                        ADD
+                        Add
                       </button>
                     </div>
                   </div>
@@ -328,54 +540,188 @@ export default async function HomePage() {
             <Link
               href="/products"
               style={{
-                fontFamily: "var(--font-bebas), Bebas Neue, sans-serif",
-                fontSize: "16px",
-                letterSpacing: "3px",
+                fontFamily: "'DM Sans', sans-serif",
+                fontSize: "14px",
+                fontWeight: "600",
+                letterSpacing: "2px",
                 textTransform: "uppercase",
-                color: "#166534",
+                color: "#2E7D32",
                 textDecoration: "none",
                 transition: "color 0.3s ease",
               }}
             >
-              VIEW ALL PRODUCTS
+              View All Products
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Newsletter - Athletic Dark */}
+      {/* Ingredient Transparency Section */}
+      <section
+        className="py-20"
+        style={{
+          backgroundColor: "#FAFAF8",
+        }}
+      >
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2
+                style={{
+                  fontFamily: "'Playfair Display', serif",
+                  fontSize: "clamp(28px, 4vw, 40px)",
+                  fontWeight: "600",
+                  color: "#2E7D32",
+                  marginBottom: "16px",
+                }}
+              >
+                Full Transparency, Always
+              </h2>
+              <p
+                style={{
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontSize: "16px",
+                  color: "#6B7280",
+                  lineHeight: 1.7,
+                  marginBottom: "32px",
+                }}
+              >
+                We believe you deserve to know exactly what you are putting in your body.
+                Every ingredient is listed with its purpose and source.
+              </p>
+              <div className="space-y-4">
+                {[
+                  { label: "No Artificial Colors", desc: "Naturally sourced pigments only" },
+                  { label: "No Preservatives", desc: "Fresh from nature to you" },
+                  { label: "No Hidden Fillers", desc: "Every capsule counts" },
+                ].map((item) => (
+                  <div
+                    key={item.label}
+                    className="flex items-start gap-4"
+                  >
+                    <span
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        width: "24px",
+                        height: "24px",
+                        borderRadius: "50%",
+                        backgroundColor: "#2E7D32",
+                        color: "#FFFFFF",
+                        fontSize: "12px",
+                        flexShrink: 0,
+                        marginTop: "2px",
+                      }}
+                    >
+                      ✓
+                    </span>
+                    <div>
+                      <p
+                        style={{
+                          fontFamily: "'DM Sans', sans-serif",
+                          fontSize: "15px",
+                          fontWeight: "600",
+                          color: "#2E7D32",
+                        }}
+                      >
+                        {item.label}
+                      </p>
+                      <p
+                        style={{
+                          fontFamily: "'DM Sans', sans-serif",
+                          fontSize: "14px",
+                          color: "#6B7280",
+                        }}
+                      >
+                        {item.desc}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div
+              className="flex items-center justify-center"
+              style={{
+                backgroundColor: "#FFFFFF",
+                borderRadius: "8px",
+                padding: "48px",
+                border: "1px solid rgba(46, 125, 50, 0.1)",
+              }}
+            >
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(3, 1fr)",
+                  gap: "24px",
+                  textAlign: "center",
+                }}
+              >
+                {[
+                  { value: "100%", label: "Natural" },
+                  { value: "0g", label: "Added Sugar" },
+                  { value: "0", label: "Artificial Ingredients" },
+                ].map((stat) => (
+                  <div key={stat.label}>
+                    <p
+                      style={{
+                        fontFamily: "'Playfair Display', serif",
+                        fontSize: "32px",
+                        fontWeight: "600",
+                        color: "#C9A227",
+                      }}
+                    >
+                      {stat.value}
+                    </p>
+                    <p
+                      style={{
+                        fontFamily: "'DM Sans', sans-serif",
+                        fontSize: "12px",
+                        color: "#6B7280",
+                        textTransform: "uppercase",
+                        letterSpacing: "1px",
+                      }}
+                    >
+                      {stat.label}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Newsletter Section */}
       <section
         className="py-16"
         style={{
-          background: "linear-gradient(180deg, #1A1A1A 0%, #0D0D0D 100%)",
-          borderTop: "1px solid rgba(22, 101, 52, 0.2)",
+          backgroundColor: "#FFFFFF",
+          borderTop: "1px solid rgba(46, 125, 50, 0.1)",
         }}
       >
         <div className="container mx-auto px-4 text-center">
           <h3
             style={{
-              fontFamily: "var(--font-bebas), Bebas Neue, sans-serif",
-              fontSize: "clamp(28px, 4vw, 40px)",
-              letterSpacing: "4px",
-              textTransform: "uppercase",
-              color: "#FFFFFF",
+              fontFamily: "'Playfair Display', serif",
+              fontSize: "clamp(24px, 3vw, 32px)",
+              fontWeight: "600",
+              color: "#2E7D32",
               marginBottom: "8px",
             }}
           >
-            LOCK IN WITH <span style={{ color: "#166534" }}>WELL NZ</span>
+            Join the Wellnza Community
           </h3>
           <p
             style={{
-              fontFamily: "var(--font-oswald), Oswald, sans-serif",
+              fontFamily: "'DM Sans', sans-serif",
               fontSize: "14px",
-              letterSpacing: "2px",
-              color: "#888888",
-              textTransform: "uppercase",
+              color: "#6B7280",
               marginBottom: "24px",
             }}
           >
-            Get exclusive drops, athlete-only deals, and first access to new products.
-            JUST GAINS.
+            Get 10% off your first order and be the first to know about new products.
           </p>
           <div className="mt-6 max-w-md mx-auto">
             <NewsletterForm />
@@ -385,15 +731,16 @@ export default async function HomePage() {
 
       {/* Floating WhatsApp */}
       <a
-        href="https://wa.me/918788396678"
+        href={getWhatsAppUrl("Hi!%20I%27d%20like%20to%20know%20more%20about%20your%20products.")}
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-6 right-6 z-50 transition-all duration-300 hover:scale-110"
         style={{
-          background: "#166534",
+          backgroundColor: "#2E7D32",
           color: "#FFFFFF",
           padding: "16px",
-          clipPath: "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)",
+          borderRadius: "50%",
+          boxShadow: "0 4px 12px rgba(46, 125, 50, 0.3)",
         }}
         aria-label="Open WhatsApp"
       >

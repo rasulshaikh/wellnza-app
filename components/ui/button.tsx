@@ -9,16 +9,16 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-[#166534] text-white border-transparent hover:bg-[#14532D] active:bg-[#052E16] font-raleway font-600",
+          "bg-[#166534] text-white border-transparent hover:bg-[#14532D] active:bg-[#052E16] font-oswald font-600",
         outline:
-          "border-2 border-[#166534] bg-transparent text-[#166534] hover:bg-[#F0FDF4] font-raleway font-600",
+          "border-2 border-[#166534] bg-transparent text-[#166534] hover:bg-[#F0FDF4] font-oswald font-600",
         secondary:
-          "border-2 border-[#166534] bg-transparent text-[#166534] hover:bg-[#F0FDF4] font-raleway font-600",
+          "border-2 border-[#166534] bg-transparent text-[#166534] hover:bg-[#F0FDF4] font-oswald font-600",
         ghost:
-          "bg-transparent text-[#166534] border-transparent hover:bg-[#F5F5EB] font-raleway font-600",
+          "bg-transparent text-[#166534] border-transparent hover:bg-[#F5F5EB] font-oswald font-600",
         destructive:
-          "bg-[#B91C1C] text-white border-transparent hover:bg-[#991B1B] font-raleway font-600",
-        link: "text-[#166534] underline-offset-4 hover:underline font-raleway font-600",
+          "bg-[#B91C1C] text-white border-transparent hover:bg-[#991B1B] font-oswald font-600",
+        link: "text-[#166534] underline-offset-4 hover:underline font-oswald font-600",
       },
       size: {
         default: "h-10 gap-1.5 px-3 rounded-lg has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",

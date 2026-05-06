@@ -47,19 +47,39 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         const dbUser = await db.user.findUnique({ where: { email: user.email! } });
         token.role = dbUser?.role ?? "CUSTOMER";
 
-        // Send welcome email on first sign-in (account creation)
-        if (user && dbUser && !dbUser.emailSent) {
-          const { sendEmail } = await import("@/lib/email");
-          const { WelcomeEmail } = await import("@/lib/email-templates/welcome");
-          try {
-            await sendEmail({
-              to: user.email!,
-              subject: "Welcome to Wellnza Nutrition! 💪",
-              react: WelcomeEmail({ name: user.name || "", email: user.email! }),
+        // Queue welcome email asynchronously outside JWT callback
+        // Only send if: email not sent yet AND user was created in last 5 minutes
+        if (dbUser && !dbUser.emailSent) {
+          const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+          const isNewUser = dbUser.createdAt > fiveMinutesAgo;
+
+          if (isNewUser) {
+            // Non-blocking: queue email job for async processing
+            // This moves email sending out of the auth critical path
+            const userId = dbUser.id;
+            const userEmail = dbUser.email!;
+            const userName = dbUser.name || "";
+            const userCreatedAt = dbUser.createdAt;
+
+            // Fire and forget - don't await in JWT callback
+            db.user.update({
+              where: { id: userId },
+              data: { emailSent: true },
+            }).then(async () => {
+              try {
+                const { sendEmail } = await import("@/lib/email");
+                const { WelcomeEmail } = await import("@/lib/email-templates/welcome");
+                await sendEmail({
+                  to: userEmail,
+                  subject: "Welcome to Wellnza Nutrition!",
+                  react: WelcomeEmail({ name: userName, email: userEmail }),
+                });
+              } catch (err) {
+                console.error("[welcome email]", err);
+              }
+            }).catch(err => {
+              console.error("[welcome email queue]", err);
             });
-            await db.user.update({ where: { id: user.id }, data: { emailSent: true } });
-          } catch (err) {
-            console.error("[welcome email]", err);
           }
         }
       }
