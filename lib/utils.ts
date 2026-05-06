@@ -5,13 +5,13 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export function formatCurrency(amount: number, currency = "INR"): string {
-  // amount is stored and transmitted as rupees (not paise)
-  return new Intl.NumberFormat("en-IN", {
+export function formatCurrency(amount: number, currency = "NZD"): string {
+  // amount is stored and transmitted as NZ dollars
+  return new Intl.NumberFormat("en-NZ", {
     style: "currency",
     currency,
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
   }).format(amount)
 }
 

@@ -730,7 +730,7 @@ export default async function HomePage() {
 
       {/* Floating WhatsApp */}
       <a
-        href="https://wa.me/918788396678"
+        href={getWhatsAppUrl("Hi!%20I%27d%20like%20to%20know%20more%20about%20your%20products.")}
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-6 right-6 z-50 transition-all duration-300 hover:scale-110"

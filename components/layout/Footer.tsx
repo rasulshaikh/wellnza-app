@@ -94,12 +94,17 @@ export function Footer() {
                   WhatsApp: +64 21 XXX XXX
                 </a>
               </li>
-              <li
-                className="flex items-start gap-2 text-sm"
-                style={{ fontFamily: "'DM Sans', sans-serif", color: "#7B9E6B" }}
-              >
-                <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: "#2E7D32" }} />
-                <span>Auckland, New Zealand</span>
+              <li>
+                <a
+                  href="https://www.google.com/maps/search/?api=1&query=Auckland,+New+Zealand"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-start gap-2 text-sm transition-colors duration-200"
+                  style={{ fontFamily: "'DM Sans', sans-serif", color: "#7B9E6B" }}
+                >
+                  <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: "#2E7D32" }} />
+                  <span>Auckland, New Zealand</span>
+                </a>
               </li>
             </ul>
           </div>

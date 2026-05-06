@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
+import { sendEmail } from "@/lib/email";
+import { CartAbandonmentEmail } from "@/lib/email-templates/cart-abandonment";
+import { normalizePhoneForWhatsApp } from "@/lib/whatsapp";
 import { formatCurrency } from "@/lib/utils";
 
 // WhatsApp message template
@@ -44,7 +47,7 @@ export async function POST(request: NextRequest) {
             "Content-Type": "application/x-www-form-urlencoded",
           },
           body: new URLSearchParams({
-            To: `whatsapp:+91${phone}`,
+            To: `whatsapp:+${normalizePhoneForWhatsApp(phone)}`,
             From: `whatsapp:+${process.env.TWILIO_WHATSAPP_FROM}`,
             Body: msg,
           }),
@@ -53,8 +56,6 @@ export async function POST(request: NextRequest) {
 
       // Send email
       if (email) {
-        const { sendEmail } = await import("@/lib/email");
-        const { CartAbandonmentEmail } = await import("@/lib/email-templates/cart-abandonment");
         await sendEmail({
           to: email,
           subject: "You left something behind 🛒 — Well NZ Nutrition",

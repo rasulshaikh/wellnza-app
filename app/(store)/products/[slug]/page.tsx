@@ -220,7 +220,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
             {/* WhatsApp Chat Link */}
             <div className="mt-4">
               <a
-                href={`https://wa.me/+6421XXXXXX?text=Hi!%20I%27m%20interested%20in%20purchasing%20${encodeURIComponent(product.name)}.%20https%3A%2F%2Fwww.wellnzanutrition.com%2F${product.slug}`}
+                href={getWhatsAppUrl(`Hi! I'm interested in purchasing ${product.name}. https://www.wellnzanutrition.com/${product.slug}`)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 text-[#22C55E] hover:text-[#166534] font-medium text-sm"
