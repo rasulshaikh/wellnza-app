@@ -31,28 +31,28 @@ export default async function OrdersPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0D0D0D] py-8">
+    <div className="min-h-screen bg-[#FAFAF8] py-8">
       <div className="max-w-4xl mx-auto px-4">
         {/* Header */}
         <div className="flex items-center gap-4 mb-6">
           <Link href="/account">
-            <Button variant="outline" size="icon" className="h-9 w-9 border-[rgba(22,101,52,0.3)] text-white hover:bg-[#1A1A1A]">
+            <Button variant="outline" size="icon" className="h-9 w-9 border-[rgba(46,125,50,0.15)] text-[#1a1a1a] hover:bg-[#FFFFFF]">
               <ArrowLeft className="w-4 h-4" />
             </Button>
           </Link>
           <div>
-            <h1 className="text-2xl font-bold text-white" style={{ fontFamily: "var(--font-bebas)" }}>My Orders</h1>
-            <p className="text-sm text-[#888888]">{orders.length} order{orders.length !== 1 ? "s" : ""}</p>
+            <h1 className="text-2xl font-bold text-[#1a1a1a]" style={{ fontFamily: "'Playfair Display', serif" }}>My Orders</h1>
+            <p className="text-sm text-[#7B9E6B]">{orders.length} order{orders.length !== 1 ? "s" : ""}</p>
           </div>
         </div>
 
         {orders.length === 0 ? (
-          <div className="bg-[#1A1A1A] border border-[rgba(22,101,52,0.3)] p-12 text-center rounded-lg" style={{ clipPath: "polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))" }}>
-            <Package className="w-12 h-12 text-[#666666] mx-auto mb-4" />
-            <h2 className="text-lg font-semibold text-white mb-2">No orders yet</h2>
-            <p className="text-[#888888] mb-6">When you place an order, it will appear here.</p>
+          <div className="bg-[#FFFFFF] border border-[rgba(46,125,50,0.15)] p-12 text-center rounded-lg shadow-[0_2px_8px_rgba(46,125,50,0.06)]">
+            <Package className="w-12 h-12 text-[#7B9E6B] mx-auto mb-4" />
+            <h2 className="text-lg font-semibold text-[#1a1a1a] mb-2">No orders yet</h2>
+            <p className="text-[#7B9E6B] mb-6">When you place an order, it will appear here.</p>
             <Link href="/products">
-              <Button className="bg-[#166534] hover:bg-[#14532D] text-white h-10" style={{ fontFamily: "var(--font-bebas)", clipPath: "polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))" }}>
+              <Button className="bg-[#2E7D32] hover:bg-[#1B5E20] text-white h-10">
                 Start Shopping
               </Button>
             </Link>
@@ -65,31 +65,31 @@ export default async function OrdersPage() {
                 href={`/account/orders/${order.id}`}
                 className="block"
               >
-                <div className="bg-[#1A1A1A] border border-[rgba(22,101,52,0.3)] hover:border-[rgba(22,101,52,0.5)] transition-colors rounded-lg" style={{ clipPath: "polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))" }}>
+                <div className="bg-[#FFFFFF] border border-[rgba(46,125,50,0.15)] hover:border-[rgba(46,125,50,0.3)] transition-colors rounded-lg shadow-[0_2px_8px_rgba(46,125,50,0.06)]">
                   <div className="p-4 flex items-center justify-between">
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-3 mb-1">
-                        <span className="font-semibold text-white" style={{ fontFamily: "var(--font-bebas)" }}>
+                        <span className="font-semibold text-[#1a1a1a]" style={{ fontFamily: "'Playfair Display', serif" }}>
                           #{order.orderNumber}
                         </span>
                         <Badge
                           className={
                             ORDER_STATUS_COLORS[order.status] ||
-                            "bg-[#1A1A1A] text-[#888888] border border-[rgba(22,101,52,0.3)]"
+                            "bg-[#FFFFFF] text-[#7B9E6B] border border-[rgba(46,125,50,0.15)]"
                           }
                         >
                           {order.status}
                         </Badge>
                       </div>
-                      <p className="text-sm text-[#888888]">
+                      <p className="text-sm text-[#7B9E6B]">
                         {formatDate(order.createdAt)}
                       </p>
                     </div>
                     <div className="text-right">
-                      <p className="font-semibold text-white">
+                      <p className="font-semibold text-[#1a1a1a]">
                         {formatCurrency(order.total)}
                       </p>
-                      <p className="text-sm text-[#888888]">
+                      <p className="text-sm text-[#7B9E6B]">
                         {order.items.length} item{order.items.length !== 1 ? "s" : ""}
                       </p>
                     </div>
