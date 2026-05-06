@@ -216,7 +216,7 @@ export default function NewAddressPage() {
             <Button
               type="submit"
               disabled={loading}
-              className="flex-1 bg-[#1C1C1C] hover:bg-[#2D2D2D] text-white h-10"
+              className="flex-1 bg-[#2E7D32] hover:bg-[#1B5E20] text-white h-10"
             >
               {loading ? (
                 <>
