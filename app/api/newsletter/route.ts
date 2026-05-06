@@ -1,7 +1,27 @@
 import { NextResponse } from "next/server";
-import { Resend } from "resend";
+import { sendEmail } from "@/lib/email";
+import { Html, Head, Body, Container, Section, Text } from "@react-email/components";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+function NewsletterEmail() {
+  return (
+    <Html>
+      <Head />
+      <Body style={{ fontFamily: "Arial, sans-serif", maxWidth: "600px", margin: "0 auto", padding: "40px 20px" }}>
+        <Container>
+          <Section>
+            <Text style={{ color: "#166534", fontSize: "24px" }}>You're in!</Text>
+            <Text style={{ color: "#333", fontSize: "16px", lineHeight: "1.5" }}>
+              Thanks for subscribing to Wellnza Nutrition updates. We'll keep you posted on new products, exclusive offers, and health tips.
+            </Text>
+            <Text style={{ color: "#666", fontSize: "14px", marginTop: "30px" }}>
+              — The Wellnza Team
+            </Text>
+          </Section>
+        </Container>
+      </Body>
+    </Html>
+  );
+}
 
 export async function POST(request: Request) {
   try {
@@ -12,27 +32,11 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Invalid email" }, { status: 400 });
     }
 
-    const { error } = await resend.emails.send({
-      from: "Wellnza Nutrition <hello@wellnzanutrition.com>",
+    await sendEmail({
       to: email,
-      subject: "You're on the list! 💪",
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 40px 20px;">
-          <h1 style="color: #166534; font-size: 24px;">You're in!</h1>
-          <p style="color: #333; font-size: 16px; line-height: 1.5;">
-            Thanks for subscribing to Wellnza Nutrition updates. We'll keep you posted on new products, exclusive offers, and health tips.
-          </p>
-          <p style="color: #666; font-size: 14px; margin-top: 30px;">
-            — The Wellnza Team
-          </p>
-        </div>
-      `,
+      subject: "You're on the list!",
+      react: NewsletterEmail(),
     });
-
-    if (error) {
-      console.error("[newsletter] Resend error:", error);
-      return NextResponse.json({ error: "Failed to subscribe" }, { status: 500 });
-    }
 
     return NextResponse.json({ success: true });
   } catch {

@@ -1,9 +1,47 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
-import { Resend } from "resend";
+import { sendEmail } from "@/lib/email";
+import { Html, Head, Body, Text, Button, Container, Section } from "@react-email/components";
 import crypto from "crypto";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+function PasswordResetEmail({ resetUrl, userName }: { resetUrl: string; userName: string }) {
+  return (
+    <Html>
+      <Head />
+      <Body style={{ fontFamily: "Arial, sans-serif", maxWidth: "600px", margin: "0 auto", padding: "40px 20px" }}>
+        <Container>
+          <Section>
+            <Text style={{ color: "#166534", fontSize: "24px" }}>Reset Your Password</Text>
+            <Text style={{ color: "#333", fontSize: "16px", lineHeight: "1.5" }}>
+              Hi {userName || "there"},
+            </Text>
+            <Text style={{ color: "#333", fontSize: "16px", lineHeight: "1.5" }}>
+              You requested a password reset. Click the button below to set a new password. This link expires in 1 hour.
+            </Text>
+            <Button
+              href={resetUrl}
+              style={{
+                backgroundColor: "#166534",
+                color: "white",
+                padding: "14px 28px",
+                textDecoration: "none",
+                borderRadius: "8px",
+                fontWeight: "600",
+                display: "inline-block",
+                margin: "30px 0",
+              }}
+            >
+              Reset Password
+            </Button>
+            <Text style={{ color: "#666", fontSize: "14px", lineHeight: "1.5" }}>
+              If you didn't request this, you can safely ignore this email. Your password won't change until you create a new one.
+            </Text>
+          </Section>
+        </Container>
+      </Body>
+    </Html>
+  );
+}
 
 export async function POST(req: Request) {
   try {
@@ -36,35 +74,11 @@ export async function POST(req: Request) {
 
     const resetUrl = `${process.env.NEXTAUTH_URL || "https://wellnzanutrition.com"}/reset-password?token=${resetToken}`;
 
-    const { error } = await resend.emails.send({
-      from: "Wellnza Nutrition <hello@wellnzanutrition.com>",
+    await sendEmail({
       to: email,
       subject: "Reset your Wellnza Nutrition password",
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 40px 20px;">
-          <h1 style="color: #166534; font-size: 24px;">Reset Your Password</h1>
-          <p style="color: #333; font-size: 16px; line-height: 1.5;">
-            Hi ${user.name || "there"},
-          </p>
-          <p style="color: #333; font-size: 16px; line-height: 1.5;">
-            You requested a password reset. Click the button below to set a new password. This link expires in 1 hour.
-          </p>
-          <div style="text-align: center; margin: 30px 0;">
-            <a href="${resetUrl}" style="background-color: #166534; color: white; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-weight: 600; display: inline-block;">
-              Reset Password
-            </a>
-          </div>
-          <p style="color: #666; font-size: 14px; line-height: 1.5;">
-            If you didn't request this, you can safely ignore this email. Your password won't change until you create a new one.
-          </p>
-        </div>
-      `,
+      react: PasswordResetEmail({ resetUrl, userName: user.name || "there" }),
     });
-
-    if (error) {
-      console.error("[forgot-password] Resend error:", error);
-      return NextResponse.json({ error: "Failed to send email" }, { status: 500 });
-    }
 
     return NextResponse.json({ success: true });
   } catch (err) {

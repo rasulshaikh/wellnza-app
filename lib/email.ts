@@ -13,17 +13,19 @@ export async function sendEmail({
   subject: string;
   react: React.ReactNode;
 }) {
-  const { data, error } = await resend.emails.send({
-    from: FROM,
-    to,
-    subject,
-    react,
-  });
-
-  if (error) {
-    console.error("[sendEmail] Resend error:", error);
-    throw error;
+  try {
+    const { data, error } = await resend.emails.send({
+      from: FROM,
+      to,
+      subject,
+      react,
+    });
+    if (error) {
+      console.error("[Resend] Send error:", error);
+    }
+    return { data, error };
+  } catch (err) {
+    console.error("[Resend] Unexpected error:", err);
+    return { data: null, error: err };
   }
-
-  return data;
 }
