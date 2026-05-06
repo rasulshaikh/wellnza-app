@@ -32,8 +32,8 @@ export function NewsletterForm() {
 
   if (status === "success") {
     return (
-      <p className="mt-4 text-sm font-medium text-green-300">
-        Thanks for subscribing!
+      <p className="mt-4 text-sm font-medium text-[#2E7D32]">
+        Welcome to the Wellnza community!
       </p>
     );
   }
@@ -44,18 +44,20 @@ export function NewsletterForm() {
       <input
         id="newsletter-email"
         type="email"
-        placeholder="Email Address"
+        placeholder="Enter your email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         required
-        className="px-4 py-2 bg-white/10 border border-white/20 text-white placeholder-gray-400 w-64"
+        className="px-4 py-2 bg-white border border-[#2E7D32]/30 text-[#0D0D0D] placeholder-[#6B7280] w-64 rounded-md font-sans"
+        style={{ fontFamily: "'DM Sans', sans-serif" }}
       />
       <button
         type="submit"
         disabled={status === "loading"}
-        className="px-6 py-2 bg-white text-black font-semibold hover:bg-gray-200 transition disabled:opacity-60"
+        className="px-6 py-2 bg-[#2E7D32] text-white font-semibold hover:bg-[#1B5E20] transition disabled:opacity-60 rounded-md"
+        style={{ borderRadius: '4px' }}
       >
-        {status === "loading" ? "..." : "Subscribe"}
+        {status === "loading" ? "..." : "Get 10% Off"}
       </button>
     </form>
   );
