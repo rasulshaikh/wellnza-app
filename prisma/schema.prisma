@@ -78,7 +78,7 @@ model Address {
   city      String
   state     String
   pin       String
-  country   String       @default("India")
+  country   String       @default("New Zealand") // AUDIT TODO P0: was India - NZ store must default to New Zealand
   isDefault Boolean      @default(false)
   type      AddressType  @default(SHIPPING)
 

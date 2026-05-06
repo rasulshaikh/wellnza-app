@@ -32,14 +32,13 @@ interface AddressFormData {
   pin: string;
 }
 
-const INDIAN_STATES = [
-  "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh",
-  "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand",
-  "Karnataka", "Kerala", "Madhya Pradesh", "Maharashtra", "Manipur",
-  "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Punjab",
-  "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura",
-  "Uttar Pradesh", "Uttarakhand", "West Bengal",
-  "Delhi (NCT)", "Jammu & Kashmir", "Ladakh", "Chandigarh (UT)",
+// AUDIT TODO P0: INDIAN_STATES used in checkout dropdown - must replace with NZ regions
+// FIX: Replace with NZ regions: Northland, Auckland, Waikato, Bay of Plenty, Gisborne, Hawke's Bay, Taranaki, Manawatu-Whanganui, Wellington, Nelson, Marlborough, Canterbury, Otago, Southland
+// See: docs/audit/FULL-AUDIT-2026-05-06.md
+const NZ_REGIONS = [
+  "Northland", "Auckland", "Waikato", "Bay of Plenty", "Gisborne",
+  "Hawke's Bay", "Taranaki", "Manawatu-Whanganui", "Wellington",
+  "Nelson", "Marlborough", "Canterbury", "Otago", "Southland",
 ];
 
 export default function CheckoutPage() {
@@ -584,7 +583,7 @@ export default function CheckoutPage() {
                         }}
                       >
                         <option value="">Select State</option>
-                        {INDIAN_STATES.map((s) => (
+                        {NZ_REGIONS.map((s) => (
                           <option key={s} value={s}>{s}</option>
                         ))}
                       </select>

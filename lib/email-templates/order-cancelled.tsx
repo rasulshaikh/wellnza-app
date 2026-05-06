@@ -1,4 +1,7 @@
 // lib/email-templates/order-cancelled.tsx
+// AUDIT TODO P0: Line 18 hardcodes Indian WhatsApp number +91 8788396678
+// FIX: Replace with getWhatsAppUrl() from @/lib/whatsapp to use NEXT_PUBLIC_WHATSAPP_NUMBER env var
+// See: docs/audit/FULL-AUDIT-2026-05-06.md
 import { Html, Head, Body, Container, Section, Text, Link } from "@react-email/components";
 
 export function OrderCancelledEmail({ name, orderNumber, reason }: { name: string; orderNumber: string; reason?: string }) {

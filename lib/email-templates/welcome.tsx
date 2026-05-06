@@ -1,3 +1,6 @@
+// AUDIT TODO P0: Line 23 hardcodes Indian WhatsApp number +91 8788396678
+// FIX: Replace with getWhatsAppUrl() from @/lib/whatsapp to use NEXT_PUBLIC_WHATSAPP_NUMBER env var
+// See: docs/audit/FULL-AUDIT-2026-05-06.md
 import { Html, Head, Body, Container, Section, Text, Button, Link } from "@react-email/components";
 
 export function WelcomeEmail({ name, email }: { name: string; email: string }) {

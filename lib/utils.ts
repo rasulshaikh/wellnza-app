@@ -1,3 +1,6 @@
+// AUDIT TODO P0: Line 8 defaults to INR instead of NZD
+// FIX: Change default to "NZD" - this is an NZ store, all pricing must be in New Zealand Dollars
+// See: docs/audit/FULL-AUDIT-2026-05-06.md
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 
@@ -5,8 +8,9 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export function formatCurrency(amount: number, currency = "INR"): string {
-  // amount is stored and transmitted as rupees (not paise)
+// AUDIT TODO P0: currency defaults to INR - MUST CHANGE to "NZD"
+export function formatCurrency(amount: number, currency = "NZD"): string {
+  // amount is stored and transmitted as NZD (not paise)
   return new Intl.NumberFormat("en-IN", {
     style: "currency",
     currency,

@@ -320,9 +320,12 @@ export async function POST(request: Request) {
         key_secret: process.env.RAZORPAY_KEY_SECRET!,
       });
 
+      // AUDIT TODO P0: amount not converted to paise, currency is INR not NZD
+      // FIX: Change to Math.round(total * 100) for paise AND currency to "NZD"
+      // Razorpay requires amount in smallest currency unit (paise for NZD)
       const razorpayOrder = await razorpay.orders.create({
-        amount: total, // amount in rupees
-        currency: "INR",
+        amount: Math.round(total * 100), // amount in paise (smallest NZD unit)
+        currency: "NZD", // was INR - this is an NZ store
         receipt: order.id,
         notes: {
           orderNumber,
