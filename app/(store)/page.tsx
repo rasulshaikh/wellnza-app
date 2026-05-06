@@ -3,6 +3,7 @@ import Link from "next/link";
 import { db } from "@/lib/db";
 import { formatCurrency } from "@/lib/utils";
 import { NewsletterForm } from "./_components/newsletter-form";
+import { getWhatsAppUrl } from "@/lib/whatsapp";
 import { Navbar } from "@/components/layout/Navbar";
 
 export const dynamic = "force-dynamic";
@@ -42,8 +43,6 @@ export default async function HomePage() {
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: "#FAFAF8" }}>
-      {/* Sticky White Navbar */}
-      <Navbar />
 
       {/* Split Hero Section */}
       <section
@@ -730,7 +729,7 @@ export default async function HomePage() {
 
       {/* Floating WhatsApp */}
       <a
-        href="https://wa.me/918788396678"
+        href={getWhatsAppUrl()}
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-6 right-6 z-50 transition-all duration-300 hover:scale-110"

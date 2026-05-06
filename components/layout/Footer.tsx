@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { MessageCircle, Phone, MapPin } from "lucide-react";
 import { NewsletterForm } from "./NewsletterForm";
+import { getWhatsAppUrl } from "@/lib/whatsapp";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -33,7 +34,7 @@ export function Footer() {
             </p>
             <div className="flex gap-4 mt-4">
               <a
-                href="https://wa.me/6421XXXXXX"
+                href={getWhatsAppUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="transition-colors duration-200"
@@ -85,7 +86,7 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href="https://wa.me/6421XXXXXX"
+                  href={getWhatsAppUrl()}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sm transition-colors duration-200"
