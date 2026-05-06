@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { db } from "@/lib/db";
 import { formatCurrency } from "@/lib/utils";
+import { getWhatsAppUrl } from "@/lib/whatsapp";
 import { NewsletterForm } from "./_components/newsletter-form";
 import { Navbar } from "@/components/layout/Navbar";
 
