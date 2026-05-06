@@ -84,7 +84,9 @@ export async function POST(request: Request) {
       where: { id: { in: variantIds } },
       include: {
         product: { select: { name: true, isActive: true } },
-        inventory: true,
+        inventory: {
+          orderBy: { quantity: "desc" },
+        },
       },
     });
 
@@ -104,7 +106,7 @@ export async function POST(request: Request) {
       }
     }
 
-    // Check inventory
+    // Check inventory availability (pre-transaction check for early failure)
     for (const item of cartItems) {
       const variant = variants.find((v) => v.id === item.productVariantId);
       if (!variant) {
@@ -210,30 +212,64 @@ export async function POST(request: Request) {
       finalShippingAddressId = guestAddressRecord.id;
     }
 
-    // Create the order
-    const order = await db.order.create({
-      data: {
-        orderNumber,
-        userId,
-        status: "PENDING",
-        shippingAddressId: finalShippingAddressId,
-        subtotal,
-        shippingCost,
-        tax,
-        discount: finalDiscount,
-        total,
-        paymentMethod: paymentMethod as "RAZORPAY" | "COD",
-        items: {
-          create: cartItems.map((item) => {
-            const variant = variants.find((v) => v.id === item.productVariantId)!;
-            return {
-              productVariantId: item.productVariantId,
-              quantity: item.quantity,
-              unitPrice: variant.price,
-            };
-          }),
+    // Create the order and decrement inventory atomically within a transaction
+    const order = await db.$transaction(async (tx) => {
+      // Decrement inventory for each item (FIFO - decrement from locations with most stock first)
+      for (const item of cartItems) {
+        const variant = variants.find((v) => v.id === item.productVariantId)!;
+        let remainingQty = item.quantity;
+
+        // Sort inventory by quantity descending (fulfill from highest stock location first)
+        const sortedInventory = [...variant.inventory].sort(
+          (a, b) => b.quantity - a.quantity
+        );
+
+        for (const inv of sortedInventory) {
+          if (remainingQty <= 0) break;
+
+          const decrementQty = Math.min(remainingQty, inv.quantity);
+          if (decrementQty > 0) {
+            await tx.inventory.update({
+              where: { id: inv.id },
+              data: { quantity: { decrement: decrementQty } },
+            });
+            remainingQty -= decrementQty;
+          }
+        }
+
+        // Sanity check - should never happen if pre-check passed
+        if (remainingQty > 0) {
+          throw new Error(
+            `Insufficient stock for "${variant.product.name}" during inventory decrement`
+          );
+        }
+      }
+
+      // Create the order
+      return tx.order.create({
+        data: {
+          orderNumber,
+          userId,
+          status: "PENDING",
+          shippingAddressId: finalShippingAddressId,
+          subtotal,
+          shippingCost,
+          tax,
+          discount: finalDiscount,
+          total,
+          paymentMethod: paymentMethod as "RAZORPAY" | "COD",
+          items: {
+            create: cartItems.map((item) => {
+              const variant = variants.find((v) => v.id === item.productVariantId)!;
+              return {
+                productVariantId: item.productVariantId,
+                quantity: item.quantity,
+                unitPrice: variant.price,
+              };
+            }),
+          },
         },
-      },
+      });
     });
 
     // Send order confirmed email after order created

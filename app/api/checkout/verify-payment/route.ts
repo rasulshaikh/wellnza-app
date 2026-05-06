@@ -8,9 +8,6 @@ import { OrderConfirmedEmail } from "@/lib/email-templates/order-confirmed";
 export async function POST(request: Request) {
   try {
     const session = await auth();
-    if (!session?.user?.id) {
-      return NextResponse.json({ success: false, error: "Unauthorized" }, { status: 401 });
-    }
 
     const body = await request.json();
     const { orderId, razorpayPaymentId, razorpayOrderId, razorpaySignature } = body;
@@ -22,10 +19,34 @@ export async function POST(request: Request) {
       );
     }
 
-    // Find the order
-    const order = await db.order.findUnique({
-      where: { id: orderId, userId: session.user.id },
-    });
+    // Find the order - support both logged-in users and guests
+    let order;
+    if (session?.user?.id) {
+      // Logged-in user: find by orderId + userId
+      order = await db.order.findUnique({
+        where: { id: orderId, userId: session.user.id },
+      });
+    } else {
+      // Guest checkout: find by orderId + razorpayOrderId
+      order = await db.order.findFirst({
+        where: {
+          id: orderId,
+          razorpayOrderId,
+          // Guests have no userId
+          userId: null,
+        },
+      });
+      // Also check for orders with matching razorpayOrderId even if they have a userId
+      // (edge case: guest created account during checkout)
+      if (!order) {
+        order = await db.order.findFirst({
+          where: {
+            id: orderId,
+            razorpayOrderId,
+          },
+        });
+      }
+    }
 
     if (!order) {
       return NextResponse.json(
@@ -37,6 +58,32 @@ export async function POST(request: Request) {
     // Already processed
     if (order.status !== "PENDING") {
       return NextResponse.json({ success: true, alreadyVerified: true });
+    }
+
+    // Verify amount matches - fetch payment from Razorpay to get actual amount paid
+    const razorpaySecret = process.env.RAZORPAY_KEY_SECRET;
+    if (razorpaySecret) {
+      try {
+        const auth = Buffer.from(`${process.env.RAZORPAY_KEY_ID}:${razorpaySecret}`).toString("base64");
+        const paymentRes = await fetch(`https://api.razorpay.com/v1/payments/${razorpayPaymentId}`, {
+          headers: { Authorization: `Basic ${auth}` },
+        });
+        if (paymentRes.ok) {
+          const paymentData = await paymentRes.json();
+          // Razorpay amount is in paise (currency's smallest unit)
+          const amountPaid = paymentData.amount;
+          if (amountPaid !== order.total) {
+            console.error("[verify-payment] Amount mismatch for order:", orderId, "expected:", order.total, "got:", amountPaid);
+            return NextResponse.json(
+              { success: false, error: "Payment amount mismatch" },
+              { status: 400 }
+            );
+          }
+        }
+      } catch (err) {
+        console.error("[verify-payment] Failed to fetch Razorpay payment:", err);
+        // Continue with signature verification as fallback
+      }
     }
 
     // Verify signature

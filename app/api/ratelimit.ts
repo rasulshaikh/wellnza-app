@@ -15,26 +15,24 @@ export function checkRateLimit(ip: string, limit = 10, window = 60000): boolean 
 }
 
 export function getClientIP(request: Request): string {
-  // Only trust x-forwarded-for when behind a trusted proxy (Vercel/Cloudflare)
-  const isVercel = !!process.env.VERCEL;
-  const cfVisitor = request.headers.get("cf-visitor");
-  const xScheme = request.headers.get("x-scheme");
-  const isTrustedProxy = isVercel || cfVisitor || xScheme;
-
-  if (isTrustedProxy) {
-    // On Vercel, use x-vercel-forwarded-for which is more reliable
-    if (isVercel) {
-      const vercelForwarded = request.headers.get("x-vercel-forwarded-for");
-      if (vercelForwarded) {
-        return vercelForwarded.split(",")[0].trim();
-      }
-    }
-    // Fall back to x-forwarded-for for other trusted proxies (Cloudflare)
-    const forwarded = request.headers.get("x-forwarded-for");
-    if (forwarded) {
-      return forwarded.split(",")[0].trim();
-    }
+  // Check x-real-ip first (common proxy header, most reliable)
+  const realIp = request.headers.get("x-real-ip");
+  if (realIp) {
+    return realIp.split(",")[0].trim();
   }
+
+  // Fall back to x-forwarded-for
+  const forwarded = request.headers.get("x-forwarded-for");
+  if (forwarded) {
+    return forwarded.split(",")[0].trim();
+  }
+
+  // On Vercel, use x-vercel-forwarded-for
+  const vercelForwarded = request.headers.get("x-vercel-forwarded-for");
+  if (vercelForwarded) {
+    return vercelForwarded.split(",")[0].trim();
+  }
+
   return "unknown";
 }
 
