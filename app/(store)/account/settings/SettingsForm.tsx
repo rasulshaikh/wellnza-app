@@ -60,88 +60,88 @@ export default function SettingsPageClient({ user }: SettingsPageClientProps) {
   }
 
   return (
-    <div className="min-h-screen bg-[#0D0D0D] py-8">
+    <div className="min-h-screen bg-[#FAFAF8] py-8">
       <div className="max-w-2xl mx-auto px-4">
-        <Link href="/account" className="inline-flex items-center gap-2 text-sm text-[#888888] hover:text-white mb-6">
+        <Link href="/account" className="inline-flex items-center gap-2 text-sm text-[#7B9E6B] hover:text-[#2E7D32] mb-6">
           <ArrowLeft className="w-4 h-4" />
           Back to Account
         </Link>
 
-        <div className="bg-[#1A1A1A] border border-[rgba(22,101,52,0.3)] p-6 rounded-lg" style={{ clipPath: "polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))" }}>
+        <div className="bg-white border border-[rgba(46,125,50,0.15)] p-6 rounded-lg shadow-[0_2px_8px_rgba(46,125,50,0.06)]">
           <div className="flex items-center gap-3 mb-6">
-            <User className="w-6 h-6 text-[#888888]" />
-            <h1 className="text-xl font-bold text-white" style={{ fontFamily: "var(--font-bebas)" }}>Account Settings</h1>
+            <User className="w-6 h-6 text-[#7B9E6B]" />
+            <h1 className="text-xl font-bold text-[#1a1a1a]" style={{ fontFamily: "'Playfair Display', serif" }}>Account Settings</h1>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
-              <Label htmlFor="name" className="text-white">Full Name</Label>
+              <Label htmlFor="name" className="text-[#1a1a1a]">Full Name</Label>
               <Input
                 id="name"
                 name="name"
                 type="text"
                 defaultValue={user.name || ""}
-                className="border-[rgba(22,101,52,0.3)] focus:border-[#22C55E] bg-[#0D0D0D] text-white"
+                className="border-[rgba(46,125,50,0.15)] focus:border-[#2E7D32] bg-white text-[#1a1a1a]"
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-white">Email Address</Label>
+              <Label htmlFor="email" className="text-[#1a1a1a]">Email Address</Label>
               <Input
                 id="email"
                 type="email"
                 defaultValue={user.email}
                 disabled
-                className="border-[rgba(22,101,52,0.3)] bg-[#0D0D0D] text-[#888888]"
+                className="border-[rgba(46,125,50,0.15)] bg-white text-[#7B9E6B]"
               />
-              <p className="text-xs text-[#666666]">Email cannot be changed</p>
+              <p className="text-xs text-[#7B9E6B]">Email cannot be changed</p>
             </div>
 
-            <div className="pt-4 border-t border-[rgba(22,101,52,0.3)]">
-              <h3 className="font-medium text-white mb-4" style={{ fontFamily: "var(--font-bebas)" }}>Change Password</h3>
+            <div className="pt-4 border-t border-[rgba(46,125,50,0.15)]">
+              <h3 className="font-medium text-[#1a1a1a] mb-4" style={{ fontFamily: "'Playfair Display', serif" }}>Change Password</h3>
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="current-password" className="text-white">Current Password</Label>
+                  <Label htmlFor="current-password" className="text-[#1a1a1a]">Current Password</Label>
                   <Input
                     id="current-password"
                     name="current-password"
                     type="password"
                     required
-                    className="border-[rgba(22,101,52,0.3)] focus:border-[#22C55E] bg-[#0D0D0D] text-white"
+                    className="border-[rgba(46,125,50,0.15)] focus:border-[#2E7D32] bg-white text-[#1a1a1a]"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="new-password" className="text-white">New Password</Label>
+                  <Label htmlFor="new-password" className="text-[#1a1a1a]">New Password</Label>
                   <Input
                     id="new-password"
                     name="new-password"
                     type="password"
                     required
-                    className="border-[rgba(22,101,52,0.3)] focus:border-[#22C55E] bg-[#0D0D0D] text-white"
+                    className="border-[rgba(46,125,50,0.15)] focus:border-[#2E7D32] bg-white text-[#1a1a1a]"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="confirm-password" className="text-white">Confirm New Password</Label>
+                  <Label htmlFor="confirm-password" className="text-[#1a1a1a]">Confirm New Password</Label>
                   <Input
                     id="confirm-password"
                     name="confirm-password"
                     type="password"
                     required
-                    className="border-[rgba(22,101,52,0.3)] focus:border-[#22C55E] bg-[#0D0D0D] text-white"
+                    className="border-[rgba(46,125,50,0.15)] focus:border-[#2E7D32] bg-white text-[#1a1a1a]"
                   />
                 </div>
               </div>
             </div>
 
             <div className="flex justify-end">
-              <Button type="submit" disabled={isLoading} className="bg-[#166534] hover:bg-[#14532D] text-white" style={{ fontFamily: "var(--font-bebas)", clipPath: "polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))" }}>
+              <Button type="submit" disabled={isLoading} className="bg-[#2E7D32] hover:bg-[#1B5E20] text-white">
                 {isLoading ? "Saving..." : "Save Changes"}
               </Button>
             </div>
           </form>
 
-          <div className="mt-8 pt-6 border-t border-[rgba(22,101,52,0.3)]">
-            <p className="text-xs text-[#666666]">
+          <div className="mt-8 pt-6 border-t border-[rgba(46,125,50,0.15)]">
+            <p className="text-xs text-[#7B9E6B]">
               Member since {new Date(user.createdAt).toLocaleDateString("en-US", { month: "long", year: "numeric" })}
             </p>
           </div>
