@@ -12,7 +12,6 @@ const navLinks = [
   { href: "/", label: "Home" },
   { href: "/products", label: "Shop" },
   { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
 ];
 
 export function Navbar() {
@@ -32,9 +31,10 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 w-full bg-white transition-shadow duration-300",
-        scrolled ? "shadow-[0_2px_20px_rgba(0,0,0,0.08)]" : "border-b border-gray-100"
+        "sticky top-0 z-50 w-full transition-shadow duration-300",
+        scrolled ? "shadow-[0_2px_20px_rgba(0,0,0,0.08)]" : "border-b"
       )}
+      style={{ background: "#FAFAF8", borderColor: "rgba(46,125,50,0.15)" }}
     >
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         {/* Logo */}
