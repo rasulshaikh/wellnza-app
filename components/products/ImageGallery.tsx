@@ -50,10 +50,13 @@ export function ImageGallery({ images, productName, variantHint = 0, variants }:
     const selectedVariant = variants[variantHint];
     if (!selectedVariant) return images;
     const flavorLower = selectedVariant.flavor.toLowerCase();
-    // Match images whose filename contains the flavor name (e.g. "...alphanso-mango..." or "...chocolate...")
+    // Split flavor into words and check if any word from the flavor appears in filename
+    // This handles cases like "Alphonso Mango" matching "alphanso-mango front.png"
+    const flavorWords = flavorLower.split(/\s+/);
     const variantImages = images.filter(img => {
       const nameLower = img.toLowerCase();
-      return nameLower.includes(flavorLower) || nameLower.includes("front") || nameLower.includes("left") || nameLower.includes("right");
+      // Check if any flavor word appears in the image filename
+      return flavorWords.some(word => nameLower.includes(word));
     });
     return variantImages.length > 0 ? variantImages : images;
   })();
