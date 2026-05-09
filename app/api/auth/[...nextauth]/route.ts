@@ -2,19 +2,20 @@ import { NextRequest } from "next/server";
 import { handlers } from "@/lib/auth";
 import { checkRateLimit, getClientIP, rateLimitResponse } from "@/app/api/ratelimit";
 
-// Wrap GET handler with rate limiting to prevent brute force on auth callbacks
+// GET: session/csrf/providers checks — NextAuth fires 3-4 of these per page load.
+// Rate limit is permissive (60/min) so normal browsing never triggers it.
 async function wrappedGET(req: NextRequest) {
   const clientIP = getClientIP(req as unknown as Request);
-  if (!checkRateLimit(clientIP, 5, 60000)) {
+  if (!checkRateLimit(`auth_get:${clientIP}`, 60, 60000)) {
     return rateLimitResponse();
   }
   return handlers.GET(req);
 }
 
-// Wrap POST handler with rate limiting to prevent brute force on sign in
+// POST: actual sign-in attempts — kept strict (10/min) to prevent brute force.
 async function wrappedPOST(req: NextRequest) {
   const clientIP = getClientIP(req as unknown as Request);
-  if (!checkRateLimit(clientIP, 5, 60000)) {
+  if (!checkRateLimit(`auth_post:${clientIP}`, 10, 60000)) {
     return rateLimitResponse();
   }
   return handlers.POST(req);

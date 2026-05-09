@@ -7,6 +7,7 @@ import bcrypt from "bcryptjs";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(db),
+  trustHost: true, // required on Vercel — allows NextAuth to trust x-forwarded-host
   providers: [
     Google({
       clientId: process.env.AUTH_GOOGLE_ID!,
