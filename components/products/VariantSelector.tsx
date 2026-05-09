@@ -38,11 +38,8 @@ function stockBadge(variantId: string, inventory: VariantStock[]) {
       </span>
     );
   }
-  return (
-    <span className="rounded bg-green-100 px-1.5 py-0.5 text-[10px] font-medium text-green-700">
-      {label}
-    </span>
-  );
+  // Don't show badge for in_stock - no badge needed when items are available
+  return null;
 }
 
 export function VariantSelector({
