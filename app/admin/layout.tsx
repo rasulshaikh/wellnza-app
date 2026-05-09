@@ -35,18 +35,18 @@ export default async function AdminLayout({
   }
 
   return (
-    <div className="min-h-screen bg-[#FAFAFA] flex">
+    <div className="min-h-screen bg-[#FAFAF8] flex">
       {/* Sidebar */}
-      <aside className="w-64 bg-white border-r border-[#E5E7EB] flex flex-col fixed h-full z-10">
+      <aside className="w-64 bg-white border-r border-[rgba(46,125,50,0.15)] flex flex-col fixed h-full z-10">
         {/* Logo */}
-        <div className="p-4 border-b border-[#E5E7EB]">
+        <div className="p-4 border-b border-[rgba(46,125,50,0.15)]">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-[#0055FF] flex items-center justify-center">
+            <div className="w-8 h-8 rounded-lg bg-[#2E7D32] flex items-center justify-center">
               <span className="text-white font-bold text-sm">W</span>
             </div>
             <div>
-              <span className="font-semibold text-[#0A0A0A]">Wellnza</span>
-              <span className="text-xs text-[#6B7280] block">Admin</span>
+              <span className="font-semibold text-[#1a1a1a]" style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)" }}>Wellnza</span>
+              <span className="text-xs text-[#7B9E6B] block" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>Admin</span>
             </div>
           </div>
         </div>
@@ -68,18 +68,18 @@ export default async function AdminLayout({
         </nav>
 
         {/* User Section */}
-        <div className="p-3 border-t border-[#E5E7EB]">
+        <div className="p-3 border-t border-[rgba(46,125,50,0.15)]">
           <div className="flex items-center gap-3 px-3 py-2 mb-2">
-            <div className="w-8 h-8 rounded-full bg-[#0055FF] flex items-center justify-center">
+            <div className="w-8 h-8 rounded-full bg-[#2E7D32] flex items-center justify-center">
               <span className="text-white text-sm font-medium">
                 {session.user.name?.[0] || session.user.email?.[0] || "A"}
               </span>
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-[#0A0A0A] truncate">
+              <p className="text-sm font-medium text-[#1a1a1a] truncate" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>
                 {session.user.name || "Admin"}
               </p>
-              <p className="text-xs text-[#6B7280] truncate">
+              <p className="text-xs text-[#7B9E6B] truncate" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>
                 {session.user.email}
               </p>
             </div>
@@ -93,7 +93,7 @@ export default async function AdminLayout({
             <Button
               type="submit"
               variant="ghost"
-              className="w-full justify-start gap-2 text-[#6B7280] hover:text-[#0A0A0A]"
+              className="w-full justify-start gap-2 text-[#7B9E6B] hover:text-[#1a1a1a]"
             >
               <LogOut className="w-4 h-4" />
               Sign Out

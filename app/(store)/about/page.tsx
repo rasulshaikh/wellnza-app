@@ -13,7 +13,7 @@ export default function AboutPage() {
             <div className="h-[2px] w-8" style={{ background: "#2E7D32" }} />
             <span
               className="text-[12px] tracking-[3px]"
-              style={{ fontFamily: "'DM Sans', sans-serif", color: "#2E7D32" }}
+              style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#2E7D32" }}
             >
               OUR STORY
             </span>
@@ -21,13 +21,13 @@ export default function AboutPage() {
           </div>
           <h1
             className="text-4xl md:text-5xl font-bold tracking-tight mb-6"
-            style={{ fontFamily: "'Playfair Display', serif", color: "#1a1a1a", letterSpacing: "1px" }}
+            style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#1a1a1a", letterSpacing: "1px" }}
           >
             Wellness, Rooted in Nature
           </h1>
           <p
             className="max-w-2xl mx-auto text-[15px] leading-relaxed"
-            style={{ fontFamily: "'DM Sans', sans-serif", color: "#7B9E6B" }}
+            style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}
           >
             We believe in transparency above all. Every ingredient, every dose — you know exactly what you are putting into your body. Clean supplements for a healthier you.
           </p>
@@ -48,19 +48,19 @@ export default function AboutPage() {
             >
               <h2
                 className="text-xl font-bold mb-3"
-                style={{ fontFamily: "'Playfair Display', serif", color: "#1a1a1a" }}
+                style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#1a1a1a" }}
               >
                 Our Mission
               </h2>
               <p
                 className="text-[13px] mb-3 uppercase tracking-wider"
-                style={{ fontFamily: "'DM Sans', sans-serif", color: "#2E7D32", letterSpacing: "1px" }}
+                style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#2E7D32", letterSpacing: "1px" }}
               >
                 Clean labels. Honest pricing. No compromise.
               </p>
               <p
                 className="text-[14px] leading-relaxed"
-                style={{ fontFamily: "'DM Sans', sans-serif", color: "#7B9E6B" }}
+                style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}
               >
                 We source ingredients from trusted manufacturers and test every batch for purity. No artificial fillers. No proprietary blends hiding ineffective doses. Just transparent, effective formulas that support your wellbeing.
               </p>
@@ -75,19 +75,19 @@ export default function AboutPage() {
             >
               <h2
                 className="text-xl font-bold mb-3"
-                style={{ fontFamily: "'Playfair Display', serif", color: "#1a1a1a" }}
+                style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#1a1a1a" }}
               >
                 Why We Started
               </h2>
               <p
                 className="text-[13px] mb-3 uppercase tracking-wider"
-                style={{ fontFamily: "'DM Sans', sans-serif", color: "#2E7D32", letterSpacing: "1px" }}
+                style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#2E7D32", letterSpacing: "1px" }}
               >
                 Premium wellness should be accessible
               </p>
               <p
                 className="text-[14px] leading-relaxed"
-                style={{ fontFamily: "'DM Sans', sans-serif", color: "#7B9E6B" }}
+                style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}
               >
                 We noticed the supplement industry was full of hidden ingredients and inflated claims. We decided to do things differently — clean labels, third-party testing, and pricing that makes sense. Every person deserves access to quality supplements.
               </p>
@@ -101,7 +101,7 @@ export default function AboutPage() {
         <div className="mx-auto max-w-5xl">
           <h2
             className="text-2xl font-bold text-center mb-10"
-            style={{ fontFamily: "'Playfair Display', serif", color: "#1a1a1a" }}
+            style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#1a1a1a" }}
           >
             Why Choose Wellnza?
           </h2>
@@ -123,13 +123,13 @@ export default function AboutPage() {
               </div>
               <h3
                 className="text-lg font-bold mb-2"
-                style={{ fontFamily: "'Playfair Display', serif", color: "#1a1a1a" }}
+                style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#1a1a1a" }}
               >
                 Full Label Disclosure
               </h3>
               <p
                 className="text-[13px]"
-                style={{ fontFamily: "'DM Sans', sans-serif", color: "#7B9E6B", letterSpacing: "0.5px" }}
+                style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B", letterSpacing: "0.5px" }}
               >
                 No proprietary blends. Every ingredient listed transparently.
               </p>
@@ -151,13 +151,13 @@ export default function AboutPage() {
               </div>
               <h3
                 className="text-lg font-bold mb-2"
-                style={{ fontFamily: "'Playfair Display', serif", color: "#1a1a1a" }}
+                style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#1a1a1a" }}
               >
                 Third-Party Tested
               </h3>
               <p
                 className="text-[13px]"
-                style={{ fontFamily: "'DM Sans', sans-serif", color: "#7B9E6B", letterSpacing: "0.5px" }}
+                style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B", letterSpacing: "0.5px" }}
               >
                 Every batch verified for purity and potency by independent labs.
               </p>
@@ -179,15 +179,15 @@ export default function AboutPage() {
               </div>
               <h3
                 className="text-lg font-bold mb-2"
-                style={{ fontFamily: "'Playfair Display', serif", color: "#1a1a1a" }}
+                style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#1a1a1a" }}
               >
                 Delivered to Your Door
               </h3>
               <p
                 className="text-[13px]"
-                style={{ fontFamily: "'DM Sans', sans-serif", color: "#7B9E6B", letterSpacing: "0.5px" }}
+                style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B", letterSpacing: "0.5px" }}
               >
-                Fast, reliable shipping from New Zealand to your doorstep.
+                Fast, reliable shipping from Amravati to your doorstep across India.
               </p>
             </div>
           </div>
@@ -203,13 +203,13 @@ export default function AboutPage() {
           <div>
             <p
               className="text-4xl md:text-5xl font-bold mb-2"
-              style={{ fontFamily: "'Playfair Display', serif", color: "#2E7D32" }}
+              style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#2E7D32" }}
             >
               10K+
             </p>
             <p
               className="text-xs uppercase tracking-widest"
-              style={{ fontFamily: "'DM Sans', sans-serif", color: "#7B9E6B", letterSpacing: "2px" }}
+              style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B", letterSpacing: "2px" }}
             >
               Happy Customers
             </p>
@@ -217,13 +217,13 @@ export default function AboutPage() {
           <div>
             <p
               className="text-4xl md:text-5xl font-bold mb-2"
-              style={{ fontFamily: "'Playfair Display', serif", color: "#2E7D32" }}
+              style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#2E7D32" }}
             >
               50+
             </p>
             <p
               className="text-xs uppercase tracking-widest"
-              style={{ fontFamily: "'DM Sans', sans-serif", color: "#7B9E6B", letterSpacing: "2px" }}
+              style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B", letterSpacing: "2px" }}
             >
               Countries Served
             </p>
@@ -231,13 +231,13 @@ export default function AboutPage() {
           <div>
             <p
               className="text-4xl md:text-5xl font-bold mb-2"
-              style={{ fontFamily: "'Playfair Display', serif", color: "#2E7D32" }}
+              style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#2E7D32" }}
             >
               4.8
             </p>
             <p
               className="text-xs uppercase tracking-widest"
-              style={{ fontFamily: "'DM Sans', sans-serif", color: "#7B9E6B", letterSpacing: "2px" }}
+              style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B", letterSpacing: "2px" }}
             >
               Average Rating
             </p>
@@ -245,13 +245,13 @@ export default function AboutPage() {
           <div>
             <p
               className="text-4xl md:text-5xl font-bold mb-2"
-              style={{ fontFamily: "'Playfair Display', serif", color: "#2E7D32" }}
+              style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#2E7D32" }}
             >
               100%
             </p>
             <p
               className="text-xs uppercase tracking-widest"
-              style={{ fontFamily: "'DM Sans', sans-serif", color: "#7B9E6B", letterSpacing: "2px" }}
+              style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B", letterSpacing: "2px" }}
             >
               Authentic Products
             </p>
@@ -264,7 +264,7 @@ export default function AboutPage() {
         <div className="mx-auto max-w-4xl">
           <h2
             className="text-2xl font-bold text-center mb-12"
-            style={{ fontFamily: "'Playfair Display', serif", color: "#1a1a1a" }}
+            style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#1a1a1a" }}
           >
             What Our Customers Say
           </h2>
@@ -280,13 +280,13 @@ export default function AboutPage() {
               <div className="flex gap-1 mb-4">
                 {[1, 2, 3, 4, 5].map((i) => (
                   <svg key={i} className="w-5 h-5" style={{ color: "#C9A227" }} fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                   </svg>
                 ))}
               </div>
               <p
                 className="text-[15px] leading-relaxed mb-6"
-                style={{ fontFamily: "'DM Sans', sans-serif", color: "#1a1a1a", fontStyle: "italic" }}
+                style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#1a1a1a", fontStyle: "italic" }}
               >
                 &ldquo;The clean, powerful boost from Wellnza&apos;s pre-workout helped me push past my limits without the crash.&rdquo;
               </p>
@@ -300,15 +300,15 @@ export default function AboutPage() {
                 <div>
                   <p
                     className="font-semibold text-sm"
-                    style={{ fontFamily: "'DM Sans', sans-serif", color: "#1a1a1a" }}
+                    style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#1a1a1a" }}
                   >
                     Sam K.
                   </p>
                   <p
                     className="text-xs uppercase tracking-wider"
-                    style={{ fontFamily: "'DM Sans', sans-serif", color: "#7B9E6B" }}
+                    style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}
                   >
-                    Christchurch, NZ
+                    Pune, Maharashtra
                   </p>
                 </div>
               </div>
@@ -324,15 +324,15 @@ export default function AboutPage() {
               <div className="flex gap-1 mb-4">
                 {[1, 2, 3, 4, 5].map((i) => (
                   <svg key={i} className="w-5 h-5" style={{ color: "#C9A227" }} fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                   </svg>
                 ))}
               </div>
               <p
                 className="text-[15px] leading-relaxed mb-6"
-                style={{ fontFamily: "'DM Sans', sans-serif", color: "#1a1a1a", fontStyle: "italic" }}
+                style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#1a1a1a", fontStyle: "italic" }}
               >
-                &ldquo;Finally a supplement brand that is transparent about what is in their products. The quality is outstanding and shipping to NZ was fast.&rdquo;
+                &ldquo;Finally a supplement brand that is transparent about what is in their products. The quality is outstanding and delivery across India was fast.&rdquo;
               </p>
               <div className="flex items-center gap-3">
                 <div
@@ -344,15 +344,15 @@ export default function AboutPage() {
                 <div>
                   <p
                     className="font-semibold text-sm"
-                    style={{ fontFamily: "'DM Sans', sans-serif", color: "#1a1a1a" }}
+                    style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#1a1a1a" }}
                   >
                     James T.
                   </p>
                   <p
                     className="text-xs uppercase tracking-wider"
-                    style={{ fontFamily: "'DM Sans', sans-serif", color: "#7B9E6B" }}
+                    style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}
                   >
-                    Wellington, NZ
+                    Mumbai, Maharashtra
                   </p>
                 </div>
               </div>
@@ -365,13 +365,13 @@ export default function AboutPage() {
       <div className="py-16 px-4 text-center" style={{ background: "#FAFAF8", borderTop: "1px solid rgba(46, 125, 50, 0.1)" }}>
         <h2
           className="text-2xl font-bold mb-4"
-          style={{ fontFamily: "'Playfair Display', serif", color: "#1a1a1a" }}
+          style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#1a1a1a" }}
         >
           Ready to Start Your Wellness Journey?
         </h2>
         <p
           className="text-[14px] mb-8"
-          style={{ fontFamily: "'DM Sans', sans-serif", color: "#7B9E6B" }}
+          style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}
         >
           Join thousands of customers who trust Wellnza for their daily supplements.
         </p>
@@ -379,7 +379,7 @@ export default function AboutPage() {
           <button
             className="px-10 py-4 text-sm font-semibold tracking-wider transition-opacity"
             style={{
-              fontFamily: "'DM Sans', sans-serif",
+              fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)",
               background: "#2E7D32",
               color: "#fff",
               borderRadius: "6px",

@@ -45,8 +45,8 @@ export function ProductToggleForm({
         variant={isActive ? "default" : "secondary"}
         className={`cursor-pointer transition-colors ${
           isActive
-            ? "bg-[#10B981] text-white hover:bg-[#0D9668]"
-            : "bg-[#F3F4F6] text-[#6B7280] hover:bg-[#E5E7EB]"
+            ? "bg-[#2E7D32] text-white hover:bg-[#1B5E20]"
+            : "bg-[#F3F4F6] text-[#7B9E6B] hover:bg-[#E5E7EB]"
         }`}
       >
         {isActive ? "Yes" : "No"}

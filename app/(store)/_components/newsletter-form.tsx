@@ -49,7 +49,7 @@ export function NewsletterForm() {
         onChange={(e) => setEmail(e.target.value)}
         required
         className="px-4 py-2 bg-white border border-[#2E7D32]/30 text-[#0D0D0D] placeholder-[#6B7280] w-64 rounded-md font-sans"
-        style={{ fontFamily: "'DM Sans', sans-serif" }}
+        style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}
       />
       <button
         type="submit"

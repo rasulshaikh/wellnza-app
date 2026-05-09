@@ -42,33 +42,33 @@ export default function ForgotPasswordPage() {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen flex items-center justify-center bg-[#0D0D0D] px-4 py-12">
+      <div className="min-h-screen flex items-center justify-center bg-[#FAFAF8] px-4 py-12">
         <div className="w-full max-w-md space-y-8">
           <div className="text-center">
             <Link href="/" className="inline-block">
-              <span className="text-3xl font-bold text-[#22C55E] tracking-wider" style={{ fontFamily: "var(--font-bebas)" }}>
+              <span className="text-3xl font-bold text-[#2E7D32] tracking-wider" style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)" }}>
                 WELLNZA
               </span>
             </Link>
           </div>
 
-          <div className="bg-[#1A1A1A] rounded-lg p-8 border border-[rgba(22,101,52,0.3)]" style={{ clipPath: "polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px))" }}>
+          <div className="bg-[#fff] rounded-lg p-8 border border-[rgba(46,125,50,0.15)]">
             {sent ? (
               <div className="text-center space-y-4">
                 <div className="text-5xl mb-4">
-                  <svg className="w-16 h-16 mx-auto text-[#22C55E]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className="w-16 h-16 mx-auto text-[#2E7D32]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                 </div>
-                <h1 className="text-3xl font-bold text-white tracking-wider" style={{ fontFamily: "var(--font-bebas)" }}>
-                  CHECK YOUR EMAIL
+                <h1 className="text-3xl font-bold text-[#1a1a1a] tracking-wider" style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)" }}>
+                  Check Your Email
                 </h1>
-                <p className="text-[#888888]" style={{ fontFamily: "var(--font-oswald)" }}>
-                  If an account exists for <strong className="text-white">{email}</strong>, we&apos;ve sent a password reset link.
+                <p className="text-[#7B9E6B]" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>
+                  If an account exists for <strong className="text-[#1a1a1a]">{email}</strong>, we&apos;ve sent a password reset link.
                 </p>
-                <p className="text-sm text-[#888888]" style={{ fontFamily: "var(--font-oswald)" }}>Check your inbox — the link expires in 1 hour.</p>
+                <p className="text-sm text-[#7B9E6B]" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>Check your inbox — the link expires in 1 hour.</p>
                 <Link href="/login">
-                  <Button variant="outline" className="mt-4 w-full h-12 border-[rgba(22,101,52,0.3)] text-[#888888] hover:text-[#22C55E] hover:border-[#166534] hover:bg-[#0D0D0D]" style={{ fontFamily: "var(--font-oswald)" }}>
+                  <Button variant="outline" className="mt-4 w-full h-12 border-[rgba(46,125,50,0.15)] text-[#7B9E6B] hover:text-[#2E7D32] hover:border-[#2E7D32] hover:bg-[#FAFAF8]" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>
                     BACK TO SIGN IN
                   </Button>
                 </Link>
@@ -76,15 +76,15 @@ export default function ForgotPasswordPage() {
             ) : (
               <>
                 <div className="text-center mb-8">
-                  <h1 className="text-4xl font-bold text-white mb-2 tracking-wider" style={{ fontFamily: "var(--font-bebas)" }}>
-                    RECOVER YOUR ACCOUNT
+                  <h1 className="text-4xl font-bold text-[#1a1a1a] mb-2" style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)" }}>
+                    Recover Your Account
                   </h1>
-                  <p className="text-[#888888]" style={{ fontFamily: "var(--font-oswald)" }}>Enter your email and we&apos;ll send you a reset link</p>
+                  <p className="text-[#7B9E6B]" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>Enter your email and we&apos;ll send you a reset link</p>
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-5">
                   <div>
-                    <Label htmlFor="email" className="text-white font-medium" style={{ fontFamily: "var(--font-oswald)" }}>Email</Label>
+                    <Label htmlFor="email" className="text-[#1a1a1a] font-medium" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>Email</Label>
                     <Input
                       id="email"
                       type="email"
@@ -92,23 +92,23 @@ export default function ForgotPasswordPage() {
                       onChange={(e) => setEmail(e.target.value)}
                       required
                       disabled={isLoading}
-                      className="mt-1.5 bg-[#0D0D0D] border-[rgba(22,101,52,0.3)] text-white placeholder-[#666666] focus:border-[#166534] focus:ring-[#166534]"
+                      className="mt-1.5 bg-[#FAFAF8] border-[rgba(46,125,50,0.15)] text-[#1a1a1a] placeholder-[#7B9E6B] focus:border-[#2E7D32] focus:ring-[#2E7D32]"
                       placeholder="you@example.com"
                     />
                   </div>
                   <Button
                     type="submit"
-                    className="w-full bg-[#166534] hover:bg-[#14532D] text-white font-semibold h-12"
-                    style={{ fontFamily: "var(--font-bebas)", clipPath: "polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%)" }}
+                    className="w-full bg-[#2E7D32] hover:bg-[#235F27] text-white font-semibold h-12"
+                    style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}
                     disabled={isLoading}
                   >
                     {isLoading ? "SENDING..." : "SEND RESET LINK"}
                   </Button>
                 </form>
 
-                <p className="text-center text-sm text-[#888888] mt-6" style={{ fontFamily: "var(--font-oswald)" }}>
+                <p className="text-center text-sm text-[#7B9E6B] mt-6" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>
                   Remember your password?{" "}
-                  <Link href="/login" className="text-[#22C55E] font-semibold hover:underline">
+                  <Link href="/login" className="text-[#2E7D32] font-semibold hover:underline">
                     Sign in
                   </Link>
                 </p>

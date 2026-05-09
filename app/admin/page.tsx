@@ -65,8 +65,8 @@ export default async function AdminDashboard() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-[#0A0A0A]">Dashboard</h1>
-        <p className="text-sm text-[#6B7280]">
+        <h1 className="text-2xl font-bold text-[#1a1a1a]" style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)" }}>Dashboard</h1>
+        <p className="text-sm text-[#7B9E6B]" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>
           Welcome back, {session.user.name || "Admin"}
         </p>
       </div>
@@ -74,66 +74,66 @@ export default async function AdminDashboard() {
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Today's Orders */}
-        <div className="bg-white border border-[#E5E7EB] rounded-xl p-5">
+        <div className="bg-white border border-[rgba(46,125,50,0.15)] rounded-xl p-5">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-[#6B7280]">Today&apos;s Orders</p>
-              <p className="text-2xl font-bold text-[#0A0A0A] mt-1">
+              <p className="text-sm text-[#7B9E6B]" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>Today&apos;s Orders</p>
+              <p className="text-2xl font-bold text-[#1a1a1a] mt-1" style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)" }}>
                 {todayOrdersCount}
               </p>
-              <p className="text-sm text-[#10B981] font-medium mt-1">
+              <p className="text-sm text-[#2E7D32] font-medium mt-1" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>
                 {formatCurrency(todayOrdersRevenue._sum.total || 0)}
               </p>
             </div>
-            <div className="w-10 h-10 rounded-lg bg-[#0055FF]/10 flex items-center justify-center">
-              <Clock className="w-5 h-5 text-[#0055FF]" />
+            <div className="w-10 h-10 rounded-lg bg-[#2E7D32]/10 flex items-center justify-center">
+              <Clock className="w-5 h-5 text-[#2E7D32]" />
             </div>
           </div>
         </div>
 
         {/* Total Orders */}
-        <div className="bg-white border border-[#E5E7EB] rounded-xl p-5">
+        <div className="bg-white border border-[rgba(46,125,50,0.15)] rounded-xl p-5">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-[#6B7280]">Total Orders</p>
-              <p className="text-2xl font-bold text-[#0A0A0A] mt-1">
+              <p className="text-sm text-[#7B9E6B]" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>Total Orders</p>
+              <p className="text-2xl font-bold text-[#1a1a1a] mt-1" style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)" }}>
                 {totalOrdersCount}
               </p>
-              <p className="text-sm text-[#6B7280] mt-1">
+              <p className="text-sm text-[#7B9E6B] mt-1" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>
                 {formatCurrency(totalOrdersRevenue._sum.total || 0)} revenue
               </p>
             </div>
-            <div className="w-10 h-10 rounded-lg bg-[#00C2FF]/10 flex items-center justify-center">
-              <ShoppingCart className="w-5 h-5 text-[#00C2FF]" />
+            <div className="w-10 h-10 rounded-lg bg-[#2E7D32]/10 flex items-center justify-center">
+              <ShoppingCart className="w-5 h-5 text-[#2E7D32]" />
             </div>
           </div>
         </div>
 
         {/* Pending Orders */}
-        <div className="bg-white border border-[#E5E7EB] rounded-xl p-5">
+        <div className="bg-white border border-[rgba(46,125,50,0.15)] rounded-xl p-5">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-[#6B7280]">Pending Orders</p>
-              <p className="text-2xl font-bold text-[#0A0A0A] mt-1">
+              <p className="text-sm text-[#7B9E6B]" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>Pending Orders</p>
+              <p className="text-2xl font-bold text-[#1a1a1a] mt-1" style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)" }}>
                 {pendingOrdersCount}
               </p>
-              <p className="text-sm text-[#F59E0B] mt-1">Requires attention</p>
+              <p className="text-sm text-[#7B9E6B] mt-1" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>Requires attention</p>
             </div>
-            <div className="w-10 h-10 rounded-lg bg-[#F59E0B]/10 flex items-center justify-center">
-              <AlertTriangle className="w-5 h-5 text-[#F59E0B]" />
+            <div className="w-10 h-10 rounded-lg bg-[#7B9E6B]/10 flex items-center justify-center">
+              <AlertTriangle className="w-5 h-5 text-[#7B9E6B]" />
             </div>
           </div>
         </div>
 
         {/* Low Stock */}
-        <div className="bg-white border border-[#E5E7EB] rounded-xl p-5">
+        <div className="bg-white border border-[rgba(46,125,50,0.15)] rounded-xl p-5">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-[#6B7280]">Low Stock Products</p>
-              <p className="text-2xl font-bold text-[#0A0A0A] mt-1">
+              <p className="text-sm text-[#7B9E6B]" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>Low Stock Products</p>
+              <p className="text-2xl font-bold text-[#1a1a1a] mt-1" style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)" }}>
                 {lowStockProducts._count}
               </p>
-              <p className="text-sm text-[#EF4444] mt-1">Below threshold</p>
+              <p className="text-sm text-[#EF4444] mt-1" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>Below threshold</p>
             </div>
             <div className="w-10 h-10 rounded-lg bg-[#EF4444]/10 flex items-center justify-center">
               <Package className="w-5 h-5 text-[#EF4444]" />
@@ -145,11 +145,11 @@ export default async function AdminDashboard() {
       {/* Recent Orders & Quick Links */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Recent Orders */}
-        <div className="lg:col-span-2 bg-white border border-[#E5E7EB] rounded-xl">
-          <div className="p-5 border-b border-[#E5E7EB] flex items-center justify-between">
-            <h2 className="font-semibold text-[#0A0A0A]">Recent Orders</h2>
+        <div className="lg:col-span-2 bg-white border border-[rgba(46,125,50,0.15)] rounded-xl">
+          <div className="p-5 border-b border-[rgba(46,125,50,0.15)] flex items-center justify-between">
+            <h2 className="font-semibold text-[#1a1a1a]" style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)" }}>Recent Orders</h2>
             <Link href="/admin/orders">
-              <Button variant="ghost" size="sm" className="text-[#0055FF]">
+              <Button variant="ghost" size="sm" className="text-[#2E7D32]">
                 View All
                 <ArrowRight className="w-4 h-4 ml-1" />
               </Button>
@@ -158,34 +158,34 @@ export default async function AdminDashboard() {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-[#E5E7EB]">
-                  <th className="px-5 py-3 text-left text-xs font-medium text-[#6B7280] uppercase tracking-wider">
+                <tr className="border-b border-[rgba(46,125,50,0.15)]">
+                  <th className="px-5 py-3 text-left text-xs font-medium text-[#7B9E6B] uppercase tracking-wider" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>
                     Order
                   </th>
-                  <th className="px-5 py-3 text-left text-xs font-medium text-[#6B7280] uppercase tracking-wider">
+                  <th className="px-5 py-3 text-left text-xs font-medium text-[#7B9E6B] uppercase tracking-wider" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>
                     Customer
                   </th>
-                  <th className="px-5 py-3 text-left text-xs font-medium text-[#6B7280] uppercase tracking-wider">
+                  <th className="px-5 py-3 text-left text-xs font-medium text-[#7B9E6B] uppercase tracking-wider" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>
                     Total
                   </th>
-                  <th className="px-5 py-3 text-left text-xs font-medium text-[#6B7280] uppercase tracking-wider">
+                  <th className="px-5 py-3 text-left text-xs font-medium text-[#7B9E6B] uppercase tracking-wider" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>
                     Status
                   </th>
-                  <th className="px-5 py-3 text-left text-xs font-medium text-[#6B7280] uppercase tracking-wider">
+                  <th className="px-5 py-3 text-left text-xs font-medium text-[#7B9E6B] uppercase tracking-wider" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>
                     Date
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#E5E7EB]">
+              <tbody className="divide-y divide-[rgba(46,125,50,0.15)]">
                 {recentOrders.map((order: typeof recentOrders[number]) => (
-                  <tr key={order.id} className="hover:bg-[#FAFAFA]">
-                    <td className="px-5 py-3 text-sm font-medium text-[#0A0A0A]">
+                  <tr key={order.id} className="hover:bg-[#FAFAF8]">
+                    <td className="px-5 py-3 text-sm font-medium text-[#1a1a1a]">
                       #{order.orderNumber}
                     </td>
-                    <td className="px-5 py-3 text-sm text-[#6B7280]">
+                    <td className="px-5 py-3 text-sm text-[#7B9E6B]">
                       {order.user?.name || order.user?.email || "Guest"}
                     </td>
-                    <td className="px-5 py-3 text-sm font-medium text-[#0A0A0A]">
+                    <td className="px-5 py-3 text-sm font-medium text-[#1a1a1a]">
                       {formatCurrency(order.total)}
                     </td>
                     <td className="px-5 py-3">
@@ -197,14 +197,14 @@ export default async function AdminDashboard() {
                         {order.status}
                       </Badge>
                     </td>
-                    <td className="px-5 py-3 text-sm text-[#6B7280]">
+                    <td className="px-5 py-3 text-sm text-[#7B9E6B]">
                       {formatDate(order.createdAt)}
                     </td>
                   </tr>
                 ))}
                 {recentOrders.length === 0 && (
                   <tr>
-                    <td colSpan={5} className="px-5 py-8 text-center text-sm text-[#6B7280]">
+                    <td colSpan={5} className="px-5 py-8 text-center text-sm text-[#7B9E6B]">
                       No orders yet
                     </td>
                   </tr>
@@ -215,29 +215,29 @@ export default async function AdminDashboard() {
         </div>
 
         {/* Quick Links */}
-        <div className="bg-white border border-[#E5E7EB] rounded-xl p-5">
-          <h2 className="font-semibold text-[#0A0A0A] mb-4">Quick Links</h2>
+        <div className="bg-white border border-[rgba(46,125,50,0.15)] rounded-xl p-5">
+          <h2 className="font-semibold text-[#1a1a1a] mb-4" style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)" }}>Quick Links</h2>
           <div className="space-y-3">
             <Link href="/admin/orders" className="block">
-              <div className="flex items-center justify-between p-3 rounded-lg border border-[#E5E7EB] hover:border-[#0055FF] hover:bg-[#0055FF]/5 transition-colors">
+              <div className="flex items-center justify-between p-3 rounded-lg border border-[rgba(46,125,50,0.15)] hover:border-[#2E7D32] hover:bg-[#2E7D32]/5 transition-colors">
                 <div className="flex items-center gap-3">
-                  <ShoppingCart className="w-5 h-5 text-[#0055FF]" />
-                  <span className="text-sm font-medium text-[#0A0A0A]">
+                  <ShoppingCart className="w-5 h-5 text-[#2E7D32]" />
+                  <span className="text-sm font-medium text-[#1a1a1a]">
                     Manage Orders
                   </span>
                 </div>
-                <ArrowRight className="w-4 h-4 text-[#6B7280]" />
+                <ArrowRight className="w-4 h-4 text-[#7B9E6B]" />
               </div>
             </Link>
             <Link href="/admin/products" className="block">
-              <div className="flex items-center justify-between p-3 rounded-lg border border-[#E5E7EB] hover:border-[#0055FF] hover:bg-[#0055FF]/5 transition-colors">
+              <div className="flex items-center justify-between p-3 rounded-lg border border-[rgba(46,125,50,0.15)] hover:border-[#2E7D32] hover:bg-[#2E7D32]/5 transition-colors">
                 <div className="flex items-center gap-3">
-                  <Package className="w-5 h-5 text-[#0055FF]" />
-                  <span className="text-sm font-medium text-[#0A0A0A]">
+                  <Package className="w-5 h-5 text-[#2E7D32]" />
+                  <span className="text-sm font-medium text-[#1a1a1a]">
                     Manage Products
                   </span>
                 </div>
-                <ArrowRight className="w-4 h-4 text-[#6B7280]" />
+                <ArrowRight className="w-4 h-4 text-[#7B9E6B]" />
               </div>
             </Link>
           </div>

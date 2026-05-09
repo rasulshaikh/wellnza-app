@@ -1,6 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { formatCurrency } from "@/lib/utils";
+import { CartAbandonmentEmail } from "@/lib/email-templates/cart-abandonment";
+
+function normalizePhoneForWhatsApp(phone: string): string {
+  const digits = phone.replace(/[^0-9]/g, '');
+  // NZ mobile: starts with 0, convert 021XXXXXXXX → 6421XXXXXXXX
+  if (digits.startsWith('0') && digits.length === 9) {
+    return '64' + digits.slice(1);
+  }
+  // Already international
+  return digits.startsWith('+') ? digits.slice(1) : digits;
+}
 
 // WhatsApp message template
 function buildWhatsAppMessage(name: string, items: any[], total: number, recoveryLink: string, couponCode: string): string {
@@ -44,7 +55,7 @@ export async function POST(request: NextRequest) {
             "Content-Type": "application/x-www-form-urlencoded",
           },
           body: new URLSearchParams({
-            To: `whatsapp:+91${phone}`,
+            To: `whatsapp:+${normalizePhoneForWhatsApp(phone)}`,
             From: `whatsapp:+${process.env.TWILIO_WHATSAPP_FROM}`,
             Body: msg,
           }),
@@ -54,7 +65,6 @@ export async function POST(request: NextRequest) {
       // Send email
       if (email) {
         const { sendEmail } = await import("@/lib/email");
-        const { CartAbandonmentEmail } = await import("@/lib/email-templates/cart-abandonment");
         await sendEmail({
           to: email,
           subject: "You left something behind 🛒 — Well NZ Nutrition",

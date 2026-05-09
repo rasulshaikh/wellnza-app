@@ -14,9 +14,9 @@ export function ImageGallery({ images, productName }: ImageGalleryProps) {
 
   if (!images || images.length === 0) {
     return (
-      <div className="flex aspect-square items-center justify-center bg-muted">
-        <div className="flex h-20 w-20 items-center justify-center rounded-full bg-muted-foreground/10">
-          <span className="text-sm font-medium text-muted-foreground">
+      <div className="flex aspect-square items-center justify-center" style={{ background: "#FAFAF8" }}>
+        <div className="flex h-20 w-20 items-center justify-center rounded-full" style={{ background: "rgba(46,125,50,0.1)" }}>
+          <span className="text-sm font-medium" style={{ color: "#7B9E6B" }}>
             {productName
               .split(" ")
               .map((w) => w[0])
@@ -34,7 +34,7 @@ export function ImageGallery({ images, productName }: ImageGalleryProps) {
   return (
     <div className="flex flex-col gap-3">
       {/* Main image */}
-      <div className="relative aspect-square overflow-hidden rounded-xl bg-muted">
+      <div className="relative aspect-square overflow-hidden rounded-xl" style={{ background: "#FAFAF8" }}>
         <Image
           src={images[selectedIndex]}
           alt={`${productName} - Image ${selectedIndex + 1}`}
@@ -55,8 +55,8 @@ export function ImageGallery({ images, productName }: ImageGalleryProps) {
               className={cn(
                 "relative size-16 shrink-0 overflow-hidden rounded-lg border-2 transition-colors",
                 idx === selectedIndex
-                  ? "border-primary"
-                  : "border-transparent hover:border-muted-foreground/30"
+                  ? "border-[#2E7D32]"
+                  : "border-transparent hover:border-[rgba(46,125,50,0.3)]"
               )}
             >
               <Image

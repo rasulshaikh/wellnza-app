@@ -41,7 +41,7 @@ export default async function OrdersPage() {
             </Button>
           </Link>
           <div>
-            <h1 className="text-2xl font-bold text-[#1a1a1a]" style={{ fontFamily: "'Playfair Display', serif" }}>My Orders</h1>
+            <h1 className="text-2xl font-bold text-[#1a1a1a]" style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)" }}>My Orders</h1>
             <p className="text-sm text-[#7B9E6B]">{orders.length} order{orders.length !== 1 ? "s" : ""}</p>
           </div>
         </div>
@@ -69,7 +69,7 @@ export default async function OrdersPage() {
                   <div className="p-4 flex items-center justify-between">
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-3 mb-1">
-                        <span className="font-semibold text-[#1a1a1a]" style={{ fontFamily: "'Playfair Display', serif" }}>
+                        <span className="font-semibold text-[#1a1a1a]" style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)" }}>
                           #{order.orderNumber}
                         </span>
                         <Badge

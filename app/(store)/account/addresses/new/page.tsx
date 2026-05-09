@@ -83,16 +83,16 @@ export default function NewAddressPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FAFAF7] py-8">
+    <div className="min-h-screen py-8" style={{ background: "#FAFAF8" }}>
       <div className="max-w-xl mx-auto px-4">
         {/* Header */}
         <div className="flex items-center gap-4 mb-6">
           <Link href="/account/addresses">
-            <Button variant="outline" size="icon" className="h-9 w-9 border-[#E5E5E0]">
-              <ArrowLeft className="w-4 h-4" />
+            <Button variant="outline" size="icon" className="h-9 w-9" style={{ borderColor: "rgba(46,125,50,0.15)" }}>
+              <ArrowLeft className="w-4 h-4" style={{ color: "#2E7D32" }} />
             </Button>
           </Link>
-          <h1 className="text-xl font-bold text-[#1C1C1C]">Add New Address</h1>
+          <h1 className="text-xl font-bold" style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#1a1a1a" }}>Add New Address</h1>
         </div>
 
         {error && (
@@ -101,7 +101,7 @@ export default function NewAddressPage() {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="bg-white border border-[#E5E5E0] p-6 space-y-4">
+        <form onSubmit={handleSubmit} className="bg-white border p-6 space-y-4" style={{ borderColor: "rgba(46,125,50,0.15)" }}>
           <div>
             <Label htmlFor="name">Full Name *</Label>
             <Input
@@ -209,14 +209,15 @@ export default function NewAddressPage() {
 
           <div className="flex gap-3 pt-2">
             <Link href="/account/addresses" className="flex-1">
-              <Button type="button" variant="outline" className="w-full h-10 border-[#E5E5E0]">
+              <Button type="button" variant="outline" className="w-full h-10" style={{ borderColor: "rgba(46,125,50,0.15)", color: "#1a1a1a" }}>
                 Cancel
               </Button>
             </Link>
             <Button
               type="submit"
               disabled={loading}
-              className="flex-1 bg-[#2E7D32] hover:bg-[#1B5E20] text-white h-10"
+              className="flex-1 text-white h-10"
+              style={{ background: "#2E7D32" }}
             >
               {loading ? (
                 <>

@@ -65,19 +65,19 @@ export default async function AdminCustomersPage({
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-[#0A0A0A]">Customers</h1>
-        <p className="text-sm text-[#6B7280]">
+        <h1 className="text-2xl font-bold text-[#1a1a1a]" style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)" }}>Customers</h1>
+        <p className="text-sm text-[#7B9E6B]" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>
           {totalCount} total customer{totalCount !== 1 ? "s" : ""}
         </p>
       </div>
 
       {/* Filters */}
-      <div className="bg-white border border-[#E5E7EB] rounded-xl p-4">
+      <div className="bg-white border border-[rgba(46,125,50,0.15)] rounded-xl p-4">
         <form className="flex flex-wrap gap-4">
           {/* Search */}
           <div className="flex-1 min-w-[200px]">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6B7280]" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#7B9E6B]" />
               <Input
                 name="search"
                 placeholder="Search by name or email..."
@@ -99,51 +99,51 @@ export default async function AdminCustomersPage({
             </SelectContent>
           </Select>
 
-          <Button type="submit" size="sm" className="bg-[#0055FF] hover:bg-[#0044CC]">
+          <Button type="submit" size="sm" className="bg-[#2E7D32] hover:bg-[#1B5E20]">
             Filter
           </Button>
         </form>
       </div>
 
       {/* Customers Table */}
-      <div className="bg-white border border-[#E5E7EB] rounded-xl overflow-hidden">
+      <div className="bg-white border border-[rgba(46,125,50,0.15)] rounded-xl overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-[#E5E7EB] bg-[#FAFAFA]">
-                <th className="px-5 py-3 text-left text-xs font-medium text-[#6B7280] uppercase tracking-wider">
+              <tr className="border-b border-[rgba(46,125,50,0.15)] bg-[#FAFAF8]">
+                <th className="px-5 py-3 text-left text-xs font-medium text-[#7B9E6B] uppercase tracking-wider" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>
                   Customer
                 </th>
-                <th className="px-5 py-3 text-left text-xs font-medium text-[#6B7280] uppercase tracking-wider">
+                <th className="px-5 py-3 text-left text-xs font-medium text-[#7B9E6B] uppercase tracking-wider" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>
                   Email
                 </th>
-                <th className="px-5 py-3 text-left text-xs font-medium text-[#6B7280] uppercase tracking-wider">
+                <th className="px-5 py-3 text-left text-xs font-medium text-[#7B9E6B] uppercase tracking-wider" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>
                   Role
                 </th>
-                <th className="px-5 py-3 text-left text-xs font-medium text-[#6B7280] uppercase tracking-wider">
+                <th className="px-5 py-3 text-left text-xs font-medium text-[#7B9E6B] uppercase tracking-wider" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>
                   Orders
                 </th>
-                <th className="px-5 py-3 text-left text-xs font-medium text-[#6B7280] uppercase tracking-wider">
+                <th className="px-5 py-3 text-left text-xs font-medium text-[#7B9E6B] uppercase tracking-wider" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>
                   Joined
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#E5E7EB]">
+            <tbody className="divide-y divide-[rgba(46,125,50,0.15)]">
               {users.map((user: { id: string; name: string | null; email: string; role: string; createdAt: Date; _count: { orders: number } }) => (
-                <tr key={user.id} className="hover:bg-[#FAFAFA]">
+                <tr key={user.id} className="hover:bg-[#FAFAF8]">
                   <td className="px-5 py-3">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-[#0055FF] flex items-center justify-center">
+                      <div className="w-10 h-10 rounded-full bg-[#2E7D32] flex items-center justify-center">
                         <span className="text-white text-sm font-medium">
                           {user.name?.[0] || user.email[0].toUpperCase()}
                         </span>
                       </div>
-                      <span className="font-medium text-[#0A0A0A]">
+                      <span className="font-medium text-[#1a1a1a]">
                         {user.name || "N/A"}
                       </span>
                     </div>
                   </td>
-                  <td className="px-5 py-3 text-sm text-[#6B7280]">
+                  <td className="px-5 py-3 text-sm text-[#7B9E6B]">
                     {user.email}
                   </td>
                   <td className="px-5 py-3">
@@ -151,24 +151,24 @@ export default async function AdminCustomersPage({
                       variant={user.role === "ADMIN" ? "default" : "secondary"}
                       className={
                         user.role === "ADMIN"
-                          ? "bg-[#0055FF] text-white"
-                          : "bg-[#F3F4F6] text-[#6B7280]"
+                          ? "bg-[#2E7D32] text-white"
+                          : "bg-[#F3F4F6] text-[#7B9E6B]"
                       }
                     >
                       {user.role}
                     </Badge>
                   </td>
-                  <td className="px-5 py-3 text-sm text-[#6B7280]">
+                  <td className="px-5 py-3 text-sm text-[#7B9E6B]">
                     {user._count.orders}
                   </td>
-                  <td className="px-5 py-3 text-sm text-[#6B7280]">
+                  <td className="px-5 py-3 text-sm text-[#7B9E6B]">
                     {formatDate(user.createdAt)}
                   </td>
                 </tr>
               ))}
               {users.length === 0 && (
                 <tr>
-                  <td colSpan={5} className="px-5 py-12 text-center text-sm text-[#6B7280]">
+                  <td colSpan={5} className="px-5 py-12 text-center text-sm text-[#7B9E6B]">
                     No customers found
                   </td>
                 </tr>
@@ -179,8 +179,8 @@ export default async function AdminCustomersPage({
 
         {/* Pagination */}
         {totalPages > 1 && (
-          <div className="px-5 py-4 border-t border-[#E5E7EB] flex items-center justify-between">
-            <p className="text-sm text-[#6B7280]">
+          <div className="px-5 py-4 border-t border-[rgba(46,125,50,0.15)] flex items-center justify-between">
+            <p className="text-sm text-[#7B9E6B]" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>
               Page {page} of {totalPages}
             </p>
             <div className="flex gap-2">

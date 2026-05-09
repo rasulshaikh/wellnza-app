@@ -40,7 +40,7 @@ export function AddToCartSection({
 
   if (!hasVariants) {
     return (
-      <button disabled className="w-full h-12 rounded-lg bg-[#166534] text-white font-oswald font-semibold text-base opacity-50 cursor-not-allowed">
+      <button disabled className="w-full h-12 rounded-lg text-white font-semibold text-base cursor-not-allowed" style={{ background: "#2E7D32", opacity: 0.5 }}>
         Out of Stock
       </button>
     );
@@ -72,11 +72,12 @@ export function AddToCartSection({
               type="button"
               onClick={() => setSelectedVariantId(variant.id)}
               className={cn(
-                "px-4 py-2 rounded-lg border text-sm font-oswald transition-all",
+                "px-4 py-2 rounded-lg border text-sm transition-all",
                 selectedVariantId === variant.id
-                  ? "border-[#166534] bg-[#166534] text-white"
-                  : "border-[rgba(22,101,52,0.3)] bg-[#1A1A1A] text-[#888888] hover:border-[#166534]"
+                  ? "border-[#2E7D32] bg-[#2E7D32] text-white"
+                  : "border-[rgba(46,125,50,0.15)] bg-white text-[#1a1a1a] hover:border-[#2E7D32]"
               )}
+              style={{ fontFamily: "'DM Sans', sans-serif" }}
             >
               {variant.flavor}
               {variant.size ? ` / ${variant.size}` : ""}
@@ -88,29 +89,31 @@ export function AddToCartSection({
       {/* Selected variant display */}
       {selectedVariant && (
         <div className="flex items-center justify-between">
-          <span className="font-oswald text-sm text-[#888888]">
+          <span className="text-sm" style={{ fontFamily: "'DM Sans', sans-serif", color: "#7B9E6B" }}>
             {selectedVariant.flavor}
             {selectedVariant.size ? ` / ${selectedVariant.size}` : ""}
           </span>
-          <span className="font-bebas font-semibold text-white text-lg" style={{ fontFamily: "var(--font-bebas)" }}>{formatCurrency(displayPrice)}</span>
+          <span className="font-semibold text-lg" style={{ fontFamily: "'Playfair Display', serif", color: "#1a1a1a" }}>{formatCurrency(displayPrice)}</span>
         </div>
       )}
 
       {/* Quantity selector */}
       <div className="flex items-center gap-3">
-        <span className="font-oswald text-sm font-medium text-white">Qty</span>
-        <div className="flex items-center h-11 rounded-lg border border-[rgba(22,101,52,0.3)] overflow-hidden">
+        <span className="text-sm font-medium" style={{ fontFamily: "'DM Sans', sans-serif", color: "#1a1a1a" }}>Qty</span>
+        <div className="flex items-center h-11 rounded-lg border overflow-hidden" style={{ borderColor: "rgba(46,125,50,0.15)" }}>
           <button
             onClick={() => setQuantity(Math.max(1, quantity - 1))}
-            className="flex items-center justify-center w-11 h-full border-r border-[rgba(22,101,52,0.3)] hover:bg-[#1A1A1A] transition-colors text-[#22C55E] disabled:opacity-50"
+            className="flex items-center justify-center w-11 h-full border-r hover:bg-[#FAFAF8] transition-colors disabled:opacity-50"
+            style={{ borderColor: "rgba(46,125,50,0.15)", color: "#2E7D32" }}
             disabled={quantity <= 1}
           >
             <Minus className="size-4" />
           </button>
-          <span className="font-oswald w-12 text-center text-sm font-medium text-white">{quantity}</span>
+          <span className="w-12 text-center text-sm font-medium" style={{ fontFamily: "'DM Sans', sans-serif", color: "#1a1a1a" }}>{quantity}</span>
           <button
             onClick={() => setQuantity(Math.min(10, quantity + 1))}
-            className="flex items-center justify-center w-11 h-full border-l border-[rgba(22,101,52,0.3)] hover:bg-[#1A1A1A] transition-colors text-[#22C55E] disabled:opacity-50"
+            className="flex items-center justify-center w-11 h-full border-l hover:bg-[#FAFAF8] transition-colors disabled:opacity-50"
+            style={{ borderColor: "rgba(46,125,50,0.15)", color: "#2E7D32" }}
             disabled={quantity >= 10}
           >
             <Plus className="size-4" />
@@ -121,13 +124,19 @@ export function AddToCartSection({
       {/* Add to cart button */}
       <button
         className={cn(
-          "w-full h-12 rounded-lg font-oswald font-semibold text-base transition-all",
+          "w-full h-12 rounded-lg font-semibold text-base transition-all",
           added
-            ? "bg-[#166534] text-white border-2 border-[#166534]"
+            ? "text-white border-2"
             : isOutOfStock
-            ? "bg-[#1A1A1A] text-[#888888] cursor-not-allowed opacity-50"
-            : "bg-[#166534] text-white hover:bg-[#14532D]"
+            ? "cursor-not-allowed opacity-50"
+            : "text-white hover:opacity-90"
         )}
+        style={{
+          background: added ? "#2E7D32" : isOutOfStock ? "#FAFAF8" : "#2E7D32",
+          borderColor: added ? "#2E7D32" : "transparent",
+          color: isOutOfStock ? "#7B9E6B" : "#FFFFFF",
+          fontFamily: "'DM Sans', sans-serif"
+        }}
         disabled={isOutOfStock}
         onClick={handleAddToCart}
       >

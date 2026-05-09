@@ -201,9 +201,11 @@ model Order {
   razorpayOrderId    String?
   razorpayPaymentId  String?
   stripePaymentIntent String?
-  trackingNumber     String?
-  trackingCarrier    String?
-  loyaltyPointsEarned Int         @default(0)
+  trackingNumber       String?   // AWB code from Shiprocket
+  trackingCarrier      String?   // courier name from Shiprocket
+  shiprocketOrderId    String?   // Shiprocket internal order ID
+  shiprocketShipmentId String?   // Shiprocket shipment ID
+  loyaltyPointsEarned  Int       @default(0)
 
   user          User?           @relation(fields: [userId], references: [id])
   shippingAddress Address?      @relation(fields: [shippingAddressId], references: [id])

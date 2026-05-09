@@ -1,258 +1,75 @@
 @import "tailwindcss";
-
 @import "tw-animate-css";
-
 @import "shadcn/tailwind.css";
 
 @custom-variant dark (&:is(.dark *));
 
 /* ===========================
-   WARM ORGANIC PREMIUM UTILITIES
+   WELLNZA — AMRAVATI BOLD
+   Born in Maharashtra. Built for Champions.
    =========================== */
 
-/* Warm Organic Color Palette */
 :root {
-  --color-terracotta: #B85C38;
-  --color-warm-brown: #8B6B4F;
-  --color-sage: #86A873;
-  --color-sage-light: #A3B88A;
-  --color-forest-green: #166534;
-  --color-cream: #FAFAF5;
-  --color-cream-dark: #F5F5ED;
-}
+  /* Brand Palette — Saffron × Forest */
+  --gold:          #E8A020;   /* saffron-gold */
+  --gold-light:    #F5C842;
+  --gold-dim:      rgba(232, 160, 32, 0.15);
+  --green:         #14532D;   /* deep forest */
+  --green-bright:  #22C55E;
+  --green-dim:     rgba(20, 83, 45, 0.12);
+  --ink:           #0B0F0C;   /* near-black */
+  --ink-soft:      #141A16;
+  --ink-card:      #1A2219;
+  --cream:         #F7F3EC;
+  --cream-dark:    #EDE8DF;
+  --muted:         #6B7B6F;
+  --border-subtle: rgba(232, 160, 32, 0.18);
+  --border-green:  rgba(34, 197, 94, 0.2);
 
-/* Warm Card Shadow */
-.shadow-card-warm {
-  box-shadow: 0 4px 20px rgba(22, 101, 52, 0.08), 0 2px 8px rgba(22, 101, 52, 0.04);
-}
-.shadow-card-warm-hover {
-  box-shadow: 0 8px 30px rgba(22, 101, 52, 0.12), 0 4px 12px rgba(22, 101, 52, 0.06);
-}
+  /* Shadcn tokens mapped to brand */
+  --background:    #F7F3EC;
+  --foreground:    #0B0F0C;
+  --card:          #FFFFFF;
+  --card-foreground: #0B0F0C;
+  --popover:       #FFFFFF;
+  --popover-foreground: #0B0F0C;
+  --primary:       #14532D;
+  --primary-foreground: #F7F3EC;
+  --secondary:     #F0EBE0;
+  --secondary-foreground: #0B0F0C;
+  --muted:         #F0EBE0;
+  --muted-foreground: #6B7B6F;
+  --accent:        #E8A020;
+  --accent-foreground: #0B0F0C;
+  --destructive:   #B91C1C;
+  --border:        #DDD8CE;
+  --input:         #DDD8CE;
+  --ring:          #14532D;
+  --radius:        0.5rem;
 
-/* Organic Frame - Circular sage gradient background for product images */
-.organic-frame {
-  position: relative;
-  overflow: visible;
-}
-.organic-frame::before {
-  content: "";
-  position: absolute;
-  inset: -10%;
-  background: radial-gradient(circle at center, rgba(134, 168, 115, 0.25) 0%, transparent 70%);
-  border-radius: 50%;
-  z-index: 0;
-  pointer-events: none;
-}
+  /* Sidebar */
+  --sidebar-background: #0B0F0C;
+  --sidebar-foreground: #F7F3EC;
+  --sidebar-primary: #E8A020;
+  --sidebar-primary-foreground: #0B0F0C;
+  --sidebar-accent: #1A2219;
+  --sidebar-accent-foreground: #F7F3EC;
+  --sidebar-border: rgba(232, 160, 32, 0.15);
+  --sidebar-ring: #E8A020;
 
-/* Pill-shaped product image border radius */
-.product-pill {
-  border-radius: 40% 40% 45% 45% / 45% 45% 55% 55%;
-}
-
-/* Terracotta Button Variant */
-.btn-terracotta {
-  background-color: var(--color-warm-brown);
-  color: var(--color-cream);
-  border-radius: 50px;
-  padding: 0.5rem 1.5rem;
-  font-weight: 600;
-  transition: all 0.3s ease;
-}
-.btn-terracotta:hover {
-  background-color: var(--color-terracotta);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(184, 92, 56, 0.3);
-}
-.btn-terracotta:active {
-  transform: translateY(0);
-}
-
-/* Morph Shape Animation */
-@keyframes morphShape {
-  0%, 100% {
-    border-radius: 40% 40% 45% 45% / 45% 45% 55% 55%;
-  }
-  25% {
-    border-radius: 45% 45% 40% 40% / 55% 55% 45% 45%;
-  }
-  50% {
-    border-radius: 45% 45% 50% 50% / 50% 50% 50% 50%;
-  }
-  75% {
-    border-radius: 50% 40% 45% 45% / 45% 55% 45% 55%;
-  }
-}
-
-.morph-animate {
-  animation: morphShape 8s ease-in-out infinite;
-}
-
-/* 3D Product Image Effect - REMOVED for Warm Organic */
-.product-3d {
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-}
-.product-3d:hover {
-  transform: scale(1.03);
-}
-
-@theme {
-  /* Colors */
-  --color-background: #FAFAF5;
-  --color-surface: #FFFFFF;
-  --color-primary: #166534;
-  --color-primary-hover: #14532D;
-  --color-secondary: #86A873;
-  --color-tertiary: #A47148;
-  --color-neutral: #A8A29E;
-  --color-accent: #00C2FF;
-  --color-accent-hover: #00A8E0;
-  --color-dark: #1C1917;
-  --color-text-primary: #1C1917;
-  --color-text-secondary: #57534E;
-  --color-border: #E7E5E4;
-  --color-border-subtle: #D6D3D1;
-  --color-success: #166534;
-  --color-warning: #CA8A04;
-  --color-error: #B91C1C;
-  --color-info: #0E7490;
-  --color-rating: #CA8A04;
-
-  /* Font Families */
-  --font-heading: "Playfair Display", serif;
-  --font-body: "Cormorant Garamond", serif;
-  --font-mono: "Fira Code", monospace;
-  --font-merriweather: "Merriweather", serif;
-  --font-raleway: "Raleway", sans-serif;
-
-  /* Font Sizes */
-  --text-2xs: 0.625rem;
-  --text-xs: 0.75rem;
-  --text-sm: 0.875rem;
-  --text-base: 1rem;
-  --text-lg: 1.125rem;
-  --text-xl: 1.25rem;
-  --text-2xl: 1.5rem;
-  --text-3xl: 2rem;
-  --text-4xl: 3rem;
-  --text-5xl: 4rem;
-
-  /* Spacing */
-  --spacing-18: 4.5rem;
-  --spacing-22: 5.5rem;
-
-  /* Max Width */
-  --max-width-container: 1280px;
-
-  /* Border Radius */
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
-
-  /* Shadows - subtle with borders */
-  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.06);
-  --shadow-card-hover: 0 10px 25px rgba(0, 0, 0, 0.08), 0 4px 10px rgba(0, 0, 0, 0.05);
-  --shadow-drawer: none;
-
-  /* Keyframes */
-  --animate-fade-in: fade-in 0.4s ease-out;
-  --animate-slide-in-right: slide-in-right 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  --animate-scale-in: scale-in 0.2s ease-out;
-
-  @keyframes fade-in {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes slide-in-right {
-    from { transform: translateX(100%); }
-    to { transform: translateX(0); }
-  }
-
-  @keyframes scale-in {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
-  }
-}
-
-:root {
-  /* Brand Fonts */
-  --font-playfair: "Playfair Display", serif;
-  --font-cormorant: "Cormorant Garamond", serif;
-  --font-fira: "Fira Code", monospace;
-  --font-merriweather: "Merriweather", serif;
-  --font-raleway: "Raleway", sans-serif;
-  --font-body: "Cormorant Garamond", serif;
-
-  /* Brand Colors — GreenLeaf palette */
-  --background: #FAFAF5;
-  --foreground: #1C1917;
-  --card: #FFFFFF;
-  --card-foreground: #1C1917;
-  --popover: #FFFFFF;
-  --popover-foreground: #1C1917;
-  --primary: #166534;
-  --primary-foreground: #FFFFFF;
-  --secondary: #86A873;
-  --secondary-foreground: #FFFFFF;
-  --muted: #F5F5F0;
-  --muted-foreground: #57534E;
-  --accent: #00C2FF;
-  --accent-foreground: #1C1917;
-  --destructive: #B91C1C;
-  --border: #E7E5E4;
-  --input: #E7E5E4;
-  --ring: #166534;
-
-  /* Chart colors */
-  --chart-1: #166534;
-  --chart-2: #86A873;
-  --chart-3: #A47148;
+  /* Charts */
+  --chart-1: #14532D;
+  --chart-2: #E8A020;
+  --chart-3: #22C55E;
   --chart-4: #CA8A04;
   --chart-5: #B91C1C;
-
-  --radius: 0.5rem;
-
-  /* Sidebar (admin) */
-  --sidebar-background: #FAFAF5;
-  --sidebar-foreground: #1C1917;
-  --sidebar-primary: #166534;
-  --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #86A873;
-  --sidebar-accent-foreground: #FFFFFF;
-  --sidebar-border: #E7E5E4;
-  --sidebar-ring: #166534;
-}
-
-@layer base {
-  * {
-    border-color: var(--border);
-  }
-
-  body {
-    background-color: var(--background);
-    color: var(--foreground);
-    font-family: var(--font-body);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-heading);
-  }
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
 }
 
 @theme inline {
-  --font-heading: "Playfair Display", serif;
-  --font-sans: "Cormorant Garamond", serif;
-  --font-merriweather: "Merriweather", serif;
-  --font-raleway: "Raleway", sans-serif;
+  --font-heading: var(--font-rajdhani), "Rajdhani", sans-serif;
+  --font-body:    var(--font-jakarta), "Plus Jakarta Sans", sans-serif;
+  --font-sans:    var(--font-jakarta), "Plus Jakarta Sans", sans-serif;
+
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -260,7 +77,7 @@
   --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
   --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
+  --color-sidebar: var(--sidebar-background);
   --color-chart-5: var(--chart-5);
   --color-chart-4: var(--chart-4);
   --color-chart-3: var(--chart-3);
@@ -289,216 +106,282 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) * 1.4);
   --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
-}
-
-.dark {
-  /* Dark green palette with warm organic tints */
-  --background: oklch(0.145 0.03 145);
-  --foreground: oklch(0.95 0.01 145);
-  --card: oklch(0.18 0.03 145);
-  --card-foreground: oklch(0.95 0.01 145);
-  --popover: oklch(0.18 0.03 145);
-  --popover-foreground: oklch(0.95 0.01 145);
-  --primary: oklch(0.55 0.12 145);
-  --primary-foreground: oklch(0.98 0.01 145);
-  --secondary: oklch(0.45 0.08 145);
-  --secondary-foreground: oklch(0.98 0.01 145);
-  --muted: oklch(0.25 0.03 145);
-  --muted-foreground: oklch(0.65 0.02 145);
-  --accent: oklch(0.60 0.15 200);
-  --accent-foreground: oklch(0.98 0.01 145);
-  --destructive: oklch(0.55 0.2 25);
-  --border: oklch(0.30 0.03 145);
-  --input: oklch(0.25 0.03 145);
-  --ring: oklch(0.55 0.12 145);
-  --chart-1: oklch(0.55 0.12 145);
-  --chart-2: oklch(0.45 0.08 145);
-  --chart-3: oklch(0.50 0.10 25);
-  --chart-4: oklch(0.60 0.15 85);
-  --chart-5: oklch(0.55 0.20 25);
-  --sidebar: oklch(0.18 0.03 145);
-  --sidebar-foreground: oklch(0.95 0.01 145);
-  --sidebar-primary: oklch(0.55 0.12 145);
-  --sidebar-primary-foreground: oklch(0.98 0.01 145);
-  --sidebar-accent: oklch(0.45 0.08 145);
-  --sidebar-accent-foreground: oklch(0.98 0.01 145);
-  --sidebar-border: oklch(0.30 0.03 145);
-  --sidebar-ring: oklch(0.55 0.12 145);
-
-  /* Warm organic accents - terracotta/warm-brown stay as visible accents in dark mode */
-  --color-terracotta: #B85C38;
-  --color-warm-brown: #8B6B4F;
-  --color-sage: #86A873;
-  --color-sage-light: #A3B88A;
 }
 
 /* ===========================
-   ATHLETIC 3D DESIGN SYSTEM
+   BASE STYLES
    =========================== */
 
-/* Athletic Brand Colors */
-:root {
-  --athletic-black: #0D0D0D;
-  --athletic-green: #166534;
-  --athletic-green-light: #22C55E;
-  --athletic-white: #FFFFFF;
-  --athletic-gray: #888888;
-  --athletic-dark-gray: #1A1A1A;
+@layer base {
+  * { border-color: var(--border); }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-body, "Plus Jakarta Sans", sans-serif);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading, "Rajdhani", sans-serif);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
 }
 
-/* 3D Perspective Container */
-.athletic-perspective {
-  perspective: 1000px;
-  perspective-origin: center center;
-  transform-style: preserve-3d;
+/* ===========================
+   UTILITY CLASSES
+   =========================== */
+
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+
+  /* Gold gradient text */
+  .text-gold {
+    background: linear-gradient(135deg, #E8A020 0%, #F5C842 50%, #E8A020 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Wellnza brand heading style */
+  .heading-brand {
+    font-family: var(--font-heading, "Rajdhani", sans-serif);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  /* Noise texture grain overlay */
+  .grain {
+    position: relative;
+  }
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
+    border-radius: inherit;
+  }
 }
 
-/* Angular Clip-Path Product Card */
-.athletic-card {
-  position: relative;
-  background: var(--athletic-black);
-  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
-  transform-style: preserve-3d;
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
+/* ===========================
+   COMPONENT CLASSES
+   =========================== */
+
+/* Gold accent line */
+.accent-bar {
+  display: inline-block;
+  width: 40px;
+  height: 3px;
+  background: linear-gradient(90deg, #E8A020, #F5C842);
+  border-radius: 2px;
 }
 
-.athletic-card:hover {
-  transform: translateZ(20px) rotateY(0deg) rotateX(0deg);
-  box-shadow:
-    -15px 15px 40px rgba(0, 0, 0, 0.8),
-    0 0 30px rgba(22, 101, 52, 0.15);
+/* Premium card — warm cream with subtle shadow */
+.card-premium {
+  background: #FFFFFF;
+  border: 1px solid rgba(232, 160, 32, 0.12);
+  box-shadow: 0 2px 16px rgba(11, 15, 12, 0.06), 0 1px 4px rgba(11, 15, 12, 0.04);
+  transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+}
+.card-premium:hover {
+  box-shadow: 0 8px 32px rgba(11, 15, 12, 0.12), 0 2px 8px rgba(232, 160, 32, 0.08);
+  border-color: rgba(232, 160, 32, 0.28);
+  transform: translateY(-2px);
 }
 
-/* Product Image 3D Container */
-.athletic-image-container {
-  position: relative;
-  overflow: hidden;
-  transform-style: preserve-3d;
-  will-change: transform;
-  transition: transform 0.2s ease-out;
+/* Dark card — for hero / promo panels */
+.card-dark {
+  background: var(--ink-card);
+  border: 1px solid rgba(232, 160, 32, 0.15);
 }
 
-/* Trust Badge */
-.athletic-trust-badge {
+/* Gold CTA button */
+.btn-gold {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 14px;
-  background: rgba(22, 101, 52, 0.15);
-  border: 1px solid var(--athletic-green);
-  font-family: 'Oswald', sans-serif;
-  font-size: 11px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--athletic-green-light);
-  transform: translateZ(15px);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.athletic-trust-badge:hover,
-.athletic-trust-badge:focus-visible {
-  transform: translateZ(25px) scale(1.05);
-  outline: 2px solid var(--athletic-green);
-  outline-offset: 2px;
-  box-shadow: 0 0 20px rgba(22, 101, 52, 0.3);
-}
-
-/* Staggered Entrance Animation */
-@keyframes athleticSlideIn {
-  0% {
-    opacity: 0;
-    transform: translateY(40px) rotateX(-10deg);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) rotateX(0deg);
-  }
-}
-
-.athletic-animate-in {
-  opacity: 0;
-  animation: athleticSlideIn 0.6s ease-out forwards;
-}
-
-/* Athletic Typography */
-.athletic-heading {
-  font-family: 'Bebas Neue', sans-serif;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-}
-
-.athletic-body {
-  font-family: 'Oswald', sans-serif;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
-
-/* CTA Button 3D Press Effect */
-.athletic-cta {
-  position: relative;
-  padding: 14px 28px;
-  background: var(--athletic-green);
-  color: var(--athletic-black);
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 18px;
-  letter-spacing: 3px;
+  padding: 12px 28px;
+  background: linear-gradient(135deg, #E8A020 0%, #F5C842 100%);
+  color: #0B0F0C;
+  font-family: var(--font-heading, "Rajdhani", sans-serif);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   border: none;
   cursor: pointer;
-  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
-  transform-style: preserve-3d;
-  transform: translateZ(20px);
-  transition: transform 0.3s ease, color 0.3s ease, background 0.3s ease;
+  border-radius: 6px;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 16px rgba(232, 160, 32, 0.3);
+}
+.btn-gold:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(232, 160, 32, 0.45);
+}
+.btn-gold:active { transform: translateY(0); }
+
+/* Green CTA button */
+.btn-green {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  background: var(--green);
+  color: #F7F3EC;
+  font-family: var(--font-heading, "Rajdhani", sans-serif);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.25s ease;
+}
+.btn-green:hover {
+  background: #166534;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(20, 83, 45, 0.35);
+}
+.btn-green:active { transform: translateY(0); }
+
+/* Gold badge pill */
+.badge-gold {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  background: linear-gradient(135deg, rgba(232,160,32,0.15), rgba(245,200,66,0.1));
+  border: 1px solid rgba(232, 160, 32, 0.35);
+  color: #B87800;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: 100px;
 }
 
-.athletic-cta::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: var(--athletic-black);
-  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
+/* Green badge pill */
+.badge-green {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  background: rgba(20, 83, 45, 0.1);
+  border: 1px solid rgba(20, 83, 45, 0.25);
+  color: #14532D;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: 100px;
 }
 
-.athletic-cta:hover::before {
-  opacity: 1;
+/* Category tag */
+.tag-category {
+  font-family: var(--font-body, "Plus Jakarta Sans", sans-serif);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
 
-.athletic-cta:hover {
-  color: var(--athletic-green);
+/* Product image hover zoom wrapper */
+.img-zoom {
+  overflow: hidden;
+}
+.img-zoom img {
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.img-zoom:hover img {
+  transform: scale(1.06);
 }
 
-.athletic-cta:active {
-  transform: translateZ(10px) scale(0.98);
+/* Diagonal accent stripe — decorative */
+.stripe-gold {
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 4px,
+    rgba(232, 160, 32, 0.06) 4px,
+    rgba(232, 160, 32, 0.06) 8px
+  );
 }
 
-.athletic-cta:focus-visible {
-  outline: 2px solid var(--athletic-green-light);
-  outline-offset: 2px;
+/* Section divider dot */
+.divider-dot::before {
+  content: "◆";
+  color: #E8A020;
+  margin-right: 8px;
+  font-size: 8px;
 }
 
-/* Prefers Reduced Motion */
+/* ===========================
+   ANIMATIONS
+   =========================== */
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+@keyframes pulseGold {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(232, 160, 32, 0.4); }
+  50%       { box-shadow: 0 0 0 8px rgba(232, 160, 32, 0); }
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.6s ease-out both;
+}
+.animate-fade-up-delay-1 { animation: fadeUp 0.6s ease-out 0.1s both; }
+.animate-fade-up-delay-2 { animation: fadeUp 0.6s ease-out 0.2s both; }
+.animate-fade-up-delay-3 { animation: fadeUp 0.6s ease-out 0.3s both; }
+
+.shimmer-text {
+  background: linear-gradient(90deg, #E8A020 0%, #F5C842 30%, #E8A020 60%, #F5C842 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s linear infinite;
+}
+
+/* ===========================
+   SCROLLBAR
+   =========================== */
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--cream); }
+::-webkit-scrollbar-thumb {
+  background: rgba(20, 83, 45, 0.3);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover { background: rgba(20, 83, 45, 0.5); }
+
+/* ===========================
+   REDUCED MOTION
+   =========================== */
+
 @media (prefers-reduced-motion: reduce) {
-  .athletic-animate-in {
+  .animate-fade-up,
+  .animate-fade-up-delay-1,
+  .animate-fade-up-delay-2,
+  .animate-fade-up-delay-3 {
     animation: none;
     opacity: 1;
   }
-  .athletic-card,
-  .athletic-image-container,
-  .athletic-trust-badge,
-  .athletic-cta {
-    transition: none;
-    transform: none !important;
-  }
+  .card-premium, .btn-gold, .btn-green { transition: none; }
 }
 
-/* WhatsApp floating button - ensure it works on all backgrounds */
-a[href*="wa.me"] {
-  transition: transform 0.2s ease;
-}
-a[href*="wa.me"]:hover {
-  transform: scale(1.05);
-}
+/* WhatsApp float */
+a[href*="wa.me"] { transition: transform 0.2s ease; }
+a[href*="wa.me"]:hover { transform: scale(1.05); }

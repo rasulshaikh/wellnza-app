@@ -69,19 +69,19 @@ export default async function AdminOrdersPage({
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-[#0A0A0A]">Orders</h1>
-        <p className="text-sm text-[#6B7280]">
+        <h1 className="text-2xl font-bold text-[#1a1a1a]" style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)" }}>Orders</h1>
+        <p className="text-sm text-[#7B9E6B]" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>
           {totalCount} total order{totalCount !== 1 ? "s" : ""}
         </p>
       </div>
 
       {/* Filters */}
-      <div className="bg-white border border-[#E5E7EB] rounded-xl p-4">
+      <div className="bg-white border border-[rgba(46,125,50,0.15)] rounded-xl p-4">
         <form className="flex flex-wrap gap-4">
           {/* Search */}
           <div className="flex-1 min-w-[200px]">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6B7280]" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#7B9E6B]" />
               <Input
                 name="search"
                 placeholder="Search by order # or email..."
@@ -123,60 +123,60 @@ export default async function AdminOrdersPage({
             className="w-[150px]"
           />
 
-          <Button type="submit" size="sm" className="bg-[#0055FF] hover:bg-[#0044CC]">
+          <Button type="submit" size="sm" className="bg-[#2E7D32] hover:bg-[#1B5E20]">
             Filter
           </Button>
         </form>
       </div>
 
       {/* Orders Table */}
-      <div className="bg-white border border-[#E5E7EB] rounded-xl overflow-hidden">
+      <div className="bg-white border border-[rgba(46,125,50,0.15)] rounded-xl overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-[#E5E7EB] bg-[#FAFAFA]">
-                <th className="px-5 py-3 text-left text-xs font-medium text-[#6B7280] uppercase tracking-wider">
+              <tr className="border-b border-[rgba(46,125,50,0.15)] bg-[#FAFAF8]">
+                <th className="px-5 py-3 text-left text-xs font-medium text-[#7B9E6B] uppercase tracking-wider" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>
                   Order #
                 </th>
-                <th className="px-5 py-3 text-left text-xs font-medium text-[#6B7280] uppercase tracking-wider">
+                <th className="px-5 py-3 text-left text-xs font-medium text-[#7B9E6B] uppercase tracking-wider" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>
                   Customer
                 </th>
-                <th className="px-5 py-3 text-left text-xs font-medium text-[#6B7280] uppercase tracking-wider">
+                <th className="px-5 py-3 text-left text-xs font-medium text-[#7B9E6B] uppercase tracking-wider" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>
                   Date
                 </th>
-                <th className="px-5 py-3 text-left text-xs font-medium text-[#6B7280] uppercase tracking-wider">
+                <th className="px-5 py-3 text-left text-xs font-medium text-[#7B9E6B] uppercase tracking-wider" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>
                   Items
                 </th>
-                <th className="px-5 py-3 text-left text-xs font-medium text-[#6B7280] uppercase tracking-wider">
+                <th className="px-5 py-3 text-left text-xs font-medium text-[#7B9E6B] uppercase tracking-wider" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>
                   Total
                 </th>
-                <th className="px-5 py-3 text-left text-xs font-medium text-[#6B7280] uppercase tracking-wider">
+                <th className="px-5 py-3 text-left text-xs font-medium text-[#7B9E6B] uppercase tracking-wider" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>
                   Status
                 </th>
-                <th className="px-5 py-3 text-left text-xs font-medium text-[#6B7280] uppercase tracking-wider">
+                <th className="px-5 py-3 text-left text-xs font-medium text-[#7B9E6B] uppercase tracking-wider" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>
                   Actions
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#E5E7EB]">
+            <tbody className="divide-y divide-[rgba(46,125,50,0.15)]">
               {orders.map((order: typeof orders[number]) => (
-                <tr key={order.id} className="hover:bg-[#FAFAFA]">
-                  <td className="px-5 py-3 text-sm font-medium text-[#0A0A0A]">
+                <tr key={order.id} className="hover:bg-[#FAFAF8]">
+                  <td className="px-5 py-3 text-sm font-medium text-[#1a1a1a]">
                     #{order.orderNumber}
                   </td>
-                  <td className="px-5 py-3 text-sm text-[#6B7280]">
+                  <td className="px-5 py-3 text-sm text-[#7B9E6B]">
                     <div>
-                      <p className="text-[#0A0A0A]">{order.user?.name || "Guest"}</p>
+                      <p className="text-[#1a1a1a]">{order.user?.name || "Guest"}</p>
                       <p className="text-xs">{order.user?.email}</p>
                     </div>
                   </td>
-                  <td className="px-5 py-3 text-sm text-[#6B7280]">
+                  <td className="px-5 py-3 text-sm text-[#7B9E6B]">
                     {formatDate(order.createdAt)}
                   </td>
-                  <td className="px-5 py-3 text-sm text-[#6B7280]">
+                  <td className="px-5 py-3 text-sm text-[#7B9E6B]">
                     {order.items.length}
                   </td>
-                  <td className="px-5 py-3 text-sm font-medium text-[#0A0A0A]">
+                  <td className="px-5 py-3 text-sm font-medium text-[#1a1a1a]">
                     {formatCurrency(order.total)}
                   </td>
                   <td className="px-5 py-3">
@@ -199,7 +199,7 @@ export default async function AdminOrdersPage({
               ))}
               {orders.length === 0 && (
                 <tr>
-                  <td colSpan={7} className="px-5 py-12 text-center text-sm text-[#6B7280]">
+                  <td colSpan={7} className="px-5 py-12 text-center text-sm text-[#7B9E6B]">
                     No orders found
                   </td>
                 </tr>
@@ -210,8 +210,8 @@ export default async function AdminOrdersPage({
 
         {/* Pagination */}
         {totalPages > 1 && (
-          <div className="px-5 py-4 border-t border-[#E5E7EB] flex items-center justify-between">
-            <p className="text-sm text-[#6B7280]">
+          <div className="px-5 py-4 border-t border-[rgba(46,125,50,0.15)] flex items-center justify-between">
+            <p className="text-sm text-[#7B9E6B]" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>
               Page {page} of {totalPages}
             </p>
             <div className="flex gap-2">

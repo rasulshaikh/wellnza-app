@@ -17,7 +17,8 @@ export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
 
-    const category = searchParams.get("category");
+    // Support multiple category params: ?category=PROTEIN&category=PRE_WORKOUT
+    const categoryParams = searchParams.getAll("category");
     const minPrice = searchParams.get("minPrice");
     const maxPrice = searchParams.get("maxPrice");
     const sort = searchParams.get("sort");
@@ -32,11 +33,15 @@ export async function GET(request: Request) {
       isActive: true,
     };
 
-    // Category filter — support both enum values and slug form (e.g., "protein" → "PROTEIN")
-    if (category) {
-      const normalized = category.toUpperCase().replace("-", "_");
-      if (PRODUCT_CATEGORIES.includes(normalized as ProductCategory)) {
-        where.category = normalized as ProductCategory;
+    // Category filter — support multiple categories and slug form (e.g., "protein" → "PROTEIN")
+    if (categoryParams.length > 0) {
+      const normalized = categoryParams
+        .map((c) => c.toUpperCase().replace(/-/g, "_"))
+        .filter((c) => PRODUCT_CATEGORIES.includes(c as ProductCategory)) as ProductCategory[];
+      if (normalized.length === 1) {
+        where.category = normalized[0];
+      } else if (normalized.length > 1) {
+        where.category = { in: normalized };
       }
     }
 

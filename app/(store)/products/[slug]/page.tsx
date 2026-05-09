@@ -140,7 +140,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
               {CATEGORY_LABELS[product.category] ?? product.category}
             </Badge>
 
-            <h1 className="text-[28px] font-bold tracking-tight" style={{ fontFamily: "'Playfair Display', serif", color: "#1a1a1a" }}>
+            <h1 className="text-[28px] font-bold tracking-tight" style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#1a1a1a" }}>
               {product.name}
             </h1>
 
@@ -163,7 +163,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
 
             {/* Price */}
             <div className="flex items-baseline gap-3">
-              <span className="text-[24px] font-semibold" style={{ fontFamily: "'Playfair Display', serif", color: "#1a1a1a" }}>
+              <span className="text-[24px] font-semibold" style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#1a1a1a" }}>
                 {formatCurrency(defaultVariant?.price ?? product.basePrice)}
               </span>
               {product.comparePrice && product.comparePrice > product.basePrice && (
@@ -179,7 +179,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
             </div>
 
             {/* Short description */}
-            <p className="text-[16px] leading-[1.6]" style={{ fontFamily: "'DM Sans', sans-serif", color: "#7B9E6B" }}>
+            <p className="text-[16px] leading-[1.6]" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}>
               {product.description.slice(0, 200)}
               {product.description.length > 200 ? "..." : ""}
             </p>
@@ -195,7 +195,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
             {/* Variant selector */}
             {hasVariants && (
               <div className="flex flex-col gap-3">
-                <span className="text-sm font-semibold" style={{ fontFamily: "'DM Sans', sans-serif", color: "#1a1a1a" }}>Select Option</span>
+                <span className="text-sm font-semibold" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#1a1a1a" }}>Select Option</span>
                 <VariantSelectorClient
                   variants={variantData}
                   inventory={inventoryData}
@@ -244,7 +244,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
               <TabsTrigger
                 value="description"
                 className="rounded-none border-b-2 border-transparent data-active:border-transparent data-active:bg-transparent"
-                style={{ color: "#7B9E6B", fontFamily: "'DM Sans', sans-serif" }}
+                style={{ color: "#7B9E6B", fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}
                 data-active-style={{ color: "#1a1a1a", borderBottomColor: "#2E7D32" }}
               >
                 Description
@@ -252,7 +252,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
               <TabsTrigger
                 value="nutrition"
                 className="rounded-none border-b-2 border-transparent data-active:border-transparent data-active:bg-transparent"
-                style={{ color: "#7B9E6B", fontFamily: "'DM Sans', sans-serif" }}
+                style={{ color: "#7B9E6B", fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}
                 data-active-style={{ color: "#1a1a1a", borderBottomColor: "#2E7D32" }}
               >
                 Nutrition Facts
@@ -260,7 +260,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
               <TabsTrigger
                 value="how-to-use"
                 className="rounded-none border-b-2 border-transparent data-active:border-transparent data-active:bg-transparent"
-                style={{ color: "#7B9E6B", fontFamily: "'DM Sans', sans-serif" }}
+                style={{ color: "#7B9E6B", fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}
                 data-active-style={{ color: "#1a1a1a", borderBottomColor: "#2E7D32" }}
               >
                 How to Use
@@ -268,11 +268,11 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
             </TabsList>
 
             <TabsContent value="description" className="py-6">
-              <p className="text-sm leading-relaxed whitespace-pre-wrap" style={{ fontFamily: "'DM Sans', sans-serif", color: "#7B9E6B" }}>{product.description}</p>
+              <p className="text-sm leading-relaxed whitespace-pre-wrap" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}>{product.description}</p>
               {product.ingredients && (
                 <div className="mt-4">
-                  <h3 className="text-sm font-semibold mb-1" style={{ fontFamily: "'Playfair Display', serif", color: "#1a1a1a" }}>Ingredients</h3>
-                  <p className="text-sm whitespace-pre-wrap" style={{ fontFamily: "'DM Sans', sans-serif", color: "#7B9E6B" }}>{product.ingredients}</p>
+                  <h3 className="text-sm font-semibold mb-1" style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#1a1a1a" }}>Ingredients</h3>
+                  <p className="text-sm whitespace-pre-wrap" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}>{product.ingredients}</p>
                 </div>
               )}
             </TabsContent>
@@ -283,15 +283,15 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
                   <table className="w-full text-sm">
                     <thead>
                       <tr className="border-b" style={{ borderColor: "rgba(46,125,50,0.15)", background: "#FAFAF8" }}>
-                        <th className="px-4 py-2 text-left font-semibold" style={{ fontFamily: "'Playfair Display', serif", color: "#1a1a1a" }}>Nutrient</th>
-                        <th className="px-4 py-2 text-right font-semibold" style={{ fontFamily: "'Playfair Display', serif", color: "#1a1a1a" }}>Per Serving</th>
+                        <th className="px-4 py-2 text-left font-semibold" style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#1a1a1a" }}>Nutrient</th>
+                        <th className="px-4 py-2 text-right font-semibold" style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#1a1a1a" }}>Per Serving</th>
                       </tr>
                     </thead>
                     <tbody>
                       {Object.entries(nutritionFacts).map(([key, value]: [string, string]) => (
                         <tr key={key} className="border-b last:border-0" style={{ borderColor: "rgba(46,125,50,0.15)" }}>
-                          <td className="px-4 py-2 capitalize" style={{ fontFamily: "'DM Sans', sans-serif", color: "#1a1a1a" }}>{key.replace(/_/g, " ")}</td>
-                          <td className="px-4 py-2 text-right" style={{ fontFamily: "'DM Sans', sans-serif", color: "#7B9E6B" }}>{value}</td>
+                          <td className="px-4 py-2 capitalize" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#1a1a1a" }}>{key.replace(/_/g, " ")}</td>
+                          <td className="px-4 py-2 text-right" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}>{value}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -302,33 +302,33 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
                   <table className="w-full text-sm">
                     <thead>
                       <tr className="border-b" style={{ borderColor: "rgba(46,125,50,0.15)", background: "#FAFAF8" }}>
-                        <th className="px-4 py-2 text-left font-semibold" style={{ fontFamily: "'Playfair Display', serif", color: "#1a1a1a" }}>Nutrient</th>
-                        <th className="px-4 py-2 text-right font-semibold" style={{ fontFamily: "'Playfair Display', serif", color: "#1a1a1a" }}>Per Serving</th>
+                        <th className="px-4 py-2 text-left font-semibold" style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#1a1a1a" }}>Nutrient</th>
+                        <th className="px-4 py-2 text-right font-semibold" style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#1a1a1a" }}>Per Serving</th>
                       </tr>
                     </thead>
                     <tbody>
                       {product.calories != null && (
                         <tr className="border-b" style={{ borderColor: "rgba(46,125,50,0.15)" }}>
-                          <td className="px-4 py-2" style={{ fontFamily: "'DM Sans', sans-serif", color: "#1a1a1a" }}>Calories</td>
-                          <td className="px-4 py-2 text-right" style={{ fontFamily: "'DM Sans', sans-serif", color: "#7B9E6B" }}>{product.calories}</td>
+                          <td className="px-4 py-2" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#1a1a1a" }}>Calories</td>
+                          <td className="px-4 py-2 text-right" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}>{product.calories}</td>
                         </tr>
                       )}
                       {product.protein != null && (
                         <tr className="border-b" style={{ borderColor: "rgba(46,125,50,0.15)" }}>
-                          <td className="px-4 py-2" style={{ fontFamily: "'DM Sans', sans-serif", color: "#1a1a1a" }}>Protein</td>
-                          <td className="px-4 py-2 text-right" style={{ fontFamily: "'DM Sans', sans-serif", color: "#7B9E6B" }}>{product.protein}g</td>
+                          <td className="px-4 py-2" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#1a1a1a" }}>Protein</td>
+                          <td className="px-4 py-2 text-right" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}>{product.protein}g</td>
                         </tr>
                       )}
                       {product.carbs != null && (
                         <tr className="border-b" style={{ borderColor: "rgba(46,125,50,0.15)" }}>
-                          <td className="px-4 py-2" style={{ fontFamily: "'DM Sans', sans-serif", color: "#1a1a1a" }}>Carbohydrates</td>
-                          <td className="px-4 py-2 text-right" style={{ fontFamily: "'DM Sans', sans-serif", color: "#7B9E6B" }}>{product.carbs}g</td>
+                          <td className="px-4 py-2" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#1a1a1a" }}>Carbohydrates</td>
+                          <td className="px-4 py-2 text-right" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}>{product.carbs}g</td>
                         </tr>
                       )}
                       {product.fat != null && (
                         <tr className="border-b" style={{ borderColor: "rgba(46,125,50,0.15)" }}>
-                          <td className="px-4 py-2" style={{ fontFamily: "'DM Sans', sans-serif", color: "#1a1a1a" }}>Fat</td>
-                          <td className="px-4 py-2 text-right" style={{ fontFamily: "'DM Sans', sans-serif", color: "#7B9E6B" }}>{product.fat}g</td>
+                          <td className="px-4 py-2" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#1a1a1a" }}>Fat</td>
+                          <td className="px-4 py-2 text-right" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}>{product.fat}g</td>
                         </tr>
                       )}
                       {!product.calories && !product.protein && !product.carbs && !product.fat && (
@@ -348,12 +348,12 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
               <div className="space-y-3">
                 {product.directions && (
                   <div>
-                    <h3 className="text-sm font-semibold mb-1" style={{ fontFamily: "'Playfair Display', serif", color: "#1a1a1a" }}>Directions</h3>
-                    <p className="text-sm whitespace-pre-wrap" style={{ fontFamily: "'DM Sans', sans-serif", color: "#7B9E6B" }}>{product.directions}</p>
+                    <h3 className="text-sm font-semibold mb-1" style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#1a1a1a" }}>Directions</h3>
+                    <p className="text-sm whitespace-pre-wrap" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}>{product.directions}</p>
                   </div>
                 )}
                 {product.servingSize && (
-                  <p className="text-sm" style={{ fontFamily: "'DM Sans', sans-serif", color: "#7B9E6B" }}>
+                  <p className="text-sm" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}>
                     <span className="font-semibold" style={{ color: "#1a1a1a" }}>Serving Size:</span> {product.servingSize}
                   </p>
                 )}
@@ -368,7 +368,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
         {/* Reviews */}
         <div className="mt-12">
           <div className="mb-6">
-            <h2 className="text-xl font-bold" style={{ fontFamily: "'Playfair Display', serif", color: "#1a1a1a" }}>Customer Reviews</h2>
+            <h2 className="text-xl font-bold" style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#1a1a1a" }}>Customer Reviews</h2>
           </div>
 
           {product.reviews.length === 0 ? (
@@ -387,7 +387,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
         {/* Related Products */}
         {relatedProducts.length > 0 && (
           <div className="mt-12">
-            <h2 className="text-xl font-bold mb-6" style={{ fontFamily: "'Playfair Display', serif", color: "#1a1a1a" }}>You may also like</h2>
+            <h2 className="text-xl font-bold mb-6" style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#1a1a1a" }}>You may also like</h2>
             <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
               {relatedProducts.map((p: typeof relatedProducts[number]) => (
                 <ProductCard key={p.id} {...p} />

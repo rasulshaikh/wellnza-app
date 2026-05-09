@@ -43,27 +43,47 @@ export default async function OrderConfirmationPage({
   }
 
   return (
-    <div className="min-h-screen bg-[#0D0D0D] py-8">
+    <div className="min-h-screen py-8" style={{ background: "#FAFAF8" }}>
       <div className="max-w-2xl mx-auto px-4">
         {/* Success Header */}
         <div className="text-center mb-8">
-          <div className="w-16 h-16 bg-[#22C55E] rounded-full flex items-center justify-center mx-auto mb-4">
-            <Check className="w-8 h-8 text-white" />
+          <div
+            className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
+            style={{ background: "rgba(46, 125, 50, 0.1)" }}
+          >
+            <Check className="w-8 h-8" style={{ color: "#2E7D32" }} />
           </div>
-          <h1 className="text-2xl font-bold text-white mb-2" style={{ fontFamily: "var(--font-bebas)" }}>
-            ORDER LOCKED IN
+          <h1
+            className="text-2xl font-bold mb-3"
+            style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#1a1a1a", letterSpacing: "1px" }}
+          >
+            Order Confirmed
           </h1>
-          <p className="text-[#888888]">
-            Thank you for your order. We will send you a confirmation email
-            shortly.
+          <p className="text-sm" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}>
+            Thank you for your order. We will send you a confirmation email shortly.
           </p>
         </div>
 
         {/* Order Details Card */}
-        <div className="bg-[#1A1A1A] border border-[rgba(22,101,52,0.3)] p-6 mb-6 rounded-lg" style={{ clipPath: "polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))" }}>
+        <div
+          className="p-6 mb-6 rounded-md"
+          style={{
+            background: "#fff",
+            border: "1px solid rgba(46, 125, 50, 0.15)",
+            boxShadow: "0 2px 8px rgba(46, 125, 50, 0.06)",
+          }}
+        >
           <div className="flex items-center justify-between mb-4">
-            <h2 className="font-semibold text-white" style={{ fontFamily: "var(--font-bebas)" }}>Order Details</h2>
-            <span className="text-sm text-[#888888]" style={{ fontFamily: "var(--font-bebas)" }}>
+            <h2
+              className="font-semibold"
+              style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#1a1a1a" }}
+            >
+              Order Details
+            </h2>
+            <span
+              className="text-sm"
+              style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}
+            >
               #{order.orderNumber}
             </span>
           </div>
@@ -72,22 +92,37 @@ export default async function OrderConfirmationPage({
           <div className="space-y-4 mb-6">
             {order.items.map((item: typeof order.items[number]) => (
               <div key={item.id} className="flex items-center gap-4">
-                <div className="w-16 h-16 bg-[#0D0D0D] flex-shrink-0 flex items-center justify-center rounded-lg">
-                  <Package className="w-6 h-6 text-[#888888]" />
+                <div
+                  className="w-16 h-16 bg-[#FAFAF8] flex-shrink-0 flex items-center justify-center rounded-md"
+                  style={{ border: "1px solid rgba(46, 125, 50, 0.1)" }}
+                >
+                  <Package className="w-6 h-6" style={{ color: "#7B9E6B" }} />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="font-medium text-white">
+                  <p
+                    className="font-medium text-sm"
+                    style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#1a1a1a" }}
+                  >
                     {item.productVariant.product.name}
                   </p>
-                  <p className="text-sm text-[#888888]">
+                  <p
+                    className="text-xs"
+                    style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}
+                  >
                     {item.productVariant.flavor}
                     {item.productVariant.size && ` · ${item.productVariant.size}`}
                   </p>
-                  <p className="text-sm text-[#888888]">
+                  <p
+                    className="text-xs"
+                    style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}
+                  >
                     Qty: {item.quantity} × {formatCurrency(item.unitPrice)}
                   </p>
                 </div>
-                <p className="font-medium text-white">
+                <p
+                  className="font-medium text-sm"
+                  style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#1a1a1a" }}
+                >
                   {formatCurrency(item.unitPrice * item.quantity)}
                 </p>
               </div>
@@ -95,94 +130,122 @@ export default async function OrderConfirmationPage({
           </div>
 
           {/* Totals */}
-          <div className="border-t border-[rgba(22,101,52,0.3)] pt-4 space-y-2">
+          <div
+            className="border-t pt-4 space-y-2"
+            style={{ borderColor: "rgba(46, 125, 50, 0.15)" }}
+          >
             <div className="flex justify-between text-sm">
-              <span className="text-[#888888]">Subtotal</span>
-              <span className="text-white">
+              <span style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}>Subtotal</span>
+              <span style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#1a1a1a" }}>
                 {formatCurrency(order.subtotal)}
               </span>
             </div>
             <div className="flex justify-between text-sm">
-              <span className="text-[#888888]">Shipping</span>
-              <span className="text-white">
+              <span style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}>Shipping</span>
+              <span style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#1a1a1a" }}>
                 {order.shippingCost === 0 ? (
-                  <span className="text-[#22C55E]">Free</span>
+                  <span style={{ color: "#2E7D32" }}>FREE</span>
                 ) : (
                   formatCurrency(order.shippingCost)
                 )}
               </span>
             </div>
-            {order.discount > 0 && (
-              <div className="flex justify-between text-sm">
-                <span className="text-[#888888]">Discount</span>
-                <span className="text-[#22C55E]">
-                  -{formatCurrency(order.discount)}
+            <div className="flex justify-between text-sm">
+              <span style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}>Tax</span>
+              <span style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#1a1a1a" }}>
+                {formatCurrency(order.tax)}
+              </span>
+            </div>
+            <div
+              className="flex justify-between pt-2 border-t"
+              style={{ borderColor: "rgba(46, 125, 50, 0.15)" }}
+            >
+              <span
+                className="font-semibold"
+                style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#1a1a1a" }}
+              >
+                Total
+              </span>
+              <span
+                className="font-bold"
+                style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#2E7D32" }}
+              >
+                {formatCurrency(order.total)}
+              </span>
+            </div>
+          </div>
+
+          {/* Shipping Address */}
+          {order.shippingAddress && (
+            <div
+              className="mt-6 pt-6 border-t"
+              style={{ borderColor: "rgba(46, 125, 50, 0.15)" }}
+            >
+              <div className="flex items-center gap-2 mb-3">
+                <MapPin className="w-4 h-4" style={{ color: "#2E7D32" }} />
+                <span
+                  className="text-sm font-medium"
+                  style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#1a1a1a" }}
+                >
+                  Shipping Address
                 </span>
               </div>
-            )}
-            <div className="flex justify-between font-semibold pt-2 border-t border-[rgba(22,101,52,0.3)]">
-              <span className="text-white">Total Paid</span>
-              <span className="text-white">{formatCurrency(order.total)}</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Shipping Address */}
-        {order.shippingAddress && (
-          <div className="bg-[#1A1A1A] border border-[rgba(22,101,52,0.3)] p-6 mb-6 rounded-lg" style={{ clipPath: "polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))" }}>
-            <div className="flex items-center gap-2 mb-4">
-              <MapPin className="w-4 h-4 text-[#888888]" />
-              <h2 className="font-semibold text-white" style={{ fontFamily: "var(--font-bebas)" }}>Shipping Address</h2>
-            </div>
-            <div className="text-sm text-[#888888]">
-              <p className="font-medium text-white">
-                {order.shippingAddress.name}
-              </p>
-              <p>{order.shippingAddress.line1}</p>
-              {order.shippingAddress.line2 && (
-                <p>{order.shippingAddress.line2}</p>
-              )}
-              <p>
-                {order.shippingAddress.city}, {order.shippingAddress.state} -{" "}
+              <p
+                className="text-xs leading-relaxed"
+                style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}
+              >
+                {order.shippingAddress.line1}
+                {order.shippingAddress.line2 && `, ${order.shippingAddress.line2}`}
+                <br />
+                {order.shippingAddress.city}, {order.shippingAddress.state}{" "}
                 {order.shippingAddress.pin}
-              </p>
-              <p>{order.shippingAddress.phone}</p>
-            </div>
-          </div>
-        )}
-
-        {/* Order Status */}
-        <div className="bg-[#1A1A1A] border border-[rgba(22,101,52,0.3)] p-6 mb-8 rounded-lg" style={{ clipPath: "polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))" }}>
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-[#166534] rounded-full flex items-center justify-center">
-              <Package className="w-5 h-5 text-white" />
-            </div>
-            <div>
-              <p className="font-medium text-white">
-                Order Status: {order.status}
-              </p>
-              <p className="text-sm text-[#888888]">
-                We will notify you when your order ships.
+                <br />
+                {order.shippingAddress.country}
               </p>
             </div>
-          </div>
+          )}
         </div>
 
         {/* Actions */}
-        <div className="flex gap-3">
+        <div className="flex flex-col sm:flex-row gap-3">
           <Link href="/products" className="flex-1">
-            <Button className="w-full bg-[#166534] hover:bg-[#14532D] text-white h-11" style={{ fontFamily: "var(--font-bebas)", clipPath: "polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))" }}>
-              Continue Shopping
-            </Button>
-          </Link>
-          <Link href="/" className="flex-1">
-            <Button
-              variant="outline"
-              className="w-full h-11 border-[rgba(22,101,52,0.3)] text-white hover:bg-[#1A1A1A]"
+            <button
+              className="w-full py-3 text-sm font-medium transition-opacity"
+              style={{
+                fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)",
+                background: "#2E7D32",
+                color: "#fff",
+                borderRadius: "6px",
+              }}
             >
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Go to Homepage
-            </Button>
+              Continue Shopping
+            </button>
+          </Link>
+          <Link href="/account/orders" className="flex-1">
+            <button
+              className="w-full py-3 text-sm font-medium transition-colors"
+              style={{
+                fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)",
+                background: "transparent",
+                color: "#2E7D32",
+                border: "1px solid rgba(46, 125, 50, 0.3)",
+                borderRadius: "6px",
+              }}
+            >
+              View All Orders
+            </button>
+          </Link>
+        </div>
+
+        {/* Back link */}
+        <div className="mt-6 text-center">
+          <Link
+            href="/products"
+            className="inline-flex items-center gap-2 text-xs transition-colors"
+            style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}
+          >
+            <ArrowLeft className="w-3 h-3" />
+            Back to Shop
           </Link>
         </div>
       </div>

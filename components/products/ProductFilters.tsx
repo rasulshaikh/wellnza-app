@@ -61,16 +61,16 @@ function FilterContent({
       {/* Sort */}
       <div className="flex flex-col gap-2">
         <Label
-          className="text-[11px] font-medium text-[#888888] tracking-[2px] uppercase"
-          style={{ fontFamily: "'Oswald', sans-serif" }}
+          className="text-[11px] font-medium tracking-[2px] uppercase"
+          style={{ fontFamily: "'DM Sans', sans-serif", color: "#7B9E6B" }}
         >
           SORT BY
         </Label>
         <select
           value={sort}
           onChange={(e) => onSortChange(e.target.value)}
-          className="h-[44px] w-full border border-[#166534]/40 bg-[#0D0D0D] px-3 py-2 text-[13px] text-white transition-colors focus:border-[#22C55E] focus:outline-none focus:ring-1 focus:ring-[#22C55E]"
-          style={{ fontFamily: "'Oswald', sans-serif", letterSpacing: "1px" }}
+          className="h-[44px] w-full border px-3 py-2 text-[13px] transition-colors focus:outline-none focus:ring-1"
+          style={{ fontFamily: "'DM Sans', sans-serif", letterSpacing: "1px", borderColor: "rgba(46,125,50,0.15)", backgroundColor: "#FAFAF8", color: "#1a1a1a" }}
           aria-label="Sort products"
         >
           {SORT_OPTIONS.map((opt) => (
@@ -84,8 +84,8 @@ function FilterContent({
       {/* Category */}
       <div className="flex flex-col gap-3">
         <Label
-          className="text-[11px] font-medium text-[#888888] tracking-[2px] uppercase"
-          style={{ fontFamily: "'Oswald', sans-serif" }}
+          className="text-[11px] font-medium tracking-[2px] uppercase"
+          style={{ fontFamily: "'DM Sans', sans-serif", color: "#7B9E6B" }}
         >
           CATEGORY
         </Label>
@@ -93,13 +93,14 @@ function FilterContent({
           {CATEGORIES.map((cat) => (
             <Label
               key={cat.value}
-              className="flex cursor-pointer items-center gap-3 text-[13px] text-white"
-              style={{ fontFamily: "'Oswald', sans-serif", letterSpacing: "1px" }}
+              className="flex cursor-pointer items-center gap-3 text-[13px]"
+              style={{ fontFamily: "'DM Sans', sans-serif", letterSpacing: "1px", color: "#1a1a1a" }}
             >
               <Checkbox
                 checked={selectedCategories.includes(cat.value)}
                 onCheckedChange={() => onToggleCategory(cat.value)}
-                className="data-[checked=true]:bg-[#166534] data-[checked=true]:border-[#166534] data-[checked=true]:text-white border-[#166534]/40"
+                className="border"
+                style={{ borderColor: "rgba(46,125,50,0.15)", backgroundColor: selectedCategories.includes(cat.value) ? "#2E7D32" : "transparent" }}
                 aria-label={`Filter by ${cat.label}`}
               />
               {cat.label}
@@ -111,8 +112,8 @@ function FilterContent({
       {/* Price Range */}
       <div className="flex flex-col gap-3">
         <Label
-          className="text-[11px] font-medium text-[#888888] tracking-[2px] uppercase"
-          style={{ fontFamily: "'Oswald', sans-serif" }}
+          className="text-[11px] font-medium tracking-[2px] uppercase"
+          style={{ fontFamily: "'DM Sans', sans-serif", color: "#7B9E6B" }}
         >
           PRICE RANGE
         </Label>
@@ -122,19 +123,19 @@ function FilterContent({
             placeholder="MIN"
             value={minPrice}
             onChange={(e) => onPriceChange("minPrice", e.target.value)}
-            className="h-[44px] border border-[#166534]/40 bg-[#0D0D0D] text-white placeholder:text-[#888888] focus:border-[#22C55E] focus:outline-none focus:ring-1 focus:ring-[#22C55E]"
-            style={{ fontFamily: "'Oswald', sans-serif", letterSpacing: "1px" }}
+            className="h-[44px] border px-3 py-2 text-[13px] transition-colors focus:outline-none focus:ring-1"
+            style={{ fontFamily: "'DM Sans', sans-serif", letterSpacing: "1px", borderColor: "rgba(46,125,50,0.15)", backgroundColor: "#FAFAF8", color: "#1a1a1a" }}
             min={0}
             aria-label="Minimum price"
           />
-          <span className="text-[#888888]">-</span>
+          <span style={{ color: "#7B9E6B" }}>-</span>
           <Input
             type="number"
             placeholder="MAX"
             value={maxPrice}
             onChange={(e) => onPriceChange("maxPrice", e.target.value)}
-            className="h-[44px] border border-[#166534]/40 bg-[#0D0D0D] text-white placeholder:text-[#888888] focus:border-[#22C55E] focus:outline-none focus:ring-1 focus:ring-[#22C55E]"
-            style={{ fontFamily: "'Oswald', sans-serif", letterSpacing: "1px" }}
+            className="h-[44px] border px-3 py-2 text-[13px] transition-colors focus:outline-none focus:ring-1"
+            style={{ fontFamily: "'DM Sans', sans-serif", letterSpacing: "1px", borderColor: "rgba(46,125,50,0.15)", backgroundColor: "#FAFAF8", color: "#1a1a1a" }}
             min={0}
             aria-label="Maximum price"
           />
@@ -146,8 +147,8 @@ function FilterContent({
           variant="ghost"
           size="sm"
           onClick={onClearAll}
-          className="mt-2 text-[#22C55E] hover:bg-[#166534]/20 w-fit"
-          style={{ fontFamily: "'Oswald', sans-serif", letterSpacing: "2px" }}
+          className="mt-2 hover:bg-transparent w-fit"
+          style={{ fontFamily: "'DM Sans', sans-serif", letterSpacing: "2px", color: "#2E7D32" }}
           aria-label="Clear all filters"
         >
           CLEAR ALL FILTERS
@@ -228,16 +229,16 @@ export function ProductFilters({ className }: ProductFiltersProps) {
         <div className="flex flex-col gap-6">
           <div className="flex items-center justify-between">
             <h2
-              className="text-[14px] font-semibold text-white tracking-[2px]"
-              style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+              className="text-[14px] font-semibold tracking-[2px]"
+              style={{ fontFamily: "'Playfair Display', serif", color: "#1a1a1a" }}
             >
               FILTERS
             </h2>
             {activeFilterCount > 0 && (
               <Badge
                 variant="secondary"
-                className="text-[11px] px-2 py-0.5 bg-[#166534] text-white border-0"
-                style={{ fontFamily: "'Oswald', sans-serif", letterSpacing: "1px" }}
+                className="text-[11px] px-2 py-0.5 border-0"
+                style={{ fontFamily: "'DM Sans', sans-serif", letterSpacing: "1px", background: "#2E7D32", color: "#fff" }}
               >
                 {activeFilterCount}
               </Badge>
@@ -260,8 +261,8 @@ export function ProductFilters({ className }: ProductFiltersProps) {
       {/* Mobile drawer */}
       <div className="flex items-center justify-between px-4 py-3 lg:hidden">
         <span
-          className="text-[13px] text-[#888888]"
-          style={{ fontFamily: "'Oswald', sans-serif", letterSpacing: "1px" }}
+          className="text-[13px]"
+          style={{ fontFamily: "'DM Sans', sans-serif", letterSpacing: "1px", color: "#7B9E6B" }}
         >
           {activeFilterCount > 0 ? `${activeFilterCount} FILTER${activeFilterCount > 1 ? "S" : ""} ACTIVE` : "NO FILTERS APPLIED"}
         </span>
@@ -270,8 +271,8 @@ export function ProductFilters({ className }: ProductFiltersProps) {
             <Button
               variant="outline"
               size="sm"
-              className="gap-2 border-[#166534]/40 text-white hover:bg-[#166534]/20"
-              style={{ fontFamily: "'Oswald', sans-serif", letterSpacing: "1px" }}
+              className="gap-2"
+              style={{ fontFamily: "'DM Sans', sans-serif", letterSpacing: "1px", borderColor: "rgba(46,125,50,0.15)", color: "#1a1a1a" }}
               aria-label="Open filters"
             >
               <SlidersHorizontal className="size-4" aria-hidden="true" />
@@ -279,18 +280,19 @@ export function ProductFilters({ className }: ProductFiltersProps) {
               {activeFilterCount > 0 && (
                 <Badge
                   variant="default"
-                  className="ml-1 h-5 w-5 rounded-full p-0 text-[10px] bg-[#22C55E] text-black border-0"
+                  className="ml-1 h-5 w-5 rounded-full p-0 text-[10px] border-0"
+                  style={{ background: "#2E7D32", color: "#fff" }}
                 >
                   {activeFilterCount}
                 </Badge>
               )}
             </Button>
           </DrawerTrigger>
-          <DrawerContent className="bg-[#0D0D0D]">
+          <DrawerContent style={{ background: "#FAFAF8" }}>
             <DrawerHeader>
               <DrawerTitle
-                className="text-white text-left"
-                style={{ fontFamily: "'Bebas Neue', sans-serif", letterSpacing: "2px" }}
+                className="text-left"
+                style={{ fontFamily: "'Playfair Display', serif", letterSpacing: "2px", color: "#1a1a1a" }}
               >
                 FILTERS
               </DrawerTitle>

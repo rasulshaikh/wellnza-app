@@ -4,7 +4,8 @@ import { db } from "@/lib/db";
 import { formatCurrency } from "@/lib/utils";
 import { NewsletterForm } from "./_components/newsletter-form";
 import { getWhatsAppUrl } from "@/lib/whatsapp";
-import { Navbar } from "@/components/layout/Navbar";
+import { ArrowRight, ShieldCheck, FlaskConical, Zap, Heart } from "lucide-react";
+import { HeroProductFloat } from "@/components/ui-styling/HeroProductFloat";
 
 export const dynamic = "force-dynamic";
 
@@ -14,239 +15,230 @@ async function getFeaturedProducts() {
     take: 6,
     select: {
       id: true, name: true, slug: true, basePrice: true, comparePrice: true,
-      images: true, category: true, featured: true,
+      images: true, category: true, featured: true, description: true,
     },
   });
 }
 
-function getProductBadge(slug: string): { text: string; color: string } {
-  if (slug.includes("mass-gainer")) {
-    return { text: "MASS GAINER", color: "#7B9E6B" };
-  }
-  if (slug.includes("pre-workout")) {
-    return { text: "PRE-WORKOUT", color: "#2E7D32" };
-  }
-  if (slug.includes("isolate")) {
-    return { text: "ISOLATE", color: "#C9A227" };
-  }
-  if (slug.includes("omega")) {
-    return { text: "OMEGA-3", color: "#C9A227" };
-  }
-  if (slug.includes("multivitamin")) {
-    return { text: "NEW", color: "#2E7D32" };
-  }
-  return { text: "BESTSELLER", color: "#2E7D32" };
-}
+const CATEGORY_LABELS: Record<string, string> = {
+  PRE_WORKOUT: "Pre-Workout",
+  PROTEIN: "Protein",
+  MASS_GAINER: "Mass Gainer",
+  OMEGA_3: "Omega-3",
+  MULTIVITAMIN: "Multivitamin",
+};
 
 export default async function HomePage() {
   const products = await getFeaturedProducts();
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: "#FAFAF8" }}>
+    <div className="min-h-screen" style={{ backgroundColor: "#F7F3EC" }}>
 
-      {/* Split Hero Section */}
+      {/* ═══ HERO ═══ */}
       <section
         className="relative overflow-hidden"
-        style={{ backgroundColor: "#FAFAF8" }}
+        style={{ background: "linear-gradient(135deg, #0B0F0C 0%, #141A16 60%, #1a2e1e 100%)", minHeight: "92vh" }}
       >
-        <div className="container mx-auto px-4 py-16 md:py-24">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            {/* Left: Headline & CTA */}
-            <div className="text-center md:text-left">
-              <p
-                className="mb-4"
-                style={{
-                  fontFamily: "'DM Sans', sans-serif",
-                  fontSize: "14px",
-                  letterSpacing: "2px",
-                  color: "#7B9E6B",
-                  textTransform: "uppercase",
-                }}
-              >
-                Premium Nutrition
-              </p>
+        {/* Decorative diagonal gold stripe */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: "repeating-linear-gradient(-55deg, transparent, transparent 80px, rgba(232,160,32,0.025) 80px, rgba(232,160,32,0.025) 81px)",
+          }}
+        />
+        {/* Gold glow top-right */}
+        <div
+          className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full pointer-events-none"
+          style={{ background: "radial-gradient(circle, rgba(232,160,32,0.08) 0%, transparent 70%)" }}
+        />
+        {/* Green glow bottom-left */}
+        <div
+          className="absolute -bottom-40 -left-40 w-[500px] h-[500px] rounded-full pointer-events-none"
+          style={{ background: "radial-gradient(circle, rgba(20,83,45,0.25) 0%, transparent 70%)" }}
+        />
+
+        <div className="container mx-auto px-4 md:px-8 relative z-10">
+          <div className="grid md:grid-cols-2 gap-8 items-center min-h-[92vh] py-16">
+
+            {/* LEFT — Text */}
+            <div className="animate-fade-up">
+              {/* Origin pill */}
+              <div className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full" style={{ background: "rgba(232,160,32,0.1)", border: "1px solid rgba(232,160,32,0.25)" }}>
+                <span style={{ color: "#E8A020", fontSize: "10px" }}>◆</span>
+                <span className="text-[11px] font-bold uppercase tracking-[0.18em]" style={{ color: "#E8A020", fontFamily: "var(--font-jakarta)" }}>
+                  Amravati, Maharashtra
+                </span>
+              </div>
+
+              {/* Headline */}
               <h1
+                className="mb-6 leading-none"
                 style={{
-                  fontFamily: "'Playfair Display', serif",
-                  fontSize: "clamp(36px, 5vw, 56px)",
-                  fontWeight: "600",
-                  color: "#2E7D32",
-                  lineHeight: 1.2,
-                  marginBottom: "24px",
+                  fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)",
+                  fontSize: "clamp(52px, 8vw, 96px)",
+                  fontWeight: 700,
+                  color: "#F7F3EC",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.02em",
+                  lineHeight: 0.95,
                 }}
               >
-                Wellness, Rooted in Nature
+                Built for<br />
+                <span style={{
+                  background: "linear-gradient(135deg, #E8A020 0%, #F5C842 50%, #E8A020 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                }}>
+                  Champions
+                </span>
               </h1>
+
               <p
-                className="mb-8"
+                className="mb-8 max-w-md leading-relaxed animate-fade-up-delay-1"
                 style={{
-                  fontFamily: "'DM Sans', sans-serif",
-                  fontSize: "18px",
-                  color: "#6B7280",
-                  lineHeight: 1.7,
-                  maxWidth: "480px",
+                  fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)",
+                  fontSize: "16px",
+                  color: "rgba(247,243,236,0.65)",
+                  lineHeight: 1.75,
                 }}
               >
-                Clean, transparent supplements crafted from whole-food ingredients.
-                No artificial fillers. Just nature working for you.
+                Premium sports nutrition rooted in Maharashtra. Clean formulas, honest ingredients,
+                and a commitment to every Indian athlete who refuses to settle.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-                <Link
-                  href="/products"
-                  style={{
-                    display: "inline-block",
-                    padding: "14px 32px",
-                    backgroundColor: "#2E7D32",
-                    color: "#FFFFFF",
-                    fontFamily: "'DM Sans', sans-serif",
-                    fontWeight: "600",
-                    fontSize: "14px",
-                    letterSpacing: "1px",
-                    textTransform: "uppercase",
-                    textDecoration: "none",
-                    borderRadius: "4px",
-                    transition: "all 0.3s ease",
-                  }}
-                >
-                  Shop Collection
+
+              {/* CTAs */}
+              <div className="flex flex-wrap gap-3 animate-fade-up-delay-2">
+                <Link href="/products" className="btn-gold inline-flex items-center gap-2">
+                  Shop Now <ArrowRight className="w-4 h-4" />
                 </Link>
                 <Link
                   href="/about"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-md text-sm font-bold uppercase tracking-wider transition-all"
                   style={{
-                    display: "inline-block",
-                    padding: "14px 32px",
-                    backgroundColor: "transparent",
-                    color: "#2E7D32",
-                    fontFamily: "'DM Sans', sans-serif",
-                    fontWeight: "600",
-                    fontSize: "14px",
-                    letterSpacing: "1px",
-                    textTransform: "uppercase",
-                    textDecoration: "none",
-                    borderRadius: "4px",
-                    border: "1px solid #2E7D32",
-                    transition: "all 0.3s ease",
+                    fontFamily: "var(--font-jakarta)",
+                    fontSize: "13px",
+                    letterSpacing: "0.1em",
+                    color: "rgba(247,243,236,0.7)",
+                    border: "1px solid rgba(247,243,236,0.15)",
                   }}
                 >
                   Our Story
                 </Link>
               </div>
-            </div>
 
-            {/* Right: Botanical Image */}
-            <div className="relative">
-              <div
-                style={{
-                  position: "relative",
-                  width: "100%",
-                  aspectRatio: "1",
-                  maxWidth: "500px",
-                  margin: "0 auto",
-                  borderRadius: "8px",
-                  overflow: "hidden",
-                }}
-              >
-                <div
-                  style={{
-                    position: "absolute",
-                    inset: 0,
-                    background: "linear-gradient(135deg, #7B9E6B 0%, #2E7D32 100%)",
-                    opacity: 0.1,
-                    borderRadius: "8px",
-                  }}
-                />
-                <div
-                  style={{
-                    position: "absolute",
-                    inset: "20px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  {/* Decorative botanical leaves */}
-                  <svg
-                    viewBox="0 0 200 200"
-                    style={{ width: "80%", height: "80%", opacity: 0.3 }}
-                    fill="none"
-                  >
-                    <path
-                      d="M100 20C100 20 140 60 140 100C140 140 100 180 100 180C100 180 60 140 60 100C60 60 100 20 100 20Z"
-                      stroke="#2E7D32"
-                      strokeWidth="2"
-                    />
-                    <path
-                      d="M100 40C100 40 130 70 130 100C130 130 100 160 100 160"
-                      stroke="#7B9E6B"
-                      strokeWidth="1.5"
-                    />
-                    <circle cx="100" cy="100" r="8" fill="#2E7D32" opacity="0.3" />
-                  </svg>
-                </div>
-                <div
-                  style={{
-                    position: "absolute",
-                    bottom: "-10px",
-                    right: "-10px",
-                    width: "120px",
-                    height: "120px",
-                    borderRadius: "50%",
-                    background: "linear-gradient(135deg, #C9A227 0%, #7B9E6B 100%)",
-                    opacity: 0.15,
-                  }}
-                />
+              {/* Stats */}
+              <div className="flex gap-8 mt-12 animate-fade-up-delay-3">
+                {[
+                  { val: "100%", label: "Natural" },
+                  { val: "0g", label: "Added Sugar" },
+                  { val: "GMP", label: "Certified" },
+                ].map((s) => (
+                  <div key={s.label}>
+                    <p
+                      className="text-2xl font-bold leading-none mb-1"
+                      style={{ fontFamily: "var(--font-rajdhani)", color: "#E8A020" }}
+                    >
+                      {s.val}
+                    </p>
+                    <p
+                      className="text-[11px] uppercase tracking-widest"
+                      style={{ fontFamily: "var(--font-jakarta)", color: "rgba(247,243,236,0.45)" }}
+                    >
+                      {s.label}
+                    </p>
+                  </div>
+                ))}
               </div>
             </div>
+
+            {/* RIGHT — Visual */}
+            <div className="relative flex items-center justify-center animate-fade-up-delay-1">
+              <div className="relative w-full max-w-md aspect-square">
+                {/* Outer ring */}
+                <div
+                  className="absolute inset-0 rounded-full"
+                  style={{ border: "1px solid rgba(232,160,32,0.12)" }}
+                />
+                {/* Inner ring */}
+                <div
+                  className="absolute inset-8 rounded-full"
+                  style={{ border: "1px dashed rgba(232,160,32,0.08)" }}
+                />
+                {/* Center panel */}
+                <div
+                  className="absolute inset-16 rounded-2xl flex items-center justify-center"
+                  style={{ background: "rgba(232,160,32,0.06)", border: "1px solid rgba(232,160,32,0.15)" }}
+                >
+                  {products[0]?.images[0] ? (
+                    <HeroProductFloat
+                      imageSrc={products[0].images[0]}
+                      imageAlt={products[0].name ?? "Featured product"}
+                    />
+                  ) : (
+                    <div className="text-center p-8">
+                      <p
+                        className="text-6xl font-bold leading-none mb-2"
+                        style={{ fontFamily: "var(--font-rajdhani)", color: "#E8A020" }}
+                      >
+                        W
+                      </p>
+                      <p className="text-xs uppercase tracking-widest" style={{ color: "rgba(232,160,32,0.5)" }}>
+                        Wellnza
+                      </p>
+                    </div>
+                  )}
+                </div>
+
+                {/* Floating badge — top right */}
+                <div
+                  className="absolute top-6 right-0 px-3 py-2 rounded-lg text-center"
+                  style={{ background: "#E8A020", transform: "translateX(20%)" }}
+                >
+                  <p className="text-[10px] font-bold uppercase tracking-wider" style={{ color: "#0B0F0C" }}>
+                    Made in
+                  </p>
+                  <p className="text-sm font-bold" style={{ color: "#0B0F0C", fontFamily: "var(--font-rajdhani)" }}>
+                    India 🇮🇳
+                  </p>
+                </div>
+
+                {/* Floating badge — bottom left */}
+                <div
+                  className="absolute bottom-6 left-0 px-3 py-2 rounded-lg"
+                  style={{ background: "rgba(20,83,45,0.9)", border: "1px solid rgba(34,197,94,0.3)", transform: "translateX(-20%)" }}
+                >
+                  <p className="text-[10px] font-bold uppercase tracking-wider" style={{ color: "#22C55E" }}>
+                    ✓ Lab Tested
+                  </p>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
 
-      {/* Trust Bar */}
+      {/* ═══ TRUST BAR ═══ */}
       <section
-        className="py-8"
-        style={{
-          backgroundColor: "#FFFFFF",
-          borderTop: "1px solid rgba(46, 125, 50, 0.1)",
-          borderBottom: "1px solid rgba(46, 125, 50, 0.1)",
-        }}
+        className="py-5 border-y"
+        style={{ background: "#0B0F0C", borderColor: "rgba(232,160,32,0.12)" }}
       >
         <div className="container mx-auto px-4">
-          <div className="flex flex-wrap justify-center gap-8 md:gap-16">
+          <div className="flex flex-wrap justify-center items-center gap-6 md:gap-12">
             {[
-              { icon: "GMP", label: "GMP Certified" },
-              { icon: "100%", label: "Natural Ingredients" },
-              { icon: "0", label: "Artificial Fillers" },
-              { icon: "Lab", label: "Third-Party Tested" },
-            ].map((trust) => (
-              <div
-                key={trust.icon}
-                className="flex items-center gap-3"
-              >
+              { icon: <ShieldCheck className="w-4 h-4" />, label: "GMP Certified" },
+              { icon: <FlaskConical className="w-4 h-4" />, label: "Third-Party Tested" },
+              { icon: <Zap className="w-4 h-4" />, label: "No Artificial Fillers" },
+              { icon: <Heart className="w-4 h-4" />, label: "100% Natural" },
+            ].map((t) => (
+              <div key={t.label} className="flex items-center gap-2">
+                <span style={{ color: "#E8A020" }}>{t.icon}</span>
                 <span
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    width: "40px",
-                    height: "40px",
-                    borderRadius: "50%",
-                    backgroundColor: "#2E7D32",
-                    color: "#FFFFFF",
-                    fontFamily: "'Playfair Display', serif",
-                    fontSize: "12px",
-                    fontWeight: "600",
-                  }}
+                  className="text-[11px] font-semibold uppercase tracking-widest"
+                  style={{ color: "rgba(247,243,236,0.6)", fontFamily: "var(--font-jakarta)" }}
                 >
-                  {trust.icon}
-                </span>
-                <span
-                  style={{
-                    fontFamily: "'DM Sans', sans-serif",
-                    fontSize: "14px",
-                    color: "#6B7280",
-                  }}
-                >
-                  {trust.label}
+                  {t.label}
                 </span>
               </div>
             ))}
@@ -254,474 +246,250 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Categories Section */}
-      <section className="py-20" style={{ backgroundColor: "#FAFAF8" }}>
-        <div className="container mx-auto px-4">
-          <h2
-            className="text-center mb-4"
-            style={{
-              fontFamily: "'Playfair Display', serif",
-              fontSize: "clamp(28px, 4vw, 40px)",
-              fontWeight: "600",
-              color: "#2E7D32",
-            }}
-          >
-            Shop by Category
-          </h2>
-          <p
-            className="text-center mb-12"
-            style={{
-              fontFamily: "'DM Sans', sans-serif",
-              fontSize: "16px",
-              color: "#6B7280",
-            }}
-          >
-            Clean formulas for every wellness goal
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+      {/* ═══ CATEGORIES ═══ */}
+      <section className="py-20" style={{ background: "#F7F3EC" }}>
+        <div className="container mx-auto px-4 md:px-8">
+          {/* Header */}
+          <div className="mb-12">
+            <div className="flex items-center gap-3 mb-3">
+              <span className="accent-bar" />
+              <span className="text-[11px] font-bold uppercase tracking-[0.2em]" style={{ color: "#E8A020", fontFamily: "var(--font-jakarta)" }}>
+                Shop by Goal
+              </span>
+            </div>
+            <h2
+              className="text-4xl md:text-5xl font-bold uppercase leading-none"
+              style={{ fontFamily: "var(--font-rajdhani)", color: "#0B0F0C", letterSpacing: "0.02em" }}
+            >
+              Find Your Formula
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
-              {
-                name: "PRE-WORKOUT",
-                desc: "Clean energy from natural sources. Focus without the crash.",
-                href: "/products?category=PRE_WORKOUT",
-                icon: (
-                  <svg className="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="#2E7D32" strokeWidth="1.5">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
-                  </svg>
-                ),
-              },
-              {
-                name: "PROTEINS",
-                desc: "Pure protein for recovery. Clean ingredients, complete transparency.",
-                href: "/products?category=PROTEIN",
-                icon: (
-                  <svg className="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="#2E7D32" strokeWidth="1.5">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 8.25v-1.5m0 1.5c-1.355 0-2.697.056-4.024.166C6.845 8.51 6 9.473 6 10.608v2.513m6-4.87c1.355 0 2.697.055 4.024.165C17.155 8.51 18 9.473 18 10.608v2.513m-3-4.87v-1.5m-6 1.5v-1.5m12 9.75l-1.5.75a3.354 3.354 0 01-3 0 3.354 3.354 0 00-3 0 3.354 3.354 0 01-3 0 3.354 3.354 0 00-3 0 3.354 3.354 0 01-3 0L3 16.5m15-3.379a48.474 48.474 0 00-6-.371c-2.032 0-4.034.126-6 .371m12 0c.39.049.777.102 1.163.16 1.07.16 1.837 1.094 1.837 2.175v5.169c0 .621-.504 1.125-1.125 1.125H4.125A1.125 1.125 0 013 20.625v-5.17c0-1.08.768-2.014 1.837-2.174A47.78 47.78 0 016 13.12M12.265 3.11a.375.375 0 11-.53 0L12 2.845l.265.265zm-3 0a.375.375 0 11-.53 0L9 2.845l.265.265zm6 0a.375.375 0 11-.53 0L15 2.845l.265.265z" />
-                  </svg>
-                ),
-              },
-              {
-                name: "MASS GAINER",
-                desc: "Clean calories from whole foods. Size without compromise.",
-                href: "/products?category=MASS_GAINER",
-                icon: (
-                  <svg className="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="#2E7D32" strokeWidth="1.5">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
-                  </svg>
-                ),
-              },
-              {
-                name: "OMEGA-3",
-                desc: "Essential fatty acids from fish oil. Heart and brain health.",
-                href: "/products?category=OMEGA_3",
-                icon: (
-                  <svg className="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="#2E7D32" strokeWidth="1.5">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                  </svg>
-                ),
-              },
+              { name: "Pre-Workout", desc: "Clean energy, razor focus", href: "/products?category=PRE_WORKOUT", icon: "⚡", color: "#E8A020" },
+              { name: "Protein", desc: "Pure recovery fuel", href: "/products?category=PROTEIN", icon: "💪", color: "#22C55E" },
+              { name: "Mass Gainer", desc: "Size without compromise", href: "/products?category=MASS_GAINER", icon: "📈", color: "#E8A020" },
+              { name: "Omega-3", desc: "Heart & brain support", href: "/products?category=OMEGA_3", icon: "🧠", color: "#22C55E" },
             ].map((cat) => (
               <Link
                 key={cat.name}
                 href={cat.href}
-                className="group"
-                style={{
-                  backgroundColor: "#FFFFFF",
-                  border: "1px solid rgba(46, 125, 50, 0.15)",
-                  borderRadius: "4px",
-                  padding: "32px 24px",
-                  textDecoration: "none",
-                  transition: "all 0.3s ease",
-                  boxShadow: "0 1px 3px rgba(0,0,0,0.05)",
-                }}
+                className="group block card-premium rounded-xl p-6 text-center"
               >
-                <div className="flex flex-col items-center text-center">
-                  <div
-                    className="mb-5 p-4"
-                    style={{
-                      backgroundColor: "rgba(46, 125, 50, 0.08)",
-                      borderRadius: "50%",
-                    }}
-                  >
-                    {cat.icon}
-                  </div>
-                  <h3
-                    style={{
-                      fontFamily: "'Playfair Display', serif",
-                      fontSize: "18px",
-                      fontWeight: "600",
-                      color: "#2E7D32",
-                      marginBottom: "8px",
-                    }}
-                  >
-                    {cat.name}
-                  </h3>
-                  <p
-                    style={{
-                      fontFamily: "'DM Sans', sans-serif",
-                      fontSize: "14px",
-                      color: "#6B7280",
-                      lineHeight: 1.6,
-                    }}
-                  >
-                    {cat.desc}
-                  </p>
+                <div
+                  className="w-14 h-14 rounded-full flex items-center justify-center text-2xl mx-auto mb-4 transition-transform duration-300 group-hover:scale-110"
+                  style={{ background: `rgba(${cat.color === "#E8A020" ? "232,160,32" : "34,197,94"},0.1)` }}
+                >
+                  {cat.icon}
                 </div>
+                <h3
+                  className="font-bold uppercase mb-1"
+                  style={{ fontFamily: "var(--font-rajdhani)", fontSize: "15px", color: "#0B0F0C", letterSpacing: "0.05em" }}
+                >
+                  {cat.name}
+                </h3>
+                <p className="text-xs leading-relaxed" style={{ color: "#6B7B6F", fontFamily: "var(--font-jakarta)" }}>
+                  {cat.desc}
+                </p>
+                <p
+                  className="text-xs font-bold uppercase tracking-widest mt-3 transition-colors duration-200 group-hover:text-[#E8A020]"
+                  style={{ color: "#14532D", fontFamily: "var(--font-jakarta)" }}
+                >
+                  Shop →
+                </p>
               </Link>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Bestsellers Section */}
-      <section
-        className="py-20"
-        style={{
-          backgroundColor: "#FFFFFF",
-        }}
-      >
-        <div className="container mx-auto px-4">
-          <h2
-            className="text-center mb-4"
-            style={{
-              fontFamily: "'Playfair Display', serif",
-              fontSize: "clamp(28px, 4vw, 40px)",
-              fontWeight: "600",
-              color: "#2E7D32",
-            }}
-          >
-            Our Bestsellers
-          </h2>
-          <p
-            className="text-center mb-12"
-            style={{
-              fontFamily: "'DM Sans', sans-serif",
-              fontSize: "16px",
-              color: "#6B7280",
-            }}
-          >
-            Trusted by thousands for clean, effective nutrition
-          </p>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-            {products.map((product) => {
-              const badge = getProductBadge(product.slug);
-              return (
-                <Link
-                  key={product.id}
-                  href={`/products/${product.slug}`}
-                  className="group"
-                  style={{
-                    backgroundColor: "#FFFFFF",
-                    border: "1px solid rgba(46, 125, 50, 0.12)",
-                    borderRadius: "4px",
-                    textDecoration: "none",
-                    transition: "all 0.3s ease",
-                    overflow: "hidden",
-                  }}
+      {/* ═══ BESTSELLERS ═══ */}
+      {products.length > 0 && (
+        <section className="py-20" style={{ background: "#FFFFFF" }}>
+          <div className="container mx-auto px-4 md:px-8">
+            {/* Header */}
+            <div className="flex items-end justify-between mb-12">
+              <div>
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="accent-bar" />
+                  <span className="text-[11px] font-bold uppercase tracking-[0.2em]" style={{ color: "#E8A020", fontFamily: "var(--font-jakarta)" }}>
+                    Most Popular
+                  </span>
+                </div>
+                <h2
+                  className="text-4xl md:text-5xl font-bold uppercase leading-none"
+                  style={{ fontFamily: "var(--font-rajdhani)", color: "#0B0F0C", letterSpacing: "0.02em" }}
                 >
-                  <div className="relative p-6">
-                    <div className="relative w-full aspect-square">
-                      <div
-                        className="absolute inset-0 flex items-center justify-center"
-                        style={{
-                          backgroundColor: "#FAFAF8",
-                          borderRadius: "4px",
-                        }}
-                      >
-                        {product.images[0] ? (
-                          <Image
-                            src={product.images[0]}
-                            alt={product.name}
-                            fill
-                            className="object-contain"
-                            sizes="(max-width: 768px) 50vw, 33vw"
-                          />
-                        ) : (
+                  Bestsellers
+                </h2>
+              </div>
+              <Link
+                href="/products"
+                className="hidden md:flex items-center gap-2 text-sm font-bold uppercase tracking-widest transition-colors"
+                style={{ color: "#14532D", fontFamily: "var(--font-jakarta)", fontSize: "11px" }}
+              >
+                View All <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
+              {products.map((product, i) => {
+                const hasDiscount = product.comparePrice && product.comparePrice > product.basePrice;
+                const discountPercent = hasDiscount
+                  ? Math.round(((product.comparePrice! - product.basePrice) / product.comparePrice!) * 100)
+                  : 0;
+
+                return (
+                  <Link
+                    key={product.id}
+                    href={`/products/${product.slug}`}
+                    className="group card-premium rounded-xl overflow-hidden"
+                    style={{ animationDelay: `${i * 0.08}s` }}
+                  >
+                    {/* Image */}
+                    <div className="relative aspect-square img-zoom" style={{ background: "#F7F3EC" }}>
+                      {product.images[0] ? (
+                        <Image
+                          src={product.images[0]}
+                          alt={product.name}
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 50vw, 33vw"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center">
                           <span
-                            style={{
-                              fontFamily: "'Playfair Display', serif",
-                              fontSize: "24px",
-                              color: "#7B9E6B",
-                            }}
+                            className="text-5xl font-bold"
+                            style={{ fontFamily: "var(--font-rajdhani)", color: "rgba(232,160,32,0.3)" }}
                           >
-                            {product.name
-                              .split(" ")
-                              .map((w: string) => w[0])
-                              .join("")
-                              .slice(0, 2)
-                              .toUpperCase()}
+                            {product.name.slice(0, 2).toUpperCase()}
+                          </span>
+                        </div>
+                      )}
+
+                      {/* Badges */}
+                      <div className="absolute top-2.5 left-2.5 flex flex-col gap-1.5">
+                        {product.featured && (
+                          <span className="badge-gold">Bestseller</span>
+                        )}
+                        {hasDiscount && (
+                          <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold tracking-wider" style={{ background: "#14532D", color: "#F7F3EC" }}>
+                            -{discountPercent}%
                           </span>
                         )}
                       </div>
-                    </div>
-                    {/* Badge */}
-                    <span
-                      style={{
-                        position: "absolute",
-                        top: "12px",
-                        left: "12px",
-                        backgroundColor: badge.color,
-                        color: "#FFFFFF",
-                        fontSize: "10px",
-                        padding: "4px 10px",
-                        fontFamily: "'DM Sans', sans-serif",
-                        fontWeight: "600",
-                        letterSpacing: "1px",
-                        textTransform: "uppercase",
-                        borderRadius: "2px",
-                      }}
-                    >
-                      {badge.text}
-                    </span>
-                  </div>
-                  <div className="px-6 pb-6">
-                    <h3
-                      style={{
-                        fontFamily: "'Playfair Display', serif",
-                        fontSize: "16px",
-                        fontWeight: "600",
-                        color: "#2E7D32",
-                        marginBottom: "4px",
-                      }}
-                    >
-                      {product.name}
-                    </h3>
-                    <p
-                      style={{
-                        fontFamily: "'DM Sans', sans-serif",
-                        fontSize: "12px",
-                        letterSpacing: "1px",
-                        color: "#6B7280",
-                        textTransform: "uppercase",
-                        marginBottom: "16px",
-                      }}
-                    >
-                      {product.category}
-                    </p>
-                    <div className="flex items-center justify-between">
-                      <p
-                        style={{
-                          fontFamily: "'DM Sans', sans-serif",
-                          fontSize: "18px",
-                          fontWeight: "600",
-                          color: "#2E7D32",
-                        }}
+
+                      {/* Hover overlay */}
+                      <div
+                        className="absolute inset-0 flex items-end p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                        style={{ background: "linear-gradient(to top, rgba(11,15,12,0.7) 0%, transparent 55%)" }}
                       >
-                        {formatCurrency(product.basePrice)}
-                      </p>
-                      <button
-                        className="add-to-cart-btn"
-                        style={{
-                          backgroundColor: "#2E7D32",
-                          color: "#FFFFFF",
-                          padding: "8px 16px",
-                          fontSize: "12px",
-                          fontFamily: "'DM Sans', sans-serif",
-                          fontWeight: "600",
-                          letterSpacing: "1px",
-                          textTransform: "uppercase",
-                          border: "none",
-                          cursor: "pointer",
-                          borderRadius: "4px",
-                          transition: "all 0.3s ease",
-                        }}
-                      >
-                        Add
-                      </button>
+                        <span className="text-[11px] font-bold uppercase tracking-widest" style={{ color: "rgba(247,243,236,0.9)" }}>
+                          View Product →
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                </Link>
-              );
-            })}
+
+                    {/* Info */}
+                    <div className="p-4">
+                      <p className="tag-category mb-1.5">{CATEGORY_LABELS[product.category] ?? product.category}</p>
+                      <h3
+                        className="font-bold uppercase leading-tight mb-2 line-clamp-2"
+                        style={{ fontFamily: "var(--font-rajdhani)", fontSize: "16px", color: "#0B0F0C", letterSpacing: "0.02em" }}
+                      >
+                        {product.name}
+                      </h3>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-baseline gap-2">
+                          <span className="font-bold text-lg" style={{ fontFamily: "var(--font-rajdhani)", color: "#14532D" }}>
+                            {formatCurrency(product.basePrice)}
+                          </span>
+                          {hasDiscount && (
+                            <span className="text-xs line-through" style={{ color: "#A8B5AC" }}>
+                              {formatCurrency(product.comparePrice!)}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+
+            {/* Mobile view all */}
+            <div className="text-center mt-8 md:hidden">
+              <Link href="/products" className="btn-green inline-flex items-center gap-2">
+                View All Products <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
           </div>
-          <div className="text-center mt-12">
-            <Link
-              href="/products"
-              style={{
-                fontFamily: "'DM Sans', sans-serif",
-                fontSize: "14px",
-                fontWeight: "600",
-                letterSpacing: "2px",
-                textTransform: "uppercase",
-                color: "#2E7D32",
-                textDecoration: "none",
-                transition: "color 0.3s ease",
-              }}
+        </section>
+      )}
+
+      {/* ═══ BRAND STORY BANNER ═══ */}
+      <section
+        className="py-20 relative overflow-hidden"
+        style={{ background: "linear-gradient(135deg, #0B0F0C 0%, #141A16 100%)" }}
+      >
+        <div className="absolute inset-0 stripe-gold pointer-events-none" />
+        <div className="container mx-auto px-4 md:px-8 relative z-10">
+          <div className="max-w-2xl mx-auto text-center">
+            <div className="flex items-center justify-center gap-3 mb-6">
+              <div className="h-[1px] w-16" style={{ background: "linear-gradient(90deg, transparent, #E8A020)" }} />
+              <span style={{ color: "#E8A020" }}>◆</span>
+              <div className="h-[1px] w-16" style={{ background: "linear-gradient(90deg, #E8A020, transparent)" }} />
+            </div>
+
+            <h2
+              className="mb-6 uppercase leading-none"
+              style={{ fontFamily: "var(--font-rajdhani)", fontSize: "clamp(36px,6vw,64px)", fontWeight: 700, color: "#F7F3EC", letterSpacing: "0.02em" }}
             >
-              View All Products
+              From the Heart of<br />
+              <span style={{
+                background: "linear-gradient(135deg, #E8A020, #F5C842)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}>
+                Maharashtra
+              </span>
+            </h2>
+            <p
+              className="text-base leading-relaxed mb-8"
+              style={{ color: "rgba(247,243,236,0.6)", fontFamily: "var(--font-jakarta)" }}
+            >
+              Wellnza was born in Amravati with a single mission: give every Indian athlete access
+              to world-class nutrition without compromising on quality, transparency, or price.
+            </p>
+            <Link href="/about" className="btn-gold inline-flex items-center gap-2">
+              Our Story <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Ingredient Transparency Section */}
-      <section
-        className="py-20"
-        style={{
-          backgroundColor: "#FAFAF8",
-        }}
-      >
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2
-                style={{
-                  fontFamily: "'Playfair Display', serif",
-                  fontSize: "clamp(28px, 4vw, 40px)",
-                  fontWeight: "600",
-                  color: "#2E7D32",
-                  marginBottom: "16px",
-                }}
-              >
-                Full Transparency, Always
-              </h2>
-              <p
-                style={{
-                  fontFamily: "'DM Sans', sans-serif",
-                  fontSize: "16px",
-                  color: "#6B7280",
-                  lineHeight: 1.7,
-                  marginBottom: "32px",
-                }}
-              >
-                We believe you deserve to know exactly what you are putting in your body.
-                Every ingredient is listed with its purpose and source.
-              </p>
-              <div className="space-y-4">
-                {[
-                  { label: "No Artificial Colors", desc: "Naturally sourced pigments only" },
-                  { label: "No Preservatives", desc: "Fresh from nature to you" },
-                  { label: "No Hidden Fillers", desc: "Every capsule counts" },
-                ].map((item) => (
-                  <div
-                    key={item.label}
-                    className="flex items-start gap-4"
-                  >
-                    <span
-                      style={{
-                        display: "inline-flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        width: "24px",
-                        height: "24px",
-                        borderRadius: "50%",
-                        backgroundColor: "#2E7D32",
-                        color: "#FFFFFF",
-                        fontSize: "12px",
-                        flexShrink: 0,
-                        marginTop: "2px",
-                      }}
-                    >
-                      ✓
-                    </span>
-                    <div>
-                      <p
-                        style={{
-                          fontFamily: "'DM Sans', sans-serif",
-                          fontSize: "15px",
-                          fontWeight: "600",
-                          color: "#2E7D32",
-                        }}
-                      >
-                        {item.label}
-                      </p>
-                      <p
-                        style={{
-                          fontFamily: "'DM Sans', sans-serif",
-                          fontSize: "14px",
-                          color: "#6B7280",
-                        }}
-                      >
-                        {item.desc}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div
-              className="flex items-center justify-center"
-              style={{
-                backgroundColor: "#FFFFFF",
-                borderRadius: "8px",
-                padding: "48px",
-                border: "1px solid rgba(46, 125, 50, 0.1)",
-              }}
-            >
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(3, 1fr)",
-                  gap: "24px",
-                  textAlign: "center",
-                }}
-              >
-                {[
-                  { value: "100%", label: "Natural" },
-                  { value: "0g", label: "Added Sugar" },
-                  { value: "0", label: "Artificial Ingredients" },
-                ].map((stat) => (
-                  <div key={stat.label}>
-                    <p
-                      style={{
-                        fontFamily: "'Playfair Display', serif",
-                        fontSize: "32px",
-                        fontWeight: "600",
-                        color: "#C9A227",
-                      }}
-                    >
-                      {stat.value}
-                    </p>
-                    <p
-                      style={{
-                        fontFamily: "'DM Sans', sans-serif",
-                        fontSize: "12px",
-                        color: "#6B7280",
-                        textTransform: "uppercase",
-                        letterSpacing: "1px",
-                      }}
-                    >
-                      {stat.label}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Newsletter Section */}
-      <section
-        className="py-16"
-        style={{
-          backgroundColor: "#FFFFFF",
-          borderTop: "1px solid rgba(46, 125, 50, 0.1)",
-        }}
-      >
+      {/* ═══ NEWSLETTER ═══ */}
+      <section className="py-16" style={{ background: "#F7F3EC", borderTop: "1px solid rgba(232,160,32,0.12)" }}>
         <div className="container mx-auto px-4 text-center">
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <span className="accent-bar" />
+            <span className="text-[11px] font-bold uppercase tracking-[0.2em]" style={{ color: "#E8A020", fontFamily: "var(--font-jakarta)" }}>
+              Stay in the Loop
+            </span>
+            <span className="accent-bar" />
+          </div>
           <h3
-            style={{
-              fontFamily: "'Playfair Display', serif",
-              fontSize: "clamp(24px, 3vw, 32px)",
-              fontWeight: "600",
-              color: "#2E7D32",
-              marginBottom: "8px",
-            }}
+            className="mb-2 uppercase"
+            style={{ fontFamily: "var(--font-rajdhani)", fontSize: "clamp(24px,4vw,36px)", fontWeight: 700, color: "#0B0F0C", letterSpacing: "0.02em" }}
           >
             Join the Wellnza Community
           </h3>
-          <p
-            style={{
-              fontFamily: "'DM Sans', sans-serif",
-              fontSize: "14px",
-              color: "#6B7280",
-              marginBottom: "24px",
-            }}
-          >
-            Get 10% off your first order and be the first to know about new products.
+          <p className="text-sm mb-8" style={{ color: "#6B7B6F", fontFamily: "var(--font-jakarta)" }}>
+            Get 10% off your first order and be first to know about new launches.
           </p>
-          <div className="mt-6 max-w-md mx-auto">
+          <div className="max-w-md mx-auto">
             <NewsletterForm />
           </div>
         </div>
@@ -732,17 +500,11 @@ export default async function HomePage() {
         href={getWhatsAppUrl()}
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 z-50 transition-all duration-300 hover:scale-110"
-        style={{
-          backgroundColor: "#2E7D32",
-          color: "#FFFFFF",
-          padding: "16px",
-          borderRadius: "50%",
-          boxShadow: "0 4px 12px rgba(46, 125, 50, 0.3)",
-        }}
-        aria-label="Open WhatsApp"
+        className="fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 rounded-full shadow-lg transition-transform hover:scale-110"
+        style={{ background: "#25D366", boxShadow: "0 4px 20px rgba(37,211,102,0.35)" }}
+        aria-label="WhatsApp"
       >
-        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+        <svg className="w-7 h-7" fill="white" viewBox="0 0 24 24">
           <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
         </svg>
       </a>

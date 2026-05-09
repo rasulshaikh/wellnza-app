@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ORDER_STATUS_COLORS } from "@/lib/status-colors";
 import { OrderStatusUpdateForm } from "./OrderStatusUpdateForm";
+import { AdminShipButton } from "@/components/ui-styling/AdminShipButton";
 import { ArrowLeft, MapPin, User, Mail, Phone, Package } from "lucide-react";
 import Link from "next/link";
 
@@ -50,15 +51,15 @@ export default async function AdminOrderDetailPage({
       {/* Header */}
       <div className="flex items-center gap-4">
         <Link href="/admin/orders">
-          <Button variant="outline" size="icon" className="h-9 w-9 border-[#E5E7EB]">
+          <Button variant="outline" size="icon" className="h-9 w-9 border-[rgba(46,125,50,0.15)]">
             <ArrowLeft className="w-4 h-4" />
           </Button>
         </Link>
         <div>
-          <h1 className="text-2xl font-bold text-[#0A0A0A]">
+          <h1 className="text-2xl font-bold text-[#1a1a1a]" style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)" }}>
             Order #{order.orderNumber}
           </h1>
-          <p className="text-sm text-[#6B7280]">{formatDate(order.createdAt)}</p>
+          <p className="text-sm text-[#7B9E6B]" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>{formatDate(order.createdAt)}</p>
         </div>
       </div>
 
@@ -66,19 +67,19 @@ export default async function AdminOrderDetailPage({
         {/* Main Content */}
         <div className="lg:col-span-2 space-y-6">
           {/* Order Status & Update */}
-          <div className="bg-white border border-[#E5E7EB] rounded-xl p-5">
-            <h2 className="font-semibold text-[#0A0A0A] mb-4">Order Status</h2>
+          <div className="bg-white border border-[rgba(46,125,50,0.15)] rounded-xl p-5">
+            <h2 className="font-semibold text-[#1a1a1a] mb-4" style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)" }}>Order Status</h2>
             <OrderStatusUpdateForm order={order} />
           </div>
 
           {/* Order Items */}
-          <div className="bg-white border border-[#E5E7EB] rounded-xl p-5">
-            <h2 className="font-semibold text-[#0A0A0A] mb-4">Order Items</h2>
+          <div className="bg-white border border-[rgba(46,125,50,0.15)] rounded-xl p-5">
+            <h2 className="font-semibold text-[#1a1a1a] mb-4" style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)" }}>Order Items</h2>
             <div className="space-y-4">
               {order.items.map((item: typeof order.items[number]) => (
                 <div
                   key={item.id}
-                  className="flex items-center gap-4 p-3 rounded-lg border border-[#E5E7EB]"
+                  className="flex items-center gap-4 p-3 rounded-lg border border-[rgba(46,125,50,0.15)]"
                 >
                   {item.productVariant.product.images?.[0] && (
                     <img
@@ -88,18 +89,18 @@ export default async function AdminOrderDetailPage({
                     />
                   )}
                   <div className="flex-1">
-                    <p className="font-medium text-[#0A0A0A]">
+                    <p className="font-medium text-[#1a1a1a]">
                       {item.productVariant.product.name}
                     </p>
-                    <p className="text-sm text-[#6B7280]">
+                    <p className="text-sm text-[#7B9E6B]">
                       {item.productVariant.flavor}
                       {item.productVariant.size && ` • ${item.productVariant.size}`}
                     </p>
-                    <p className="text-sm text-[#6B7280]">
+                    <p className="text-sm text-[#7B9E6B]">
                       Qty: {item.quantity} × {formatCurrency(item.unitPrice)}
                     </p>
                   </div>
-                  <p className="font-medium text-[#0A0A0A]">
+                  <p className="font-medium text-[#1a1a1a]">
                     {formatCurrency(item.unitPrice * item.quantity)}
                   </p>
                 </div>
@@ -107,26 +108,26 @@ export default async function AdminOrderDetailPage({
             </div>
 
             {/* Totals */}
-            <div className="mt-4 pt-4 border-t border-[#E5E7EB] space-y-2">
+            <div className="mt-4 pt-4 border-t border-[rgba(46,125,50,0.15)] space-y-2">
               <div className="flex justify-between text-sm">
-                <span className="text-[#6B7280]">Subtotal</span>
-                <span className="text-[#0A0A0A]">{formatCurrency(order.subtotal)}</span>
+                <span className="text-[#7B9E6B]">Subtotal</span>
+                <span className="text-[#1a1a1a]">{formatCurrency(order.subtotal)}</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-[#6B7280]">Shipping</span>
-                <span className="text-[#0A0A0A]">
+                <span className="text-[#7B9E6B]">Shipping</span>
+                <span className="text-[#1a1a1a]">
                   {order.shippingCost === 0 ? "Free" : formatCurrency(order.shippingCost)}
                 </span>
               </div>
               {order.discount > 0 && (
-                <div className="flex justify-between text-sm text-[#10B981]">
+                <div className="flex justify-between text-sm text-[#2E7D32]">
                   <span>Discount</span>
                   <span>-{formatCurrency(order.discount)}</span>
                 </div>
               )}
-              <div className="flex justify-between font-semibold pt-2 border-t border-[#E5E7EB]">
-                <span className="text-[#0A0A0A]">Total</span>
-                <span className="text-[#0A0A0A]">{formatCurrency(order.total)}</span>
+              <div className="flex justify-between font-semibold pt-2 border-t border-[rgba(46,125,50,0.15)]">
+                <span className="text-[#1a1a1a]">Total</span>
+                <span className="text-[#1a1a1a]">{formatCurrency(order.total)}</span>
               </div>
             </div>
           </div>
@@ -135,90 +136,99 @@ export default async function AdminOrderDetailPage({
         {/* Sidebar */}
         <div className="space-y-6">
           {/* Customer Info */}
-          <div className="bg-white border border-[#E5E7EB] rounded-xl p-5">
-            <h2 className="font-semibold text-[#0A0A0A] mb-4">Customer</h2>
+          <div className="bg-white border border-[rgba(46,125,50,0.15)] rounded-xl p-5">
+            <h2 className="font-semibold text-[#1a1a1a] mb-4" style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)" }}>Customer</h2>
             <div className="space-y-3">
               {order.user ? (
                 <>
                   <div className="flex items-center gap-2 text-sm">
-                    <User className="w-4 h-4 text-[#6B7280]" />
-                    <span className="text-[#0A0A0A]">{order.user.name || "N/A"}</span>
+                    <User className="w-4 h-4 text-[#7B9E6B]" />
+                    <span className="text-[#1a1a1a]">{order.user.name || "N/A"}</span>
                   </div>
                   <div className="flex items-center gap-2 text-sm">
-                    <Mail className="w-4 h-4 text-[#6B7280]" />
-                    <span className="text-[#0A0A0A]">{order.user.email}</span>
+                    <Mail className="w-4 h-4 text-[#7B9E6B]" />
+                    <span className="text-[#1a1a1a]">{order.user.email}</span>
                   </div>
                   {order.user.phone && (
                     <div className="flex items-center gap-2 text-sm">
-                      <Phone className="w-4 h-4 text-[#6B7280]" />
-                      <span className="text-[#0A0A0A]">{order.user.phone}</span>
+                      <Phone className="w-4 h-4 text-[#7B9E6B]" />
+                      <span className="text-[#1a1a1a]">{order.user.phone}</span>
                     </div>
                   )}
                 </>
               ) : (
-                <p className="text-sm text-[#6B7280]">Guest checkout</p>
+                <p className="text-sm text-[#7B9E6B]">Guest checkout</p>
               )}
             </div>
           </div>
 
           {/* Shipping Address */}
-          <div className="bg-white border border-[#E5E7EB] rounded-xl p-5">
-            <h2 className="font-semibold text-[#0A0A0A] mb-4">Shipping Address</h2>
+          <div className="bg-white border border-[rgba(46,125,50,0.15)] rounded-xl p-5">
+            <h2 className="font-semibold text-[#1a1a1a] mb-4" style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)" }}>Shipping Address</h2>
             {order.shippingAddress ? (
               <div className="flex items-start gap-2 text-sm">
-                <MapPin className="w-4 h-4 text-[#6B7280] mt-0.5" />
+                <MapPin className="w-4 h-4 text-[#7B9E6B] mt-0.5" />
                 <div>
-                  <p className="text-[#0A0A0A]">{order.shippingAddress.name}</p>
-                  <p className="text-[#6B7280]">{order.shippingAddress.phone}</p>
-                  <p className="text-[#6B7280] mt-1">
+                  <p className="text-[#1a1a1a]">{order.shippingAddress.name}</p>
+                  <p className="text-[#7B9E6B]">{order.shippingAddress.phone}</p>
+                  <p className="text-[#7B9E6B] mt-1">
                     {order.shippingAddress.line1}
                     {order.shippingAddress.line2 && `, ${order.shippingAddress.line2}`}
                   </p>
-                  <p className="text-[#6B7280]">
+                  <p className="text-[#7B9E6B]">
                     {order.shippingAddress.city}, {order.shippingAddress.state} {order.shippingAddress.pin}
                   </p>
-                  <p className="text-[#6B7280]">{order.shippingAddress.country}</p>
+                  <p className="text-[#7B9E6B]">{order.shippingAddress.country}</p>
                 </div>
               </div>
             ) : (
-              <p className="text-sm text-[#6B7280]">No shipping address</p>
+              <p className="text-sm text-[#7B9E6B]">No shipping address</p>
             )}
           </div>
 
-          {/* Tracking Info */}
-          {(order.trackingNumber || order.trackingCarrier) && (
-            <div className="bg-white border border-[#E5E7EB] rounded-xl p-5">
-              <h2 className="font-semibold text-[#0A0A0A] mb-4">Tracking</h2>
-              <div className="space-y-2 text-sm">
+          {/* Shiprocket Shipment */}
+          <div className="bg-white border border-[rgba(46,125,50,0.15)] rounded-xl p-5 space-y-3">
+            <h2 className="font-semibold text-[#1a1a1a]" style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)" }}>Shiprocket</h2>
+            {(order.trackingNumber || order.trackingCarrier) && (
+              <div className="space-y-1 text-sm">
                 {order.trackingCarrier && (
-                  <p className="text-[#6B7280]">
-                    Carrier: <span className="text-[#0A0A0A]">{order.trackingCarrier}</span>
+                  <p className="text-[#7B9E6B]">
+                    Courier: <span className="text-[#1a1a1a]">{order.trackingCarrier}</span>
                   </p>
                 )}
                 {order.trackingNumber && (
-                  <p className="text-[#6B7280]">
-                    Number: <span className="text-[#0A0A0A]">{order.trackingNumber}</span>
+                  <p className="text-[#7B9E6B]">
+                    AWB: <span className="text-[#1a1a1a] font-semibold">{order.trackingNumber}</span>
+                  </p>
+                )}
+                {order.shiprocketOrderId && (
+                  <p className="text-[#7B9E6B]">
+                    SR Order ID: <span className="text-[#1a1a1a]">{order.shiprocketOrderId}</span>
                   </p>
                 )}
               </div>
-            </div>
-          )}
+            )}
+            <AdminShipButton
+              orderId={order.id}
+              hasShipment={!!order.shiprocketOrderId}
+            />
+          </div>
 
           {/* Payment Info */}
-          <div className="bg-white border border-[#E5E7EB] rounded-xl p-5">
-            <h2 className="font-semibold text-[#0A0A0A] mb-4">Payment</h2>
+          <div className="bg-white border border-[rgba(46,125,50,0.15)] rounded-xl p-5">
+            <h2 className="font-semibold text-[#1a1a1a] mb-4" style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)" }}>Payment</h2>
             <div className="space-y-2 text-sm">
-              <p className="text-[#6B7280]">
-                Method: <span className="text-[#0A0A0A]">{order.paymentMethod}</span>
+              <p className="text-[#7B9E6B]">
+                Method: <span className="text-[#1a1a1a]">{order.paymentMethod}</span>
               </p>
               {order.razorpayOrderId && (
-                <p className="text-[#6B7280]">
-                  Razorpay: <span className="text-[#0A0A0A] text-xs">{order.razorpayOrderId}</span>
+                <p className="text-[#7B9E6B]">
+                  Razorpay: <span className="text-[#1a1a1a] text-xs">{order.razorpayOrderId}</span>
                 </p>
               )}
               {order.stripePaymentIntent && (
-                <p className="text-[#6B7280]">
-                  Stripe: <span className="text-[#0A0A0A] text-xs">{order.stripePaymentIntent}</span>
+                <p className="text-[#7B9E6B]">
+                  Stripe: <span className="text-[#1a1a1a] text-xs">{order.stripePaymentIntent}</span>
                 </p>
               )}
             </div>

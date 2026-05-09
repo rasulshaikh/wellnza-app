@@ -7,11 +7,11 @@ export const metadata = {
 
 export default function SearchPage() {
   return (
-    <div className="min-h-screen bg-[#0D0D0D]">
+    <div className="min-h-screen" style={{ background: "#FAFAF8" }}>
       <Suspense
         fallback={
           <div className="flex items-center justify-center py-24">
-            <p className="text-[#888888]">Loading...</p>
+            <p style={{ color: "#7B9E6B" }}>Loading...</p>
           </div>
         }
       >

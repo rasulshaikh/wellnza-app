@@ -57,7 +57,7 @@ export function OrderStatusUpdateForm({ order }: { order: Order }) {
     <form onSubmit={handleSubmit} className="space-y-4">
       {/* Current Status */}
       <div className="flex items-center gap-2">
-        <span className="text-sm text-[#6B7280]">Current Status:</span>
+        <span className="text-sm text-[#7B9E6B]">Current Status:</span>
         <Badge
           className={ORDER_STATUS_COLORS[order.status] || "bg-gray-100 text-gray-800"}
         >
@@ -67,7 +67,7 @@ export function OrderStatusUpdateForm({ order }: { order: Order }) {
 
       {/* Status Select */}
       <div>
-        <label className="text-sm font-medium text-[#0A0A0A] block mb-1.5">
+        <label className="text-sm font-medium text-[#1a1a1a] block mb-1.5" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>
           Update Status
         </label>
         <Select value={status} onValueChange={(value) => setStatus(value || status)}>
@@ -87,11 +87,11 @@ export function OrderStatusUpdateForm({ order }: { order: Order }) {
 
       {/* Tracking Info - Show when status is SHIPPED or higher */}
       {(status === "SHIPPED" || status === "DELIVERED") && (
-        <div className="space-y-3 pt-3 border-t border-[#E5E7EB]">
-          <p className="text-sm font-medium text-[#0A0A0A]">Tracking Information</p>
+        <div className="space-y-3 pt-3 border-t border-[rgba(46,125,50,0.15)]">
+          <p className="text-sm font-medium text-[#1a1a1a]" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>Tracking Information</p>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-xs text-[#6B7280] block mb-1">Carrier</label>
+              <label className="text-xs text-[#7B9E6B] block mb-1">Carrier</label>
               <Input
                 value={trackingCarrier}
                 onChange={(e) => setTrackingCarrier(e.target.value)}
@@ -99,7 +99,7 @@ export function OrderStatusUpdateForm({ order }: { order: Order }) {
               />
             </div>
             <div>
-              <label className="text-xs text-[#6B7280] block mb-1">Tracking Number</label>
+              <label className="text-xs text-[#7B9E6B] block mb-1">Tracking Number</label>
               <Input
                 value={trackingNumber}
                 onChange={(e) => setTrackingNumber(e.target.value)}
@@ -114,7 +114,7 @@ export function OrderStatusUpdateForm({ order }: { order: Order }) {
       {message && (
         <p
           className={`text-sm ${
-            message.type === "success" ? "text-[#10B981]" : "text-[#EF4444]"
+            message.type === "success" ? "text-[#2E7D32]" : "text-[#EF4444]"
           }`}
         >
           {message.text}
@@ -125,7 +125,7 @@ export function OrderStatusUpdateForm({ order }: { order: Order }) {
       <Button
         type="submit"
         disabled={isSubmitting}
-        className="bg-[#0055FF] hover:bg-[#0044CC]"
+        className="bg-[#2E7D32] hover:bg-[#1B5E20]"
       >
         {isSubmitting ? "Updating..." : "Update Status"}
       </Button>

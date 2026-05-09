@@ -135,61 +135,61 @@ export function ProductsContent() {
   };
 
   return (
-    <div className="flex flex-1 flex-col" style={{ background: "#0D0D0D", minHeight: "100vh" }}>
-      {/* Page header - Athletic Dark Theme */}
+    <div className="flex flex-1 flex-col" style={{ background: "#FAFAF8", minHeight: "100vh" }}>
+      {/* Page header - Botanical White */}
       <div
-        className="border-b border-[#166534]/30 px-4 py-8 md:px-8"
-        style={{ background: "linear-gradient(180deg, #0D0D0D 0%, #1A1A1A 100%)" }}
+        className="border-b border-[#2E7D32]/15 px-4 py-8 md:px-8"
+        style={{ background: "#FAFAF8" }}
       >
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-5">
-          {/* Athletic Tag Line */}
+          {/* Tag Line */}
           <div className="flex items-center gap-3">
-            <div className="h-[2px] w-8 bg-[#166534]" />
+            <div className="h-[2px] w-8 bg-[#2E7D32]" />
             <span
-              className="text-[12px] tracking-[3px] text-[#22C55E]"
-              style={{ fontFamily: "'Oswald', sans-serif" }}
+              className="text-[12px] tracking-[3px] text-[#2E7D32]"
+              style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}
             >
-              EVERY REP. EVERY SET. EVERY DAY.
+              WELLNESS, ROOTED IN NATURE
             </span>
           </div>
 
           {/* Main Heading */}
           <h1
-            className="text-[48px] font-bold tracking-tight text-white md:text-[64px]"
-            style={{ fontFamily: "'Bebas Neue', sans-serif", letterSpacing: "3px" }}
+            className="text-[48px] font-bold tracking-tight text-[#1a1a1a] md:text-[56px]"
+            style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", letterSpacing: "1px" }}
           >
-            LOCK IN YOUR <span className="text-[#22C55E]">GAINS</span>
+            Shop Supplements
           </h1>
 
-          {/* Subheading - Athletic Copy */}
+          {/* Subheading */}
           <p
-            className="max-w-xl text-[14px] text-[#888888]"
-            style={{ fontFamily: "'Oswald', sans-serif", letterSpacing: "1px" }}
+            className="max-w-xl text-[14px] text-[#7B9E6B]"
+            style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", letterSpacing: "0.5px" }}
           >
-            BUILT FOR ATHLETES WHO DEMAND MAXIMUM PERFORMANCE. NO SHORTCUTS. NO COMPROMISE. STACK YOUR SUPPLEMENTS, DOMINATE YOUR GOALS.
+            Clean, transparent supplements crafted for your wellbeing. Every ingredient, every dose — know exactly what you are putting into your body.
           </p>
 
-          {/* Search bar - Angular Style */}
+          {/* Search bar */}
           <form onSubmit={handleSearchSubmit} className="flex gap-2 max-w-lg">
             <div className="relative flex-1">
               <Search
-                className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-[#888888]"
+                className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-[#7B9E6B]"
                 aria-hidden="true"
               />
               <Input
                 name="search"
                 type="search"
-                placeholder="SEARCH PRODUCTS..."
+                placeholder="Search supplements..."
                 defaultValue={search}
-                className="h-12 flex-1 border border-[#166534]/40 bg-[#1A1A1A] pl-10 pr-10 text-[13px] text-white placeholder:text-[#888888] focus:border-[#22C55E] focus:outline-none focus:ring-1 focus:ring-[#22C55E]"
-                style={{ fontFamily: "'Oswald', sans-serif", letterSpacing: "1px" }}
+                className="h-12 flex-1 rounded-md border border-[#2E7D32]/20 bg-white pl-10 pr-10 text-[13px] text-[#1a1a1a] placeholder:text-[#7B9E6B] focus:border-[#2E7D32] focus:outline-none focus:ring-1 focus:ring-[#2E7D32]"
+                style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}
                 aria-label="Search products"
               />
               {search && (
                 <button
                   type="button"
                   onClick={clearSearch}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#888888] hover:text-white transition-colors"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#7B9E6B] hover:text-[#2E7D32] transition-colors"
                   aria-label="Clear search"
                 >
                   <X className="size-4" />
@@ -198,33 +198,39 @@ export function ProductsContent() {
             </div>
             <Button
               type="submit"
-              className="athletic-cta h-12 !px-6"
-              style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+              className="h-12 !px-6 rounded-md"
+              style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", backgroundColor: "#2E7D32", color: "#fff" }}
               aria-label="Submit search"
             >
-              SEARCH
+              Search
             </Button>
           </form>
 
           {/* Trust Badges Row */}
           <div className="flex flex-wrap gap-3 pt-2">
-            <div className="athletic-trust-badge" aria-label="Free shipping on all orders">
-              <svg className="h-3.5 w-3.5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <div className="flex items-center gap-2 rounded-full border border-[#2E7D32]/20 bg-white px-4 py-2" aria-label="Free shipping on all orders">
+              <svg className="h-3.5 w-3.5 text-[#2E7D32]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M18 1l-4 4-3-3-5 5 3 3-5 5 5 5 3-3 4 4 1-1-4-4 4-4-1-1zm-6 8l-2 2 4 4 4-4-2-2-2 2-2-2z"/>
               </svg>
-              FREE SHIPPING
+              <span style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", fontSize: "11px", color: "#1a1a1a", letterSpacing: "1px" }}>FREE SHIPPING</span>
             </div>
-            <div className="athletic-trust-badge" aria-label="Lab tested products">
-              <svg className="h-3.5 w-3.5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <div className="flex items-center gap-2 rounded-full border border-[#2E7D32]/20 bg-white px-4 py-2" aria-label="Lab tested products">
+              <svg className="h-3.5 w-3.5 text-[#2E7D32]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M12 2L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
               </svg>
-              LAB TESTED
+              <span style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", fontSize: "11px", color: "#1a1a1a", letterSpacing: "1px" }}>THIRD-PARTY TESTED</span>
             </div>
-            <div className="athletic-trust-badge" aria-label="100% authentic products">
-              <svg className="h-3.5 w-3.5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <div className="flex items-center gap-2 rounded-full border border-[#2E7D32]/20 bg-white px-4 py-2" aria-label="100% authentic products">
+              <svg className="h-3.5 w-3.5 text-[#2E7D32]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
               </svg>
-              100% AUTHENTIC
+              <span style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", fontSize: "11px", color: "#1a1a1a", letterSpacing: "1px" }}>100% AUTHENTIC</span>
+            </div>
+            <div className="flex items-center gap-2 rounded-full border border-[#2E7D32]/20 bg-white px-4 py-2" aria-label="Natural ingredients">
+              <svg className="h-3.5 w-3.5 text-[#2E7D32]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/>
+              </svg>
+              <span style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", fontSize: "11px", color: "#1a1a1a", letterSpacing: "1px" }}>NATURAL INGREDIENTS</span>
             </div>
           </div>
         </div>
@@ -236,8 +242,8 @@ export function ProductsContent() {
           {/* Filters sidebar */}
           <div className="py-6 pr-8 hidden lg:block">
             <div
-              className="w-56 shrink-0 p-4 rounded-none"
-              style={{ background: "#1A1A1A", border: "1px solid rgba(22, 101, 52, 0.3)" }}
+              className="w-56 shrink-0 p-4 rounded-md"
+              style={{ background: "#fff", border: "1px solid rgba(46, 125, 50, 0.15)", boxShadow: "0 2px 8px rgba(46, 125, 50, 0.06)" }}
             >
               <ProductFilters className="!p-0" />
             </div>
@@ -245,12 +251,12 @@ export function ProductsContent() {
 
           {/* Product area */}
           <div className="flex flex-1 flex-col py-6 pl-0 lg:pl-0">
-            {/* Results info - Athletic Style */}
+            {/* Results info */}
             <div className="mb-6 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <span
-                  className="text-[12px] text-[#888888]"
-                  style={{ fontFamily: "'Oswald', sans-serif", letterSpacing: "2px" }}
+                  className="text-[12px] text-[#7B9E6B]"
+                  style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", letterSpacing: "1px" }}
                 >
                   SORT BY:
                 </span>
@@ -265,8 +271,8 @@ export function ProductsContent() {
                     }
                     router.push(`/products?${newParams.toString()}`);
                   }}
-                  className="h-10 border border-[#166534]/40 bg-[#1A1A1A] px-3 py-1.5 text-[13px] text-white focus:border-[#22C55E] focus:outline-none focus:ring-1 focus:ring-[#22C55E]"
-                  style={{ fontFamily: "'Oswald', sans-serif", letterSpacing: "1px" }}
+                  className="h-10 rounded-md border border-[#2E7D32]/20 bg-white px-3 py-1.5 text-[13px] text-[#1a1a1a] focus:border-[#2E7D32] focus:outline-none focus:ring-1 focus:ring-[#2E7D32]"
+                  style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}
                   aria-label="Sort products"
                 >
                   {SORT_OPTIONS.map((opt) => (
@@ -275,16 +281,16 @@ export function ProductsContent() {
                 </select>
               </div>
               <p
-                className="text-[13px] text-[#888888]"
-                style={{ fontFamily: "'Oswald', sans-serif", letterSpacing: "1px" }}
+                className="text-[13px] text-[#7B9E6B]"
+                style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", letterSpacing: "0.5px" }}
                 aria-live="polite"
               >
                 {total === 0 ? (
-                  "NO PRODUCTS FOUND"
+                  "No products found"
                 ) : (
                   <>
-                    SHOWING <span className="font-semibold text-white">{showingStart}-{showingEnd}</span> OF{" "}
-                    <span className="font-semibold text-white">{total}</span> PRODUCTS
+                    Showing <span className="font-semibold text-[#1a1a1a]">{showingStart}-{showingEnd}</span> of{" "}
+                    <span className="font-semibold text-[#1a1a1a]">{total}</span> products
                   </>
                 )}
               </p>
@@ -297,67 +303,65 @@ export function ProductsContent() {
               <ProductGrid products={products} />
             )}
 
-            {/* Testimonial - Athletic Dark Section */}
+            {/* Testimonial - Botanical */}
             <div
-              className="mt-16 py-16 text-center"
-              style={{ background: "linear-gradient(180deg, #1A1A1A 0%, #0D0D0D 100%)", borderTop: "1px solid rgba(22, 101, 52, 0.3)" }}
+              className="mt-16 rounded-md py-12 text-center"
+              style={{ background: "linear-gradient(180deg, #fff 0%, #FAFAF8 100%)", border: "1px solid rgba(46, 125, 50, 0.1)" }}
             >
               <div className="mb-4 flex justify-center">
-                <svg className="h-6 w-6 text-[#22C55E]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M12 2L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
-                </svg>
+                <span className="text-2xl">◆</span>
               </div>
               <blockquote>
                 <p
-                  className="text-lg leading-relaxed text-white md:text-xl"
-                  style={{ fontFamily: "'Bebas Neue', sans-serif", letterSpacing: "1px" }}
+                  className="text-lg leading-relaxed text-[#1a1a1a] md:text-xl"
+                  style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", letterSpacing: "0.5px" }}
                 >
-                  &ldquo;WELLNZA GAVE ME UNMATCHED FOCUS AND ENERGY DURING WORKOUTS - TRULY A GAME CHANGER FOR MY TRAINING SESSIONS.&rdquo;
+                  &ldquo;Wellnza gave me consistent energy and I love knowing exactly what I am taking — clean ingredients, no hidden fillers.&rdquo;
                 </p>
               </blockquote>
               <p
-                className="mt-6 font-semibold text-[#22C55E]"
-                style={{ fontFamily: "'Oswald', sans-serif", letterSpacing: "2px" }}
+                className="mt-4 font-semibold text-[#2E7D32]"
+                style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", letterSpacing: "2px" }}
               >
-                - PRANAV
+                — PRIYA, MUMBAI · FITNESS ENTHUSIAST
               </p>
               <div className="mt-4 flex justify-center gap-1">
                 {[1,2,3,4,5].map((i) => (
-                  <svg key={i} className="h-5 w-5 text-[#22C55E]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M12 2L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
+                  <svg key={i} className="h-5 w-5 text-[#C9A227]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                   </svg>
                 ))}
               </div>
             </div>
 
-            {/* Pagination - Athletic Style */}
+            {/* Pagination */}
             {total > LIMIT && (
               <div className="mt-8 flex items-center justify-center gap-4">
                 <button
                   onClick={() => navigateToOffset(prevOffset)}
                   disabled={offset === 0}
-                  className="flex items-center gap-2 px-4 py-2 text-[13px] text-white border border-[#166534]/40 hover:border-[#22C55E] hover:text-[#22C55E] transition-colors disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:border-[#166534]/40 disabled:hover:text-white"
-                  style={{ fontFamily: "'Oswald', sans-serif", letterSpacing: "2px" }}
+                  className="flex items-center gap-2 rounded-md px-4 py-2 text-[13px] text-[#1a1a1a] border border-[#2E7D32]/20 bg-white hover:border-[#2E7D32] hover:text-[#2E7D32] transition-colors disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:border-[#2E7D32]/20 disabled:hover:text-[#1a1a1a]"
+                  style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}
                   aria-label="Previous page"
                 >
                   <ChevronLeft className="size-4" aria-hidden="true" />
-                  PREV
+                  Prev
                 </button>
                 <span
-                  className="px-4 text-[13px] text-[#888888]"
-                  style={{ fontFamily: "'Oswald', sans-serif", letterSpacing: "1px" }}
+                  className="px-4 text-[13px] text-[#7B9E6B]"
+                  style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}
                   aria-current="page"
                 >
-                  PAGE {Math.floor(offset / LIMIT) + 1} OF {Math.ceil(total / LIMIT)}
+                  Page {Math.floor(offset / LIMIT) + 1} of {Math.ceil(total / LIMIT)}
                 </span>
                 <button
                   onClick={() => navigateToOffset(nextOffset)}
                   disabled={offset + LIMIT >= total}
-                  className="flex items-center gap-2 px-4 py-2 text-[13px] text-white border border-[#166534]/40 hover:border-[#22C55E] hover:text-[#22C55E] transition-colors disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:border-[#166534]/40 disabled:hover:text-white"
-                  style={{ fontFamily: "'Oswald', sans-serif", letterSpacing: "2px" }}
+                  className="flex items-center gap-2 rounded-md px-4 py-2 text-[13px] text-[#1a1a1a] border border-[#2E7D32]/20 bg-white hover:border-[#2E7D32] hover:text-[#2E7D32] transition-colors disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:border-[#2E7D32]/20 disabled:hover:text-[#1a1a1a]"
+                  style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}
                   aria-label="Next page"
                 >
-                  NEXT
+                  Next
                   <ChevronRight className="size-4" aria-hidden="true" />
                 </button>
               </div>
@@ -369,21 +373,21 @@ export function ProductsContent() {
       {/* Bottom Tagline */}
       <div
         className="py-6 px-4 md:px-8"
-        style={{ background: "#0D0D0D", borderTop: "1px solid rgba(22, 101, 52, 0.2)" }}
+        style={{ background: "#FAFAF8", borderTop: "1px solid rgba(46, 125, 50, 0.1)" }}
       >
         <div className="mx-auto max-w-7xl flex flex-wrap items-center justify-between gap-4">
           <p
-            className="text-[12px] text-[#888888]"
-            style={{ fontFamily: "'Oswald', sans-serif", letterSpacing: "2px" }}
+            className="text-[12px] text-[#7B9E6B]"
+            style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", letterSpacing: "1px" }}
           >
-            BUILT FOR <span className="text-[#22C55E]">ATHLETES</span>. PROVEN BY <span className="text-[#22C55E]">GAINS</span>.
+            Clean ingredients. Transparent dosing. Premium wellness.
           </p>
           <div className="flex items-center gap-4">
             <span
-              className="text-[10px] text-[#888888]"
-              style={{ fontFamily: "'Oswald', sans-serif", letterSpacing: "1px" }}
+              className="text-[10px] text-[#7B9E6B]"
+              style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", letterSpacing: "1px" }}
             >
-              SOURCE DIRECT - NO MIDDLEMEN
+              Made in Amravati · Delivered Across India
             </span>
           </div>
         </div>

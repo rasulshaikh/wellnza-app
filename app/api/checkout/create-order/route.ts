@@ -61,22 +61,10 @@ export async function POST(request: Request) {
     const { cartItems, shippingAddressId, paymentMethod, shippingMethod, userId: userIdFromRequest, guestEmail, guestPhone, guestName, guestAddress, couponCode, discount: clientDiscount } =
       parsed.data;
 
-    // Validate session for logged-in users
+    // Validate session — userId always comes from the server session (never trusted from client)
     const session = await auth();
-
-    let userId: string | null = null;
-
-    if (session?.user?.id) {
-      // User is logged in - require valid userId that matches session
-      if (!userIdFromRequest || userIdFromRequest !== session.user.id) {
-        return NextResponse.json(
-          { error: "Unauthorized - user ID mismatch" },
-          { status: 401 }
-        );
-      }
-      userId = session.user.id;
-    }
-    // If no session, guest checkout is fine (userId stays null)
+    const userId: string | null = session?.user?.id ?? null;
+    // userIdFromRequest is ignored for security; we derive identity from the session only
 
     // Validate variants exist and get prices
     const variantIds = cartItems.map((i) => i.productVariantId);
@@ -320,12 +308,11 @@ export async function POST(request: Request) {
         key_secret: process.env.RAZORPAY_KEY_SECRET!,
       });
 
-      // AUDIT TODO P0: amount not converted to paise, currency is INR not NZD
-      // FIX: Change to Math.round(total * 100) for paise AND currency to "NZD"
-      // Razorpay requires amount in smallest currency unit (paise for NZD)
+      // Prices are stored as integers in rupees (e.g. 2199 = ₹2,199)
+      // Razorpay requires amount in paise (smallest INR unit), so multiply by 100
       const razorpayOrder = await razorpay.orders.create({
-        amount: Math.round(total * 100), // amount in paise (smallest NZD unit)
-        currency: "NZD", // was INR - this is an NZ store
+        amount: Math.round(total * 100), // amount in paise
+        currency: "INR",
         receipt: order.id,
         notes: {
           orderNumber,

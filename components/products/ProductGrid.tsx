@@ -33,18 +33,18 @@ function LoadingSkeleton() {
       {Array.from({ length: 6 }).map((_, i) => (
         <div
           key={i}
-          className="athletic-card"
-          style={{ animationDelay: `${i * 100}ms` }}
+          className="rounded-lg overflow-hidden"
+          style={{ animationDelay: `${i * 100}ms`, background: "#FFFFFF", border: "1px solid rgba(46, 125, 50, 0.15)", boxShadow: "0 2px 8px rgba(46, 125, 50, 0.06)" }}
         >
-          <div className="aspect-square bg-[#1A1A1A] relative">
-            <div className="absolute top-0 left-0 right-0 h-[3px] bg-[#166534]/50" />
+          <div className="aspect-square relative" style={{ background: "#FFFFFF" }}>
+            <div className="absolute top-0 left-0 right-0 h-[3px] bg-[#2E7D32]" />
             <Skeleton className="h-full w-full" />
           </div>
           <div className="p-5 space-y-3">
-            <Skeleton className="h-3 w-20 bg-[#1A1A1A]" />
-            <Skeleton className="h-6 w-full bg-[#1A1A1A]" />
-            <Skeleton className="h-4 w-16 bg-[#1A1A1A]" />
-            <Skeleton className="h-8 w-full bg-[#1A1A1A] mt-4" />
+            <Skeleton className="h-3 w-20" style={{ background: "#e0e0e0" }} />
+            <Skeleton className="h-6 w-full" style={{ background: "#e0e0e0" }} />
+            <Skeleton className="h-4 w-16" style={{ background: "#e0e0e0" }} />
+            <Skeleton className="h-8 w-full mt-4" style={{ background: "#e0e0e0" }} />
           </div>
         </div>
       ))}
@@ -61,11 +61,12 @@ export function ProductGrid({ products, isLoading }: ProductGridProps) {
     return (
       <div
         className="flex flex-col items-center justify-center py-20 text-center"
-        style={{ background: "#0D0D0D" }}
+        style={{ background: "#FAFAF8" }}
       >
-        <div className="mb-6 flex h-20 w-20 items-center justify-center" style={{ background: "#1A1A1A", border: "1px solid rgba(22, 101, 52, 0.3)" }}>
+        <div className="mb-6 flex h-20 w-20 items-center justify-center" style={{ background: "#FFFFFF", border: "1px solid rgba(46, 125, 50, 0.15)", boxShadow: "0 2px 8px rgba(46, 125, 50, 0.06)" }}>
           <svg
-            className="size-10 text-[#166534]"
+            className="size-10"
+            style={{ color: "#2E7D32" }}
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -76,16 +77,16 @@ export function ProductGrid({ products, isLoading }: ProductGridProps) {
           </svg>
         </div>
         <h3
-          className="text-2xl font-bold text-white mb-2"
-          style={{ fontFamily: "'Bebas Neue', sans-serif", letterSpacing: "2px" }}
+          className="text-2xl font-bold mb-2"
+          style={{ fontFamily: "'Playfair Display', serif", color: "#1a1a1a" }}
         >
-          NO PRODUCTS FOUND
+          No Products Found
         </h3>
         <p
-          className="text-[14px] text-[#888888]"
-          style={{ fontFamily: "'Oswald', sans-serif", letterSpacing: "1px" }}
+          className="text-[14px]"
+          style={{ fontFamily: "'DM Sans', sans-serif", color: "#7B9E6B", letterSpacing: "0.5px" }}
         >
-          TRY ADJUSTING YOUR FILTERS OR SEARCH QUERY
+          Try adjusting your filters or search query
         </p>
       </div>
     );
@@ -96,7 +97,6 @@ export function ProductGrid({ products, isLoading }: ProductGridProps) {
       {products.map((product, index) => (
         <div
           key={product.id}
-          className="athletic-animate-in"
           style={{ animationDelay: `${index * 100}ms` }}
         >
           <ProductCard {...product} />

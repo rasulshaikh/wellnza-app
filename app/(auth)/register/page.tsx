@@ -52,7 +52,7 @@ export default function RegisterPage() {
         <div className="w-full max-w-md space-y-8">
           <div className="text-center">
             <Link href="/" className="inline-block">
-              <span className="text-3xl font-bold tracking-wider" style={{ fontFamily: "'Playfair Display', serif" }}>
+              <span className="text-3xl font-bold tracking-wider" style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)" }}>
                 Well<span className="text-[#2E7D32]">nza</span>
               </span>
             </Link>
@@ -60,15 +60,15 @@ export default function RegisterPage() {
 
           <div className="bg-[#fff] rounded-lg p-8 border border-[rgba(46,125,50,0.15)]">
             <div className="text-center mb-8">
-              <h1 className="text-4xl font-bold text-[#1a1a1a] mb-2" style={{ fontFamily: "'Playfair Display', serif" }}>
+              <h1 className="text-4xl font-bold text-[#1a1a1a] mb-2" style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)" }}>
                 Create your account
               </h1>
-              <p className="text-[#7B9E6B]" style={{ fontFamily: "'DM Sans', sans-serif" }}>Create your account</p>
+              <p className="text-[#7B9E6B]" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>Create your account</p>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
-                <Label htmlFor="name" className="text-[#1a1a1a] font-medium" style={{ fontFamily: "'DM Sans', sans-serif" }}>Full Name</Label>
+                <Label htmlFor="name" className="text-[#1a1a1a] font-medium" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>Full Name</Label>
                 <Input
                   id="name"
                   type="text"
@@ -80,7 +80,7 @@ export default function RegisterPage() {
                 />
               </div>
               <div>
-                <Label htmlFor="email" className="text-[#1a1a1a] font-medium" style={{ fontFamily: "'DM Sans', sans-serif" }}>Email</Label>
+                <Label htmlFor="email" className="text-[#1a1a1a] font-medium" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>Email</Label>
                 <Input
                   id="email"
                   type="email"
@@ -92,7 +92,7 @@ export default function RegisterPage() {
                 />
               </div>
               <div>
-                <Label htmlFor="phone" className="text-[#1a1a1a] font-medium" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+                <Label htmlFor="phone" className="text-[#1a1a1a] font-medium" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>
                   Phone <span className="text-[#7B9E6B] font-normal">(optional)</span>
                 </Label>
                 <Input
@@ -106,7 +106,7 @@ export default function RegisterPage() {
                 />
               </div>
               <div>
-                <Label htmlFor="password" className="text-[#1a1a1a] font-medium" style={{ fontFamily: "'DM Sans', sans-serif" }}>Password</Label>
+                <Label htmlFor="password" className="text-[#1a1a1a] font-medium" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>Password</Label>
                 <Input
                   id="password"
                   type="password"
@@ -117,12 +117,12 @@ export default function RegisterPage() {
                   disabled={isLoading}
                   className="mt-1.5 bg-[#FAFAF8] border-[rgba(46,125,50,0.15)] text-[#1a1a1a] placeholder-[#7B9E6B] focus:border-[#2E7D32] focus:ring-[#2E7D32]"
                 />
-                <p className="text-xs text-[#7B9E6B] mt-1.5" style={{ fontFamily: "'DM Sans', sans-serif" }}>Minimum 8 characters</p>
+                <p className="text-xs text-[#7B9E6B] mt-1.5" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>Minimum 8 characters</p>
               </div>
               <Button
                 type="submit"
                 className="w-full bg-[#2E7D32] hover:bg-[#235F27] text-white font-semibold h-12"
-                style={{ fontFamily: "'DM Sans', sans-serif" }}
+                style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}
                 disabled={isLoading}
               >
                 {isLoading ? "CREATING ACCOUNT..." : "CREATE ACCOUNT"}
@@ -134,7 +134,7 @@ export default function RegisterPage() {
                 <span className="w-full border-t border-[rgba(46,125,50,0.15)]" />
               </div>
               <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-[#fff] px-3 text-[#7B9E6B]" style={{ fontFamily: "'DM Sans', sans-serif" }}>Or continue with</span>
+                <span className="bg-[#fff] px-3 text-[#7B9E6B]" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>Or continue with</span>
               </div>
             </div>
 
@@ -142,7 +142,7 @@ export default function RegisterPage() {
               type="button"
               variant="outline"
               className="w-full mt-6 h-12 border-[rgba(46,125,50,0.15)] text-[#7B9E6B] hover:text-[#2E7D32] hover:border-[#2E7D32] hover:bg-[#FAFAF8]"
-              style={{ fontFamily: "'DM Sans', sans-serif" }}
+              style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}
               onClick={() => signIn("google", { callbackUrl: "/account" })}
               disabled={isLoading}
             >
@@ -155,7 +155,7 @@ export default function RegisterPage() {
               CONTINUE WITH GOOGLE
             </Button>
 
-            <p className="text-center text-sm text-[#7B9E6B] mt-6" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+            <p className="text-center text-sm text-[#7B9E6B] mt-6" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>
               Already have an account?{" "}
               <Link href="/login" className="text-[#2E7D32] font-semibold hover:underline">
                 Sign in

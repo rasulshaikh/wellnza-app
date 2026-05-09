@@ -32,10 +32,10 @@ interface Product {
 const LIMIT = 20;
 
 const SORT_OPTIONS = [
-  { value: "featured", label: "FEATURED" },
-  { value: "price_asc", label: "PRICE: LOW TO HIGH" },
-  { value: "price_desc", label: "PRICE: HIGH TO LOW" },
-  { value: "newest", label: "MOST RECENT" },
+  { value: "featured", label: "Featured" },
+  { value: "price_asc", label: "Price: Low to High" },
+  { value: "price_desc", label: "Price: High to Low" },
+  { value: "newest", label: "Most Recent" },
 ];
 
 export function SearchContent() {
@@ -97,31 +97,37 @@ export function SearchContent() {
   const total = data?.total ?? 0;
 
   return (
-    <div className="flex flex-1 flex-col" style={{ background: "#0D0D0D", minHeight: "100vh" }}>
-      {/* Search header - Athletic Dark Theme */}
+    <div className="flex flex-1 flex-col" style={{ background: "#FAFAF8", minHeight: "100vh" }}>
+      {/* Search header */}
       <div
-        className="border-b border-[#166534]/30 px-4 py-6 md:px-8"
-        style={{ background: "linear-gradient(180deg, #0D0D0D 0%, #1A1A1A 100%)" }}
+        className="border-b px-4 py-6 md:px-8"
+        style={{ borderColor: "rgba(46, 125, 50, 0.15)", background: "#FAFAF8" }}
       >
         <div className="mx-auto max-w-7xl">
           <form onSubmit={handleSearch} className="flex gap-2 max-w-2xl">
             <div className="relative flex-1">
               <Search
-                className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-[#888888]"
+                className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2"
+                style={{ color: "#7B9E6B" }}
                 aria-hidden="true"
               />
               <Input
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
-                placeholder="SEARCH PRODUCTS..."
-                className="h-12 flex-1 border border-[#166534]/40 bg-[#1A1A1A] pl-10 pr-10 text-[13px] text-white placeholder:text-[#888888] focus:border-[#22C55E] focus:outline-none focus:ring-1 focus:ring-[#22C55E]"
-                style={{ fontFamily: "'Oswald', sans-serif", letterSpacing: "1px" }}
+                placeholder="Search products..."
+                className="h-12 flex-1 border pl-10 pr-10 text-sm"
+                style={{
+                  borderColor: "rgba(46, 125, 50, 0.2)",
+                  background: "#fff",
+                  color: "#1a1a1a",
+                }}
               />
               {inputValue && (
                 <button
                   type="button"
                   onClick={clearSearch}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#888888] hover:text-white transition-colors"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 transition-colors"
+                  style={{ color: "#7B9E6B" }}
                   aria-label="Clear search"
                 >
                   <X className="size-4" />
@@ -130,20 +136,24 @@ export function SearchContent() {
             </div>
             <Button
               type="submit"
-              className="athletic-cta h-12 !px-6"
-              style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+              className="h-12 !px-6 text-sm font-medium"
+              style={{
+                background: "#2E7D32",
+                color: "#fff",
+                fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)",
+              }}
             >
-              SEARCH
+              Search
             </Button>
           </form>
 
           {/* Sort options */}
           <div className="mt-4 flex items-center gap-4">
             <span
-              className="text-[12px] text-[#888888]"
-              style={{ fontFamily: "'Oswald', sans-serif", letterSpacing: "2px" }}
+              className="text-xs tracking-wide"
+              style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}
             >
-              SORT BY:
+              Sort by:
             </span>
             <select
               value={sort}
@@ -156,8 +166,13 @@ export function SearchContent() {
                 }
                 router.push(`/search?${params.toString()}`);
               }}
-              className="h-9 border border-[#166534]/40 bg-[#1A1A1A] px-3 py-1.5 text-[13px] text-white focus:border-[#22C55E] focus:outline-none focus:ring-1 focus:ring-[#22C55E]"
-              style={{ fontFamily: "'Oswald', sans-serif", letterSpacing: "1px" }}
+              className="h-9 border px-3 py-1.5 text-sm"
+              style={{
+                borderColor: "rgba(46, 125, 50, 0.2)",
+                background: "#fff",
+                color: "#1a1a1a",
+                fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)",
+              }}
               aria-label="Sort products"
             >
               {SORT_OPTIONS.map((opt) => (
@@ -170,26 +185,26 @@ export function SearchContent() {
 
       {/* Results */}
       <div className="mx-auto w-full max-w-7xl px-4 py-8 md:px-8">
-        {/* Results header - Athletic Style */}
+        {/* Results header */}
         <div className="mb-6 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <span
-              className="text-[12px] text-[#888888]"
-              style={{ fontFamily: "'Oswald', sans-serif", letterSpacing: "2px" }}
+              className="text-sm"
+              style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}
             >
-              {query ? "SEARCH RESULTS" : "ALL PRODUCTS"}
+              {query ? "Search Results" : "All Products"}
             </span>
           </div>
           <p
-            className="text-[13px] text-[#888888]"
-            style={{ fontFamily: "'Oswald', sans-serif", letterSpacing: "1px" }}
+            className="text-sm"
+            style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}
             aria-live="polite"
           >
             {total === 0 ? (
-              "NO PRODUCTS FOUND"
+              "No products found"
             ) : (
               <>
-                SHOWING <span className="font-semibold text-white">{total}</span> PRODUCTS
+                Showing <span className="font-medium" style={{ color: "#1a1a1a" }}>{total}</span> products
               </>
             )}
           </p>
@@ -201,26 +216,33 @@ export function SearchContent() {
           <ProductGrid products={data.products} />
         ) : (
           <div
-            className="flex flex-col items-center justify-center py-20 text-center"
-            style={{ background: "#0D0D0D" }}
+            className="flex flex-col items-center justify-center py-20 text-center rounded-md"
+            style={{ background: "#fff", border: "1px solid rgba(46, 125, 50, 0.15)" }}
           >
-            <div className="mb-6 flex h-20 w-20 items-center justify-center" style={{ background: "#1A1A1A", border: "1px solid rgba(22, 101, 52, 0.3)" }}>
-              <Search className="size-10 text-[#166534]" />
+            <div
+              className="mb-6 flex h-20 w-20 items-center justify-center rounded-full"
+              style={{ background: "rgba(46, 125, 50, 0.08)" }}
+            >
+              <Search className="size-10" style={{ color: "#2E7D32" }} />
             </div>
             <h3
-              className="text-2xl font-bold text-white mb-2"
-              style={{ fontFamily: "'Bebas Neue', sans-serif", letterSpacing: "2px" }}
+              className="text-xl font-bold mb-2"
+              style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#1a1a1a" }}
             >
-              {query ? `NO RESULTS FOR "${query.toUpperCase()}"` : "NO PRODUCTS FOUND"}
+              {query ? `No results for "${query}"` : "No products available"}
             </h3>
             <p
-              className="text-[14px] text-[#888888]"
-              style={{ fontFamily: "'Oswald', sans-serif", letterSpacing: "1px" }}
+              className="text-sm"
+              style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}
             >
-              {query ? "TRY ADJUSTING YOUR SEARCH OR BROWSE ALL PRODUCTS" : "CHECK BACK SOON FOR NEW PRODUCTS"}
+              {query ? "Try adjusting your search or browse all products" : "Check back soon for new products"}
             </p>
-            <Link href="/products" className="mt-6 text-[#166534] hover:text-[#22C55E] transition-colors font-medium" style={{ fontFamily: "'Oswald', sans-serif", letterSpacing: "1px" }}>
-              BROWSE ALL PRODUCTS →
+            <Link
+              href="/products"
+              className="mt-6 text-sm font-medium transition-colors"
+              style={{ color: "#2E7D32" }}
+            >
+              Browse All Products →
             </Link>
           </div>
         )}

@@ -71,9 +71,10 @@ export async function POST(request: Request) {
         if (paymentRes.ok) {
           const paymentData = await paymentRes.json();
           // Razorpay amount is in paise (currency's smallest unit)
+          // Razorpay returns amount in paise; order.total is stored in rupees — multiply by 100 to compare
           const amountPaid = paymentData.amount;
-          if (amountPaid !== order.total) {
-            console.error("[verify-payment] Amount mismatch for order:", orderId, "expected:", order.total, "got:", amountPaid);
+          if (amountPaid !== order.total * 100) {
+            console.error("[verify-payment] Amount mismatch for order:", orderId, "expected paise:", order.total * 100, "got paise:", amountPaid);
             return NextResponse.json(
               { success: false, error: "Payment amount mismatch" },
               { status: 400 }

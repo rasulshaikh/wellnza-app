@@ -39,14 +39,14 @@ export function CartAbandonmentEmail({
                     </Text>
                   </div>
                   <Text style={{ color: "#0A0A0A", fontWeight: "600", fontSize: "14px" }}>
-                    ₹{item.price.toLocaleString()}
+                    {new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(item.price)}
                   </Text>
                 </Section>
               ))}
               <Section style={{ borderTop: "1px solid #E5E5E0", marginTop: "12px", paddingTop: "12px" }}>
                 <Text style={{ display: "flex", justifyContent: "space-between", color: "#0A0A0A", fontWeight: "bold", fontSize: "16px", margin: "0" }}>
                   <span>Total</span>
-                  <span>₹{total.toLocaleString()}</span>
+                  <span>{new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(total)}</span>
                 </Text>
               </Section>
             </Section>
@@ -64,7 +64,7 @@ export function CartAbandonmentEmail({
             {/* CTA Button */}
             <Button
               href={recoveryLink}
-              style={{ display: "block", width: "100%", backgroundColor: "#166534", color: "#fff", padding: "14px", borderRadius: "6px", textDecoration: "none", fontWeight: "600", textAlign: "center", fontSize: "16px" }}
+              style={{ display: "block", width: "100%", backgroundColor: "#2E7D32", color: "#fff", padding: "14px", borderRadius: "6px", textDecoration: "none", fontWeight: "600", textAlign: "center", fontSize: "16px" }}
             >
               Complete Your Order
             </Button>

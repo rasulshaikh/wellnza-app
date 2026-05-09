@@ -51,7 +51,7 @@ export async function GET(req: NextRequest) {
 
     // Create default location for inventory
     const location = await db.location.create({
-      data: { name: "Main Warehouse", address: "Auckland, NZ", isActive: true }
+      data: { name: "Main Warehouse", address: "Amravati, Maharashtra, India", isActive: true }
     });
 
     const created = [];

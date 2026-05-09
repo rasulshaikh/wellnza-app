@@ -70,7 +70,7 @@ export default function SettingsPageClient({ user }: SettingsPageClientProps) {
         <div className="bg-white border border-[rgba(46,125,50,0.15)] p-6 rounded-lg shadow-[0_2px_8px_rgba(46,125,50,0.06)]">
           <div className="flex items-center gap-3 mb-6">
             <User className="w-6 h-6 text-[#7B9E6B]" />
-            <h1 className="text-xl font-bold text-[#1a1a1a]" style={{ fontFamily: "'Playfair Display', serif" }}>Account Settings</h1>
+            <h1 className="text-xl font-bold text-[#1a1a1a]" style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)" }}>Account Settings</h1>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -98,7 +98,7 @@ export default function SettingsPageClient({ user }: SettingsPageClientProps) {
             </div>
 
             <div className="pt-4 border-t border-[rgba(46,125,50,0.15)]">
-              <h3 className="font-medium text-[#1a1a1a] mb-4" style={{ fontFamily: "'Playfair Display', serif" }}>Change Password</h3>
+              <h3 className="font-medium text-[#1a1a1a] mb-4" style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)" }}>Change Password</h3>
               <div className="space-y-4">
                 <div className="space-y-2">
                   <Label htmlFor="current-password" className="text-[#1a1a1a]">Current Password</Label>

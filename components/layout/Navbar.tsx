@@ -2,10 +2,9 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ShoppingBag, User, Menu, X, Search } from "lucide-react";
+import { ShoppingBag, User, Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
-import { Badge } from "@/components/ui/badge";
 import { useCartStore } from "@/store/cart-store";
 
 const navLinks = [
@@ -21,9 +20,7 @@ export function Navbar() {
   const itemCount = useCartStore((s) => s.items.reduce((sum, i) => sum + i.quantity, 0));
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 8);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -31,102 +28,139 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 w-full transition-shadow duration-300",
-        scrolled ? "shadow-[0_2px_20px_rgba(0,0,0,0.08)]" : "border-b"
+        "sticky top-0 z-50 w-full transition-all duration-300",
+        scrolled ? "shadow-[0_4px_24px_rgba(11,15,12,0.22)]" : ""
       )}
-      style={{ background: "#FAFAF8", borderColor: "rgba(46,125,50,0.15)" }}
+      style={{ background: "#0B0F0C", borderBottom: "1px solid rgba(232,160,32,0.12)" }}
     >
-      <div className="container mx-auto flex h-16 items-center justify-between px-4">
+      {/* Micro-bar: brand origin */}
+      <div
+        className="hidden md:flex items-center justify-center py-1.5"
+        style={{
+          background: "linear-gradient(90deg, #14532D 0%, #0B0F0C 35%, #0B0F0C 65%, #14532D 100%)",
+          borderBottom: "1px solid rgba(232,160,32,0.08)",
+        }}
+      >
+        <p
+          className="text-[10px] tracking-[0.2em] uppercase"
+          style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "rgba(232,160,32,0.75)" }}
+        >
+          ◆&nbsp;&nbsp;Born in Amravati, Maharashtra&nbsp;&nbsp;·&nbsp;&nbsp;Made for Every Indian Athlete&nbsp;&nbsp;◆
+        </p>
+      </div>
+
+      <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
+          <span style={{ color: "#E8A020", fontSize: "18px", lineHeight: 1 }}>◆</span>
           <span
-            className="text-2xl tracking-wide text-gray-900"
-            style={{ fontFamily: "'Playfair Display', serif", fontWeight: 600 }}
+            className="text-2xl uppercase tracking-widest"
+            style={{
+              fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)",
+              fontWeight: 700,
+              color: "#F7F3EC",
+              letterSpacing: "0.1em",
+            }}
           >
             Wellnza
           </span>
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={cn(
-                "text-sm font-medium tracking-wide transition-colors duration-200",
-                pathname === link.href
-                  ? "text-[#2E7D32]"
-                  : "text-gray-600 hover:text-[#2E7D32]"
-              )}
-              style={{ fontFamily: "'DM Sans', sans-serif" }}
-            >
-              {link.label}
-            </Link>
-          ))}
+        <nav className="hidden md:flex items-center">
+          {navLinks.map((link) => {
+            const active = pathname === link.href;
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="relative px-5 py-2 transition-colors duration-200"
+                style={{
+                  fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)",
+                  fontSize: "11px",
+                  fontWeight: 700,
+                  letterSpacing: "0.18em",
+                  textTransform: "uppercase",
+                  color: active ? "#E8A020" : "#8A9E90",
+                }}
+              >
+                {link.label}
+                {active && (
+                  <span
+                    className="absolute bottom-0 left-5 right-5 h-[2px] rounded-full"
+                    style={{ background: "linear-gradient(90deg,#E8A020,#F5C842)" }}
+                  />
+                )}
+              </Link>
+            );
+          })}
         </nav>
 
-        {/* Right actions */}
-        <div className="flex items-center gap-1">
-          {/* Search */}
-          <Link href="/search" className="p-2">
-            <Search className="h-5 w-5 text-gray-500 hover:text-[#2E7D32] transition-colors duration-200" />
+        {/* Right icons */}
+        <div className="flex items-center gap-0.5">
+          <Link href="/account" className="p-2.5 rounded" aria-label="Account">
+            <User className="h-[18px] w-[18px] transition-colors" style={{ color: "#8A9E90" }} />
           </Link>
 
-          {/* Cart */}
-          <Link href="/cart" className="relative p-2">
-            <ShoppingBag className="h-5 w-5 text-[#2E7D32]" />
+          <Link href="/cart" className="relative p-2.5 rounded" aria-label={`Cart ${itemCount} items`}>
+            <ShoppingBag
+              className="h-[18px] w-[18px] transition-colors"
+              style={{ color: itemCount > 0 ? "#E8A020" : "#8A9E90" }}
+            />
             {itemCount > 0 && (
-              <Badge className="absolute -top-1 -right-1 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs bg-[#2E7D32] text-white border-0">
+              <span
+                className="absolute -top-0.5 -right-0.5 h-4 w-4 rounded-full flex items-center justify-center text-[9px] font-bold"
+                style={{ background: "#E8A020", color: "#0B0F0C" }}
+              >
                 {itemCount > 9 ? "9+" : itemCount}
-              </Badge>
+              </span>
             )}
           </Link>
 
-          {/* Account */}
-          <Link
-            href="/account"
-            className="p-2 border border-gray-200 hover:border-[#2E7D32] transition-colors duration-200 rounded-md"
-          >
-            <User className="h-5 w-5 text-gray-500 hover:text-[#2E7D32] transition-colors duration-200" />
-          </Link>
-
-          {/* Mobile menu toggle */}
           <button
-            type="button"
-            aria-label="Toggle menu"
-            aria-expanded={mobileOpen}
-            aria-controls="mobile-menu"
-            className="md:hidden flex h-10 w-10 items-center justify-center hover:bg-gray-50 transition-colors duration-200 rounded-md"
+            className="md:hidden p-2.5 rounded ml-1"
+            style={{ color: "#8A9E90" }}
             onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label="Toggle menu"
           >
-            {mobileOpen ? (
-              <X className="h-5 w-5 text-gray-700" />
-            ) : (
-              <Menu className="h-5 w-5 text-gray-700" />
-            )}
+            {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
         </div>
       </div>
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div id="mobile-menu" className="md:hidden border-t border-gray-100 bg-white">
-          <nav className="container mx-auto px-6 py-8 flex flex-col gap-5">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setMobileOpen(false)}
-                className={cn(
-                  "text-base font-medium tracking-wide py-2",
-                  pathname === link.href ? "text-[#2E7D32]" : "text-gray-600 hover:text-[#2E7D32]"
-                )}
-                style={{ fontFamily: "'DM Sans', sans-serif" }}
-              >
-                {link.label}
-              </Link>
-            ))}
+        <div
+          className="md:hidden border-t"
+          style={{ background: "#141A16", borderColor: "rgba(232,160,32,0.12)" }}
+        >
+          <nav className="flex flex-col px-4 py-3 gap-1">
+            {navLinks.map((link) => {
+              const active = pathname === link.href;
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMobileOpen(false)}
+                  className={cn(
+                    "px-3 py-3 text-[11px] font-bold uppercase tracking-[0.18em] rounded transition-colors",
+                    active
+                      ? "text-[#E8A020] bg-[rgba(232,160,32,0.08)]"
+                      : "text-[#8A9E90] hover:text-[#F7F3EC]"
+                  )}
+                  style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}
+                >
+                  {active && <span className="mr-2" style={{ color: "#E8A020" }}>◆</span>}
+                  {link.label}
+                </Link>
+              );
+            })}
+            <p
+              className="mt-3 pt-3 text-center text-[10px] tracking-[0.2em] uppercase"
+              style={{ borderTop: "1px solid rgba(232,160,32,0.1)", color: "rgba(232,160,32,0.45)" }}
+            >
+              Born in Amravati · ◆ · Maharashtra
+            </p>
           </nav>
         </div>
       )}

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import Script from "next/script";
 import { useCartStore } from "@/store/cart-store";
 import { formatCurrency } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -22,6 +23,14 @@ import {
   X,
 } from "lucide-react";
 
+// Razorpay browser SDK types
+declare global {
+  interface Window {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    Razorpay: new (options: Record<string, unknown>) => { open(): void; on(event: string, handler: (data: unknown) => void): void };
+  }
+}
+
 interface AddressFormData {
   name: string;
   phone: string;
@@ -32,13 +41,15 @@ interface AddressFormData {
   pin: string;
 }
 
-// AUDIT TODO P0: INDIAN_STATES used in checkout dropdown - must replace with NZ regions
-// FIX: Replace with NZ regions: Northland, Auckland, Waikato, Bay of Plenty, Gisborne, Hawke's Bay, Taranaki, Manawatu-Whanganui, Wellington, Nelson, Marlborough, Canterbury, Otago, Southland
-// See: docs/audit/FULL-AUDIT-2026-05-06.md
-const NZ_REGIONS = [
-  "Northland", "Auckland", "Waikato", "Bay of Plenty", "Gisborne",
-  "Hawke's Bay", "Taranaki", "Manawatu-Whanganui", "Wellington",
-  "Nelson", "Marlborough", "Canterbury", "Otago", "Southland",
+const INDIAN_STATES = [
+  "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh",
+  "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand",
+  "Karnataka", "Kerala", "Madhya Pradesh", "Maharashtra", "Manipur",
+  "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Punjab",
+  "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura",
+  "Uttar Pradesh", "Uttarakhand", "West Bengal",
+  "Andaman and Nicobar Islands", "Chandigarh", "Dadra and Nagar Haveli and Daman and Diu",
+  "Delhi", "Jammu and Kashmir", "Ladakh", "Lakshadweep", "Puducherry",
 ];
 
 export default function CheckoutPage() {
@@ -68,6 +79,7 @@ export default function CheckoutPage() {
 
   const [sameAsContact, setSameAsContact] = useState(true);
   const [showAddressForm, setShowAddressForm] = useState(false);
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<"RAZORPAY" | "COD">("RAZORPAY");
 
   useEffect(() => {
     setMounted(true);
@@ -76,7 +88,7 @@ export default function CheckoutPage() {
   if (!mounted) {
     return (
       <div className="min-h-screen flex items-center justify-center" style={{ background: "#FAFAF8" }}>
-        <div className="animate-pulse text-sm tracking-widest" style={{ color: "#2E7D32", fontFamily: "'DM Sans', sans-serif" }}>
+        <div className="animate-pulse text-sm tracking-widest" style={{ color: "#2E7D32", fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>
           Loading...
         </div>
       </div>
@@ -89,7 +101,7 @@ export default function CheckoutPage() {
         <div className="text-center max-w-md">
           <p
             className="text-sm mb-4"
-            style={{ fontFamily: "'DM Sans', sans-serif", color: "#7B9E6B" }}
+            style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}
           >
             Your cart is empty. Add items before checkout.
           </p>
@@ -97,7 +109,7 @@ export default function CheckoutPage() {
             <button
               className="px-8 py-3 text-sm font-semibold tracking-wider"
               style={{
-                fontFamily: "'DM Sans', sans-serif",
+                fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)",
                 background: "#2E7D32",
                 color: "#fff",
                 borderRadius: "6px",
@@ -155,7 +167,7 @@ export default function CheckoutPage() {
   };
 
   const handleShippingContinue = () => {
-    if (sameAsContact || isAddressValid()) {
+    if (isAddressValid()) {
       setStep("payment");
     }
   };
@@ -182,10 +194,11 @@ export default function CheckoutPage() {
             ? {
                 name: contactForm.name,
                 phone: contactForm.phone.replace(/\D/g, ""),
-                line1: addressForm.line1 || "Address to be confirmed",
-                city: addressForm.city || "City",
-                state: addressForm.state || "State",
-                pin: addressForm.pin || "000000",
+                line1: addressForm.line1,
+                line2: addressForm.line2,
+                city: addressForm.city,
+                state: addressForm.state,
+                pin: addressForm.pin,
               }
             : {
                 name: addressForm.name,
@@ -212,30 +225,29 @@ export default function CheckoutPage() {
         return;
       }
 
-      // Razorpay flow
+      // Razorpay flow — use browser checkout.js (loaded via <Script> tag below)
       const razorpayKey = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID;
       if (!razorpayKey || !data.razorpayOrderId) {
         throw new Error("Razorpay not configured");
       }
+      if (typeof window === "undefined" || !window.Razorpay) {
+        throw new Error("Razorpay SDK not loaded. Please refresh and try again.");
+      }
 
-      const RazorpayLibrary = await import("razorpay");
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const rz = new (RazorpayLibrary.default as any)({
+      const options: Record<string, unknown> = {
         key: razorpayKey,
-      });
-
-      const options = {
         order_id: data.razorpayOrderId,
-        key: razorpayKey,
-        amount: data.total,
+        amount: data.total * 100, // convert rupees → paise for Razorpay browser SDK
         currency: "INR",
         name: "Wellnza Nutrition",
         description: `Order #${data.orderNumber}`,
+        image: "/logo.png",
         prefill: {
           name: contactForm.name,
           email: contactForm.email,
           contact: contactForm.phone.replace(/\D/g, ""),
         },
+        theme: { color: "#2E7D32" },
         handler: async (response: { razorpay_payment_id: string; razorpay_order_id: string; razorpay_signature: string }) => {
           try {
             const verifyRes = await fetch("/api/checkout/verify-payment", {
@@ -260,14 +272,21 @@ export default function CheckoutPage() {
             setIsProcessing(false);
           }
         },
+        modal: {
+          ondismiss: () => {
+            setError("Payment cancelled. Please try again.");
+            setIsProcessing(false);
+          },
+        },
       };
 
-      rz.on("payment.error", (err: { description: string }) => {
-        setError(err.description || "Payment failed. Please try again.");
+      const rz = new window.Razorpay(options);
+      rz.on("payment.failed", (resp: unknown) => {
+        const r = resp as { error?: { description?: string } };
+        setError(r?.error?.description || "Payment failed. Please try again.");
         setIsProcessing(false);
       });
-
-      rz.open(options);
+      rz.open();
     } catch (err) {
       const message = err instanceof Error ? err.message : "Something went wrong";
       setError(message);
@@ -276,6 +295,9 @@ export default function CheckoutPage() {
   };
 
   return (
+    <>
+    {/* Load Razorpay browser checkout SDK */}
+    <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="lazyOnload" />
     <div className="min-h-screen py-8" style={{ background: "#FAFAF8" }}>
       <div className="max-w-5xl mx-auto px-4">
         {/* Header */}
@@ -290,7 +312,7 @@ export default function CheckoutPage() {
           </Link>
           <h1
             className="text-3xl font-bold"
-            style={{ fontFamily: "'Playfair Display', serif", color: "#1a1a1a", letterSpacing: "1px" }}
+            style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#1a1a1a", letterSpacing: "1px" }}
           >
             Checkout
           </h1>
@@ -320,7 +342,7 @@ export default function CheckoutPage() {
                 <span
                   className="text-sm font-medium hidden sm:block"
                   style={{
-                    fontFamily: "'DM Sans', sans-serif",
+                    fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)",
                     color: step === s ? "#1a1a1a" : "#7B9E6B",
                   }}
                 >
@@ -348,7 +370,7 @@ export default function CheckoutPage() {
                   <CreditCard className="w-5 h-5" style={{ color: "#2E7D32" }} />
                   <h2
                     className="font-semibold"
-                    style={{ fontFamily: "'Playfair Display', serif", color: "#1a1a1a" }}
+                    style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#1a1a1a" }}
                   >
                     Contact Information
                   </h2>
@@ -356,7 +378,7 @@ export default function CheckoutPage() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs mb-1.5" style={{ fontFamily: "'DM Sans', sans-serif", color: "#7B9E6B" }}>
+                    <label className="block text-xs mb-1.5" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}>
                       Full Name
                     </label>
                     <input
@@ -369,12 +391,12 @@ export default function CheckoutPage() {
                         borderColor: "rgba(46, 125, 50, 0.15)",
                         background: "#fff",
                         color: "#1a1a1a",
-                        fontFamily: "'DM Sans', sans-serif",
+                        fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)",
                       }}
                     />
                   </div>
                   <div>
-                    <label className="block text-xs mb-1.5" style={{ fontFamily: "'DM Sans', sans-serif", color: "#7B9E6B" }}>
+                    <label className="block text-xs mb-1.5" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}>
                       Email Address
                     </label>
                     <input
@@ -387,12 +409,12 @@ export default function CheckoutPage() {
                         borderColor: "rgba(46, 125, 50, 0.15)",
                         background: "#fff",
                         color: "#1a1a1a",
-                        fontFamily: "'DM Sans', sans-serif",
+                        fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)",
                       }}
                     />
                   </div>
                   <div className="sm:col-span-2">
-                    <label className="block text-xs mb-1.5" style={{ fontFamily: "'DM Sans', sans-serif", color: "#7B9E6B" }}>
+                    <label className="block text-xs mb-1.5" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}>
                       Phone Number (10 digits)
                     </label>
                     <input
@@ -406,7 +428,7 @@ export default function CheckoutPage() {
                         borderColor: "rgba(46, 125, 50, 0.15)",
                         background: "#fff",
                         color: "#1a1a1a",
-                        fontFamily: "'DM Sans', sans-serif",
+                        fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)",
                       }}
                     />
                   </div>
@@ -417,7 +439,7 @@ export default function CheckoutPage() {
                   disabled={!isContactValid()}
                   className="w-full mt-6 py-3 text-sm font-semibold tracking-wider transition-opacity disabled:opacity-40 disabled:cursor-not-allowed"
                   style={{
-                    fontFamily: "'DM Sans', sans-serif",
+                    fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)",
                     background: "#2E7D32",
                     color: "#fff",
                     borderRadius: "6px",
@@ -442,7 +464,7 @@ export default function CheckoutPage() {
                   <MapPin className="w-5 h-5" style={{ color: "#2E7D32" }} />
                   <h2
                     className="font-semibold"
-                    style={{ fontFamily: "'Playfair Display', serif", color: "#1a1a1a" }}
+                    style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#1a1a1a" }}
                   >
                     Shipping Address
                   </h2>
@@ -464,20 +486,22 @@ export default function CheckoutPage() {
                       className="w-4 h-4 accent-[#2E7D32]"
                     />
                     <div>
-                      <p className="text-sm font-medium" style={{ fontFamily: "'DM Sans', sans-serif", color: "#1a1a1a" }}>
+                      <p className="text-sm font-medium" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#1a1a1a" }}>
                         Same as contact details
                       </p>
-                      <p className="text-xs mt-0.5" style={{ fontFamily: "'DM Sans', sans-serif", color: "#7B9E6B" }}>
+                      <p className="text-xs mt-0.5" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}>
                         {contactForm.name} · {contactForm.phone} · {contactForm.email}
                       </p>
                     </div>
                   </div>
                 </div>
 
-                {!sameAsContact && showAddressForm && (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {/* Delivery address fields — always shown; name/phone auto-filled when "same as contact" */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+                    {!sameAsContact && (
+                    <>
                     <div className="sm:col-span-2">
-                      <label className="block text-xs mb-1.5" style={{ fontFamily: "'DM Sans', sans-serif", color: "#7B9E6B" }}>
+                      <label className="block text-xs mb-1.5" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}>
                         Full Name
                       </label>
                       <input
@@ -490,12 +514,12 @@ export default function CheckoutPage() {
                           borderColor: "rgba(46, 125, 50, 0.15)",
                           background: "#fff",
                           color: "#1a1a1a",
-                          fontFamily: "'DM Sans', sans-serif",
+                          fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)",
                         }}
                       />
                     </div>
                     <div className="sm:col-span-2">
-                      <label className="block text-xs mb-1.5" style={{ fontFamily: "'DM Sans', sans-serif", color: "#7B9E6B" }}>
+                      <label className="block text-xs mb-1.5" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}>
                         Phone Number
                       </label>
                       <input
@@ -509,12 +533,14 @@ export default function CheckoutPage() {
                           borderColor: "rgba(46, 125, 50, 0.15)",
                           background: "#fff",
                           color: "#1a1a1a",
-                          fontFamily: "'DM Sans', sans-serif",
+                          fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)",
                         }}
                       />
                     </div>
+                    </>
+                    )}
                     <div className="sm:col-span-2">
-                      <label className="block text-xs mb-1.5" style={{ fontFamily: "'DM Sans', sans-serif", color: "#7B9E6B" }}>
+                      <label className="block text-xs mb-1.5" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}>
                         Address Line 1
                       </label>
                       <input
@@ -527,12 +553,12 @@ export default function CheckoutPage() {
                           borderColor: "rgba(46, 125, 50, 0.15)",
                           background: "#fff",
                           color: "#1a1a1a",
-                          fontFamily: "'DM Sans', sans-serif",
+                          fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)",
                         }}
                       />
                     </div>
                     <div className="sm:col-span-2">
-                      <label className="block text-xs mb-1.5" style={{ fontFamily: "'DM Sans', sans-serif", color: "#7B9E6B" }}>
+                      <label className="block text-xs mb-1.5" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}>
                         Address Line 2 (Optional)
                       </label>
                       <input
@@ -545,12 +571,12 @@ export default function CheckoutPage() {
                           borderColor: "rgba(46, 125, 50, 0.15)",
                           background: "#fff",
                           color: "#1a1a1a",
-                          fontFamily: "'DM Sans', sans-serif",
+                          fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)",
                         }}
                       />
                     </div>
                     <div>
-                      <label className="block text-xs mb-1.5" style={{ fontFamily: "'DM Sans', sans-serif", color: "#7B9E6B" }}>
+                      <label className="block text-xs mb-1.5" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}>
                         City
                       </label>
                       <input
@@ -563,12 +589,12 @@ export default function CheckoutPage() {
                           borderColor: "rgba(46, 125, 50, 0.15)",
                           background: "#fff",
                           color: "#1a1a1a",
-                          fontFamily: "'DM Sans', sans-serif",
+                          fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)",
                         }}
                       />
                     </div>
                     <div>
-                      <label className="block text-xs mb-1.5" style={{ fontFamily: "'DM Sans', sans-serif", color: "#7B9E6B" }}>
+                      <label className="block text-xs mb-1.5" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}>
                         State
                       </label>
                       <select
@@ -579,17 +605,17 @@ export default function CheckoutPage() {
                           borderColor: "rgba(46, 125, 50, 0.15)",
                           background: "#fff",
                           color: addressForm.state ? "#1a1a1a" : "#7B9E6B",
-                          fontFamily: "'DM Sans', sans-serif",
+                          fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)",
                         }}
                       >
                         <option value="">Select State</option>
-                        {NZ_REGIONS.map((s) => (
+                        {INDIAN_STATES.map((s) => (
                           <option key={s} value={s}>{s}</option>
                         ))}
                       </select>
                     </div>
                     <div>
-                      <label className="block text-xs mb-1.5" style={{ fontFamily: "'DM Sans', sans-serif", color: "#7B9E6B" }}>
+                      <label className="block text-xs mb-1.5" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}>
                         PIN Code
                       </label>
                       <input
@@ -603,12 +629,11 @@ export default function CheckoutPage() {
                           borderColor: "rgba(46, 125, 50, 0.15)",
                           background: "#fff",
                           color: "#1a1a1a",
-                          fontFamily: "'DM Sans', sans-serif",
+                          fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)",
                         }}
                       />
                     </div>
                   </div>
-                )}
 
                 {/* Shipping Method */}
                 <div className="mt-6 pt-6 border-t" style={{ borderColor: "rgba(46,125,50,0.15)" }}>
@@ -616,7 +641,7 @@ export default function CheckoutPage() {
                     <Truck className="w-4 h-4" style={{ color: "#2E7D32" }} />
                     <h3
                       className="text-sm font-semibold"
-                      style={{ fontFamily: "'DM Sans', sans-serif", color: "#1a1a1a" }}
+                      style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#1a1a1a" }}
                     >
                       Shipping Method
                     </h3>
@@ -640,16 +665,16 @@ export default function CheckoutPage() {
                           className="w-4 h-4 accent-[#2E7D32]"
                         />
                         <div className="flex-1">
-                          <p className="text-sm font-medium" style={{ fontFamily: "'DM Sans', sans-serif", color: "#1a1a1a" }}>
+                          <p className="text-sm font-medium" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#1a1a1a" }}>
                             {method.name}
                           </p>
-                          <p className="text-xs" style={{ fontFamily: "'DM Sans', sans-serif", color: "#7B9E6B" }}>
+                          <p className="text-xs" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}>
                             {method.description} · {method.days}
                           </p>
                         </div>
                         <span
                           className="text-sm font-semibold"
-                          style={{ fontFamily: "'DM Sans', sans-serif", color: "#2E7D32" }}
+                          style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#2E7D32" }}
                         >
                           {formatCurrency(method.price)}
                         </span>
@@ -663,7 +688,7 @@ export default function CheckoutPage() {
                     onClick={() => setStep("contact")}
                     className="px-4 py-3 text-sm border transition-colors"
                     style={{
-                      fontFamily: "'DM Sans', sans-serif",
+                      fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)",
                       borderColor: "rgba(46, 125, 50, 0.15)",
                       color: "#7B9E6B",
                       borderRadius: "6px",
@@ -675,7 +700,7 @@ export default function CheckoutPage() {
                     onClick={handleShippingContinue}
                     className="flex-1 py-3 text-sm font-semibold tracking-wider"
                     style={{
-                      fontFamily: "'DM Sans', sans-serif",
+                      fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)",
                       background: "#2E7D32",
                       color: "#fff",
                       borderRadius: "6px",
@@ -701,7 +726,7 @@ export default function CheckoutPage() {
                   <Lock className="w-5 h-5" style={{ color: "#2E7D32" }} />
                   <h2
                     className="font-semibold"
-                    style={{ fontFamily: "'Playfair Display', serif", color: "#1a1a1a" }}
+                    style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#1a1a1a" }}
                   >
                     Payment Method
                   </h2>
@@ -720,14 +745,15 @@ export default function CheckoutPage() {
                       type="radio"
                       name="paymentMethod"
                       value="RAZORPAY"
-                      defaultChecked
+                      checked={selectedPaymentMethod === "RAZORPAY"}
+                      onChange={() => setSelectedPaymentMethod("RAZORPAY")}
                       className="w-4 h-4 accent-[#2E7D32]"
                     />
                     <div className="flex-1">
-                      <p className="text-sm font-medium" style={{ fontFamily: "'DM Sans', sans-serif", color: "#1a1a1a" }}>
+                      <p className="text-sm font-medium" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#1a1a1a" }}>
                         Pay with Razorpay
                       </p>
-                      <p className="text-xs mt-0.5" style={{ fontFamily: "'DM Sans', sans-serif", color: "#7B9E6B" }}>
+                      <p className="text-xs mt-0.5" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}>
                         UPI, Cards, NetBanking, Wallets
                       </p>
                     </div>
@@ -736,7 +762,7 @@ export default function CheckoutPage() {
                         <span
                           key={method}
                           className="text-[10px] px-1.5 py-0.5 rounded"
-                          style={{ background: "rgba(46,125,50,0.08)", color: "#7B9E6B", fontFamily: "'DM Sans', sans-serif" }}
+                          style={{ background: "rgba(46,125,50,0.08)", color: "#7B9E6B", fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}
                         >
                           {method}
                         </span>
@@ -756,13 +782,15 @@ export default function CheckoutPage() {
                       type="radio"
                       name="paymentMethod"
                       value="COD"
+                      checked={selectedPaymentMethod === "COD"}
+                      onChange={() => setSelectedPaymentMethod("COD")}
                       className="w-4 h-4 accent-[#2E7D32]"
                     />
                     <div className="flex-1">
-                      <p className="text-sm font-medium" style={{ fontFamily: "'DM Sans', sans-serif", color: "#1a1a1a" }}>
+                      <p className="text-sm font-medium" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#1a1a1a" }}>
                         Cash on Delivery
                       </p>
-                      <p className="text-xs mt-0.5" style={{ fontFamily: "'DM Sans', sans-serif", color: "#7B9E6B" }}>
+                      <p className="text-xs mt-0.5" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}>
                         Pay when you receive your order
                       </p>
                     </div>
@@ -776,7 +804,7 @@ export default function CheckoutPage() {
                       background: "rgba(239, 68, 68, 0.08)",
                       border: "1px solid rgba(239, 68, 68, 0.2)",
                       color: "#dc2626",
-                      fontFamily: "'DM Sans', sans-serif",
+                      fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)",
                     }}
                   >
                     {error}
@@ -788,7 +816,7 @@ export default function CheckoutPage() {
                     onClick={() => setStep("shipping")}
                     className="px-4 py-3 text-sm border transition-colors"
                     style={{
-                      fontFamily: "'DM Sans', sans-serif",
+                      fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)",
                       borderColor: "rgba(46, 125, 50, 0.15)",
                       color: "#7B9E6B",
                       borderRadius: "6px",
@@ -797,11 +825,11 @@ export default function CheckoutPage() {
                     Back
                   </button>
                   <button
-                    onClick={() => handlePlaceOrder("RAZORPAY")}
+                    onClick={() => handlePlaceOrder(selectedPaymentMethod)}
                     disabled={isProcessing}
                     className="flex-1 py-3 text-sm font-semibold tracking-wider transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
                     style={{
-                      fontFamily: "'DM Sans', sans-serif",
+                      fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)",
                       background: "#2E7D32",
                       color: "#fff",
                       borderRadius: "6px",
@@ -830,7 +858,7 @@ export default function CheckoutPage() {
               >
                 <span
                   className="text-lg text-white tracking-wide"
-                  style={{ fontFamily: "'Playfair Display', serif" }}
+                  style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)" }}
                 >
                   Order Summary
                 </span>
@@ -852,20 +880,20 @@ export default function CheckoutPage() {
                     <div className="flex-1 min-w-0">
                       <p
                         className="text-xs font-medium line-clamp-1"
-                        style={{ fontFamily: "'DM Sans', sans-serif", color: "#1a1a1a" }}
+                        style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#1a1a1a" }}
                       >
                         {item.name}
                       </p>
-                      <p className="text-[10px]" style={{ fontFamily: "'DM Sans', sans-serif", color: "#7B9E6B" }}>
+                      <p className="text-[10px]" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}>
                         {item.flavor}{item.size ? ` · ${item.size}` : ""}
                       </p>
-                      <p className="text-xs mt-0.5" style={{ fontFamily: "'DM Sans', sans-serif", color: "#7B9E6B" }}>
+                      <p className="text-xs mt-0.5" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}>
                         Qty: {item.quantity}
                       </p>
                     </div>
                     <p
                       className="text-xs font-medium"
-                      style={{ fontFamily: "'DM Sans', sans-serif", color: "#1a1a1a" }}
+                      style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#1a1a1a" }}
                     >
                       {formatCurrency(item.price * item.quantity)}
                     </p>
@@ -879,14 +907,14 @@ export default function CheckoutPage() {
                 style={{ borderColor: "rgba(46, 125, 50, 0.15)" }}
               >
                 <div className="flex justify-between text-sm">
-                  <span style={{ fontFamily: "'DM Sans', sans-serif", color: "#7B9E6B" }}>Subtotal</span>
-                  <span style={{ fontFamily: "'DM Sans', sans-serif", color: "#1a1a1a" }}>
+                  <span style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}>Subtotal</span>
+                  <span style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#1a1a1a" }}>
                     {formatCurrency(subtotal)}
                   </span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span style={{ fontFamily: "'DM Sans', sans-serif", color: "#7B9E6B" }}>Shipping</span>
-                  <span style={{ fontFamily: "'DM Sans', sans-serif", color: "#1a1a1a" }}>
+                  <span style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}>Shipping</span>
+                  <span style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#1a1a1a" }}>
                     {shipping === 0 ? (
                       <span style={{ color: "#2E7D32" }}>FREE</span>
                     ) : (
@@ -897,13 +925,13 @@ export default function CheckoutPage() {
                 <div className="flex justify-between pt-2 border-t" style={{ borderColor: "rgba(46,125,50,0.15)" }}>
                   <span
                     className="font-semibold"
-                    style={{ fontFamily: "'Playfair Display', serif", color: "#1a1a1a" }}
+                    style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#1a1a1a" }}
                   >
                     Total
                   </span>
                   <span
                     className="font-bold text-xl"
-                    style={{ fontFamily: "'Playfair Display', serif", color: "#2E7D32" }}
+                    style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#2E7D32" }}
                   >
                     {formatCurrency(total)}
                   </span>
@@ -944,5 +972,6 @@ export default function CheckoutPage() {
         </div>
       </div>
     </div>
+    </>
   );
 }
