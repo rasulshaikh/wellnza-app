@@ -334,10 +334,6 @@ export function ProductCard({
                   border: `1.5px solid ${accent}40`,
                 }}
                 whileTap={{ scale: 0.88 }}
-                onClick={(e) => {
-                  e.preventDefault();
-                  window.location.href = `/products/${slug}`;
-                }}
                 aria-label={`View ${name}`}
               >
                 <ShoppingBag
