@@ -42,8 +42,10 @@ export default function LoginPage() {
     if (result?.error) {
       toast.error("Invalid email or password");
     } else {
-      router.push("/account");
-      router.refresh();
+      // Hard navigation ensures the new session cookie is sent with the request.
+      // router.push() can race against the RSC cache — the server component
+      // at /account calls auth() which needs the fresh cookie to be present.
+      window.location.href = "/account";
     }
   }
 
