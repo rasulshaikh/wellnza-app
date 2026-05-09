@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import {
   motion,
@@ -12,9 +12,13 @@ import {
 interface ImageGalleryProps {
   images: string[];
   productName: string;
+  /** Which variant index is selected — gallery resets to that variant's first image */
+  variantHint?: number;
+  /** All variants — used to filter images by flavor when variant changes */
+  variants?: { id: string; flavor: string; size: string | null; price: number }[];
 }
 
-export function ImageGallery({ images, productName }: ImageGalleryProps) {
+export function ImageGallery({ images, productName, variantHint = 0, variants }: ImageGalleryProps) {
   const imageRef = useRef<HTMLDivElement>(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -40,6 +44,28 @@ export function ImageGallery({ images, productName }: ImageGalleryProps) {
     mouseY.set(0);
   };
 
+  // Filter images by selected variant's flavor name
+  const filteredImages = (() => {
+    if (!variants || variants.length <= 1) return images;
+    const selectedVariant = variants[variantHint];
+    if (!selectedVariant) return images;
+    const flavorLower = selectedVariant.flavor.toLowerCase();
+    // Match images whose filename contains the flavor name (e.g. "...alphanso-mango..." or "...chocolate...")
+    const variantImages = images.filter(img => {
+      const nameLower = img.toLowerCase();
+      return nameLower.includes(flavorLower) || nameLower.includes("front") || nameLower.includes("left") || nameLower.includes("right");
+    });
+    return variantImages.length > 0 ? variantImages : images;
+  })();
+
+  // When variantHint changes, reset to the selected variant's starting image
+  useEffect(() => {
+    const imgs = filteredImages;
+    if (imgs.length > 1) {
+      setSelectedIndex(0);
+    }
+  }, [variantHint]);
+
   if (!images || images.length === 0) {
     return (
       <div className="flex aspect-square items-center justify-center" style={{ background: "#FAFAF8" }}>
@@ -57,7 +83,7 @@ export function ImageGallery({ images, productName }: ImageGalleryProps) {
     );
   }
 
-  const hasMultiple = images.length > 1;
+  const hasMultiple = filteredImages.length > 1;
 
   return (
     <div className="flex flex-col gap-3">
@@ -76,7 +102,7 @@ export function ImageGallery({ images, productName }: ImageGalleryProps) {
         className="relative aspect-square overflow-hidden rounded-xl"
       >
         <Image
-          src={images[selectedIndex]}
+          src={filteredImages[selectedIndex]}
           alt={`${productName} - Image ${selectedIndex + 1}`}
           fill
           className="object-cover product-3d"
@@ -88,7 +114,7 @@ export function ImageGallery({ images, productName }: ImageGalleryProps) {
       {/* Thumbnails */}
       {hasMultiple && (
         <div className="flex gap-2 overflow-x-auto pb-1">
-          {images.map((image, idx) => (
+          {filteredImages.map((image, idx) => (
             <motion.button
               key={idx}
               onClick={() => setSelectedIndex(idx)}
