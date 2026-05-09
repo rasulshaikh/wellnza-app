@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import Script from "next/script";
+import { useSession } from "next-auth/react";
 import { useCartStore } from "@/store/cart-store";
 import { formatCurrency } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -18,9 +19,7 @@ import {
   CreditCard,
   Truck,
   Lock,
-  ChevronDown,
-  ChevronUp,
-  X,
+  LogIn,
 } from "lucide-react";
 
 // Razorpay browser SDK types
@@ -55,6 +54,8 @@ const INDIAN_STATES = [
 export default function CheckoutPage() {
   const router = useRouter();
   const { items, clearCart } = useCartStore();
+  const { status: authStatus } = useSession();
+  const isGuest = authStatus === "unauthenticated";
   const [mounted, setMounted] = useState(false);
   const [step, setStep] = useState<"contact" | "shipping" | "payment">("contact");
   const [shippingMethod, setShippingMethod] = useState<"standard" | "express">("standard");
@@ -353,6 +354,39 @@ export default function CheckoutPage() {
             </div>
           ))}
         </div>
+
+        {/* Guest checkout notice — shown only to unauthenticated visitors */}
+        {isGuest && (
+          <div
+            className="mb-6 flex items-center justify-between gap-4 px-4 py-3 rounded-md"
+            style={{
+              background: "rgba(46, 125, 50, 0.05)",
+              border: "1px solid rgba(46, 125, 50, 0.18)",
+            }}
+          >
+            <div className="flex items-center gap-3">
+              <LogIn className="w-4 h-4 flex-shrink-0" style={{ color: "#2E7D32" }} />
+              <p
+                className="text-sm"
+                style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}
+              >
+                <strong style={{ color: "#1a1a1a" }}>Checking out as guest.</strong>{" "}
+                Sign in to track your order and earn rewards.
+              </p>
+            </div>
+            <Link
+              href={`/login?callbackUrl=${encodeURIComponent("/checkout")}`}
+              className="flex-shrink-0 text-xs font-semibold px-3 py-1.5 rounded"
+              style={{
+                fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)",
+                background: "#2E7D32",
+                color: "#fff",
+              }}
+            >
+              Sign In
+            </Link>
+          </div>
+        )}
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Form Column */}

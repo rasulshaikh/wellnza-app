@@ -1,20 +1,22 @@
 import { db } from "@/lib/db";
 import { formatCurrency } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
 import { Check, Package, MapPin, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { auth } from "@/lib/auth";
+
+export const dynamic = "force-dynamic"; // never cache — order state changes
 
 interface OrderConfirmationPageProps {
   params: Promise<{ orderId: string }>;
 }
 
+// Order confirmation is intentionally public — the order ID is an unguessable
+// CUID. This lets guests (and logged-in users) view their confirmation without
+// an auth wall, which is standard e-commerce UX.
 export default async function OrderConfirmationPage({
   params,
 }: OrderConfirmationPageProps) {
   const { orderId } = await params;
-  const session = await auth();
 
   let order = null;
   try {
@@ -31,14 +33,13 @@ export default async function OrderConfirmationPage({
           },
         },
         shippingAddress: true,
-        user: { select: { id: true } },
       },
     });
   } catch (error) {
     console.error("[order-confirmation] Failed to load order:", error);
   }
 
-  if (!order || (order.userId && session?.user?.id && order.userId !== session.user.id)) {
+  if (!order) {
     notFound();
   }
 
