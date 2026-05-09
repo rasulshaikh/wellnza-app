@@ -71,10 +71,10 @@ export function ProductCard({
 
   // Spring config for smooth, physical feel
   const springCfg = { stiffness: 300, damping: 30, mass: 0.5 };
-  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [8, -8]), springCfg);
-  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-10, 10]), springCfg);
-  const imgX = useSpring(useTransform(mouseX, [-0.5, 0.5], [-6, 6]), springCfg);
-  const imgY = useSpring(useTransform(mouseY, [-0.5, 0.5], [-6, 6]), springCfg);
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [3, -3]), springCfg);
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-5, 5]), springCfg);
+  const imgX = useSpring(useTransform(mouseX, [-0.5, 0.5], [-3, 3]), springCfg);
+  const imgY = useSpring(useTransform(mouseY, [-0.5, 0.5], [-3, 3]), springCfg);
   const glareX = useTransform(mouseX, [-0.5, 0.5], ["0%", "100%"]);
   const glareY = useTransform(mouseY, [-0.5, 0.5], ["0%", "100%"]);
   const shadowBlur = useSpring(isHovered ? 40 : 12, springCfg);
@@ -155,6 +155,8 @@ export function ProductCard({
 
             {/* Product image — floats in 3D */}
             <motion.div
+              animate={{ y: [0, -2, 0] }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
               style={{
                 x: imgX,
                 y: imgY,
@@ -186,7 +188,7 @@ export function ProductCard({
               className="pointer-events-none absolute inset-0 rounded-t-2xl opacity-0 group-hover:opacity-100"
               style={{
                 background: `radial-gradient(circle at ${glareX} ${glareY}, rgba(255,255,255,0.15) 0%, transparent 60%)`,
-                opacity: isHovered ? 1 : 0,
+                opacity: isHovered ? 0.15 : 0,
                 transition: "opacity 0.3s",
               }}
             />

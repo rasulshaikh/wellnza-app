@@ -21,8 +21,8 @@ export function HeroProductFloat({ imageSrc, imageAlt }: HeroProductFloatProps) 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const springCfg = { stiffness: 200, damping: 25, mass: 0.6 };
-  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [12, -12]), springCfg);
-  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-14, 14]), springCfg);
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [4, -4]), springCfg);
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-6, 6]), springCfg);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = cardRef.current?.getBoundingClientRect();
@@ -48,9 +48,10 @@ export function HeroProductFloat({ imageSrc, imageAlt }: HeroProductFloatProps) 
           rotateX,
           rotateY,
           transformStyle: "preserve-3d",
+          willChange: "transform",
         }}
         animate={{
-          y: [0, -14, 0],
+          y: [0, -6, 0],
         }}
         transition={{
           y: { duration: 4, repeat: Infinity, ease: "easeInOut" },

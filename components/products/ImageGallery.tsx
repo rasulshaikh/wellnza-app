@@ -1,8 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
-import { cn } from "@/lib/utils";
+import {
+  motion,
+  useMotionValue,
+  useSpring,
+  useTransform,
+} from "framer-motion";
 
 interface ImageGalleryProps {
   images: string[];
@@ -10,7 +15,30 @@ interface ImageGalleryProps {
 }
 
 export function ImageGallery({ images, productName }: ImageGalleryProps) {
+  const imageRef = useRef<HTMLDivElement>(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
+
+  // Mouse-tracking motion values — subtle 2-3° max
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const springCfg = { stiffness: 400, damping: 30, mass: 0.5 };
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-2.5, 2.5]), springCfg);
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [2.5, -2.5]), springCfg);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = imageRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    mouseX.set(x);
+    mouseY.set(y);
+  };
+
+  const handleMouseLeave = () => {
+    mouseX.set(0);
+    mouseY.set(0);
+  };
 
   if (!images || images.length === 0) {
     return (
@@ -34,7 +62,19 @@ export function ImageGallery({ images, productName }: ImageGalleryProps) {
   return (
     <div className="flex flex-col gap-3">
       {/* Main image */}
-      <div className="relative aspect-square overflow-hidden rounded-xl" style={{ background: "#FAFAF8" }}>
+      <motion.div
+        ref={imageRef}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        style={{
+          perspective: 800,
+          rotateX,
+          rotateY,
+          transformStyle: "preserve-3d",
+          background: "#FAFAF8",
+        }}
+        className="relative aspect-square overflow-hidden rounded-xl"
+      >
         <Image
           src={images[selectedIndex]}
           alt={`${productName} - Image ${selectedIndex + 1}`}
@@ -43,21 +83,25 @@ export function ImageGallery({ images, productName }: ImageGalleryProps) {
           priority
           sizes="(max-width: 768px) 100vw, 60vw"
         />
-      </div>
+      </motion.div>
 
       {/* Thumbnails */}
       {hasMultiple && (
         <div className="flex gap-2 overflow-x-auto pb-1">
           {images.map((image, idx) => (
-            <button
+            <motion.button
               key={idx}
               onClick={() => setSelectedIndex(idx)}
-              className={cn(
-                "relative size-16 shrink-0 overflow-hidden rounded-lg border-2 transition-colors",
-                idx === selectedIndex
-                  ? "border-[#2E7D32]"
-                  : "border-transparent hover:border-[rgba(46,125,50,0.3)]"
-              )}
+              className="relative shrink-0 overflow-hidden rounded-lg border-2 transition-colors"
+              style={{
+                width: "4rem",
+                height: "4rem",
+                border: idx === selectedIndex
+                  ? "2px solid #2E7D32"
+                  : "2px solid transparent",
+              }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
               <Image
                 src={image}
@@ -66,7 +110,7 @@ export function ImageGallery({ images, productName }: ImageGalleryProps) {
                 className="object-cover"
                 sizes="64px"
               />
-            </button>
+            </motion.button>
           ))}
         </div>
       )}

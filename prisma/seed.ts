@@ -14,7 +14,14 @@ const products: Prisma.ProductCreateInput[] = [
     comparePrice: 2499,
     featured: true,
     isActive: true,
-    images: ["https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=960,fit=crop,q=100/cdn-ecommerce/store_01KJVXS44M9NNG532TH40JSYHE/assets/b1f35a43-b7f2-433a-bca7-46ee6a701d39.png"],
+    images: [
+      "/products/gainer-3kg--alphanso-mango front.png",
+      "/products/gainer-3kg-chocolate front.png",
+      "/products/gainer-3kg--alphanso-mango-right.png",
+      "/products/gainer-3kg--alphanso-mango.png-left.png",
+      "/products/gainer-3kg-chocolate.png-right.png",
+      "/products/gainer-3kg-chocolate-left.png",
+    ],
     variants: {
       create: [
         { flavor: "Alphonso Mango", size: "60 servings", price: 1999, comparePrice: 2499, sku: "UBMG-AM", weightG: 2000 },
@@ -31,10 +38,17 @@ const products: Prisma.ProductCreateInput[] = [
     comparePrice: 1599,
     featured: true,
     isActive: true,
-    images: ["https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=960,fit=crop,q=100/cdn-ecommerce/store_01KJVXS44M9NNG532TH40JSYHE/assets/2643346f-3234-479c-9a98-353043b45e2c.png"],
+    images: [
+      "/products/PreWorkout-Tangy-orange front.png",
+      "/products/PreWorkout-Blueberry front.png",
+      "/products/PreWorkout-Tangy-orange-left.png",
+      "/products/PreWorkout-Tangy-orange-right.png",
+      "/products/PreWorkout-Blueberry-left.png",
+      "/products/PreWorkout-Blueberry--right.png",
+    ],
     variants: {
       create: [
-        { flavor: "Fruit Punch", size: "30 servings", price: 1299, comparePrice: 1599, sku: "UHP-FP", weightG: 900 },
+        { flavor: "Tangy Orange", size: "30 servings", price: 1299, comparePrice: 1599, sku: "UHP-TO", weightG: 900 },
         { flavor: "Blue Raspberry", size: "30 servings", price: 1299, comparePrice: 1599, sku: "UHP-BR", weightG: 900 },
       ]
     }
@@ -48,11 +62,18 @@ const products: Prisma.ProductCreateInput[] = [
     comparePrice: 4199,
     featured: true,
     isActive: true,
-    images: ["https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=960,fit=crop,q=100/cdn-ecommerce/store_01KJVXS44M9NNG532TH40JSYHE/assets/d1ad28f5-ec9b-4d62-ba5c-91be9ef209d1.png"],
+    images: [
+      "/products/isolate-protein-chocolate-1kg front.png",
+      "/products/isolate-protein-pistacho-almond-1kg front.png",
+      "/products/isolate-protein-chocolate-1kg-right.png",
+      "/products/isolate-protein-chocolate-1k-left.png",
+      "/products/isolate-protein-pistacho-almond-1kg-right.png",
+      "/products/isolate-protein-pistacho-almond-1kg-left.png",
+    ],
     variants: {
       create: [
-        { flavor: "Vanilla Ice Cream", size: "2 lb", price: 3499, comparePrice: 4199, sku: "UCWI-VI", weightG: 907 },
-        { flavor: "Chocolate", size: "2 lb", price: 3499, comparePrice: 4199, sku: "UCWI-CH", weightG: 907 },
+        { flavor: "Chocolate", size: "1 kg", price: 3499, comparePrice: 4199, sku: "UCWI-CH", weightG: 1000 },
+        { flavor: "Pistachio Almond", size: "1 kg", price: 3499, comparePrice: 4199, sku: "UCWI-PA", weightG: 1000 },
       ]
     }
   },
@@ -65,27 +86,18 @@ const products: Prisma.ProductCreateInput[] = [
     comparePrice: 2699,
     featured: true,
     isActive: true,
-    images: ["https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=960,fit=crop,q=100/cdn-ecommerce/store_01KJVXS44M9NNG532TH40JSYHE/assets/49186a64-8a51-474b-a0b6-d50e2f3dfb46.png"],
+    images: [
+      "/products/whey-protein-chocolate-2kg front.png",
+      "/products/whey-protein-kesar-pista-1kg front.png",
+      "/products/whey-protein-chocolate-2kg-left.png",
+      "/products/whey-protein-chocolate-2kg-right.png",
+      "/products/whey-protein-kesar-pista-1kg-left.png",
+      "/products/whey-protein-kesar-pista-1kg-right.png",
+    ],
     variants: {
       create: [
         { flavor: "Chocolate", size: "2 lb", price: 2199, comparePrice: 2699, sku: "UFWP-CH", weightG: 907 },
-        { flavor: "Peanut Butter", size: "2 lb", price: 2199, comparePrice: 2699, sku: "UFWP-PB", weightG: 907 },
-      ]
-    }
-  },
-  {
-    slug: "whey-protein",
-    name: "ULTRA FLEX Whey Protein",
-    description: "Advanced formula whey protein for serious athletes seeking peak performance.",
-    category: "PROTEIN" as const,
-    basePrice: 4399,
-    comparePrice: 5299,
-    featured: false,
-    isActive: true,
-    images: ["https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=960,fit=crop,q=100/cdn-ecommerce/store_01KJVXS44M9NNG532TH40JSYHE/assets/49186a64-8a51-474b-a0b6-d50e2f3dfb46.png"],
-    variants: {
-      create: [
-        { flavor: "Chocolate Hazelnut", size: "4 lb", price: 4399, comparePrice: 5299, sku: "UFWP-CH4", weightG: 1814 },
+        { flavor: "Kesar Pista", size: "1 kg", price: 2199, comparePrice: 2699, sku: "UFWP-KP", weightG: 1000 },
       ]
     }
   },
@@ -98,7 +110,11 @@ const products: Prisma.ProductCreateInput[] = [
     comparePrice: 1199,
     featured: true,
     isActive: true,
-    images: ["https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=960,fit=crop,q=100/cdn-ecommerce/store_01KJVXS44M9NNG532TH40JSYHE/assets/5dc9d684-7389-4a41-ae7e-81890be3e86e.png"],
+    images: [
+      "/products/omega-3.png",
+      "/products/omega-3-left.png",
+      "/products/omega-3-right.png",
+    ],
     variants: {
       create: [
         { flavor: "Unflavored", size: "90 capsules", price: 899, comparePrice: 1199, sku: "USO3-UF", weightG: 150 },
@@ -114,7 +130,11 @@ const products: Prisma.ProductCreateInput[] = [
     comparePrice: 999,
     featured: true,
     isActive: true,
-    images: ["https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=960,fit=crop,q=100/cdn-ecommerce/store_01KJVXS44M9NNG532TH40JSYHE/assets/73d50708-e4e5-4161-b90e-ad621bf97a52.png"],
+    images: [
+      "/products/Multivitamin.png",
+      "/products/Multivitamin-left.png",
+      "/products/Multivitamin.png-right.png",
+    ],
     variants: {
       create: [
         { flavor: "Unflavored", size: "60 tablets", price: 699, comparePrice: 999, sku: "ULM-UF", weightG: 100 },
