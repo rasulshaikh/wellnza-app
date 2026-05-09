@@ -36,16 +36,9 @@ export default async function HomePage() {
 
       {/* ═══ HERO ═══ */}
       <section
-        className="relative overflow-hidden"
+        className="relative overflow-hidden luxury-section"
         style={{ background: "linear-gradient(135deg, #0B0F0C 0%, #141A16 60%, #1a2e1e 100%)", minHeight: "92vh" }}
       >
-        {/* Decorative diagonal gold stripe */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background: "repeating-linear-gradient(-55deg, transparent, transparent 80px, rgba(232,160,32,0.025) 80px, rgba(232,160,32,0.025) 81px)",
-          }}
-        />
         {/* Gold glow top-right */}
         <div
           className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full pointer-events-none"
@@ -71,18 +64,7 @@ export default async function HomePage() {
               </div>
 
               {/* Headline */}
-              <h1
-                className="mb-6 leading-none"
-                style={{
-                  fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)",
-                  fontSize: "clamp(52px, 8vw, 96px)",
-                  fontWeight: 700,
-                  color: "#F7F3EC",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.02em",
-                  lineHeight: 0.95,
-                }}
-              >
+              <h1 className="luxury-display mb-6 leading-none" style={{ color: "#F7F3EC", textTransform: "uppercase" }}>
                 Built for<br />
                 <span style={{
                   background: "linear-gradient(135deg, #E8A020 0%, #F5C842 50%, #E8A020 100%)",
@@ -94,15 +76,7 @@ export default async function HomePage() {
                 </span>
               </h1>
 
-              <p
-                className="mb-8 max-w-md leading-relaxed animate-fade-up-delay-1"
-                style={{
-                  fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)",
-                  fontSize: "16px",
-                  color: "rgba(247,243,236,0.65)",
-                  lineHeight: 1.75,
-                }}
-              >
+              <p className="luxury-body mb-8 max-w-md leading-relaxed animate-fade-up-delay-1" style={{ color: "rgba(247,243,236,0.65)" }}>
                 Premium sports nutrition rooted in Maharashtra. Clean formulas, honest ingredients,
                 and a commitment to every Indian athlete who refuses to settle.
               </p>
