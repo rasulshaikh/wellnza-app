@@ -10,7 +10,7 @@ import {
   useTransform,
 } from "framer-motion";
 import { formatCurrency } from "@/lib/utils";
-import { ShoppingBag, ArrowUpRight, Zap } from "lucide-react";
+import { ShoppingBag, Zap } from "lucide-react";
 
 interface ProductVariant {
   id: string;
@@ -116,7 +116,6 @@ export function ProductCard({
     >
       <Link href={`/products/${slug}`} className="block" tabIndex={-1}>
         <motion.div
-          ref={cardRef}
           onMouseMove={handleMouseMove}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={handleMouseLeave}
@@ -125,30 +124,27 @@ export function ProductCard({
             rotateY,
             transformStyle: "preserve-3d",
             boxShadow: isHovered
-              ? `0 ${shadowY.get()}px ${shadowBlur.get()}px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.08)`
-              : "0 4px 12px rgba(0,0,0,0.07)",
+              ? `0 ${shadowY.get()}px ${shadowBlur.get()}px rgba(0,0,0,0.12), 0 4px 20px rgba(201,168,76,0.08)`
+              : "0 2px 12px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.02)",
           }}
-          className="relative rounded-2xl overflow-hidden cursor-pointer"
-          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+          className="relative rounded-2xl overflow-hidden cursor-pointer luxury-card"
+          transition={{ type: "spring", stiffness: 280, damping: 28 }}
         >
           {/* ── 3D Image Stage ── */}
           <div
             className="relative overflow-hidden"
             style={{
               aspectRatio: "1 / 1",
-              // Transparent glass gradient background — lets product pop
-              background:
-                "linear-gradient(135deg, rgba(255,255,255,0.92) 0%, rgba(240,248,240,0.85) 50%, rgba(255,255,255,0.9) 100%)",
-              backdropFilter: "blur(12px)",
+              background: "linear-gradient(135deg, #FAF8F5 0%, #FFFFFF 50%, #F5F1EB 100%)",
             }}
           >
-            {/* Ambient radial glow behind product */}
+            {/* Subtle ambient glow — refined, not overpowering */}
             <motion.div
               className="absolute inset-0"
               animate={{
                 background: isHovered
-                  ? `radial-gradient(60% 60% at 50% 60%, ${accent}22 0%, transparent 70%)`
-                  : `radial-gradient(40% 40% at 50% 60%, ${accent}11 0%, transparent 70%)`,
+                  ? `radial-gradient(50% 50% at 50% 55%, ${accent}18 0%, transparent 70%)`
+                  : `radial-gradient(35% 35% at 50% 55%, ${accent}0A 0%, transparent 70%)`,
               }}
               transition={{ duration: 0.4 }}
             />
@@ -175,106 +171,66 @@ export function ProductCard({
                   sizes="(max-width: 768px) 50vw, 25vw"
                   style={{
                     filter: isHovered
-                      ? "drop-shadow(0 20px 40px rgba(0,0,0,0.25)) drop-shadow(0 4px 12px rgba(0,0,0,0.15))"
-                      : "drop-shadow(0 8px 20px rgba(0,0,0,0.12))",
+                      ? "drop-shadow(0 16px 32px rgba(0,0,0,0.2)) drop-shadow(0 2px 8px rgba(0,0,0,0.1))"
+                      : "drop-shadow(0 6px 16px rgba(0,0,0,0.08))",
                     transition: "filter 0.3s ease",
                   }}
                 />
               </div>
             </motion.div>
 
-            {/* Glare reflection */}
-            <motion.div
-              className="pointer-events-none absolute inset-0 rounded-t-2xl opacity-0 group-hover:opacity-100"
-              style={{
-                background: `radial-gradient(circle at ${glareX} ${glareY}, rgba(255,255,255,0.15) 0%, transparent 60%)`,
-                opacity: isHovered ? 0.15 : 0,
-                transition: "opacity 0.3s",
-              }}
-            />
-
-            {/* Top badges */}
-            <div className="absolute top-3 left-3 z-10 flex flex-col gap-1.5">
-              {featured && (
-                <motion.span
-                  initial={{ scale: 0.8, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold tracking-wider uppercase"
-                  style={{ background: "#E8A020", color: "#0B0F0C" }}
-                >
-                  <Zap className="w-2.5 h-2.5" />
-                  Featured
-                </motion.span>
-              )}
-              {hasDiscount && (
-                <span
-                  className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold tracking-wider uppercase"
-                  style={{ background: "#14532D", color: "#F7F3EC" }}
-                >
-                  Save {discountPercent}%
-                </span>
-              )}
-            </div>
-
-            {/* Hover overlay with CTA */}
-            <motion.div
-              className="absolute inset-0 flex items-end justify-between p-3 z-10"
-              animate={{ opacity: isHovered ? 1 : 0 }}
-              transition={{ duration: 0.2 }}
-              style={{
-                background: "linear-gradient(to top, rgba(11,15,12,0.65) 0%, transparent 55%)",
-              }}
-            >
-              <span
-                className="text-[11px] font-bold uppercase tracking-widest"
-                style={{ color: "rgba(247,243,236,0.92)", fontFamily: "var(--font-jakarta)" }}
-              >
-                View Details
-              </span>
-              <motion.span
-                className="flex items-center justify-center w-8 h-8 rounded-full"
-                style={{ background: accent, color: "#fff" }}
-                animate={{ scale: isHovered ? 1 : 0.7, opacity: isHovered ? 1 : 0 }}
-                transition={{ type: "spring", stiffness: 400, damping: 25 }}
-              >
-                <ArrowUpRight className="w-4 h-4" />
-              </motion.span>
-            </motion.div>
-
             {/* Bottom edge accent line */}
             <motion.div
-              className="absolute bottom-0 left-0 right-0 h-[2px]"
-              style={{ background: accent }}
-              animate={{ scaleX: isHovered ? 1 : 0 }}
-              transition={{ duration: 0.3, ease: "easeOut" }}
-              initial={{ scaleX: 0, transformOrigin: "left" }}
+              className="absolute bottom-0 left-0 right-0 h-[1.5px]"
+              style={{ background: `linear-gradient(90deg, transparent, ${accent}, transparent)` }}
+              animate={{ opacity: isHovered ? 1 : 0.4 }}
+              transition={{ duration: 0.3 }}
             />
           </div>
 
           {/* ── Card Content ── */}
           <div
-            className="p-4"
+            className="p-5 luxury-card"
             style={{
               background: "#FFFFFF",
-              borderTop: `1px solid rgba(0,0,0,0.06)`,
             }}
           >
-            {/* Category + variants */}
-            <div className="flex items-center justify-between mb-2">
-              <span
-                className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider"
-                style={{
-                  background: `${accent}15`,
-                  color: accent,
-                  border: `1px solid ${accent}30`,
-                  fontFamily: "var(--font-jakarta)",
-                }}
-              >
-                {categoryLabel}
-              </span>
+            {/* Top badges - refined positioning */}
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center gap-2">
+                {featured && (
+                  <motion.span
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider"
+                    style={{
+                      background: "linear-gradient(135deg, #E8A020 0%, #D4920A 100%)",
+                      color: "#FFFFFF",
+                      border: "1px solid rgba(232, 160, 32, 0.3)",
+                      fontFamily: "var(--font-jakarta)",
+                    }}
+                  >
+                    <Zap className="w-2.5 h-2.5" />
+                    Featured
+                  </motion.span>
+                )}
+                {hasDiscount && (
+                  <span
+                    className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider"
+                    style={{
+                      background: "transparent",
+                      color: "#14532D",
+                      border: "1px solid rgba(20, 83, 45, 0.25)",
+                      fontFamily: "var(--font-jakarta)",
+                    }}
+                  >
+                    Save {discountPercent}%
+                  </span>
+                )}
+              </div>
               {variants.length > 1 && (
                 <span
-                  className="text-[10px] font-semibold"
+                  className="text-[10px] font-medium"
                   style={{ color: "#8A9E90", fontFamily: "var(--font-jakarta)" }}
                 >
                   {variants.length} options
@@ -282,14 +238,27 @@ export function ProductCard({
               )}
             </div>
 
-            {/* Name */}
+            {/* Category - refined pill with border */}
+            <div className="mb-2">
+              <span
+                className="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-semibold uppercase tracking-wider"
+                style={{
+                  color: accent,
+                  border: `1px solid ${accent}30`,
+                  background: `${accent}08`,
+                  fontFamily: "var(--font-jakarta)",
+                }}
+              >
+                {categoryLabel}
+              </span>
+            </div>
+
+            {/* Name - Rajdhani uppercase with refined tracking */}
             <h3
-              className="font-bold leading-tight mb-1 line-clamp-2"
+              className="luxury-heading mb-2 leading-tight line-clamp-2"
               style={{
-                fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)",
-                fontSize: "16px",
-                letterSpacing: "0.04em",
-                textTransform: "uppercase",
+                fontSize: "17px",
+                letterSpacing: "0.06em",
                 color: "#0B0F0C",
               }}
             >
@@ -298,7 +267,7 @@ export function ProductCard({
 
             {/* Description */}
             <p
-              className="text-xs line-clamp-2 leading-relaxed mb-3"
+              className="text-xs line-clamp-2 leading-relaxed mb-4"
               style={{ color: "#6B7B6F", fontFamily: "var(--font-jakarta)" }}
             >
               {description}
@@ -306,15 +275,8 @@ export function ProductCard({
 
             {/* Price row */}
             <div className="flex items-center justify-between">
-              <div className="flex items-baseline gap-1.5">
-                <span
-                  className="font-bold"
-                  style={{
-                    fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)",
-                    fontSize: "18px",
-                    color: "#14532D",
-                  }}
-                >
+              <div className="flex items-baseline gap-2">
+                <span className="luxury-price" style={{ fontSize: "22px", color: "#1A1A1A" }}>
                   {formatCurrency(displayPrice)}
                 </span>
                 {hasDiscount && (
@@ -328,13 +290,13 @@ export function ProductCard({
               </div>
 
               <motion.button
-                className="flex items-center justify-center w-9 h-9 rounded-xl transition-colors"
+                className="flex items-center justify-center w-10 h-10 rounded-xl transition-colors"
                 style={{
-                  background: isHovered ? accent : `${accent}15`,
-                  border: `1.5px solid ${accent}40`,
+                  background: isHovered ? accent : "transparent",
+                  border: `1.5px solid ${isHovered ? accent : `${accent}40`}`,
                 }}
                 whileTap={{ scale: 0.88 }}
-                aria-label={`View ${name}`}
+                aria-label={`Add ${name} to cart`}
               >
                 <ShoppingBag
                   className="w-4 h-4 transition-colors"
