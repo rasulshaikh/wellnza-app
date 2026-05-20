@@ -1,395 +1,477 @@
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 export default function AboutPage() {
   return (
-    <div className="flex flex-1 flex-col" style={{ background: "#FAFAF8", minHeight: "100vh" }}>
-      {/* Page header */}
-      <div
-        className="border-b border-[#2E7D32]/15 px-4 py-16 md:py-20"
-        style={{ background: "#FAFAF8" }}
-      >
-        <div className="mx-auto max-w-4xl text-center">
-          <div className="flex items-center justify-center gap-3 mb-6">
-            <div className="h-[2px] w-8" style={{ background: "#2E7D32" }} />
-            <span
-              className="text-[12px] tracking-[3px]"
-              style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#2E7D32" }}
-            >
-              OUR STORY
-            </span>
-            <div className="h-[2px] w-8" style={{ background: "#2E7D32" }} />
-          </div>
-          <h1
-            className="text-4xl md:text-5xl font-bold tracking-tight mb-6"
-            style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#1a1a1a", letterSpacing: "1px" }}
-          >
-            Wellness, Rooted in Nature
-          </h1>
-          <p
-            className="max-w-2xl mx-auto text-[15px] leading-relaxed"
-            style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}
-          >
-            We believe in transparency above all. Every ingredient, every dose — you know exactly what you are putting into your body. Clean supplements for a healthier you.
-          </p>
-        </div>
-      </div>
+    <div className="min-h-screen" style={{ background: "#0B0F0C" }}>
 
-      {/* Story Section */}
-      <div className="py-16 px-4 md:px-8">
-        <div className="mx-auto max-w-6xl">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div
-              className="p-8 md:p-10 rounded-md"
+      {/* ═══ HERO — HEADLINE ═══ */}
+      <section
+        className="relative overflow-hidden luxury-section"
+        style={{ background: "linear-gradient(135deg, #0B0F0C 0%, #141A16 60%, #1a2e1e 100%)", minHeight: "60vh" }}
+      >
+        {/* Gold glow top-right */}
+        <div
+          className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full pointer-events-none"
+          style={{ background: "radial-gradient(circle, rgba(232,160,32,0.08) 0%, transparent 70%)" }}
+        />
+        {/* Green glow bottom-left */}
+        <div
+          className="absolute -bottom-40 -left-40 w-[500px] h-[500px] rounded-full pointer-events-none"
+          style={{ background: "radial-gradient(circle, rgba(20,83,45,0.25) 0%, transparent 70%)" }}
+        />
+
+        <div className="container mx-auto px-4 md:px-8 relative z-10">
+          <div className="max-w-4xl mx-auto text-center pt-16 pb-12">
+
+            {/* Origin pill */}
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-8 animate-fade-up" style={{ background: "rgba(232,160,32,0.1)", border: "1px solid rgba(232,160,32,0.25)" }}>
+              <span style={{ color: "#E8A020", fontSize: "10px" }}>◆</span>
+              <span className="text-[10px] font-bold uppercase tracking-[0.18em]" style={{ color: "#E8A020", fontFamily: "var(--font-jakarta)" }}>
+                Amravati, Maharashtra
+              </span>
+            </div>
+
+            {/* Headline */}
+            <h1
+              className="leading-none mb-6 animate-fade-up"
               style={{
-                background: "#fff",
-                border: "1px solid rgba(46, 125, 50, 0.15)",
-                boxShadow: "0 2px 8px rgba(46, 125, 50, 0.06)",
+                color: "#F7F3EC",
+                textTransform: "uppercase",
+                fontFamily: "var(--font-rajdhani)",
+                fontWeight: 700,
+                fontSize: "clamp(42px,7vw,80px)",
+                letterSpacing: "0.01em"
               }}
             >
-              <h2
-                className="text-xl font-bold mb-3"
-                style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#1a1a1a" }}
-              >
+              Supplements Indian Athletes
+              <br />
+              <span style={{
+                background: "linear-gradient(135deg, #E8A020 0%, #F5C842 50%, #E8A020 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}>
+                Actually Deserve
+              </span>
+            </h1>
+
+            <p
+              className="text-base md:text-lg leading-relaxed animate-fade-up-delay-1 mx-auto"
+              style={{ color: "rgba(247,243,236,0.6)", fontFamily: "var(--font-jakarta)", maxWidth: "640px" }}
+            >
+              Clean formulas. Honest ingredients. Premium quality at Indian price points.
+              Born in Amravati, built for champions across India.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ ORIGIN STORY ═══ */}
+      <section className="py-20" style={{ background: "#0B0F0C" }}>
+        <div className="container mx-auto px-4 md:px-8">
+          <div className="max-w-3xl mx-auto">
+
+            {/* Section label */}
+            <div className="flex items-center gap-3 mb-6">
+              <span className="accent-bar" />
+              <span className="text-[11px] font-bold uppercase tracking-[0.2em]" style={{ color: "#E8A020", fontFamily: "var(--font-jakarta)" }}>
+                Our Story
+              </span>
+            </div>
+
+            <h2
+              className="uppercase leading-none mb-8"
+              style={{ fontFamily: "var(--font-rajdhani)", fontSize: "clamp(32px,5vw,52px)", fontWeight: 700, color: "#F7F3EC", letterSpacing: "0.02em" }}
+            >
+              Born in a Warehouse That Smelled Like Ambition
+            </h2>
+
+            <div className="space-y-5">
+              <p style={{ color: "rgba(247,243,236,0.65)", fontFamily: "var(--font-jakarta)", fontSize: "15px", lineHeight: "1.8" }}>
+                Wellnza started in 2021 in a small warehouse in Amravati, Maharashtra. Two gym friends — one a former state-level powerlifter, the other a food science graduate who'd worked with contract manufacturers overseas — sharing one frustration: Indian athletes were paying imported-brand prices for supplements that used the exact same manufacturers anyway.
+              </p>
+              <p style={{ color: "rgba(247,243,236,0.65)", fontFamily: "var(--font-jakarta)", fontSize: "15px", lineHeight: "1.8" }}>
+                The realization was simple and infuriating. Every rupee of premium pricing was going toward brand marketing and import duties — not better ingredients. So they did something about it: they went direct to manufacturers, cut out the middlemen, and passed the savings to Indian athletes.
+              </p>
+              <p style={{ color: "rgba(247,243,236,0.65)", fontFamily: "var(--font-jakarta)", fontSize: "15px", lineHeight: "1.8" }}>
+                First product: a plain-sellers whey protein concentrate. No proprietary blends. No hidden ingredients. Just 25g of protein per serving, clean label, honest price. It sold out in three weeks.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ STATS BAR ═══ */}
+      <section
+        className="py-12 border-y"
+        style={{ background: "#0B0F0C", borderColor: "rgba(232,160,32,0.12)" }}
+      >
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            {[
+              { val: "2021", label: "Est." },
+              { val: "50K+", label: "Customers" },
+              { val: "4.7★", label: "Avg. Rating" },
+              { val: "100%", label: "Transparent" },
+            ].map((s) => (
+              <div key={s.label}>
+                <p
+                  className="text-3xl md:text-5xl font-bold leading-none mb-1"
+                  style={{ fontFamily: "var(--font-rajdhani)", color: "#E8A020" }}
+                >
+                  {s.val}
+                </p>
+                <p
+                  className="text-[10px] uppercase tracking-widest"
+                  style={{ fontFamily: "var(--font-jakarta)", color: "rgba(247,243,236,0.4)" }}
+                >
+                  {s.label}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ MISSION ═══ */}
+      <section className="py-20" style={{ background: "#0B0F0C" }}>
+        <div className="container mx-auto px-4 md:px-8">
+          <div className="max-w-3xl mx-auto">
+            <div className="flex items-center gap-3 mb-6">
+              <span className="accent-bar" />
+              <span className="text-[11px] font-bold uppercase tracking-[0.2em]" style={{ color: "#E8A020", fontFamily: "var(--font-jakarta)" }}>
                 Our Mission
-              </h2>
-              <p
-                className="text-[13px] mb-3 uppercase tracking-wider"
-                style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#2E7D32", letterSpacing: "1px" }}
-              >
-                Clean labels. Honest pricing. No compromise.
-              </p>
-              <p
-                className="text-[14px] leading-relaxed"
-                style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}
-              >
-                We source ingredients from trusted manufacturers and test every batch for purity. No artificial fillers. No proprietary blends hiding ineffective doses. Just transparent, effective formulas that support your wellbeing.
-              </p>
+              </span>
             </div>
-            <div
-              className="p-8 md:p-10 rounded-md"
-              style={{
-                background: "#fff",
-                border: "1px solid rgba(46, 125, 50, 0.15)",
-                boxShadow: "0 2px 8px rgba(46, 125, 50, 0.06)",
-              }}
+
+            <h2
+              className="uppercase leading-none mb-8"
+              style={{ fontFamily: "var(--font-rajdhani)", fontSize: "clamp(32px,5vw,52px)", fontWeight: 700, color: "#F7F3EC", letterSpacing: "0.02em" }}
             >
-              <h2
-                className="text-xl font-bold mb-3"
-                style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#1a1a1a" }}
-              >
-                Why We Started
-              </h2>
+              We Solve One Problem
+            </h2>
+
+            <div
+              className="p-8 md:p-10 rounded-xl"
+              style={{ background: "rgba(232,160,32,0.04)", border: "1px solid rgba(232,160,32,0.15)" }}
+            >
               <p
-                className="text-[13px] mb-3 uppercase tracking-wider"
-                style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#2E7D32", letterSpacing: "1px" }}
+                className="text-lg md:text-xl leading-relaxed mb-6"
+                style={{ color: "#F7F3EC", fontFamily: "var(--font-jakarta)", fontWeight: 600 }}
               >
-                Premium wellness should be accessible
+                Give every Indian athlete — first-time gym-goers to competitive lifters — access to clean, transparent, effective sports nutrition without the imported markup.
               </p>
-              <p
-                className="text-[14px] leading-relaxed"
-                style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}
-              >
-                We noticed the supplement industry was full of hidden ingredients and inflated claims. We decided to do things differently — clean labels, third-party testing, and pricing that makes sense. Every person deserves access to quality supplements.
+              <p style={{ color: "rgba(247,243,236,0.6)", fontFamily: "var(--font-jakarta)", fontSize: "15px", lineHeight: "1.8" }}>
+                Not the watered-down local versions. Not the overpriced imports. The same world-class formulations — tested, transparent, and priced for Indian athletes who train hard and think smart.
               </p>
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Values */}
-      <div className="py-16 px-4 md:px-8" style={{ background: "#fff" }}>
-        <div className="mx-auto max-w-5xl">
-          <h2
-            className="text-2xl font-bold text-center mb-10"
-            style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#1a1a1a" }}
-          >
-            Why Choose Wellnza?
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div
-              className="text-center p-8 rounded-md"
-              style={{
-                background: "#FAFAF8",
-                border: "1px solid rgba(46, 125, 50, 0.1)",
-              }}
-            >
-              <div
-                className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-5"
-                style={{ background: "rgba(46, 125, 50, 0.1)" }}
-              >
-                <svg className="w-8 h-8" style={{ color: "#2E7D32" }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <h3
-                className="text-lg font-bold mb-2"
-                style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#1a1a1a" }}
-              >
-                Full Label Disclosure
-              </h3>
-              <p
-                className="text-[13px]"
-                style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B", letterSpacing: "0.5px" }}
-              >
-                No proprietary blends. Every ingredient listed transparently.
-              </p>
+      {/* ═══ DIFFERENTIATORS ═══ */}
+      <section className="py-20" style={{ background: "linear-gradient(180deg, #0B0F0C 0%, #111A13 100%)" }}>
+        <div className="container mx-auto px-4 md:px-8">
+          <div className="max-w-3xl mx-auto">
+            <div className="flex items-center gap-3 mb-6">
+              <span className="accent-bar" />
+              <span className="text-[11px] font-bold uppercase tracking-[0.2em]" style={{ color: "#E8A020", fontFamily: "var(--font-jakarta)" }}>
+                Why Wellnza
+              </span>
             </div>
-            <div
-              className="text-center p-8 rounded-md"
-              style={{
-                background: "#FAFAF8",
-                border: "1px solid rgba(46, 125, 50, 0.1)",
-              }}
+
+            <h2
+              className="uppercase leading-none mb-10"
+              style={{ fontFamily: "var(--font-rajdhani)", fontSize: "clamp(32px,5vw,52px)", fontWeight: 700, color: "#F7F3EC", letterSpacing: "0.02em" }}
             >
-              <div
-                className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-5"
-                style={{ background: "rgba(46, 125, 50, 0.1)" }}
-              >
-                <svg className="w-8 h-8" style={{ color: "#2E7D32" }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-                </svg>
-              </div>
-              <h3
-                className="text-lg font-bold mb-2"
-                style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#1a1a1a" }}
-              >
-                Third-Party Tested
-              </h3>
-              <p
-                className="text-[13px]"
-                style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B", letterSpacing: "0.5px" }}
-              >
-                Every batch verified for purity and potency by independent labs.
-              </p>
+              What Makes Us Different
+            </h2>
+
+            <div className="space-y-4">
+              {[
+                {
+                  title: "No Proprietary Blends. Ever.",
+                  desc: "Every ingredient and exact dose is on the label. If it says 25g protein, you'll get a scoop that measures 25g protein. No fluff, no padding."
+                },
+                {
+                  title: "Third-Party Tested. Every Batch.",
+                  desc: "We don't just claim quality — we prove it. Each production run is verified by independent labs for purity, potency, and heavy metals."
+                },
+                {
+                  title: "Priced for India. Not for Imports.",
+                  desc: "Same contract manufacturers as premium international brands. But no import duties, no foreign marketing budgets, no luxury margins. Just fair pricing for Indian athletes."
+                },
+                {
+                  title: "Zero Artificial Fillers.",
+                  desc: "No artificial colors, no synthetic fillers, no junk. Clean formulas that support performance without compromising your health."
+                },
+              ].map((item, i) => (
+                <div
+                  key={i}
+                  className="flex gap-4 p-5 rounded-lg"
+                  style={{ background: "rgba(247,243,236,0.03)", border: "1px solid rgba(232,160,32,0.1)" }}
+                >
+                  <div
+                    className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
+                    style={{ background: "rgba(232,160,32,0.12)" }}
+                  >
+                    <span style={{ color: "#E8A020", fontFamily: "var(--font-rajdhani)", fontWeight: 700, fontSize: "14px" }}>
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                  </div>
+                  <div>
+                    <h3
+                      className="font-bold uppercase mb-1"
+                      style={{ fontFamily: "var(--font-rajdhani)", fontSize: "16px", color: "#F7F3EC", letterSpacing: "0.05em" }}
+                    >
+                      {item.title}
+                    </h3>
+                    <p style={{ color: "rgba(247,243,236,0.55)", fontFamily: "var(--font-jakarta)", fontSize: "13px", lineHeight: "1.7" }}>
+                      {item.desc}
+                    </p>
+                  </div>
+                </div>
+              ))}
             </div>
-            <div
-              className="text-center p-8 rounded-md"
-              style={{
-                background: "#FAFAF8",
-                border: "1px solid rgba(46, 125, 50, 0.1)",
-              }}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ VALUES ═══ */}
+      <section className="py-20" style={{ background: "#0B0F0C" }}>
+        <div className="container mx-auto px-4 md:px-8">
+          <div className="max-w-4xl mx-auto">
+            <div className="flex items-center gap-3 mb-6">
+              <span className="accent-bar" />
+              <span className="text-[11px] font-bold uppercase tracking-[0.2em]" style={{ color: "#E8A020", fontFamily: "var(--font-jakarta)" }}>
+                What We Stand For
+              </span>
+            </div>
+
+            <h2
+              className="uppercase leading-none mb-12"
+              style={{ fontFamily: "var(--font-rajdhani)", fontSize: "clamp(32px,5vw,52px)", fontWeight: 700, color: "#F7F3EC", letterSpacing: "0.02em" }}
             >
-              <div
-                className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-5"
-                style={{ background: "rgba(46, 125, 50, 0.1)" }}
-              >
-                <svg className="w-8 h-8" style={{ color: "#2E7D32" }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-                </svg>
-              </div>
-              <h3
-                className="text-lg font-bold mb-2"
-                style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#1a1a1a" }}
-              >
-                Delivered to Your Door
-              </h3>
+              Our Core Values
+            </h2>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[
+                {
+                  icon: "01",
+                  title: "TRANSPARENCY",
+                  desc: "Full label disclosure isn't a marketing tactic — it's the baseline. You deserve to know exactly what you're putting in your body. Every ingredient, every dose."
+                },
+                {
+                  icon: "02",
+                  title: "PERFORMANCE",
+                  desc: "We don't ship a product until we're convinced it delivers results. If it doesn't help you lift heavier, recover faster, or train harder, it doesn't carry our name."
+                },
+                {
+                  icon: "03",
+                  title: "INDIAN PRIDE",
+                  desc: "Born in Amravati. Made for Indian athletes. We're unapologetic about our origins — and we believe Indian quality can match anything the world throws at us."
+                },
+              ].map((v) => (
+                <div
+                  key={v.title}
+                  className="p-8 rounded-xl text-center"
+                  style={{ background: "rgba(232,160,32,0.04)", border: "1px solid rgba(232,160,32,0.15)" }}
+                >
+                  <p
+                    className="text-4xl font-bold mb-4"
+                    style={{ fontFamily: "var(--font-rajdhani)", color: "rgba(232,160,32,0.4)" }}
+                  >
+                    {v.icon}
+                  </p>
+                  <h3
+                    className="font-bold uppercase tracking-widest mb-4"
+                    style={{ fontFamily: "var(--font-rajdhani)", fontSize: "16px", color: "#E8A020", letterSpacing: "0.12em" }}
+                  >
+                    {v.title}
+                  </h3>
+                  <p
+                    className="text-sm leading-relaxed"
+                    style={{ color: "rgba(247,243,236,0.55)", fontFamily: "var(--font-jakarta)" }}
+                  >
+                    {v.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ FOUNDERS ═══ */}
+      <section className="py-20" style={{ background: "linear-gradient(180deg, #0B0F0C 0%, #111A13 100%)" }}>
+        <div className="container mx-auto px-4 md:px-8">
+          <div className="max-w-3xl mx-auto">
+
+            <div className="flex items-center gap-3 mb-6">
+              <span className="accent-bar" />
+              <span className="text-[11px] font-bold uppercase tracking-[0.2em]" style={{ color: "#E8A020", fontFamily: "var(--font-jakarta)" }}>
+                The People
+              </span>
+            </div>
+
+            <h2
+              className="uppercase leading-none mb-10"
+              style={{ fontFamily: "var(--font-rajdhani)", fontSize: "clamp(32px,5vw,52px)", fontWeight: 700, color: "#F7F3EC", letterSpacing: "0.02em" }}
+            >
+              Meet the Founders
+            </h2>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {[
+                {
+                  name: "Karan Patel",
+                  role: "Co-Founder & CEO",
+                  bg: "rgba(232,160,32,0.08)",
+                  initials: "KP",
+                  bio: `Former state-level powerlifter who spent a decade watching talented Indian athletes get fleeced by overpriced imported supplements. After retiring from competition, he teamed up with Arjun to build something better. Trains early mornings, still. Mostly to justify the protein.`
+                },
+                {
+                  name: "Arjun Deshmukh",
+                  role: "Co-Founder & Head of Product",
+                  bg: "rgba(20,83,45,0.15)",
+                  initials: "AD",
+                  bio: `Food science graduate who worked with supplement contract manufacturers across Europe and Southeast Asia before returning to India. Holds a Level 2 certification in sports nutrition from ISSPN. His kitchen pantry is 80% raw ingredients and 20% lab equipment.`
+                },
+              ].map((f) => (
+                <div
+                  key={f.name}
+                  className="p-8 rounded-xl"
+                  style={{ background: f.bg, border: "1px solid rgba(232,160,32,0.12)" }}
+                >
+                  <div className="flex items-start gap-4 mb-4">
+                    <div
+                      className="w-14 h-14 rounded-full flex items-center justify-center flex-shrink-0"
+                      style={{ background: "rgba(232,160,32,0.12)" }}
+                    >
+                      <span
+                        className="text-lg font-bold"
+                        style={{ fontFamily: "var(--font-rajdhani)", color: "#E8A020" }}
+                      >
+                        {f.initials}
+                      </span>
+                    </div>
+                    <div>
+                      <h3
+                        className="font-bold uppercase"
+                        style={{ fontFamily: "var(--font-rajdhani)", fontSize: "18px", color: "#F7F3EC", letterSpacing: "0.05em" }}
+                      >
+                        {f.name}
+                      </h3>
+                      <p
+                        className="text-xs uppercase tracking-widest"
+                        style={{ color: "#E8A020", fontFamily: "var(--font-jakarta)" }}
+                      >
+                        {f.role}
+                      </p>
+                    </div>
+                  </div>
+                  <p
+                    className="text-sm leading-relaxed"
+                    style={{ color: "rgba(247,243,236,0.55)", fontFamily: "var(--font-jakarta)" }}
+                  >
+                    {f.bio}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ PROMISE ═══ */}
+      <section className="py-20" style={{ background: "#0B0F0C" }}>
+        <div className="container mx-auto px-4 md:px-8">
+          <div className="max-w-2xl mx-auto text-center">
+            <div className="flex items-center justify-center gap-3 mb-8">
+              <div className="h-[1px] w-16" style={{ background: "linear-gradient(90deg, transparent, #E8A020)" }} />
+              <span style={{ color: "#E8A020" }}>◆</span>
+              <div className="h-[1px] w-16" style={{ background: "linear-gradient(90deg, #E8A020, transparent)" }} />
+            </div>
+
+            <h2
+              className="uppercase leading-none mb-6"
+              style={{ fontFamily: "var(--font-rajdhani)", fontSize: "clamp(32px,5vw,52px)", fontWeight: 700, color: "#F7F3EC", letterSpacing: "0.02em" }}
+            >
+              Our Promise to You
+            </h2>
+
+            <p
+              className="text-base leading-relaxed mb-4"
+              style={{ color: "rgba(247,243,236,0.65)", fontFamily: "var(--font-jakarta)" }}
+            >
+              Every Wellnza product will always list every ingredient, in exact amounts, with nothing hidden.
+            </p>
+            <p
+              className="text-base leading-relaxed mb-10"
+              style={{ color: "rgba(247,243,236,0.65)", fontFamily: "var(--font-jakarta)" }}
+            >
+              If it says 25g of protein per serving, that's exactly what you'll measure. No rounding up. No vague "matrix" labels. Just the truth.
+            </p>
+
+            <div
+              className="inline-block px-8 py-4 rounded-xl"
+              style={{ background: "rgba(232,160,32,0.08)", border: "1px solid rgba(232,160,32,0.2)" }}
+            >
               <p
-                className="text-[13px]"
-                style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B", letterSpacing: "0.5px" }}
+                className="text-sm font-bold uppercase tracking-widest"
+                style={{ color: "#E8A020", fontFamily: "var(--font-rajdhani)", letterSpacing: "0.1em" }}
               >
-                Fast, reliable shipping from Amravati to your doorstep across India.
+                Clean Labels. Honest Prices. No Compromise.
               </p>
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Stats */}
-      <div
-        className="py-12 px-8 mx-4 md:mx-8 my-8 rounded-md"
-        style={{ background: "linear-gradient(180deg, #fff 0%, #FAFAF8 100%)", border: "1px solid rgba(46, 125, 50, 0.1)" }}
+      {/* ═══ CTA ═══ */}
+      <section
+        className="py-20 relative overflow-hidden"
+        style={{ background: "linear-gradient(135deg, #0B0F0C 0%, #141A16 100%)" }}
       >
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-          <div>
+        <div className="absolute inset-0 stripe-gold pointer-events-none opacity-30" />
+        <div className="container mx-auto px-4 md:px-8 relative z-10">
+          <div className="max-w-2xl mx-auto text-center">
+            <h2
+              className="uppercase leading-none mb-4"
+              style={{ fontFamily: "var(--font-rajdhani)", fontSize: "clamp(36px,6vw,64px)", fontWeight: 700, color: "#F7F3EC", letterSpacing: "0.02em" }}
+            >
+              Ready to Feel the Difference?
+            </h2>
             <p
-              className="text-4xl md:text-5xl font-bold mb-2"
-              style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#2E7D32" }}
+              className="text-sm mb-10"
+              style={{ color: "rgba(247,243,236,0.5)", fontFamily: "var(--font-jakarta)" }}
             >
-              10K+
+              Browse our full range of clean, transparent sports nutrition — priced for Indian athletes.
             </p>
-            <p
-              className="text-xs uppercase tracking-widest"
-              style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B", letterSpacing: "2px" }}
-            >
-              Happy Customers
-            </p>
-          </div>
-          <div>
-            <p
-              className="text-4xl md:text-5xl font-bold mb-2"
-              style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#2E7D32" }}
-            >
-              50+
-            </p>
-            <p
-              className="text-xs uppercase tracking-widest"
-              style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B", letterSpacing: "2px" }}
-            >
-              Countries Served
-            </p>
-          </div>
-          <div>
-            <p
-              className="text-4xl md:text-5xl font-bold mb-2"
-              style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#2E7D32" }}
-            >
-              4.8
-            </p>
-            <p
-              className="text-xs uppercase tracking-widest"
-              style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B", letterSpacing: "2px" }}
-            >
-              Average Rating
-            </p>
-          </div>
-          <div>
-            <p
-              className="text-4xl md:text-5xl font-bold mb-2"
-              style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#2E7D32" }}
-            >
-              100%
-            </p>
-            <p
-              className="text-xs uppercase tracking-widest"
-              style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B", letterSpacing: "2px" }}
-            >
-              Authentic Products
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Testimonials */}
-      <div className="py-16 px-4 md:px-8">
-        <div className="mx-auto max-w-4xl">
-          <h2
-            className="text-2xl font-bold text-center mb-12"
-            style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#1a1a1a" }}
-          >
-            What Our Customers Say
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div
-              className="p-8 rounded-md"
-              style={{
-                background: "#fff",
-                border: "1px solid rgba(46, 125, 50, 0.15)",
-                boxShadow: "0 2px 8px rgba(46, 125, 50, 0.06)",
-              }}
-            >
-              <div className="flex gap-1 mb-4">
-                {[1, 2, 3, 4, 5].map((i) => (
-                  <svg key={i} className="w-5 h-5" style={{ color: "#C9A227" }} fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                  </svg>
-                ))}
-              </div>
-              <p
-                className="text-[15px] leading-relaxed mb-6"
-                style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#1a1a1a", fontStyle: "italic" }}
+            <div className="flex flex-wrap justify-center gap-4">
+              <Link href="/products" className="btn-gold inline-flex items-center gap-2 px-8 py-4">
+                Shop Supplements <ArrowRight className="w-5 h-5" />
+              </Link>
+              <Link
+                href="/products?category=PROTEIN"
+                className="inline-flex items-center gap-2 px-8 py-4 rounded-lg text-sm font-bold uppercase tracking-wider transition-all"
+                style={{
+                  fontFamily: "var(--font-jakarta)",
+                  fontSize: "13px",
+                  letterSpacing: "0.1em",
+                  color: "rgba(247,243,236,0.7)",
+                  border: "1px solid rgba(247,243,236,0.15)",
+                }}
               >
-                &ldquo;The clean, powerful boost from Wellnza&apos;s pre-workout helped me push past my limits without the crash.&rdquo;
-              </p>
-              <div className="flex items-center gap-3">
-                <div
-                  className="w-10 h-10 rounded-full flex items-center justify-center text-white font-semibold"
-                  style={{ background: "#2E7D32" }}
-                >
-                  S
-                </div>
-                <div>
-                  <p
-                    className="font-semibold text-sm"
-                    style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#1a1a1a" }}
-                  >
-                    Sam K.
-                  </p>
-                  <p
-                    className="text-xs uppercase tracking-wider"
-                    style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}
-                  >
-                    Pune, Maharashtra
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div
-              className="p-8 rounded-md"
-              style={{
-                background: "#fff",
-                border: "1px solid rgba(46, 125, 50, 0.15)",
-                boxShadow: "0 2px 8px rgba(46, 125, 50, 0.06)",
-              }}
-            >
-              <div className="flex gap-1 mb-4">
-                {[1, 2, 3, 4, 5].map((i) => (
-                  <svg key={i} className="w-5 h-5" style={{ color: "#C9A227" }} fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                  </svg>
-                ))}
-              </div>
-              <p
-                className="text-[15px] leading-relaxed mb-6"
-                style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#1a1a1a", fontStyle: "italic" }}
-              >
-                &ldquo;Finally a supplement brand that is transparent about what is in their products. The quality is outstanding and delivery across India was fast.&rdquo;
-              </p>
-              <div className="flex items-center gap-3">
-                <div
-                  className="w-10 h-10 rounded-full flex items-center justify-center text-white font-semibold"
-                  style={{ background: "#2E7D32" }}
-                >
-                  J
-                </div>
-                <div>
-                  <p
-                    className="font-semibold text-sm"
-                    style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#1a1a1a" }}
-                  >
-                    James T.
-                  </p>
-                  <p
-                    className="text-xs uppercase tracking-wider"
-                    style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}
-                  >
-                    Mumbai, Maharashtra
-                  </p>
-                </div>
-              </div>
+                View Protein Range
+              </Link>
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* CTA */}
-      <div className="py-16 px-4 text-center" style={{ background: "#FAFAF8", borderTop: "1px solid rgba(46, 125, 50, 0.1)" }}>
-        <h2
-          className="text-2xl font-bold mb-4"
-          style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#1a1a1a" }}
-        >
-          Ready to Start Your Wellness Journey?
-        </h2>
-        <p
-          className="text-[14px] mb-8"
-          style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}
-        >
-          Join thousands of customers who trust Wellnza for their daily supplements.
-        </p>
-        <Link href="/products">
-          <button
-            className="px-10 py-4 text-sm font-semibold tracking-wider transition-opacity"
-            style={{
-              fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)",
-              background: "#2E7D32",
-              color: "#fff",
-              borderRadius: "6px",
-              letterSpacing: "1px",
-            }}
-          >
-            Shop Supplements
-          </button>
-        </Link>
-      </div>
     </div>
   );
 }

@@ -77,8 +77,8 @@ export default async function HomePage() {
               </h1>
 
               <p className="text-sm leading-relaxed animate-fade-up-delay-1" style={{ color: "rgba(247,243,236,0.6)", fontFamily: "var(--font-jakarta)", maxWidth: "360px" }}>
-                Premium sports nutrition rooted in Maharashtra. Clean formulas, honest ingredients,
-                and a commitment to every Indian athlete who refuses to settle.
+                Made in Maharashtra for Indian athletes. No sugar tricks, no artificial colors,
+                no half-dosed labels — just honest fuel to train harder.
               </p>
 
               {/* CTAs */}
@@ -106,7 +106,7 @@ export default async function HomePage() {
                 {[
                   { val: "100%", label: "Natural" },
                   { val: "0g*", label: "Added Sugar" },
-                  { val: "GMP", label: "Certified" },
+                  { val: "No", label: "Proprietary Blend" },
                 ].map((s) => (
                   <div key={s.label}>
                     <p
@@ -221,10 +221,10 @@ export default async function HomePage() {
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {[
-              { name: "Pre-Workout", desc: "Clean energy, razor focus", href: "/products?category=PRE_WORKOUT", icon: "⚡", color: "#E8A020" },
-              { name: "Protein", desc: "Pure recovery fuel", href: "/products?category=PROTEIN", icon: "💪", color: "#22C55E" },
-              { name: "Mass Gainer", desc: "Size without compromise", href: "/products?category=MASS_GAINER", icon: "📈", color: "#E8A020" },
-              { name: "Omega-3", desc: "Heart & brain support", href: "/products?category=OMEGA_3", icon: "🧠", color: "#22C55E" },
+              { name: "Pre-Workout", desc: "Feel it in 15 minutes. No crash.", href: "/products?category=PRE_WORKOUT", icon: "⚡", color: "#E8A020" },
+              { name: "Protein", desc: "Real protein. Real recovery.", href: "/products?category=PROTEIN", icon: "💪", color: "#22C55E" },
+              { name: "Mass Gainer", desc: "Calories that build muscle, not fluff.", href: "/products?category=MASS_GAINER", icon: "📈", color: "#E8A020" },
+              { name: "Omega-3", desc: "Heart, brain, and joints covered.", href: "/products?category=OMEGA_3", icon: "🧠", color: "#22C55E" },
             ].map((cat) => (
               <Link
                 key={cat.name}
@@ -414,8 +414,9 @@ export default async function HomePage() {
               className="text-base leading-relaxed mb-8"
               style={{ color: "rgba(247,243,236,0.6)", fontFamily: "var(--font-jakarta)" }}
             >
-              Wellnza was born in Amravati with a single mission: give every Indian athlete access
-              to world-class nutrition without compromising on quality, transparency, or price.
+              We started in Amravati because we were tired of paying premium prices for imported supplements
+              that were loaded with sugar, artificial colors, and underdosed actives. So we built
+              something better — formulas we'd actually give to our own families.
             </p>
             <Link href="/about" className="btn-gold inline-flex items-center gap-2">
               Our Story <ArrowRight className="w-4 h-4" />
@@ -441,7 +442,7 @@ export default async function HomePage() {
             Join the Wellnza Community
           </h3>
           <p className="text-sm mb-8" style={{ color: "#6B7B6F", fontFamily: "var(--font-jakarta)" }}>
-            Get 10% off your first order and be first to know about new launches.
+            10% off your first order. No spam. Just new drops when they happen.
           </p>
           <div className="max-w-md mx-auto">
             <NewsletterForm />
