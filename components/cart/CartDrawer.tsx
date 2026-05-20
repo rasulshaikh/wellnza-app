@@ -14,7 +14,7 @@ export function CartDrawer() {
     <Drawer open={isOpen} onOpenChange={(open) => !open && closeCart()}>
       <DrawerContent className="border-l shadow-none" style={{ background: "var(--luxury-cream)", borderColor: "var(--luxury-border)" }}>
         <DrawerHeader className="border-b pb-4" style={{ borderColor: "var(--luxury-border)" }}>
-          <DrawerTitle className="flex items-center gap-2 text-lg" style={{ fontFamily: "'Playfair Display', serif", color: "var(--luxury-text)", fontWeight: 600 }}>
+          <DrawerTitle className="flex items-center gap-2 text-lg" style={{ fontFamily: "var(--font-rajdhani), 'Rajdhani', sans-serif", color: "var(--luxury-text)", fontWeight: 600 }}>
             <ShoppingBag className="h-5 w-5" style={{ color: "var(--luxury-gold)" }} />
             Your Cart ({items.length})
           </DrawerTitle>
@@ -22,13 +22,13 @@ export function CartDrawer() {
         <div className="flex-1 overflow-y-auto px-4">
           {items.length === 0 ? (
             <div className="py-12 text-center">
-              <p className="text-base mb-2" style={{ fontFamily: "'DM Sans', sans-serif", color: "var(--luxury-text)" }}>Your cart is empty</p>
-              <p className="text-sm" style={{ fontFamily: "'DM Sans', sans-serif", color: "var(--luxury-text-muted)" }}>Add some products to get started</p>
+              <p className="text-base mb-2" style={{ fontFamily: "var(--font-jakarta), 'Plus Jakarta Sans', sans-serif", color: "var(--luxury-text)" }}>Your cart is empty</p>
+              <p className="text-sm" style={{ fontFamily: "var(--font-jakarta), 'Plus Jakarta Sans', sans-serif", color: "var(--luxury-text-muted)" }}>Add some products to get started</p>
               <Link
                 href="/products"
                 onClick={closeCart}
                 className="underline-offset-4 hover:underline mt-4 inline-block"
-                style={{ fontFamily: "'DM Sans', sans-serif", color: "var(--luxury-gold-dark)" }}
+                style={{ fontFamily: "var(--font-jakarta), 'Plus Jakarta Sans', sans-serif", color: "var(--luxury-gold-dark)" }}
               >
                 Start shopping
               </Link>
@@ -38,8 +38,8 @@ export function CartDrawer() {
               {items.map((item: import("@/store/cart-store").CartItem) => (
                 <div key={item.id} className="card-premium rounded-lg p-3 flex gap-3">
                   <div className="flex-1">
-                    <p className="text-sm font-medium" style={{ fontFamily: "'DM Sans', sans-serif", color: "var(--luxury-text)" }}>{item.name}</p>
-                    <p className="text-xs" style={{ fontFamily: "'DM Sans', sans-serif", color: "var(--luxury-text-muted)" }}>{item.flavor}</p>
+                    <p className="text-sm font-medium" style={{ fontFamily: "var(--font-jakarta), 'Plus Jakarta Sans', sans-serif", color: "var(--luxury-text)" }}>{item.name}</p>
+                    <p className="text-xs" style={{ fontFamily: "var(--font-jakarta), 'Plus Jakarta Sans', sans-serif", color: "var(--luxury-text-muted)" }}>{item.flavor}</p>
                     <p className="text-sm luxury-price" style={{ color: "var(--luxury-gold-dark)" }}>{formatCurrency(item.price)}</p>
                   </div>
                   <div className="flex items-center gap-1">
@@ -56,7 +56,7 @@ export function CartDrawer() {
                         <Minus className="h-3 w-3" style={{ color: "var(--luxury-gold-dark)" }} />
                       )}
                     </button>
-                    <span className="w-8 text-center text-sm" style={{ fontFamily: "'DM Sans', sans-serif", color: "var(--luxury-text)" }}>{item.quantity}</span>
+                    <span className="w-8 text-center text-sm" style={{ fontFamily: "var(--font-jakarta), 'Plus Jakarta Sans', sans-serif", color: "var(--luxury-text)" }}>{item.quantity}</span>
                     <button
                       type="button"
                       onClick={() => updateQuantity(item.id, item.quantity + 1)}
@@ -85,19 +85,19 @@ export function CartDrawer() {
             <div className="flex items-center justify-center gap-4 py-2">
               <div className="flex items-center gap-1">
                 <Shield className="h-3 w-3" style={{ color: "var(--luxury-gold)" }} />
-                <span className="text-xs" style={{ fontFamily: "'DM Sans', sans-serif", color: "var(--luxury-text-muted)" }}>Secure Checkout</span>
+                <span className="text-xs" style={{ fontFamily: "var(--font-jakarta), 'Plus Jakarta Sans', sans-serif", color: "var(--luxury-text-muted)" }}>Secure Checkout</span>
               </div>
               <div className="flex items-center gap-1">
                 <Zap className="h-3 w-3" style={{ color: "var(--luxury-gold)" }} />
-                <span className="text-xs" style={{ fontFamily: "'DM Sans', sans-serif", color: "var(--luxury-text-muted)" }}>Fast Delivery</span>
+                <span className="text-xs" style={{ fontFamily: "var(--font-jakarta), 'Plus Jakarta Sans', sans-serif", color: "var(--luxury-text-muted)" }}>Fast Delivery</span>
               </div>
               <div className="flex items-center gap-1">
                 <CheckCircle className="h-3 w-3" style={{ color: "var(--luxury-gold)" }} />
-                <span className="text-xs" style={{ fontFamily: "'DM Sans', sans-serif", color: "var(--luxury-text-muted)" }}>Quality Guaranteed</span>
+                <span className="text-xs" style={{ fontFamily: "var(--font-jakarta), 'Plus Jakarta Sans', sans-serif", color: "var(--luxury-text-muted)" }}>Quality Guaranteed</span>
               </div>
             </div>
             <div className="flex justify-between items-center py-2">
-              <span className="font-medium" style={{ fontFamily: "'DM Sans', sans-serif", color: "var(--luxury-text)" }}>Subtotal</span>
+              <span className="font-medium" style={{ fontFamily: "var(--font-jakarta), 'Plus Jakarta Sans', sans-serif", color: "var(--luxury-text)" }}>Subtotal</span>
               <span className="font-bold luxury-price" style={{ color: "var(--luxury-text)" }}>{formatCurrency(subtotal)}</span>
             </div>
             <Link
@@ -111,7 +111,7 @@ export function CartDrawer() {
               href="/cart"
               onClick={closeCart}
               className="inline-flex h-10 w-full items-center justify-center gap-1.5 rounded-lg text-sm font-medium transition-all"
-              style={{ border: "1px solid var(--luxury-border)", background: "var(--luxury-cream)", fontFamily: "'DM Sans', sans-serif", color: "var(--luxury-text)" }}
+              style={{ border: "1px solid var(--luxury-border)", background: "var(--luxury-cream)", fontFamily: "var(--font-jakarta), 'Plus Jakarta Sans', sans-serif", color: "var(--luxury-text)" }}
             >
               View Cart
             </Link>

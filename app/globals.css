@@ -188,9 +188,9 @@
   }
 
   .luxury-price {
-    font-family: "Playfair Display", serif;
-    font-weight: 600;
-    letter-spacing: 0.01em;
+    font-family: var(--font-rajdhani), "Rajdhani", sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.02em;
   }
 
   /* Luxury card — premium white card with subtle shadow */

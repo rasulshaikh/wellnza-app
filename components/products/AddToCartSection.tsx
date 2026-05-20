@@ -77,7 +77,7 @@ export function AddToCartSection({
                   ? "border-[#2E7D32] bg-[#2E7D32] text-white"
                   : "border-[rgba(46,125,50,0.15)] bg-white text-[#1a1a1a] hover:border-[#2E7D32]"
               )}
-              style={{ fontFamily: "'DM Sans', sans-serif" }}
+              style={{ fontFamily: "var(--font-jakarta), 'Plus Jakarta Sans', sans-serif" }}
             >
               {variant.flavor}
               {variant.size ? ` / ${variant.size}` : ""}
@@ -89,17 +89,17 @@ export function AddToCartSection({
       {/* Selected variant display */}
       {selectedVariant && (
         <div className="flex items-center justify-between">
-          <span className="text-sm" style={{ fontFamily: "'DM Sans', sans-serif", color: "#7B9E6B" }}>
+          <span className="text-sm" style={{ fontFamily: "var(--font-jakarta), 'Plus Jakarta Sans', sans-serif", color: "#7B9E6B" }}>
             {selectedVariant.flavor}
             {selectedVariant.size ? ` / ${selectedVariant.size}` : ""}
           </span>
-          <span className="font-semibold text-lg" style={{ fontFamily: "'Playfair Display', serif", color: "#1a1a1a" }}>{formatCurrency(displayPrice)}</span>
+          <span className="font-semibold text-lg" style={{ fontFamily: "var(--font-rajdhani), 'Rajdhani', sans-serif", color: "#1a1a1a" }}>{formatCurrency(displayPrice)}</span>
         </div>
       )}
 
       {/* Quantity selector */}
       <div className="flex items-center gap-3">
-        <span className="text-sm font-medium" style={{ fontFamily: "'DM Sans', sans-serif", color: "#1a1a1a" }}>Qty</span>
+        <span className="text-sm font-medium" style={{ fontFamily: "var(--font-jakarta), 'Plus Jakarta Sans', sans-serif", color: "#1a1a1a" }}>Qty</span>
         <div className="flex items-center h-11 rounded-lg border overflow-hidden" style={{ borderColor: "rgba(46,125,50,0.15)" }}>
           <button
             onClick={() => setQuantity(Math.max(1, quantity - 1))}
@@ -109,7 +109,7 @@ export function AddToCartSection({
           >
             <Minus className="size-4" />
           </button>
-          <span className="w-12 text-center text-sm font-medium" style={{ fontFamily: "'DM Sans', sans-serif", color: "#1a1a1a" }}>{quantity}</span>
+          <span className="w-12 text-center text-sm font-medium" style={{ fontFamily: "var(--font-jakarta), 'Plus Jakarta Sans', sans-serif", color: "#1a1a1a" }}>{quantity}</span>
           <button
             onClick={() => setQuantity(Math.min(10, quantity + 1))}
             className="flex items-center justify-center w-11 h-full border-l hover:bg-[#FAFAF8] transition-colors disabled:opacity-50"
@@ -135,7 +135,7 @@ export function AddToCartSection({
           background: added ? "#2E7D32" : isOutOfStock ? "#FAFAF8" : "#2E7D32",
           borderColor: added ? "#2E7D32" : "transparent",
           color: isOutOfStock ? "#7B9E6B" : "#FFFFFF",
-          fontFamily: "'DM Sans', sans-serif"
+          fontFamily: "var(--font-jakarta), 'Plus Jakarta Sans', sans-serif"
         }}
         disabled={isOutOfStock}
         onClick={handleAddToCart}

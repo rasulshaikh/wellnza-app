@@ -119,7 +119,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
           <p className="text-xs" style={{ color: "#7B9E6B" }}>
             <Link href="/products" className="hover:underline transition-colors" style={{ color: "#7B9E6B" }}>Products</Link>
             {" / "}
-            <Link href={`/products?category=${product.category.toLowerCase()}`} className="hover:underline transition-colors" style={{ color: "#7B9E6B" }}>
+            <Link href={`/products?category=${product.category}`} className="hover:underline transition-colors" style={{ color: "#7B9E6B" }}>
               {CATEGORY_LABELS[product.category] ?? product.category}
             </Link>
             {" / "}

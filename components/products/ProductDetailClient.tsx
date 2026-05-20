@@ -4,6 +4,7 @@ import { useState } from "react";
 import { ImageGallery } from "@/components/products/ImageGallery";
 import { VariantSelectorClient } from "@/components/products/VariantSelectorClient";
 import { AddToCartSection } from "@/components/products/AddToCartSection";
+import { formatCurrency } from "@/lib/utils";
 
 interface Variant {
   id: string;
@@ -50,8 +51,8 @@ export function ProductDetailClient({
   };
 
   return (
-    <>
-      {/* LEFT — Image gallery, now variant-aware via variantHint prop */}
+    <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+      {/* LEFT — Image gallery, variant-aware */}
       <ImageGallery
         images={images}
         productName={productName}
@@ -90,15 +91,12 @@ export function ProductDetailClient({
             className="text-[24px] font-semibold"
             style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#1a1a1a" }}
           >
-            {/* Display price from selected variant, falling back to default */}
-            {Intl.NumberFormat("en-IN", { style: "currency", currency: "NZD" }).format(
-              (variants[selectedVariantIndex]?.price ?? defaultPrice) / 100
-            )}
+            {formatCurrency(variants[selectedVariantIndex]?.price ?? defaultPrice)}
           </span>
           {comparePrice && comparePrice > defaultPrice && (
             <>
               <span className="text-lg line-through" style={{ color: "#7B9E6B" }}>
-                {Intl.NumberFormat("en-IN", { style: "currency", currency: "NZD" }).format(comparePrice / 100)}
+                {formatCurrency(comparePrice)}
               </span>
               <span
                 className="rounded-md px-2 py-1 text-xs font-semibold text-white"
@@ -136,6 +134,6 @@ export function ProductDetailClient({
           inventory={inventory}
         />
       </div>
-    </>
+    </div>
   );
 }

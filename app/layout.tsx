@@ -20,7 +20,7 @@ const jakarta = Plus_Jakarta_Sans({
 
 export const metadata: Metadata = {
   title: {
-    default: "Wellnza Nutrition: Quality Sports Nutrition & Supplements | Wellnza Nutrition",
+    default: "Wellnza Nutrition — Premium Sports Supplements from Amravati",
     template: "%s | Wellnza Nutrition",
   },
   description:
