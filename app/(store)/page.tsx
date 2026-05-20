@@ -105,7 +105,7 @@ export default async function HomePage() {
               <div className="flex gap-6 md:gap-8 mt-8 md:mt-12 animate-fade-up-delay-3">
                 {[
                   { val: "100%", label: "Natural" },
-                  { val: "0g", label: "Added Sugar" },
+                  { val: "0g*", label: "Added Sugar" },
                   { val: "GMP", label: "Certified" },
                 ].map((s) => (
                   <div key={s.label}>
@@ -129,20 +129,10 @@ export default async function HomePage() {
             {/* RIGHT — Visual */}
             <div className="relative flex items-center justify-center animate-fade-up-delay-1">
               <div className="relative w-full max-w-md aspect-square">
-                {/* Outer ring */}
+                {/* Center panel — clean, no rings */}
                 <div
-                  className="absolute inset-0 rounded-full"
-                  style={{ border: "1px solid rgba(232,160,32,0.12)" }}
-                />
-                {/* Inner ring */}
-                <div
-                  className="absolute inset-6 rounded-full"
-                  style={{ border: "1px dashed rgba(232,160,32,0.08)" }}
-                />
-                {/* Center panel */}
-                <div
-                  className="absolute inset-10 rounded-2xl flex items-center justify-center"
-                  style={{ background: "rgba(232,160,32,0.06)", border: "1px solid rgba(232,160,32,0.15)" }}
+                  className="absolute inset-4 rounded-2xl flex items-center justify-center overflow-hidden"
+                  style={{ background: "rgba(232,160,32,0.04)" }}
                 >
                   {products.length > 0 ? (
                     <HeroCarousel
@@ -163,19 +153,6 @@ export default async function HomePage() {
                       </p>
                     </div>
                   )}
-                </div>
-
-                {/* Floating badge — top right */}
-                <div
-                  className="absolute top-6 right-0 md:right-[-10%] px-3 py-2 rounded-lg text-center"
-                  style={{ background: "#E8A020" }}
-                >
-                  <p className="text-[10px] font-bold uppercase tracking-wider" style={{ color: "#0B0F0C" }}>
-                    Made in
-                  </p>
-                  <p className="text-sm font-bold" style={{ color: "#0B0F0C", fontFamily: "var(--font-rajdhani)" }}>
-                    India 🇮🇳
-                  </p>
                 </div>
 
                 {/* Floating badge — bottom left */}

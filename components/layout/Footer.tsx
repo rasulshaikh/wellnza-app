@@ -48,25 +48,20 @@ export function Footer() {
               Clean formulas for every Indian athlete who refuses to settle.
             </p>
 
-            {/* Origin tag */}
+            {/* Origin tag — prominent gold banner */}
             <div
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full"
-              style={{
-                background: "rgba(201,168,76,0.06)",
-                border: "1px solid var(--luxury-border)",
-              }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg"
+              style={{ background: "#E8A020" }}
             >
-              <span style={{ color: "var(--luxury-gold)", fontSize: "10px" }}>
-                ◆
-              </span>
+              <span style={{ color: "#0B0F0C", fontSize: "12px" }}>◆</span>
               <span
-                className="text-[10px] font-bold uppercase tracking-[0.18em]"
+                className="text-xs font-bold uppercase tracking-[0.16em]"
                 style={{
-                  color: "var(--luxury-gold-light)",
+                  color: "#0B0F0C",
                   fontFamily: "var(--font-jakarta)",
                 }}
               >
-                Made in India
+                Made in India 🇮🇳
               </span>
             </div>
 
