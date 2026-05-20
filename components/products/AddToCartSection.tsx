@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { Minus, Plus, Check } from "lucide-react";
 import { useCartStore } from "@/store/cart-store";
-import { formatCurrency } from "@/lib/utils";
 import { cn } from "@/lib/utils";
 import { getVariantStockStatus } from "@/lib/product-utils";
 
@@ -13,7 +12,7 @@ interface AddToCartSectionProps {
   productName: string;
   images: string[];
   defaultPrice: number;
-  defaultVariant?: { id: string; flavor: string; size: string | null; price: number } | null;
+  selectedVariantId: string | null;
   variants: Array<{ id: string; flavor: string; size: string | null; price: number }>;
   inventory: Array<{ variantId: string; quantity: number }>;
 }
@@ -24,19 +23,19 @@ export function AddToCartSection({
   productName,
   images,
   defaultPrice,
-  defaultVariant,
+  selectedVariantId,
   variants,
   inventory,
 }: AddToCartSectionProps) {
   const [quantity, setQuantity] = useState(1);
-  const [selectedVariantId, setSelectedVariantId] = useState<string | null>(defaultVariant?.id ?? null);
   const [added, setAdded] = useState(false);
   const store = useCartStore();
 
   const selectedVariant = variants.find((v) => v.id === selectedVariantId);
-  const displayPrice = selectedVariant?.price ?? defaultPrice;
 
-  const isOutOfStock = selectedVariantId ? getVariantStockStatus(selectedVariantId, inventory) === "out_of_stock" : !hasVariants;
+  const isOutOfStock = selectedVariantId
+    ? getVariantStockStatus(selectedVariantId, inventory) === "out_of_stock"
+    : !hasVariants;
 
   if (!hasVariants) {
     return (
@@ -63,40 +62,6 @@ export function AddToCartSection({
 
   return (
     <div className="flex flex-col gap-4">
-      {/* Variant flavor selector */}
-      {variants.length > 1 && (
-        <div className="flex flex-wrap gap-2">
-          {variants.map((variant) => (
-            <button
-              key={variant.id}
-              type="button"
-              onClick={() => setSelectedVariantId(variant.id)}
-              className={cn(
-                "px-4 py-2 rounded-lg border text-sm transition-all",
-                selectedVariantId === variant.id
-                  ? "border-[#2E7D32] bg-[#2E7D32] text-white"
-                  : "border-[rgba(46,125,50,0.15)] bg-white text-[#1a1a1a] hover:border-[#2E7D32]"
-              )}
-              style={{ fontFamily: "var(--font-jakarta), 'Plus Jakarta Sans', sans-serif" }}
-            >
-              {variant.flavor}
-              {variant.size ? ` / ${variant.size}` : ""}
-            </button>
-          ))}
-        </div>
-      )}
-
-      {/* Selected variant display */}
-      {selectedVariant && (
-        <div className="flex items-center justify-between">
-          <span className="text-sm" style={{ fontFamily: "var(--font-jakarta), 'Plus Jakarta Sans', sans-serif", color: "#7B9E6B" }}>
-            {selectedVariant.flavor}
-            {selectedVariant.size ? ` / ${selectedVariant.size}` : ""}
-          </span>
-          <span className="font-semibold text-lg" style={{ fontFamily: "var(--font-rajdhani), 'Rajdhani', sans-serif", color: "#1a1a1a" }}>{formatCurrency(displayPrice)}</span>
-        </div>
-      )}
-
       {/* Quantity selector */}
       <div className="flex items-center gap-3">
         <span className="text-sm font-medium" style={{ fontFamily: "var(--font-jakarta), 'Plus Jakarta Sans', sans-serif", color: "#1a1a1a" }}>Qty</span>
@@ -137,7 +102,7 @@ export function AddToCartSection({
           color: isOutOfStock ? "#7B9E6B" : "#FFFFFF",
           fontFamily: "var(--font-jakarta), 'Plus Jakarta Sans', sans-serif"
         }}
-        disabled={isOutOfStock}
+        disabled={isOutOfStock || !selectedVariantId}
         onClick={handleAddToCart}
       >
         {added ? (

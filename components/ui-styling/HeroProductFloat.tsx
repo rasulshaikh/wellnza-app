@@ -38,7 +38,7 @@ export function HeroProductFloat({ imageSrc, imageAlt }: HeroProductFloatProps) 
   };
 
   return (
-    <div style={{ perspective: 1000 }}>
+    <div className="w-full h-full" style={{ perspective: 1000 }}>
       <motion.div
         ref={cardRef}
         onMouseMove={handleMouseMove}

@@ -25,7 +25,6 @@ interface ProductDetailClientProps {
   productId: string;
   productName: string;
   defaultPrice: number;
-  defaultVariant: { id: string; flavor: string; size: string | null; price: number } | null;
   categoryLabel: string;
   comparePrice: number | null;
 }
@@ -37,14 +36,12 @@ export function ProductDetailClient({
   productId,
   productName,
   defaultPrice,
-  defaultVariant,
   categoryLabel,
   comparePrice,
 }: ProductDetailClientProps) {
-  // Track which variant index is selected — this drives the image gallery
   const [selectedVariantIndex, setSelectedVariantIndex] = useState(0);
+  const selectedVariantId = variants[selectedVariantIndex]?.id ?? null;
 
-  // When variant selection changes, update the image index
   const handleVariantChange = (variantId: string) => {
     const idx = variants.findIndex((v) => v.id === variantId);
     if (idx !== -1) setSelectedVariantIndex(idx);
@@ -129,7 +126,7 @@ export function ProductDetailClient({
           productName={productName}
           images={images}
           defaultPrice={defaultPrice}
-          defaultVariant={defaultVariant}
+          selectedVariantId={selectedVariantId}
           variants={variants}
           inventory={inventory}
         />

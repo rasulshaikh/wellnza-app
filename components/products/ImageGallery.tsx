@@ -61,12 +61,9 @@ export function ImageGallery({ images, productName, variantHint = 0, variants }:
     return variantImages.length > 0 ? variantImages : images;
   })();
 
-  // When variantHint changes, reset to the selected variant's starting image
+  // When variantHint changes, reset to first image of the new variant
   useEffect(() => {
-    const imgs = filteredImages;
-    if (imgs.length > 1) {
-      setSelectedIndex(0);
-    }
+    setSelectedIndex(0);
   }, [variantHint]);
 
   if (!images || images.length === 0) {

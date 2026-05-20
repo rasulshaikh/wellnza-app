@@ -128,6 +128,7 @@ export function VariantSelector({
                     getVariantStockStatus(flavorVariants[0].id, inventory) === "out_of_stock" && "opacity-50"
                   )}
                 >
+                  <span>{flavor}</span>
                   {stockBadge(flavorVariants[0].id, inventory)}
                 </button>
               )}

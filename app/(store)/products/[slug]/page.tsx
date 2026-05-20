@@ -109,8 +109,6 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
     }
   }
 
-  const defaultVariant = product.variants[0] ?? null;
-
   return (
     <div className="min-h-screen">
       {/* Breadcrumb */}
@@ -137,7 +135,6 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
           productId={product.id}
           productName={product.name}
           defaultPrice={product.basePrice}
-          defaultVariant={defaultVariant ? { id: defaultVariant.id, flavor: defaultVariant.flavor, size: defaultVariant.size, price: defaultVariant.price } : null}
           categoryLabel={CATEGORY_LABELS[product.category] ?? product.category}
           comparePrice={product.comparePrice ?? null}
         />
