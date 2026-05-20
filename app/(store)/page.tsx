@@ -5,7 +5,7 @@ import { formatCurrency } from "@/lib/utils";
 import { NewsletterForm } from "./_components/newsletter-form";
 import { getWhatsAppUrl } from "@/lib/whatsapp";
 import { ArrowRight, ShieldCheck, FlaskConical, Zap, Heart } from "lucide-react";
-import { HeroProductFloat } from "@/components/ui-styling/HeroProductFloat";
+import { HeroCarousel } from "@/components/ui-styling/HeroCarousel";
 
 export const dynamic = "force-dynamic";
 
@@ -136,18 +136,19 @@ export default async function HomePage() {
                 />
                 {/* Inner ring */}
                 <div
-                  className="absolute inset-8 rounded-full"
+                  className="absolute inset-6 rounded-full"
                   style={{ border: "1px dashed rgba(232,160,32,0.08)" }}
                 />
                 {/* Center panel */}
                 <div
-                  className="absolute inset-16 rounded-2xl flex items-center justify-center"
+                  className="absolute inset-10 rounded-2xl flex items-center justify-center"
                   style={{ background: "rgba(232,160,32,0.06)", border: "1px solid rgba(232,160,32,0.15)" }}
                 >
-                  {products[0]?.images[0] ? (
-                    <HeroProductFloat
-                      imageSrc={products[0].images[0]}
-                      imageAlt={products[0].name ?? "Featured product"}
+                  {products.length > 0 ? (
+                    <HeroCarousel
+                      images={products.flatMap((p) =>
+                        p.images.slice(0, 2).map((src) => ({ src, alt: p.name }))
+                      )}
                     />
                   ) : (
                     <div className="text-center p-8">
