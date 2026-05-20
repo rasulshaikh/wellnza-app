@@ -3,6 +3,10 @@ import { db } from "@/lib/db";
 import { formatCurrency } from "@/lib/utils";
 import { CartAbandonmentEmail } from "@/lib/email-templates/cart-abandonment";
 
+// In-memory rate limit: track last call timestamp per IP (sliding window)
+const rateLimitMap = new Map<string, number>();
+const RATE_LIMIT_MS = 60_000; // 1 notification per minute per IP
+
 function normalizePhoneForWhatsApp(phone: string): string {
   const digits = phone.replace(/[^0-9]/g, '');
   // NZ mobile: starts with 0, convert 021XXXXXXXX → 6421XXXXXXXX
@@ -26,6 +30,16 @@ export async function POST(request: NextRequest) {
   if (secret !== process.env.CART_ABANDONMENT_SECRET) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
+
+  // Rate limit: 1 request per minute per caller IP
+  const callerIp = request.headers.get("x-forwarded-for")?.split(",")[0].trim()
+    ?? request.headers.get("x-real-ip") ?? "unknown";
+  const now = Date.now();
+  const lastCall = rateLimitMap.get(callerIp) ?? 0;
+  if (now - lastCall < RATE_LIMIT_MS) {
+    return NextResponse.json({ error: "Rate limited" }, { status: 429 });
+  }
+  rateLimitMap.set(callerIp, now);
 
   // Find records where reminder hasn't been sent and lastActiveAt > 2 hours ago
   const twoHoursAgo = new Date(Date.now() - 2 * 60 * 60 * 1000);

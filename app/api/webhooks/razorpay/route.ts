@@ -77,6 +77,12 @@ export async function POST(request: Request) {
         return NextResponse.json({ success: true }); // Return 200 to acknowledge receipt
       }
 
+      // Guard against replay: if this paymentId already applied, skip
+      if (order.razorpayPaymentId === razorpayPaymentId) {
+        console.log(`[razorpay-webhook] Payment ${razorpayPaymentId} already applied to order ${order.orderNumber}`);
+        return NextResponse.json({ success: true });
+      }
+
       // Update order to PROCESSING
       await db.order.update({
         where: { id: order.id },
@@ -107,6 +113,12 @@ export async function POST(request: Request) {
       if (!order) {
         console.error("[razorpay-webhook] Order not found for razorpayOrderId:", razorpayOrderId);
         return NextResponse.json({ success: true }); // Return 200 to acknowledge receipt
+      }
+
+      // Guard against replay: if this paymentId already applied, skip
+      if (order.razorpayPaymentId === razorpayPaymentId) {
+        console.log(`[razorpay-webhook] Payment ${razorpayPaymentId} already applied to order ${order.orderNumber}`);
+        return NextResponse.json({ success: true });
       }
 
       // Update order to PROCESSING
