@@ -51,7 +51,7 @@ export default async function HomePage() {
         />
 
         <div className="container mx-auto px-4 md:px-8 relative z-10">
-          <div className="grid md:grid-cols-2 gap-8 items-center min-h-[92vh] py-16">
+          <div className="grid md:grid-cols-2 gap-8 items-center min-h-[70vh] md:min-h-[92vh] py-12 md:py-16">
 
             {/* LEFT — Text */}
             <div className="animate-fade-up">
@@ -102,7 +102,7 @@ export default async function HomePage() {
               </div>
 
               {/* Stats */}
-              <div className="flex gap-8 mt-12 animate-fade-up-delay-3">
+              <div className="flex gap-6 md:gap-8 mt-8 md:mt-12 animate-fade-up-delay-3">
                 {[
                   { val: "100%", label: "Natural" },
                   { val: "0g", label: "Added Sugar" },
@@ -166,8 +166,8 @@ export default async function HomePage() {
 
                 {/* Floating badge — top right */}
                 <div
-                  className="absolute top-6 right-0 px-3 py-2 rounded-lg text-center"
-                  style={{ background: "#E8A020", transform: "translateX(20%)" }}
+                  className="absolute top-6 right-0 md:right-[-10%] px-3 py-2 rounded-lg text-center"
+                  style={{ background: "#E8A020" }}
                 >
                   <p className="text-[10px] font-bold uppercase tracking-wider" style={{ color: "#0B0F0C" }}>
                     Made in
@@ -179,8 +179,8 @@ export default async function HomePage() {
 
                 {/* Floating badge — bottom left */}
                 <div
-                  className="absolute bottom-6 left-0 px-3 py-2 rounded-lg"
-                  style={{ background: "rgba(20,83,45,0.9)", border: "1px solid rgba(34,197,94,0.3)", transform: "translateX(-20%)" }}
+                  className="absolute bottom-6 left-0 md:left-[-10%] px-3 py-2 rounded-lg"
+                  style={{ background: "rgba(20,83,45,0.9)", border: "1px solid rgba(34,197,94,0.3)" }}
                 >
                   <p className="text-[10px] font-bold uppercase tracking-wider" style={{ color: "#22C55E" }}>
                     ✓ Lab Tested

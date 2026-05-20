@@ -1,8 +1,5 @@
 export function getWhatsAppUrl(message?: string): string {
-  const number = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.replace(/[^0-9]/g, '') ?? '';
-  if (!number && process.env.NODE_ENV === 'development') {
-    console.warn('[WhatsApp] NEXT_PUBLIC_WHATSAPP_NUMBER is not set');
-  }
-  const base = `https://wa.me/${number}`;
-  return message ? `${base}?text=${encodeURIComponent(message)}` : base;
+  const phone = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.replace(/[^0-9]/g, '') || '918788396678';
+  const base = `https://api.whatsapp.com/send/?phone=${phone}&type=phone_number&app_absent=0`;
+  return message ? `${base}&text=${encodeURIComponent(message)}` : base;
 }

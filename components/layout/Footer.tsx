@@ -244,8 +244,11 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                <div
-                  className="flex items-start gap-2 text-sm"
+                <a
+                  href="https://maps.google.com/?q=Amravati,Maharashtra,India"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-start gap-2 text-sm transition-colors hover:text-[var(--luxury-gold)]"
                   style={{
                     fontFamily: "var(--font-jakarta)",
                     color: "rgba(247,243,236,0.5)",
@@ -256,7 +259,7 @@ export function Footer() {
                     style={{ color: "var(--luxury-gold)", strokeWidth: 1.5 }}
                   />
                   <span>Amravati, Maharashtra, India</span>
-                </div>
+                </a>
               </li>
             </ul>
 

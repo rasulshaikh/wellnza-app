@@ -771,8 +771,8 @@ export default function CheckoutPage() {
                   <label
                     className="flex items-center gap-3 p-4 rounded-md cursor-pointer transition-colors"
                     style={{
-                      background: "rgba(46, 125, 50, 0.04)",
-                      border: "1px solid rgba(46, 125, 50, 0.15)",
+                      background: selectedPaymentMethod === "RAZORPAY" ? "rgba(46, 125, 50, 0.08)" : "rgba(46, 125, 50, 0.04)",
+                      border: selectedPaymentMethod === "RAZORPAY" ? "1px solid rgba(46, 125, 50, 0.4)" : "1px solid rgba(46, 125, 50, 0.15)",
                     }}
                   >
                     <input
@@ -792,7 +792,7 @@ export default function CheckoutPage() {
                       </p>
                     </div>
                     <div className="flex gap-1">
-                      {["visa".split(""), ["mastercard"].flat(), ["upi"].flat()].flat().map((method) => (
+                      {["visa", "mastercard", "upi"].map((method) => (
                         <span
                           key={method}
                           className="text-[10px] px-1.5 py-0.5 rounded"
@@ -808,8 +808,8 @@ export default function CheckoutPage() {
                   <label
                     className="flex items-center gap-3 p-4 rounded-md cursor-pointer transition-colors"
                     style={{
-                      background: "transparent",
-                      border: "1px solid rgba(46, 125, 50, 0.15)",
+                      background: selectedPaymentMethod === "COD" ? "rgba(46, 125, 50, 0.08)" : "transparent",
+                      border: selectedPaymentMethod === "COD" ? "1px solid rgba(46, 125, 50, 0.4)" : "1px solid rgba(46, 125, 50, 0.15)",
                     }}
                   >
                     <input

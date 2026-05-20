@@ -142,7 +142,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
         {/* Tabs */}
         <div className="mt-12">
           <Tabs defaultValue="description">
-            <TabsList className="w-full justify-start gap-0 rounded-none border-b p-0" style={{ background: "transparent", borderColor: "rgba(46,125,50,0.15)" }}>
+            <TabsList className="w-full justify-start gap-0 rounded-none border-b p-0 overflow-x-auto" style={{ background: "transparent", borderColor: "rgba(46,125,50,0.15)" }}>
               <TabsTrigger
                 value="description"
                 className="rounded-none border-b-2 border-transparent data-active:border-transparent data-active:bg-transparent"

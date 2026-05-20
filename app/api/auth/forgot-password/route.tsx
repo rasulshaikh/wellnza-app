@@ -72,7 +72,7 @@ export async function POST(req: Request) {
       },
     });
 
-    const resetUrl = `${process.env.NEXTAUTH_URL || "https://wellnzanutrition.com"}/reset-password?token=${resetToken}`;
+    const resetUrl = `${process.env.NEXTAUTH_URL || "https://www.wellnzanutrition.com"}/reset-password?token=${resetToken}`;
 
     await sendEmail({
       to: email,
