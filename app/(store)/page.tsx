@@ -51,20 +51,20 @@ export default async function HomePage() {
         />
 
         <div className="container mx-auto px-4 md:px-8 relative z-10">
-          <div className="grid md:grid-cols-2 gap-8 items-center min-h-[70vh] md:min-h-[92vh] py-12 md:py-16">
+          <div className="grid md:grid-cols-12 gap-6 items-center min-h-[92vh] py-10 md:py-12">
 
             {/* LEFT — Text */}
-            <div className="animate-fade-up">
+            <div className="md:col-span-5 lg:col-span-4 animate-fade-up space-y-5">
               {/* Origin pill */}
-              <div className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full" style={{ background: "rgba(232,160,32,0.1)", border: "1px solid rgba(232,160,32,0.25)" }}>
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full" style={{ background: "rgba(232,160,32,0.1)", border: "1px solid rgba(232,160,32,0.25)" }}>
                 <span style={{ color: "#E8A020", fontSize: "10px" }}>◆</span>
-                <span className="text-[11px] font-bold uppercase tracking-[0.18em]" style={{ color: "#E8A020", fontFamily: "var(--font-jakarta)" }}>
+                <span className="text-[10px] font-bold uppercase tracking-[0.18em]" style={{ color: "#E8A020", fontFamily: "var(--font-jakarta)" }}>
                   Amravati, Maharashtra
                 </span>
               </div>
 
               {/* Headline */}
-              <h1 className="luxury-display mb-6 leading-none" style={{ color: "#F7F3EC", textTransform: "uppercase" }}>
+              <h1 className="leading-none" style={{ color: "#F7F3EC", textTransform: "uppercase", fontFamily: "var(--font-rajdhani)", fontWeight: 700, fontSize: "clamp(48px,8vw,88px)", letterSpacing: "0.01em" }}>
                 Built for<br />
                 <span style={{
                   background: "linear-gradient(135deg, #E8A020 0%, #F5C842 50%, #E8A020 100%)",
@@ -76,7 +76,7 @@ export default async function HomePage() {
                 </span>
               </h1>
 
-              <p className="luxury-body mb-8 max-w-md leading-relaxed animate-fade-up-delay-1" style={{ color: "rgba(247,243,236,0.65)" }}>
+              <p className="text-sm leading-relaxed animate-fade-up-delay-1" style={{ color: "rgba(247,243,236,0.6)", fontFamily: "var(--font-jakarta)", maxWidth: "360px" }}>
                 Premium sports nutrition rooted in Maharashtra. Clean formulas, honest ingredients,
                 and a commitment to every Indian athlete who refuses to settle.
               </p>
@@ -101,8 +101,8 @@ export default async function HomePage() {
                 </Link>
               </div>
 
-              {/* Stats */}
-              <div className="flex gap-6 md:gap-8 mt-8 md:mt-12 animate-fade-up-delay-3">
+              {/* Stats — moved inline below CTAs */}
+              <div className="flex gap-5 animate-fade-up-delay-3">
                 {[
                   { val: "100%", label: "Natural" },
                   { val: "0g*", label: "Added Sugar" },
@@ -110,14 +110,14 @@ export default async function HomePage() {
                 ].map((s) => (
                   <div key={s.label}>
                     <p
-                      className="text-2xl font-bold leading-none mb-1"
+                      className="text-xl font-bold leading-none mb-0.5"
                       style={{ fontFamily: "var(--font-rajdhani)", color: "#E8A020" }}
                     >
                       {s.val}
                     </p>
                     <p
-                      className="text-[11px] uppercase tracking-widest"
-                      style={{ fontFamily: "var(--font-jakarta)", color: "rgba(247,243,236,0.45)" }}
+                      className="text-[10px] uppercase tracking-widest"
+                      style={{ fontFamily: "var(--font-jakarta)", color: "rgba(247,243,236,0.4)" }}
                     >
                       {s.label}
                     </p>
@@ -126,20 +126,22 @@ export default async function HomePage() {
               </div>
             </div>
 
-            {/* RIGHT — Visual */}
-            <div className="relative flex items-center justify-center animate-fade-up-delay-1">
-              <div className="relative w-full max-w-md aspect-square">
-                {/* Center panel — clean, no rings */}
+            {/* RIGHT — Visual: fills remaining space */}
+            <div className="md:col-span-7 lg:col-span-8 relative flex items-center justify-center animate-fade-up-delay-1">
+              <div className="relative w-full" style={{ maxWidth: "680px" }}>
+                {/* Center panel — FULL bleed, no rings */}
                 <div
-                  className="absolute inset-4 rounded-2xl flex items-center justify-center overflow-hidden"
-                  style={{ background: "rgba(232,160,32,0.04)" }}
+                  className="rounded-2xl flex items-center justify-center overflow-hidden"
+                  style={{ background: "rgba(232,160,32,0.04)", aspectRatio: "1/1" }}
                 >
                   {products.length > 0 ? (
-                    <HeroCarousel
-                      images={products.flatMap((p) =>
-                        p.images.slice(0, 2).map((src) => ({ src, alt: p.name }))
-                      )}
-                    />
+                    <Link href={`/products/${products[0].slug}`}>
+                      <HeroCarousel
+                        images={products.flatMap((p) =>
+                          p.images.slice(0, 2).map((src) => ({ src, alt: p.name, slug: p.slug }))
+                        )}
+                      />
+                    </Link>
                   ) : (
                     <div className="text-center p-8">
                       <p
@@ -157,7 +159,7 @@ export default async function HomePage() {
 
                 {/* Floating badge — bottom left */}
                 <div
-                  className="absolute bottom-6 left-0 md:left-[-10%] px-3 py-2 rounded-lg"
+                  className="absolute bottom-4 left-4 px-3 py-2 rounded-lg"
                   style={{ background: "rgba(20,83,45,0.9)", border: "1px solid rgba(34,197,94,0.3)" }}
                 >
                   <p className="text-[10px] font-bold uppercase tracking-wider" style={{ color: "#22C55E" }}>
@@ -199,25 +201,25 @@ export default async function HomePage() {
       </section>
 
       {/* ═══ CATEGORIES ═══ */}
-      <section className="py-20" style={{ background: "#F7F3EC" }}>
+      <section className="py-16" style={{ background: "#F7F3EC" }}>
         <div className="container mx-auto px-4 md:px-8">
           {/* Header */}
-          <div className="mb-12">
-            <div className="flex items-center gap-3 mb-3">
+          <div className="mb-8">
+            <div className="flex items-center gap-3 mb-2">
               <span className="accent-bar" />
               <span className="text-[11px] font-bold uppercase tracking-[0.2em]" style={{ color: "#E8A020", fontFamily: "var(--font-jakarta)" }}>
                 Shop by Goal
               </span>
             </div>
             <h2
-              className="text-4xl md:text-5xl font-bold uppercase leading-none"
+              className="text-3xl md:text-4xl font-bold uppercase leading-none"
               style={{ fontFamily: "var(--font-rajdhani)", color: "#0B0F0C", letterSpacing: "0.02em" }}
             >
               Find Your Formula
             </h2>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {[
               { name: "Pre-Workout", desc: "Clean energy, razor focus", href: "/products?category=PRE_WORKOUT", icon: "⚡", color: "#E8A020" },
               { name: "Protein", desc: "Pure recovery fuel", href: "/products?category=PROTEIN", icon: "💪", color: "#22C55E" },
@@ -258,19 +260,19 @@ export default async function HomePage() {
 
       {/* ═══ BESTSELLERS ═══ */}
       {products.length > 0 && (
-        <section className="py-20" style={{ background: "#FFFFFF" }}>
+        <section className="py-16" style={{ background: "#FFFFFF" }}>
           <div className="container mx-auto px-4 md:px-8">
             {/* Header */}
-            <div className="flex items-end justify-between mb-12">
+            <div className="flex items-end justify-between mb-8">
               <div>
-                <div className="flex items-center gap-3 mb-3">
+                <div className="flex items-center gap-3 mb-2">
                   <span className="accent-bar" />
                   <span className="text-[11px] font-bold uppercase tracking-[0.2em]" style={{ color: "#E8A020", fontFamily: "var(--font-jakarta)" }}>
                     Most Popular
                   </span>
                 </div>
                 <h2
-                  className="text-4xl md:text-5xl font-bold uppercase leading-none"
+                  className="text-3xl md:text-4xl font-bold uppercase leading-none"
                   style={{ fontFamily: "var(--font-rajdhani)", color: "#0B0F0C", letterSpacing: "0.02em" }}
                 >
                   Bestsellers
@@ -285,7 +287,7 @@ export default async function HomePage() {
               </Link>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               {products.map((product, i) => {
                 const hasDiscount = product.comparePrice && product.comparePrice > product.basePrice;
                 const discountPercent = hasDiscount
@@ -382,7 +384,7 @@ export default async function HomePage() {
 
       {/* ═══ BRAND STORY BANNER ═══ */}
       <section
-        className="py-20 relative overflow-hidden"
+        className="py-16 relative overflow-hidden"
         style={{ background: "linear-gradient(135deg, #0B0F0C 0%, #141A16 100%)" }}
       >
         <div className="absolute inset-0 stripe-gold pointer-events-none" />
@@ -423,7 +425,7 @@ export default async function HomePage() {
       </section>
 
       {/* ═══ NEWSLETTER ═══ */}
-      <section className="py-16" style={{ background: "#F7F3EC", borderTop: "1px solid rgba(232,160,32,0.12)" }}>
+      <section className="py-12" style={{ background: "#F7F3EC", borderTop: "1px solid rgba(232,160,32,0.12)" }}>
         <div className="container mx-auto px-4 text-center">
           <div className="flex items-center justify-center gap-3 mb-4">
             <span className="accent-bar" />

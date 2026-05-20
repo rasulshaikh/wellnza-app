@@ -1,18 +1,24 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
+interface HeroCarouselImage {
+  src: string;
+  alt: string;
+  slug: string;
+}
+
 interface HeroCarouselProps {
-  images: { src: string; alt: string }[];
+  images: HeroCarouselImage[];
 }
 
 export function HeroCarousel({ images }: HeroCarouselProps) {
   const [current, setCurrent] = useState(0);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  // Auto-advance every 4 seconds
   useEffect(() => {
     if (images.length <= 1) return;
     intervalRef.current = setInterval(() => {
@@ -43,16 +49,22 @@ export function HeroCarousel({ images }: HeroCarouselProps) {
           transition={{ duration: 0.8, ease: "easeInOut" }}
           className="absolute inset-0"
         >
-          <Image
-            src={images[current].src}
-            alt={images[current].alt}
-            fill
-            className="object-contain"
-            priority
-            style={{
-              filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.3)) drop-shadow(0 4px 12px rgba(232,160,32,0.15))",
-            }}
-          />
+          <Link
+            href={`/products/${images[current].slug}`}
+            className="block w-full h-full"
+            aria-label={`View ${images[current].alt}`}
+          >
+            <Image
+              src={images[current].src}
+              alt={images[current].alt}
+              fill
+              className="object-contain"
+              priority
+              style={{
+                filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.3)) drop-shadow(0 4px 12px rgba(232,160,32,0.15))",
+              }}
+            />
+          </Link>
         </motion.div>
       </AnimatePresence>
 
@@ -62,7 +74,9 @@ export function HeroCarousel({ images }: HeroCarouselProps) {
           {images.map((_, i) => (
             <button
               key={i}
-              onClick={() => {
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
                 setCurrent(i);
                 if (intervalRef.current) clearInterval(intervalRef.current);
                 intervalRef.current = setInterval(() => {
