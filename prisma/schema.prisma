@@ -78,7 +78,7 @@ model Address {
   city      String
   state     String
   pin       String
-  country   String       @default("New Zealand") // AUDIT TODO P0: was India - NZ store must default to New Zealand
+  country   String       @default("India")
   isDefault Boolean      @default(false)
   type      AddressType  @default(SHIPPING)
 
@@ -106,7 +106,7 @@ model Product {
   slug            String          @unique
   description     String
   category        ProductCategory
-  basePrice       Int             // price in paise
+  basePrice       Int             // price in rupees (e.g. 1999 = ₹1,999)
   comparePrice    Int?
   images          String[]        // JSON array of image URLs
   isActive        Boolean         @default(true)
@@ -141,7 +141,7 @@ model ProductVariant {
   productId    String
   flavor       String
   size         String?
-  price        Int     // price in paise
+  price        Int     // price in rupees
   comparePrice Int?
   sku          String  @unique
   weightG      Int?
@@ -192,11 +192,11 @@ model Order {
   userId             String?
   status             OrderStatus  @default(PENDING)
   shippingAddressId  String?
-  subtotal           Int         // price in paise
+  subtotal           Int         // price in rupees
   shippingCost       Int         @default(0)
   tax                Int         @default(0)
   discount           Int         @default(0)
-  total              Int         // price in paise
+  total              Int         // price in rupees
   paymentMethod      PaymentMethod
   razorpayOrderId    String?
   razorpayPaymentId  String?
@@ -237,7 +237,7 @@ model OrderItem {
   orderId         String
   productVariantId String
   quantity        Int
-  unitPrice       Int      // price in paise
+  unitPrice       Int      // price in rupees
 
   order          Order         @relation(fields: [orderId], references: [id], onDelete: Cascade)
   productVariant ProductVariant @relation(fields: [productVariantId], references: [id])

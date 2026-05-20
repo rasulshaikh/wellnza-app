@@ -114,6 +114,13 @@ export const useCartStore = create<CartStore>()(
     }),
     {
       name: "wellnz-cart",
+      partialize: (state) => ({
+        items: state.items,
+        email: state.email,
+        name: state.name,
+        abandonedAt: state.abandonedAt,
+        orderId: state.orderId,
+      }),
     }
   )
 );

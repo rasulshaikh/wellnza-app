@@ -11,7 +11,11 @@ interface VariantSelectorClientProps {
 }
 
 export function VariantSelectorClient({ variants, inventory, onVariantChange }: VariantSelectorClientProps) {
-  const [selected, setSelected] = useState<string | null>(variants[0]?.id ?? null);
+  const firstInStock = variants.find(v => {
+    const inv = inventory.find(i => i.variantId === v.id);
+    return inv && inv.quantity > 0;
+  }) ?? variants[0];
+  const [selected, setSelected] = useState<string | null>(firstInStock?.id ?? null);
 
   const handleSelect = (variantId: string) => {
     setSelected(variantId);

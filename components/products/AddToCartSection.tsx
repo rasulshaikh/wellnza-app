@@ -35,7 +35,7 @@ export function AddToCartSection({
 
   const isOutOfStock = selectedVariantId
     ? getVariantStockStatus(selectedVariantId, inventory) === "out_of_stock"
-    : !hasVariants;
+    : inventory.length === 0 || inventory.every(i => i.quantity <= 0);
 
   if (!hasVariants) {
     return (

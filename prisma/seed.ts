@@ -15,8 +15,8 @@ const products: Prisma.ProductCreateInput[] = [
     featured: true,
     isActive: true,
     images: [
-      "/products/gainer-3kg--alphanso-mango front.png",
-      "/products/gainer-3kg-chocolate front.png",
+      "/products/gainer-3kg--alphanso-mango-front.png",
+      "/products/gainer-3kg-chocolate-front.png",
       "/products/gainer-3kg--alphanso-mango-right.png",
       "/products/gainer-3kg--alphanso-mango.png-left.png",
       "/products/gainer-3kg-chocolate.png-right.png",
@@ -39,8 +39,8 @@ const products: Prisma.ProductCreateInput[] = [
     featured: true,
     isActive: true,
     images: [
-      "/products/PreWorkout-Tangy-orange front.png",
-      "/products/PreWorkout-Blueberry front.png",
+      "/products/PreWorkout-Tangy-orange-front.png",
+      "/products/PreWorkout-Blueberry-front.png",
       "/products/PreWorkout-Tangy-orange-left.png",
       "/products/PreWorkout-Tangy-orange-right.png",
       "/products/PreWorkout-Blueberry-left.png",
@@ -63,8 +63,8 @@ const products: Prisma.ProductCreateInput[] = [
     featured: true,
     isActive: true,
     images: [
-      "/products/isolate-protein-chocolate-1kg front.png",
-      "/products/isolate-protein-pistacho-almond-1kg front.png",
+      "/products/isolate-protein-chocolate-1kg-front.png",
+      "/products/isolate-protein-pistacho-almond-1kg-front.png",
       "/products/isolate-protein-chocolate-1kg-right.png",
       "/products/isolate-protein-chocolate-1k-left.png",
       "/products/isolate-protein-pistacho-almond-1kg-right.png",
@@ -87,8 +87,8 @@ const products: Prisma.ProductCreateInput[] = [
     featured: true,
     isActive: true,
     images: [
-      "/products/whey-protein-chocolate-2kg front.png",
-      "/products/whey-protein-kesar-pista-1kg front.png",
+      "/products/whey-protein-chocolate-2kg-front.png",
+      "/products/whey-protein-kesar-pista-1kg-front.png",
       "/products/whey-protein-chocolate-2kg-left.png",
       "/products/whey-protein-chocolate-2kg-right.png",
       "/products/whey-protein-kesar-pista-1kg-left.png",
@@ -145,11 +145,26 @@ const products: Prisma.ProductCreateInput[] = [
 
 async function main() {
   console.log("Start seeding...");
+  await prisma.inventory.deleteMany();
   await prisma.product.deleteMany();
+
+  // Create default location for inventory
+  const location = await prisma.location.create({
+    data: { name: "Main Warehouse", address: "Amravati, Maharashtra, India", isActive: true }
+  });
+
   for (const product of products) {
-    await prisma.product.create({ data: product });
+    const created = await prisma.product.create({ data: product });
+    // Create inventory for each variant
+    const variants = await prisma.productVariant.findMany({ where: { productId: created.id } });
+    for (const variant of variants) {
+      await prisma.inventory.create({
+        data: { productVariantId: variant.id, locationId: location.id, quantity: 100, lowStockThreshold: 10 }
+      });
+    }
+    console.log(`  ✓ ${created.name} (${variants.length} variants)`);
   }
-  console.log(`Seeded ${products.length} products`);
+  console.log(`Seeded ${products.length} products with inventory`);
 }
 
 main()

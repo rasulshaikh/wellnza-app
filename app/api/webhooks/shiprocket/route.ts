@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { OrderStatus } from "@prisma/client";
+import crypto from "crypto";
 
 // Shiprocket status code → our OrderStatus
 const STATUS_MAP: Record<number, OrderStatus> = {
@@ -39,16 +40,28 @@ interface ShiprocketWebhookPayload {
 
 export async function POST(request: Request) {
   try {
-    // Optional: verify token if SHIPROCKET_WEBHOOK_TOKEN is set
-    const webhookToken = process.env.SHIPROCKET_WEBHOOK_TOKEN;
-    if (webhookToken) {
-      const authHeader = request.headers.get("authorization");
-      if (authHeader !== `Bearer ${webhookToken}`) {
-        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    const rawBody = await request.text();
+
+    // Verify HMAC signature if secret is configured
+    const webhookSecret = process.env.SHIPROCKET_WEBHOOK_SECRET;
+    if (webhookSecret) {
+      const signature = request.headers.get("x-shiprocket-signature");
+      if (!signature) {
+        console.error("[shiprocket-webhook] Missing signature header");
+        return NextResponse.json({ error: "Missing signature" }, { status: 400 });
+      }
+      const expectedBuf = Buffer.from(
+        crypto.createHmac("sha256", webhookSecret).update(rawBody).digest("hex"),
+        "hex"
+      );
+      const actualBuf = Buffer.from(signature, "hex");
+      if (expectedBuf.length !== actualBuf.length || !crypto.timingSafeEqual(expectedBuf, actualBuf)) {
+        console.error("[shiprocket-webhook] Signature mismatch");
+        return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
       }
     }
 
-    const payload: ShiprocketWebhookPayload = await request.json();
+    const payload: ShiprocketWebhookPayload = JSON.parse(rawBody);
     const { awb, current_status_id, order_id: srOrderNumber, current_status } = payload;
 
     console.log(`[shiprocket-webhook] AWB: ${awb}, status: ${current_status} (${current_status_id})`);

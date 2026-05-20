@@ -222,6 +222,7 @@ export default function CheckoutPage() {
 
       if (paymentMethod === "COD") {
         clearCart();
+        setIsProcessing(false);
         router.push(`/order-confirmation/${data.orderId}`);
         return;
       }

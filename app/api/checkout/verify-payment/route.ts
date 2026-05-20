@@ -27,25 +27,14 @@ export async function POST(request: Request) {
         where: { id: orderId, userId: session.user.id },
       });
     } else {
-      // Guest checkout: find by orderId + razorpayOrderId
+      // Guest checkout: find by orderId + razorpayOrderId (both are required as proof of ownership)
       order = await db.order.findFirst({
         where: {
           id: orderId,
           razorpayOrderId,
-          // Guests have no userId
           userId: null,
         },
       });
-      // Also check for orders with matching razorpayOrderId even if they have a userId
-      // (edge case: guest created account during checkout)
-      if (!order) {
-        order = await db.order.findFirst({
-          where: {
-            id: orderId,
-            razorpayOrderId,
-          },
-        });
-      }
     }
 
     if (!order) {
@@ -55,7 +44,8 @@ export async function POST(request: Request) {
       );
     }
 
-    // Already processed
+    // Already processed or in terminal state — treat as success for idempotency
+    const TERMINAL_STATES = ["PROCESSING", "SHIPPED", "DELIVERED", "CANCELLED"];
     if (order.status !== "PENDING") {
       return NextResponse.json({ success: true, alreadyVerified: true });
     }
@@ -93,7 +83,10 @@ export async function POST(request: Request) {
       .update(`${razorpayOrderId}|${razorpayPaymentId}`)
       .digest("hex");
 
-    if (expectedSignature !== razorpaySignature) {
+    // Timing-safe signature comparison
+    const expectedBuf = Buffer.from(expectedSignature, "hex");
+    const actualBuf = Buffer.from(razorpaySignature, "hex");
+    if (expectedBuf.length !== actualBuf.length || !crypto.timingSafeEqual(expectedBuf, actualBuf)) {
       console.error("[verify-payment] Signature mismatch for order:", orderId);
       return NextResponse.json(
         { success: false, error: "Invalid payment signature" },
@@ -124,8 +117,15 @@ export async function POST(request: Request) {
 
     // Send payment confirmed email
     try {
-      // Get email from user relation or fall back to guest lookup via address
-      const email = updatedOrder.user?.email;
+      let email = updatedOrder.user?.email;
+      // For guest orders (userId null), look up the guest user via the shipping address
+      if (!email && !updatedOrder.userId) {
+        const guestOrder = await db.order.findUnique({
+          where: { id: updatedOrder.id },
+          include: { shippingAddress: { include: { user: { select: { email: true, name: true } } } } },
+        });
+        email = guestOrder?.shippingAddress?.user?.email;
+      }
       if (email) {
         const deliveryDate = new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toLocaleDateString("en-IN", { weekday: "long", day: "numeric", month: "long" });
         const orderItems = updatedOrder.items.map((i) => ({

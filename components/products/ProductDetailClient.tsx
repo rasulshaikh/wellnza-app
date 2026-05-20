@@ -90,7 +90,7 @@ export function ProductDetailClient({
           >
             {formatCurrency(variants[selectedVariantIndex]?.price ?? defaultPrice)}
           </span>
-          {comparePrice && comparePrice > defaultPrice && (
+          {comparePrice && comparePrice > (variants[selectedVariantIndex]?.price ?? defaultPrice) && (
             <>
               <span className="text-lg line-through" style={{ color: "#7B9E6B" }}>
                 {formatCurrency(comparePrice)}
@@ -99,7 +99,7 @@ export function ProductDetailClient({
                 className="rounded-md px-2 py-1 text-xs font-semibold text-white"
                 style={{ background: "#2E7D32" }}
               >
-                Save {Math.round(((comparePrice - defaultPrice) / comparePrice) * 100)}%
+                Save {Math.round(((comparePrice - (variants[selectedVariantIndex]?.price ?? defaultPrice)) / comparePrice) * 100)}%
               </span>
             </>
           )}

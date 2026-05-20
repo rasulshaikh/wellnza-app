@@ -92,16 +92,27 @@ export async function PATCH(
 
   // Send status email
   try {
-    if (!order.user?.email) throw new Error("No user email");
+    let email = order.user?.email;
+    let customerName = order.user?.name;
+    // For guest orders (userId null), look up email/name via shipping address
+    if (!email && !order.userId) {
+      const guestOrder = await db.order.findUnique({
+        where: { id: order.id },
+        include: { shippingAddress: { include: { user: { select: { email: true, name: true } } } } },
+      });
+      email = guestOrder?.shippingAddress?.user?.email;
+      customerName = guestOrder?.shippingAddress?.user?.name || customerName;
+    }
+    if (!email) throw new Error("No email found");
     const { sendEmail } = await import("@/lib/email");
 
     if (status === "SHIPPED") {
       const { OrderShippedEmail } = await import("@/lib/email-templates/order-shipped");
       await sendEmail({
-        to: order.user.email,
+        to: email,
         subject: `Order #${order.orderNumber} Shipped — Wellnza Nutrition`,
         react: OrderShippedEmail({
-          name: order.user.name || "Customer",
+          name: customerName || "Customer",
           orderNumber: order.orderNumber,
           trackingNumber: order.trackingNumber || undefined,
           trackingCarrier: order.trackingCarrier || undefined,
@@ -110,16 +121,16 @@ export async function PATCH(
     } else if (status === "DELIVERED") {
       const { OrderDeliveredEmail } = await import("@/lib/email-templates/order-delivered");
       await sendEmail({
-        to: order.user.email,
+        to: email,
         subject: `Order #${order.orderNumber} Delivered — Wellnza Nutrition`,
-        react: OrderDeliveredEmail({ name: order.user.name || "Customer", orderNumber: order.orderNumber }),
+        react: OrderDeliveredEmail({ name: customerName || "Customer", orderNumber: order.orderNumber }),
       });
     } else if (status === "CANCELLED") {
       const { OrderCancelledEmail } = await import("@/lib/email-templates/order-cancelled");
       await sendEmail({
-        to: order.user.email,
+        to: email,
         subject: `Order #${order.orderNumber} Cancelled — Wellnza Nutrition`,
-        react: OrderCancelledEmail({ name: order.user.name || "Customer", orderNumber: order.orderNumber }),
+        react: OrderCancelledEmail({ name: customerName || "Customer", orderNumber: order.orderNumber }),
       });
     }
   } catch (err) {
