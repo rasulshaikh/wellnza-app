@@ -26,19 +26,18 @@ function stockBadge(variantId: string, inventory: VariantStock[]) {
   const label = getVariantStockLabel(variantId, inventory);
   if (status === "out_of_stock") {
     return (
-      <span className="rounded bg-red-100 px-1.5 py-0.5 text-[10px] font-medium text-red-700">
+      <span className="rounded px-1.5 py-0.5 text-[10px] font-medium" style={{ background: "rgba(185,28,28,0.1)", color: "#B91C1C" }}>
         {label}
       </span>
     );
   }
   if (status === "low_stock") {
     return (
-      <span className="rounded bg-amber-100 px-1.5 py-0.5 text-[10px] font-medium text-amber-700">
+      <span className="rounded px-1.5 py-0.5 text-[10px] font-medium" style={{ background: "rgba(180,83,9,0.1)", color: "#B45309" }}>
         {label}
       </span>
     );
   }
-  // Don't show badge for in_stock - no badge needed when items are available
   return null;
 }
 
@@ -50,90 +49,86 @@ export function VariantSelector({
 }: VariantSelectorProps) {
   const flavors = useMemo(() => [...new Set(variants.map((v) => v.flavor))], [variants]);
   if (!variants || variants.length === 0) return null;
-  const selectedVariant = variants.find((v) => v.id === selectedVariantId);
 
-  // If flavors only, show flat list
+  const btnBase = "flex items-center gap-1.5 rounded-lg border px-4 py-2 text-sm font-medium transition-all cursor-pointer";
+  const btnSelected = "text-white";
+  const btnUnselected = "text-[#1a1a1a] hover:border-[#2E7D32] hover:text-[#2E7D32]";
+  const selectedStyle = { background: "#2E7D32", borderColor: "#2E7D32" };
+  const unselectedStyle = { background: "#fff", borderColor: "rgba(46,125,50,0.25)" };
+
+  // Single flavor with multiple sizes — show inline size chips
   if (flavors.length === 1 && variants.length > 1 && variants[0].size) {
-    // Has sizes — show size chips after flavor
     return (
       <div className="space-y-3">
-        <div className="flex items-center gap-2">
-          <span className="text-sm font-medium text-foreground">{variants[0].flavor}</span>
-          <span className="text-sm text-muted-foreground">/</span>
-          <div className="flex gap-2">
-            {variants.map((v) => (
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="text-sm font-medium" style={{ color: "#1a1a1a", fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>
+            {variants[0].flavor}
+          </span>
+          <span style={{ color: "#7B9E6B" }}>/</span>
+          {variants.map((v) => {
+            const isSelected = selectedVariantId === v.id;
+            const oos = getVariantStockStatus(v.id, inventory) === "out_of_stock";
+            return (
               <button
                 key={v.id}
                 onClick={() => onSelectVariant(v.id)}
-                disabled={getVariantStockStatus(v.id, inventory) === "out_of_stock"}
-                aria-label={`${v.flavor}${v.size ? ` / ${v.size}` : ''}`}
-                className={cn(
-                  "flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-sm transition-all",
-                  selectedVariantId === v.id
-                    ? "border-primary bg-primary text-primary-foreground"
-                    : "border-border hover:border-muted-foreground/50",
-                  getVariantStockStatus(v.id, inventory) === "out_of_stock" && "opacity-50"
-                )}
+                disabled={oos}
+                aria-label={`${v.flavor}${v.size ? ` / ${v.size}` : ""}`}
+                className={cn(btnBase, isSelected ? btnSelected : btnUnselected, oos && "opacity-40 cursor-not-allowed")}
+                style={isSelected ? selectedStyle : unselectedStyle}
               >
                 <span>{v.size}</span>
                 {stockBadge(v.id, inventory)}
               </button>
-            ))}
-          </div>
+            );
+          })}
         </div>
       </div>
     );
   }
 
-  // Multiple flavors — show flavor buttons
+  // Multiple flavors — show each as a selectable chip
   return (
-    <div className="space-y-3">
+    <div className="flex flex-wrap gap-2">
       {flavors.map((flavor) => {
         const flavorVariants = variants.filter((v) => v.flavor === flavor);
         const hasSizes = flavorVariants[0].size != null;
 
+        if (hasSizes) {
+          return flavorVariants.map((v) => {
+            const isSelected = selectedVariantId === v.id;
+            const oos = getVariantStockStatus(v.id, inventory) === "out_of_stock";
+            return (
+              <button
+                key={v.id}
+                onClick={() => onSelectVariant(v.id)}
+                disabled={oos}
+                aria-label={`${flavor}${v.size ? ` / ${v.size}` : ""}`}
+                className={cn(btnBase, isSelected ? btnSelected : btnUnselected, oos && "opacity-40 cursor-not-allowed")}
+                style={isSelected ? selectedStyle : unselectedStyle}
+              >
+                <span>{flavor}{v.size ? ` / ${v.size}` : ""}</span>
+                {stockBadge(v.id, inventory)}
+              </button>
+            );
+          });
+        }
+
+        const v = flavorVariants[0];
+        const isSelected = selectedVariantId === v.id;
+        const oos = getVariantStockStatus(v.id, inventory) === "out_of_stock";
         return (
-          <div key={flavor} className="space-y-2">
-            <span className="text-sm font-medium text-foreground">{flavor}</span>
-            <div className="flex flex-wrap gap-2">
-              {hasSizes ? (
-                flavorVariants.map((v) => (
-                  <button
-                    key={v.id}
-                    onClick={() => onSelectVariant(v.id)}
-                    disabled={getVariantStockStatus(v.id, inventory) === "out_of_stock"}
-                    aria-label={`${flavor}${v.size ? ` / ${v.size}` : ''}`}
-                    className={cn(
-                      "flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-sm transition-all",
-                      selectedVariantId === v.id
-                        ? "border-primary bg-primary text-primary-foreground"
-                        : "border-border hover:border-muted-foreground/50",
-                      getVariantStockStatus(v.id, inventory) === "out_of_stock" && "opacity-50"
-                    )}
-                  >
-                    <span>{v.size}</span>
-                    {stockBadge(v.id, inventory)}
-                  </button>
-                ))
-              ) : (
-                <button
-                  onClick={() => onSelectVariant(flavorVariants[0].id)}
-                  disabled={getVariantStockStatus(flavorVariants[0].id, inventory) === "out_of_stock"}
-                  aria-label={flavor}
-                  className={cn(
-                    "flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-sm transition-all",
-                    selectedVariantId === flavorVariants[0].id
-                      ? "border-primary bg-primary text-primary-foreground"
-                      : "border-border hover:border-muted-foreground/50",
-                    getVariantStockStatus(flavorVariants[0].id, inventory) === "out_of_stock" && "opacity-50"
-                  )}
-                >
-                  <span>{flavor}</span>
-                  {stockBadge(flavorVariants[0].id, inventory)}
-                </button>
-              )}
-            </div>
-          </div>
+          <button
+            key={v.id}
+            onClick={() => onSelectVariant(v.id)}
+            disabled={oos}
+            aria-label={flavor}
+            className={cn(btnBase, isSelected ? btnSelected : btnUnselected, oos && "opacity-40 cursor-not-allowed")}
+            style={isSelected ? selectedStyle : unselectedStyle}
+          >
+            <span>{flavor}</span>
+            {stockBadge(v.id, inventory)}
+          </button>
         );
       })}
     </div>
