@@ -50,11 +50,11 @@ export function VariantSelector({
   const flavors = useMemo(() => [...new Set(variants.map((v) => v.flavor))], [variants]);
   if (!variants || variants.length === 0) return null;
 
-  const btnBase = "flex items-center gap-1.5 rounded-lg border px-4 py-2 text-sm font-medium transition-all cursor-pointer";
+  const btnBase = "flex items-center gap-1.5 rounded-lg border-2 px-4 py-2 text-sm font-medium transition-all cursor-pointer";
   const btnSelected = "text-white";
-  const btnUnselected = "text-[#1a1a1a] hover:border-[#2E7D32] hover:text-[#2E7D32]";
-  const selectedStyle = { background: "#2E7D32", borderColor: "#2E7D32" };
-  const unselectedStyle = { background: "#fff", borderColor: "rgba(46,125,50,0.25)" };
+  const btnUnselected = "text-[#1a1a1a] hover:border-[#14532D] hover:text-[#14532D]";
+  const selectedStyle = { background: "#14532D", borderColor: "#14532D" };
+  const unselectedStyle = { background: "#fff", borderColor: "rgba(20,83,45,0.45)" };
 
   // Single flavor with multiple sizes — show inline size chips
   if (flavors.length === 1 && variants.length > 1 && variants[0].size) {
