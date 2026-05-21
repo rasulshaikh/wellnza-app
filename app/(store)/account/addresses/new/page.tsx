@@ -88,8 +88,8 @@ export default function NewAddressPage() {
         {/* Header */}
         <div className="flex items-center gap-4 mb-6">
           <Link href="/account/addresses">
-            <Button variant="outline" size="icon" className="h-9 w-9" style={{ borderColor: "rgba(46,125,50,0.15)" }}>
-              <ArrowLeft className="w-4 h-4" style={{ color: "#2E7D32" }} />
+            <Button variant="outline" size="icon" className="h-9 w-9" style={{ borderColor: "rgba(20,83,45,0.15)" }}>
+              <ArrowLeft className="w-4 h-4" style={{ color: "#14532D" }} />
             </Button>
           </Link>
           <h1 className="text-xl font-bold" style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#1a1a1a" }}>Add New Address</h1>
@@ -101,7 +101,7 @@ export default function NewAddressPage() {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="bg-white border p-6 space-y-4" style={{ borderColor: "rgba(46,125,50,0.15)" }}>
+        <form onSubmit={handleSubmit} className="bg-white border p-6 space-y-4" style={{ borderColor: "rgba(20,83,45,0.15)" }}>
           <div>
             <Label htmlFor="name">Full Name *</Label>
             <Input
@@ -209,7 +209,7 @@ export default function NewAddressPage() {
 
           <div className="flex gap-3 pt-2">
             <Link href="/account/addresses" className="flex-1">
-              <Button type="button" variant="outline" className="w-full h-10" style={{ borderColor: "rgba(46,125,50,0.15)", color: "#1a1a1a" }}>
+              <Button type="button" variant="outline" className="w-full h-10" style={{ borderColor: "rgba(20,83,45,0.15)", color: "#1a1a1a" }}>
                 Cancel
               </Button>
             </Link>
@@ -217,7 +217,7 @@ export default function NewAddressPage() {
               type="submit"
               disabled={loading}
               className="flex-1 text-white h-10"
-              style={{ background: "#2E7D32" }}
+              style={{ background: "#14532D" }}
             >
               {loading ? (
                 <>

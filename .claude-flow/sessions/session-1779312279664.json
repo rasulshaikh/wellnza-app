@@ -1,0 +1,14 @@
+{
+  "id": "session-1779312279664",
+  "startedAt": "2026-05-20T21:24:39.664Z",
+  "cwd": "/Users/rasul/Projects/well-nz-nutrition",
+  "context": {},
+  "metrics": {
+    "edits": 34,
+    "commands": 0,
+    "tasks": 0,
+    "errors": 0
+  },
+  "endedAt": "2026-05-20T22:21:29.638Z",
+  "duration": 3409975
+}

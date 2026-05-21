@@ -32,7 +32,7 @@ export function NewsletterForm() {
 
   if (status === "success") {
     return (
-      <p className="mt-4 text-sm font-medium text-[#2E7D32]">
+      <p className="mt-4 text-sm font-medium text-[#14532D]">
         Welcome to the Wellnza community!
       </p>
     );
@@ -48,13 +48,13 @@ export function NewsletterForm() {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         required
-        className="px-4 py-2 bg-white border border-[#2E7D32]/30 text-[#0D0D0D] placeholder-[#6B7280] w-64 rounded-md font-sans"
+        className="px-4 py-2 bg-white border border-[#14532D]/30 text-[#0D0D0D] placeholder-[#6B7280] w-64 rounded-md font-sans"
         style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}
       />
       <button
         type="submit"
         disabled={status === "loading"}
-        className="px-6 py-2 bg-[#2E7D32] text-white font-semibold hover:bg-[#1B5E20] transition disabled:opacity-60 rounded-md"
+        className="px-6 py-2 bg-[#14532D] text-white font-semibold hover:bg-[#0F3D20] transition disabled:opacity-60 rounded-md"
         style={{ borderRadius: '4px' }}
       >
         {status === "loading" ? "..." : "Get 10% Off"}

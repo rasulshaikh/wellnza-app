@@ -34,10 +34,10 @@ function LoadingSkeleton() {
         <div
           key={i}
           className="rounded-lg overflow-hidden"
-          style={{ animationDelay: `${i * 100}ms`, background: "#FFFFFF", border: "1px solid rgba(46, 125, 50, 0.15)", boxShadow: "0 2px 8px rgba(46, 125, 50, 0.06)" }}
+          style={{ animationDelay: `${i * 100}ms`, background: "#FFFFFF", border: "1px solid rgba(20, 83, 45, 0.12)", boxShadow: "0 2px 8px rgba(20, 83, 45, 0.04)" }}
         >
-          <div className="aspect-square relative" style={{ background: "#FFFFFF" }}>
-            <div className="absolute top-0 left-0 right-0 h-[3px] bg-[#2E7D32]" />
+          <div className="aspect-square relative" style={{ background: "#F7F3EC" }}>
+            <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: "#E8A020" }} />
             <Skeleton className="h-full w-full" />
           </div>
           <div className="p-5 space-y-3">
@@ -63,10 +63,10 @@ export function ProductGrid({ products, isLoading }: ProductGridProps) {
         className="flex flex-col items-center justify-center py-20 text-center"
         style={{ background: "#FAFAF8" }}
       >
-        <div className="mb-6 flex h-20 w-20 items-center justify-center" style={{ background: "#FFFFFF", border: "1px solid rgba(46, 125, 50, 0.15)", boxShadow: "0 2px 8px rgba(46, 125, 50, 0.06)" }}>
+        <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-xl" style={{ background: "#FFFFFF", border: "1px solid rgba(20, 83, 45, 0.12)", boxShadow: "0 2px 8px rgba(20, 83, 45, 0.06)" }}>
           <svg
             className="size-10"
-            style={{ color: "#2E7D32" }}
+            style={{ color: "#14532D" }}
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -77,14 +77,14 @@ export function ProductGrid({ products, isLoading }: ProductGridProps) {
           </svg>
         </div>
         <h3
-          className="text-2xl font-bold mb-2"
-          style={{ fontFamily: "'Playfair Display', serif", color: "#1a1a1a" }}
+          className="text-2xl font-bold mb-2 uppercase tracking-wide"
+          style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#1a1a1a" }}
         >
           No Products Found
         </h3>
         <p
           className="text-[14px]"
-          style={{ fontFamily: "'DM Sans', sans-serif", color: "#7B9E6B", letterSpacing: "0.5px" }}
+          style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#6B7B6F", letterSpacing: "0.5px" }}
         >
           Try adjusting your filters or search query
         </p>

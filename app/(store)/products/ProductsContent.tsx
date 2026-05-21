@@ -57,10 +57,14 @@ export function ProductsContent() {
   const maxPrice = searchParams.get("maxPrice");
   const dietary = searchParams.getAll("dietary");
 
+  // Stabilize array deps as strings so useCallback doesn't re-create on every render
+  const categoriesKey = categories.join(",");
+  const dietaryKey = dietary.join(",");
+
   const fetchProducts = useCallback(() => {
     const params = new URLSearchParams();
-    categories.forEach((c) => params.append("category", c));
-    dietary.forEach((d) => params.append("dietary", d));
+    categoriesKey.split(",").filter(Boolean).forEach((c) => params.append("category", c));
+    dietaryKey.split(",").filter(Boolean).forEach((d) => params.append("dietary", d));
     if (search) params.set("search", search);
     if (sort && sort !== "default") params.set("sort", sort);
     if (minPrice) params.set("minPrice", minPrice);
@@ -79,7 +83,7 @@ export function ProductsContent() {
         // silently handle fetch errors
       }
     });
-  }, [categories, dietary, search, sort, minPrice, maxPrice, offset]);
+  }, [categoriesKey, dietaryKey, search, sort, minPrice, maxPrice, offset]);
 
   useEffect(() => {
     if (debounceRef.current) {
@@ -138,15 +142,15 @@ export function ProductsContent() {
     <div className="flex flex-1 flex-col" style={{ background: "#FAFAF8", minHeight: "100vh" }}>
       {/* Page header - Botanical White */}
       <div
-        className="border-b border-[#2E7D32]/15 px-4 py-8 md:px-8"
+        className="border-b border-[#14532D]/15 px-4 py-8 md:px-8"
         style={{ background: "#FAFAF8" }}
       >
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-5">
           {/* Tag Line */}
           <div className="flex items-center gap-3">
-            <div className="h-[2px] w-8 bg-[#2E7D32]" />
+            <div className="h-[2px] w-8 bg-[#14532D]" />
             <span
-              className="text-[12px] tracking-[3px] text-[#2E7D32]"
+              className="text-[12px] tracking-[3px] text-[#14532D]"
               style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}
             >
               WELLNESS, ROOTED IN NATURE
@@ -181,7 +185,7 @@ export function ProductsContent() {
                 type="search"
                 placeholder="Search supplements..."
                 defaultValue={search}
-                className="h-12 flex-1 rounded-md border border-[#2E7D32]/20 bg-white pl-10 pr-10 text-[13px] text-[#1a1a1a] placeholder:text-[#7B9E6B] focus:border-[#2E7D32] focus:outline-none focus:ring-1 focus:ring-[#2E7D32]"
+                className="h-12 flex-1 rounded-md border border-[#14532D]/20 bg-white pl-10 pr-10 text-[13px] text-[#1a1a1a] placeholder:text-[#7B9E6B] focus:border-[#14532D] focus:outline-none focus:ring-1 focus:ring-[#14532D]"
                 style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}
                 aria-label="Search products"
               />
@@ -189,7 +193,7 @@ export function ProductsContent() {
                 <button
                   type="button"
                   onClick={clearSearch}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#7B9E6B] hover:text-[#2E7D32] transition-colors"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#7B9E6B] hover:text-[#14532D] transition-colors"
                   aria-label="Clear search"
                 >
                   <X className="size-4" />
@@ -199,7 +203,7 @@ export function ProductsContent() {
             <Button
               type="submit"
               className="h-12 !px-6 rounded-md"
-              style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", backgroundColor: "#2E7D32", color: "#fff" }}
+              style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", backgroundColor: "#14532D", color: "#fff" }}
               aria-label="Submit search"
             >
               Search
@@ -208,26 +212,26 @@ export function ProductsContent() {
 
           {/* Trust Badges Row */}
           <div className="flex flex-wrap gap-3 pt-2">
-            <div className="flex items-center gap-2 rounded-full border border-[#2E7D32]/20 bg-white px-4 py-2" aria-label="Free shipping on all orders">
-              <svg className="h-3.5 w-3.5 text-[#2E7D32]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <div className="flex items-center gap-2 rounded-full border border-[#14532D]/20 bg-white px-4 py-2" aria-label="Free shipping on all orders">
+              <svg className="h-3.5 w-3.5 text-[#14532D]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M18 1l-4 4-3-3-5 5 3 3-5 5 5 5 3-3 4 4 1-1-4-4 4-4-1-1zm-6 8l-2 2 4 4 4-4-2-2-2 2-2-2z"/>
               </svg>
               <span style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", fontSize: "11px", color: "#1a1a1a", letterSpacing: "1px" }}>FREE SHIPPING</span>
             </div>
-            <div className="flex items-center gap-2 rounded-full border border-[#2E7D32]/20 bg-white px-4 py-2" aria-label="Lab tested products">
-              <svg className="h-3.5 w-3.5 text-[#2E7D32]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <div className="flex items-center gap-2 rounded-full border border-[#14532D]/20 bg-white px-4 py-2" aria-label="Lab tested products">
+              <svg className="h-3.5 w-3.5 text-[#14532D]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M12 2L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
               </svg>
               <span style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", fontSize: "11px", color: "#1a1a1a", letterSpacing: "1px" }}>THIRD-PARTY TESTED</span>
             </div>
-            <div className="flex items-center gap-2 rounded-full border border-[#2E7D32]/20 bg-white px-4 py-2" aria-label="100% authentic products">
-              <svg className="h-3.5 w-3.5 text-[#2E7D32]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <div className="flex items-center gap-2 rounded-full border border-[#14532D]/20 bg-white px-4 py-2" aria-label="100% authentic products">
+              <svg className="h-3.5 w-3.5 text-[#14532D]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
               </svg>
               <span style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", fontSize: "11px", color: "#1a1a1a", letterSpacing: "1px" }}>100% AUTHENTIC</span>
             </div>
-            <div className="flex items-center gap-2 rounded-full border border-[#2E7D32]/20 bg-white px-4 py-2" aria-label="Natural ingredients">
-              <svg className="h-3.5 w-3.5 text-[#2E7D32]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <div className="flex items-center gap-2 rounded-full border border-[#14532D]/20 bg-white px-4 py-2" aria-label="Natural ingredients">
+              <svg className="h-3.5 w-3.5 text-[#14532D]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/>
               </svg>
               <span style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", fontSize: "11px", color: "#1a1a1a", letterSpacing: "1px" }}>NATURAL INGREDIENTS</span>
@@ -243,7 +247,7 @@ export function ProductsContent() {
           <div className="py-6 pr-8 hidden lg:block">
             <div
               className="w-56 shrink-0 p-4 rounded-md"
-              style={{ background: "#fff", border: "1px solid rgba(46, 125, 50, 0.15)", boxShadow: "0 2px 8px rgba(46, 125, 50, 0.06)" }}
+              style={{ background: "#fff", border: "1px solid rgba(20, 83, 45, 0.15)", boxShadow: "0 2px 8px rgba(20, 83, 45, 0.06)" }}
             >
               <ProductFilters className="!p-0" />
             </div>
@@ -271,7 +275,7 @@ export function ProductsContent() {
                     }
                     router.push(`/products?${newParams.toString()}`);
                   }}
-                  className="h-10 rounded-md border border-[#2E7D32]/20 bg-white px-3 py-1.5 text-[13px] text-[#1a1a1a] focus:border-[#2E7D32] focus:outline-none focus:ring-1 focus:ring-[#2E7D32]"
+                  className="h-10 rounded-md border border-[#14532D]/20 bg-white px-3 py-1.5 text-[13px] text-[#1a1a1a] focus:border-[#14532D] focus:outline-none focus:ring-1 focus:ring-[#14532D]"
                   style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}
                   aria-label="Sort products"
                 >
@@ -306,7 +310,7 @@ export function ProductsContent() {
             {/* Testimonial - Botanical */}
             <div
               className="mt-16 rounded-md py-12 text-center"
-              style={{ background: "linear-gradient(180deg, #fff 0%, #FAFAF8 100%)", border: "1px solid rgba(46, 125, 50, 0.1)" }}
+              style={{ background: "linear-gradient(180deg, #fff 0%, #FAFAF8 100%)", border: "1px solid rgba(20, 83, 45, 0.1)" }}
             >
               <div className="mb-4 flex justify-center">
                 <span className="text-2xl">◆</span>
@@ -320,7 +324,7 @@ export function ProductsContent() {
                 </p>
               </blockquote>
               <p
-                className="mt-4 font-semibold text-[#2E7D32]"
+                className="mt-4 font-semibold text-[#14532D]"
                 style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", letterSpacing: "2px" }}
               >
                 — PRIYA, MUMBAI · FITNESS ENTHUSIAST
@@ -340,7 +344,7 @@ export function ProductsContent() {
                 <button
                   onClick={() => navigateToOffset(prevOffset)}
                   disabled={offset === 0}
-                  className="flex items-center gap-2 rounded-md px-4 py-2 text-[13px] text-[#1a1a1a] border border-[#2E7D32]/20 bg-white hover:border-[#2E7D32] hover:text-[#2E7D32] transition-colors disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:border-[#2E7D32]/20 disabled:hover:text-[#1a1a1a]"
+                  className="flex items-center gap-2 rounded-md px-4 py-2 text-[13px] text-[#1a1a1a] border border-[#14532D]/20 bg-white hover:border-[#14532D] hover:text-[#14532D] transition-colors disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:border-[#14532D]/20 disabled:hover:text-[#1a1a1a]"
                   style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}
                   aria-label="Previous page"
                 >
@@ -357,7 +361,7 @@ export function ProductsContent() {
                 <button
                   onClick={() => navigateToOffset(nextOffset)}
                   disabled={offset + LIMIT >= total}
-                  className="flex items-center gap-2 rounded-md px-4 py-2 text-[13px] text-[#1a1a1a] border border-[#2E7D32]/20 bg-white hover:border-[#2E7D32] hover:text-[#2E7D32] transition-colors disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:border-[#2E7D32]/20 disabled:hover:text-[#1a1a1a]"
+                  className="flex items-center gap-2 rounded-md px-4 py-2 text-[13px] text-[#1a1a1a] border border-[#14532D]/20 bg-white hover:border-[#14532D] hover:text-[#14532D] transition-colors disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:border-[#14532D]/20 disabled:hover:text-[#1a1a1a]"
                   style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}
                   aria-label="Next page"
                 >
@@ -373,7 +377,7 @@ export function ProductsContent() {
       {/* Bottom Tagline */}
       <div
         className="py-6 px-4 md:px-8"
-        style={{ background: "#FAFAF8", borderTop: "1px solid rgba(46, 125, 50, 0.1)" }}
+        style={{ background: "#FAFAF8", borderTop: "1px solid rgba(20, 83, 45, 0.1)" }}
       >
         <div className="mx-auto max-w-7xl flex flex-wrap items-center justify-between gap-4">
           <p

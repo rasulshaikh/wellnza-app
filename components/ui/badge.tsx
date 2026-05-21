@@ -18,12 +18,12 @@ const badgeVariants = cva(
           "text-[#57534E] hover:text-[#57534E] [a]:hover:bg-[#F5F5EB] [a]:hover:text-[#57534E]",
         ghost:
           "text-[#57534E] hover:bg-[#F5F5EB] hover:text-[#57534E]",
-        link: "text-[#2E7D32] underline-offset-4 hover:underline",
+        link: "text-[#14532D] underline-offset-4 hover:underline",
         // Filter chip selected state
         "filter-selected": "text-white border-transparent hover:opacity-90",
         // Status chips
-        "eco-certified": "text-[#2E7D32] border-transparent",
-        "in-stock": "text-[#2E7D32] border-transparent",
+        "eco-certified": "text-[#14532D] border-transparent",
+        "in-stock": "text-[#14532D] border-transparent",
         "low-stock": "text-[#CA8A04] border-transparent",
         "out-of-stock": "text-[#B91C1C] border-transparent",
       },

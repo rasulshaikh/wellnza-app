@@ -66,12 +66,7 @@ export default async function HomePage() {
               {/* Headline */}
               <h1 className="leading-none" style={{ color: "#F7F3EC", textTransform: "uppercase", fontFamily: "var(--font-rajdhani)", fontWeight: 700, fontSize: "clamp(48px,8vw,88px)", letterSpacing: "0.01em" }}>
                 Built for<br />
-                <span style={{
-                  background: "linear-gradient(135deg, #E8A020 0%, #F5C842 50%, #E8A020 100%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
-                }}>
+                <span style={{ color: "#E8A020" }}>
                   Champions
                 </span>
               </h1>
@@ -131,17 +126,15 @@ export default async function HomePage() {
               <div className="relative w-full" style={{ maxWidth: "680px" }}>
                 {/* Center panel — FULL bleed, no rings */}
                 <div
-                  className="rounded-2xl flex items-center justify-center overflow-hidden"
+                  className="relative rounded-2xl overflow-hidden"
                   style={{ background: "rgba(232,160,32,0.04)", aspectRatio: "1/1" }}
                 >
                   {products.length > 0 ? (
-                    <Link href={`/products/${products[0].slug}`}>
-                      <HeroCarousel
-                        images={products.flatMap((p) =>
-                          p.images.slice(0, 2).map((src) => ({ src, alt: p.name, slug: p.slug }))
-                        )}
-                      />
-                    </Link>
+                    <HeroCarousel
+                      images={products.flatMap((p) =>
+                        p.images.slice(0, 2).map((src) => ({ src, alt: p.name, slug: p.slug }))
+                      )}
+                    />
                   ) : (
                     <div className="text-center p-8">
                       <p
@@ -302,14 +295,15 @@ export default async function HomePage() {
                     style={{ animationDelay: `${i * 0.08}s` }}
                   >
                     {/* Image */}
-                    <div className="relative aspect-square img-zoom" style={{ background: "#F7F3EC" }}>
+                    <div className="relative aspect-square img-zoom" style={{ background: "#F7F3EC", padding: "8px" }}>
                       {product.images[0] ? (
                         <Image
                           src={product.images[0]}
                           alt={product.name}
                           fill
-                          className="object-cover"
+                          className="object-contain"
                           sizes="(max-width: 768px) 50vw, 33vw"
+                          style={{ filter: "drop-shadow(0 4px 12px rgba(0,0,0,0.12))" }}
                         />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center">
@@ -401,12 +395,7 @@ export default async function HomePage() {
               style={{ fontFamily: "var(--font-rajdhani)", fontSize: "clamp(36px,6vw,64px)", fontWeight: 700, color: "#F7F3EC", letterSpacing: "0.02em" }}
             >
               From the Heart of<br />
-              <span style={{
-                background: "linear-gradient(135deg, #E8A020, #F5C842)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}>
+              <span style={{ color: "#E8A020" }}>
                 Maharashtra
               </span>
             </h2>

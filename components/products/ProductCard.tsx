@@ -44,10 +44,10 @@ const CATEGORY_LABELS: Record<string, string> = {
 
 const CATEGORY_ACCENT: Record<string, string> = {
   PRE_WORKOUT: "#E8A020",
-  PROTEIN: "#2E7D32",
-  MASS_GAINER: "#1565C0",
-  OMEGA_3: "#0097A7",
-  MULTIVITAMIN: "#6A1B9A",
+  PROTEIN: "#14532D",
+  MASS_GAINER: "#14532D",
+  OMEGA_3: "#14532D",
+  MULTIVITAMIN: "#E8A020",
 };
 
 export function ProductCard({
@@ -105,7 +105,7 @@ export function ProductCard({
   const fallback = `https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&h=600&fit=crop`;
   const imageSrc = imageError || !primaryImage ? fallback : primaryImage;
   const categoryLabel = CATEGORY_LABELS[category] ?? category;
-  const accent = CATEGORY_ACCENT[category] ?? "#2E7D32";
+  const accent = CATEGORY_ACCENT[category] ?? "#14532D";
 
   return (
     <motion.div

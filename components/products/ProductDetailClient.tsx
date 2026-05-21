@@ -62,9 +62,9 @@ export function ProductDetailClient({
         <span
           className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider w-fit"
           style={{
-            background: `${"#2E7D32"}15`,
-            color: "#2E7D32",
-            border: `1px solid ${"#2E7D32"}30`,
+            background: `${"#14532D"}15`,
+            color: "#14532D",
+            border: `1px solid ${"#14532D"}30`,
           }}
         >
           {categoryLabel}
@@ -97,7 +97,7 @@ export function ProductDetailClient({
               </span>
               <span
                 className="rounded-md px-2 py-1 text-xs font-semibold text-white"
-                style={{ background: "#2E7D32" }}
+                style={{ background: "#14532D" }}
               >
                 Save {Math.round(((comparePrice - (variants[selectedVariantIndex]?.price ?? defaultPrice)) / comparePrice) * 100)}%
               </span>

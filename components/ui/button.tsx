@@ -11,14 +11,14 @@ const buttonVariants = cva(
         default:
           "text-white border-transparent hover:opacity-90 active:opacity-80",
         outline:
-          "border-2 bg-transparent hover:bg-[#FAFAF8] border-[#2E7D32] text-[#2E7D32]",
+          "border-2 bg-transparent hover:bg-[#FAFAF8] border-[#14532D] text-[#14532D]",
         secondary:
-          "border-2 bg-transparent hover:bg-[#FAFAF8] border-[#2E7D32] text-[#2E7D32]",
+          "border-2 bg-transparent hover:bg-[#FAFAF8] border-[#14532D] text-[#14532D]",
         ghost:
-          "bg-transparent border-transparent hover:bg-[#FAFAF8] text-[#2E7D32]",
+          "bg-transparent border-transparent hover:bg-[#FAFAF8] text-[#14532D]",
         destructive:
           "bg-[#B91C1C] text-white border-transparent hover:bg-[#991B1B]",
-        link: "text-[#2E7D32] underline-offset-4 hover:underline",
+        link: "text-[#14532D] underline-offset-4 hover:underline",
       },
       size: {
         default: "h-10 gap-1.5 px-3 rounded-lg has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",

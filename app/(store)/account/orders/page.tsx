@@ -36,7 +36,7 @@ export default async function OrdersPage() {
         {/* Header */}
         <div className="flex items-center gap-4 mb-6">
           <Link href="/account">
-            <Button variant="outline" size="icon" className="h-9 w-9 border-[rgba(46,125,50,0.15)] text-[#1a1a1a] hover:bg-[#FFFFFF]">
+            <Button variant="outline" size="icon" className="h-9 w-9 border-[rgba(20,83,45,0.15)] text-[#1a1a1a] hover:bg-[#FFFFFF]">
               <ArrowLeft className="w-4 h-4" />
             </Button>
           </Link>
@@ -47,12 +47,12 @@ export default async function OrdersPage() {
         </div>
 
         {orders.length === 0 ? (
-          <div className="bg-[#FFFFFF] border border-[rgba(46,125,50,0.15)] p-12 text-center rounded-lg shadow-[0_2px_8px_rgba(46,125,50,0.06)]">
+          <div className="bg-[#FFFFFF] border border-[rgba(20,83,45,0.15)] p-12 text-center rounded-lg shadow-[0_2px_8px_rgba(20,83,45,0.06)]">
             <Package className="w-12 h-12 text-[#7B9E6B] mx-auto mb-4" />
             <h2 className="text-lg font-semibold text-[#1a1a1a] mb-2">No orders yet</h2>
             <p className="text-[#7B9E6B] mb-6">When you place an order, it will appear here.</p>
             <Link href="/products">
-              <Button className="bg-[#2E7D32] hover:bg-[#1B5E20] text-white h-10">
+              <Button className="bg-[#14532D] hover:bg-[#0F3D20] text-white h-10">
                 Start Shopping
               </Button>
             </Link>
@@ -65,7 +65,7 @@ export default async function OrdersPage() {
                 href={`/account/orders/${order.id}`}
                 className="block"
               >
-                <div className="bg-[#FFFFFF] border border-[rgba(46,125,50,0.15)] hover:border-[rgba(46,125,50,0.3)] transition-colors rounded-lg shadow-[0_2px_8px_rgba(46,125,50,0.06)]">
+                <div className="bg-[#FFFFFF] border border-[rgba(20,83,45,0.15)] hover:border-[rgba(20,83,45,0.3)] transition-colors rounded-lg shadow-[0_2px_8px_rgba(20,83,45,0.06)]">
                   <div className="p-4 flex items-center justify-between">
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-3 mb-1">
@@ -75,7 +75,7 @@ export default async function OrdersPage() {
                         <Badge
                           className={
                             ORDER_STATUS_COLORS[order.status] ||
-                            "bg-[#FFFFFF] text-[#7B9E6B] border border-[rgba(46,125,50,0.15)]"
+                            "bg-[#FFFFFF] text-[#7B9E6B] border border-[rgba(20,83,45,0.15)]"
                           }
                         >
                           {order.status}

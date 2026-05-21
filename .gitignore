@@ -46,3 +46,7 @@ next-env.d.ts
 # Git worktrees
 .worktrees/
 
+# Scripts with potential credentials
+/scripts/
+/scripts
+

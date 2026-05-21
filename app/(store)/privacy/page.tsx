@@ -3,15 +3,15 @@ export default function PrivacyPage() {
     <div className="flex flex-1 flex-col" style={{ background: "#FAFAF8", minHeight: "100vh" }}>
       {/* Header */}
       <div
-        className="border-b border-[#2E7D32]/15 px-4 py-12"
+        className="border-b border-[#14532D]/15 px-4 py-12"
         style={{ background: "#FAFAF8" }}
       >
         <div className="mx-auto max-w-3xl">
           <div className="flex items-center gap-3 mb-4">
-            <div className="h-[2px] w-8" style={{ background: "#2E7D32" }} />
+            <div className="h-[2px] w-8" style={{ background: "#14532D" }} />
             <span
               className="text-[12px] tracking-[3px]"
-              style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#2E7D32" }}
+              style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#14532D" }}
             >
               LEGAL
             </span>
@@ -32,8 +32,8 @@ export default function PrivacyPage() {
             className="p-8 md:p-10 rounded-md"
             style={{
               background: "#fff",
-              border: "1px solid rgba(46, 125, 50, 0.15)",
-              boxShadow: "0 2px 8px rgba(46, 125, 50, 0.06)",
+              border: "1px solid rgba(20, 83, 45, 0.15)",
+              boxShadow: "0 2px 8px rgba(20, 83, 45, 0.06)",
             }}
           >
             <div className="space-y-8">

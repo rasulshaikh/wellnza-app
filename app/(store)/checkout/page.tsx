@@ -89,7 +89,7 @@ export default function CheckoutPage() {
   if (!mounted) {
     return (
       <div className="min-h-screen flex items-center justify-center" style={{ background: "#FAFAF8" }}>
-        <div className="animate-pulse text-sm tracking-widest" style={{ color: "#2E7D32", fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>
+        <div className="animate-pulse text-sm tracking-widest" style={{ color: "#14532D", fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}>
           Loading...
         </div>
       </div>
@@ -111,7 +111,7 @@ export default function CheckoutPage() {
               className="px-8 py-3 text-sm font-semibold tracking-wider"
               style={{
                 fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)",
-                background: "#2E7D32",
+                background: "#14532D",
                 color: "#fff",
                 borderRadius: "6px",
               }}
@@ -249,7 +249,7 @@ export default function CheckoutPage() {
           email: contactForm.email,
           contact: contactForm.phone.replace(/\D/g, ""),
         },
-        theme: { color: "#2E7D32" },
+        theme: { color: "#14532D" },
         handler: async (response: { razorpay_payment_id: string; razorpay_order_id: string; razorpay_signature: string }) => {
           try {
             const verifyRes = await fetch("/api/checkout/verify-payment", {
@@ -307,7 +307,7 @@ export default function CheckoutPage() {
           <Link
             href="/cart"
             className="inline-flex items-center justify-center w-10 h-10 border transition-colors"
-            style={{ borderColor: "rgba(46, 125, 50, 0.15)", color: "#7B9E6B" }}
+            style={{ borderColor: "rgba(20, 83, 45, 0.15)", color: "#7B9E6B" }}
             aria-label="Back to cart"
           >
             <ArrowLeft className="w-5 h-5" />
@@ -335,7 +335,7 @@ export default function CheckoutPage() {
                 <div
                   className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold"
                   style={{
-                    background: step === s ? "#2E7D32" : ["contact", "shipping", "payment"].indexOf(step) > i ? "#2E7D32" : "rgba(46,125,50,0.1)",
+                    background: step === s ? "#14532D" : ["contact", "shipping", "payment"].indexOf(step) > i ? "#14532D" : "rgba(20,83,45,0.1)",
                     color: step === s ? "#fff" : "#7B9E6B",
                   }}
                 >
@@ -351,7 +351,7 @@ export default function CheckoutPage() {
                   {s.charAt(0).toUpperCase() + s.slice(1)}
                 </span>
               </button>
-              {i < 2 && <div className="h-px flex-1" style={{ background: "rgba(46,125,50,0.15)" }} />}
+              {i < 2 && <div className="h-px flex-1" style={{ background: "rgba(20,83,45,0.15)" }} />}
             </div>
           ))}
         </div>
@@ -361,12 +361,12 @@ export default function CheckoutPage() {
           <div
             className="mb-6 flex items-center justify-between gap-4 px-4 py-3 rounded-md"
             style={{
-              background: "rgba(46, 125, 50, 0.05)",
-              border: "1px solid rgba(46, 125, 50, 0.18)",
+              background: "rgba(20, 83, 45, 0.05)",
+              border: "1px solid rgba(20, 83, 45, 0.18)",
             }}
           >
             <div className="flex items-center gap-3">
-              <LogIn className="w-4 h-4 flex-shrink-0" style={{ color: "#2E7D32" }} />
+              <LogIn className="w-4 h-4 flex-shrink-0" style={{ color: "#14532D" }} />
               <p
                 className="text-sm"
                 style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}
@@ -380,7 +380,7 @@ export default function CheckoutPage() {
               className="flex-shrink-0 text-xs font-semibold px-3 py-1.5 rounded"
               style={{
                 fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)",
-                background: "#2E7D32",
+                background: "#14532D",
                 color: "#fff",
               }}
             >
@@ -397,12 +397,12 @@ export default function CheckoutPage() {
               <div
                 className="p-6 bg-white rounded-md"
                 style={{
-                  border: "1px solid rgba(46, 125, 50, 0.15)",
-                  boxShadow: "0 2px 8px rgba(46, 125, 50, 0.06)",
+                  border: "1px solid rgba(20, 83, 45, 0.15)",
+                  boxShadow: "0 2px 8px rgba(20, 83, 45, 0.06)",
                 }}
               >
                 <div className="flex items-center gap-2 mb-6">
-                  <CreditCard className="w-5 h-5" style={{ color: "#2E7D32" }} />
+                  <CreditCard className="w-5 h-5" style={{ color: "#14532D" }} />
                   <h2
                     className="font-semibold"
                     style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#1a1a1a" }}
@@ -423,7 +423,7 @@ export default function CheckoutPage() {
                       placeholder="Rahul Sharma"
                       className="w-full h-11 px-3 border text-sm"
                       style={{
-                        borderColor: "rgba(46, 125, 50, 0.15)",
+                        borderColor: "rgba(20, 83, 45, 0.15)",
                         background: "#fff",
                         color: "#1a1a1a",
                         fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)",
@@ -441,7 +441,7 @@ export default function CheckoutPage() {
                       placeholder="rahul@example.com"
                       className="w-full h-11 px-3 border text-sm"
                       style={{
-                        borderColor: "rgba(46, 125, 50, 0.15)",
+                        borderColor: "rgba(20, 83, 45, 0.15)",
                         background: "#fff",
                         color: "#1a1a1a",
                         fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)",
@@ -460,7 +460,7 @@ export default function CheckoutPage() {
                       maxLength={10}
                       className="w-full h-11 px-3 border text-sm"
                       style={{
-                        borderColor: "rgba(46, 125, 50, 0.15)",
+                        borderColor: "rgba(20, 83, 45, 0.15)",
                         background: "#fff",
                         color: "#1a1a1a",
                         fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)",
@@ -475,7 +475,7 @@ export default function CheckoutPage() {
                   className="w-full mt-6 py-3 text-sm font-semibold tracking-wider transition-opacity disabled:opacity-40 disabled:cursor-not-allowed"
                   style={{
                     fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)",
-                    background: "#2E7D32",
+                    background: "#14532D",
                     color: "#fff",
                     borderRadius: "6px",
                     letterSpacing: "1px",
@@ -491,12 +491,12 @@ export default function CheckoutPage() {
               <div
                 className="p-6 bg-white rounded-md"
                 style={{
-                  border: "1px solid rgba(46, 125, 50, 0.15)",
-                  boxShadow: "0 2px 8px rgba(46, 125, 50, 0.06)",
+                  border: "1px solid rgba(20, 83, 45, 0.15)",
+                  boxShadow: "0 2px 8px rgba(20, 83, 45, 0.06)",
                 }}
               >
                 <div className="flex items-center gap-2 mb-6">
-                  <MapPin className="w-5 h-5" style={{ color: "#2E7D32" }} />
+                  <MapPin className="w-5 h-5" style={{ color: "#14532D" }} />
                   <h2
                     className="font-semibold"
                     style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#1a1a1a" }}
@@ -508,8 +508,8 @@ export default function CheckoutPage() {
                 <div
                   className="p-4 rounded-md mb-4 cursor-pointer transition-colors"
                   style={{
-                    background: sameAsContact ? "rgba(46, 125, 50, 0.06)" : "transparent",
-                    border: `1px solid ${sameAsContact ? "rgba(46, 125, 50, 0.3)" : "rgba(46, 125, 50, 0.15)"}`,
+                    background: sameAsContact ? "rgba(20, 83, 45, 0.06)" : "transparent",
+                    border: `1px solid ${sameAsContact ? "rgba(20, 83, 45, 0.3)" : "rgba(20, 83, 45, 0.15)"}`,
                   }}
                   onClick={() => setSameAsContact(!sameAsContact)}
                 >
@@ -518,7 +518,7 @@ export default function CheckoutPage() {
                       type="checkbox"
                       checked={sameAsContact}
                       onChange={() => setSameAsContact(!sameAsContact)}
-                      className="w-4 h-4 accent-[#2E7D32]"
+                      className="w-4 h-4 accent-[#14532D]"
                     />
                     <div>
                       <p className="text-sm font-medium" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#1a1a1a" }}>
@@ -546,7 +546,7 @@ export default function CheckoutPage() {
                         placeholder="Full delivery name"
                         className="w-full h-11 px-3 border text-sm"
                         style={{
-                          borderColor: "rgba(46, 125, 50, 0.15)",
+                          borderColor: "rgba(20, 83, 45, 0.15)",
                           background: "#fff",
                           color: "#1a1a1a",
                           fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)",
@@ -565,7 +565,7 @@ export default function CheckoutPage() {
                         maxLength={10}
                         className="w-full h-11 px-3 border text-sm"
                         style={{
-                          borderColor: "rgba(46, 125, 50, 0.15)",
+                          borderColor: "rgba(20, 83, 45, 0.15)",
                           background: "#fff",
                           color: "#1a1a1a",
                           fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)",
@@ -585,7 +585,7 @@ export default function CheckoutPage() {
                         placeholder="House/Flat number, Street"
                         className="w-full h-11 px-3 border text-sm"
                         style={{
-                          borderColor: "rgba(46, 125, 50, 0.15)",
+                          borderColor: "rgba(20, 83, 45, 0.15)",
                           background: "#fff",
                           color: "#1a1a1a",
                           fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)",
@@ -603,7 +603,7 @@ export default function CheckoutPage() {
                         placeholder="Landmark, Area"
                         className="w-full h-11 px-3 border text-sm"
                         style={{
-                          borderColor: "rgba(46, 125, 50, 0.15)",
+                          borderColor: "rgba(20, 83, 45, 0.15)",
                           background: "#fff",
                           color: "#1a1a1a",
                           fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)",
@@ -621,7 +621,7 @@ export default function CheckoutPage() {
                         placeholder="Mumbai"
                         className="w-full h-11 px-3 border text-sm"
                         style={{
-                          borderColor: "rgba(46, 125, 50, 0.15)",
+                          borderColor: "rgba(20, 83, 45, 0.15)",
                           background: "#fff",
                           color: "#1a1a1a",
                           fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)",
@@ -637,7 +637,7 @@ export default function CheckoutPage() {
                         onChange={(e) => setAddressForm((f) => ({ ...f, state: e.target.value }))}
                         className="w-full h-11 px-3 border text-sm"
                         style={{
-                          borderColor: "rgba(46, 125, 50, 0.15)",
+                          borderColor: "rgba(20, 83, 45, 0.15)",
                           background: "#fff",
                           color: addressForm.state ? "#1a1a1a" : "#7B9E6B",
                           fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)",
@@ -661,7 +661,7 @@ export default function CheckoutPage() {
                         maxLength={6}
                         className="w-full h-11 px-3 border text-sm"
                         style={{
-                          borderColor: "rgba(46, 125, 50, 0.15)",
+                          borderColor: "rgba(20, 83, 45, 0.15)",
                           background: "#fff",
                           color: "#1a1a1a",
                           fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)",
@@ -671,9 +671,9 @@ export default function CheckoutPage() {
                   </div>
 
                 {/* Shipping Method */}
-                <div className="mt-6 pt-6 border-t" style={{ borderColor: "rgba(46,125,50,0.15)" }}>
+                <div className="mt-6 pt-6 border-t" style={{ borderColor: "rgba(20,83,45,0.15)" }}>
                   <div className="flex items-center gap-2 mb-4">
-                    <Truck className="w-4 h-4" style={{ color: "#2E7D32" }} />
+                    <Truck className="w-4 h-4" style={{ color: "#14532D" }} />
                     <h3
                       className="text-sm font-semibold"
                       style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#1a1a1a" }}
@@ -687,8 +687,8 @@ export default function CheckoutPage() {
                         key={method.id}
                         className="flex items-center gap-3 p-4 rounded-md cursor-pointer transition-colors"
                         style={{
-                          background: shippingMethod === method.id ? "rgba(46, 125, 50, 0.06)" : "transparent",
-                          border: `1px solid ${shippingMethod === method.id ? "rgba(46, 125, 50, 0.3)" : "rgba(46, 125, 50, 0.15)"}`,
+                          background: shippingMethod === method.id ? "rgba(20, 83, 45, 0.06)" : "transparent",
+                          border: `1px solid ${shippingMethod === method.id ? "rgba(20, 83, 45, 0.3)" : "rgba(20, 83, 45, 0.15)"}`,
                         }}
                       >
                         <input
@@ -697,7 +697,7 @@ export default function CheckoutPage() {
                           value={method.id}
                           checked={shippingMethod === method.id}
                           onChange={() => setShippingMethod(method.id as "standard" | "express")}
-                          className="w-4 h-4 accent-[#2E7D32]"
+                          className="w-4 h-4 accent-[#14532D]"
                         />
                         <div className="flex-1">
                           <p className="text-sm font-medium" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#1a1a1a" }}>
@@ -709,7 +709,7 @@ export default function CheckoutPage() {
                         </div>
                         <span
                           className="text-sm font-semibold"
-                          style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#2E7D32" }}
+                          style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#14532D" }}
                         >
                           {formatCurrency(method.price)}
                         </span>
@@ -724,7 +724,7 @@ export default function CheckoutPage() {
                     className="px-4 py-3 text-sm border transition-colors"
                     style={{
                       fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)",
-                      borderColor: "rgba(46, 125, 50, 0.15)",
+                      borderColor: "rgba(20, 83, 45, 0.15)",
                       color: "#7B9E6B",
                       borderRadius: "6px",
                     }}
@@ -736,7 +736,7 @@ export default function CheckoutPage() {
                     className="flex-1 py-3 text-sm font-semibold tracking-wider"
                     style={{
                       fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)",
-                      background: "#2E7D32",
+                      background: "#14532D",
                       color: "#fff",
                       borderRadius: "6px",
                       letterSpacing: "1px",
@@ -753,12 +753,12 @@ export default function CheckoutPage() {
               <div
                 className="p-6 bg-white rounded-md"
                 style={{
-                  border: "1px solid rgba(46, 125, 50, 0.15)",
-                  boxShadow: "0 2px 8px rgba(46, 125, 50, 0.06)",
+                  border: "1px solid rgba(20, 83, 45, 0.15)",
+                  boxShadow: "0 2px 8px rgba(20, 83, 45, 0.06)",
                 }}
               >
                 <div className="flex items-center gap-2 mb-6">
-                  <Lock className="w-5 h-5" style={{ color: "#2E7D32" }} />
+                  <Lock className="w-5 h-5" style={{ color: "#14532D" }} />
                   <h2
                     className="font-semibold"
                     style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#1a1a1a" }}
@@ -772,8 +772,8 @@ export default function CheckoutPage() {
                   <label
                     className="flex items-center gap-3 p-4 rounded-md cursor-pointer transition-colors"
                     style={{
-                      background: selectedPaymentMethod === "RAZORPAY" ? "rgba(46, 125, 50, 0.08)" : "rgba(46, 125, 50, 0.04)",
-                      border: selectedPaymentMethod === "RAZORPAY" ? "1px solid rgba(46, 125, 50, 0.4)" : "1px solid rgba(46, 125, 50, 0.15)",
+                      background: selectedPaymentMethod === "RAZORPAY" ? "rgba(20, 83, 45, 0.08)" : "rgba(20, 83, 45, 0.04)",
+                      border: selectedPaymentMethod === "RAZORPAY" ? "1px solid rgba(20, 83, 45, 0.4)" : "1px solid rgba(20, 83, 45, 0.15)",
                     }}
                   >
                     <input
@@ -782,7 +782,7 @@ export default function CheckoutPage() {
                       value="RAZORPAY"
                       checked={selectedPaymentMethod === "RAZORPAY"}
                       onChange={() => setSelectedPaymentMethod("RAZORPAY")}
-                      className="w-4 h-4 accent-[#2E7D32]"
+                      className="w-4 h-4 accent-[#14532D]"
                     />
                     <div className="flex-1">
                       <p className="text-sm font-medium" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#1a1a1a" }}>
@@ -797,7 +797,7 @@ export default function CheckoutPage() {
                         <span
                           key={method}
                           className="text-[10px] px-1.5 py-0.5 rounded"
-                          style={{ background: "rgba(46,125,50,0.08)", color: "#7B9E6B", fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}
+                          style={{ background: "rgba(20,83,45,0.08)", color: "#7B9E6B", fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}
                         >
                           {method}
                         </span>
@@ -809,8 +809,8 @@ export default function CheckoutPage() {
                   <label
                     className="flex items-center gap-3 p-4 rounded-md cursor-pointer transition-colors"
                     style={{
-                      background: selectedPaymentMethod === "COD" ? "rgba(46, 125, 50, 0.08)" : "transparent",
-                      border: selectedPaymentMethod === "COD" ? "1px solid rgba(46, 125, 50, 0.4)" : "1px solid rgba(46, 125, 50, 0.15)",
+                      background: selectedPaymentMethod === "COD" ? "rgba(20, 83, 45, 0.08)" : "transparent",
+                      border: selectedPaymentMethod === "COD" ? "1px solid rgba(20, 83, 45, 0.4)" : "1px solid rgba(20, 83, 45, 0.15)",
                     }}
                   >
                     <input
@@ -819,7 +819,7 @@ export default function CheckoutPage() {
                       value="COD"
                       checked={selectedPaymentMethod === "COD"}
                       onChange={() => setSelectedPaymentMethod("COD")}
-                      className="w-4 h-4 accent-[#2E7D32]"
+                      className="w-4 h-4 accent-[#14532D]"
                     />
                     <div className="flex-1">
                       <p className="text-sm font-medium" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#1a1a1a" }}>
@@ -852,7 +852,7 @@ export default function CheckoutPage() {
                     className="px-4 py-3 text-sm border transition-colors"
                     style={{
                       fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)",
-                      borderColor: "rgba(46, 125, 50, 0.15)",
+                      borderColor: "rgba(20, 83, 45, 0.15)",
                       color: "#7B9E6B",
                       borderRadius: "6px",
                     }}
@@ -865,7 +865,7 @@ export default function CheckoutPage() {
                     className="flex-1 py-3 text-sm font-semibold tracking-wider transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
                     style={{
                       fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)",
-                      background: "#2E7D32",
+                      background: "#14532D",
                       color: "#fff",
                       borderRadius: "6px",
                       letterSpacing: "1px",
@@ -883,13 +883,13 @@ export default function CheckoutPage() {
             <div
               className="bg-white p-6 rounded-md sticky top-4"
               style={{
-                border: "1px solid rgba(46, 125, 50, 0.15)",
-                boxShadow: "0 2px 8px rgba(46, 125, 50, 0.06)",
+                border: "1px solid rgba(20, 83, 45, 0.15)",
+                boxShadow: "0 2px 8px rgba(20, 83, 45, 0.06)",
               }}
             >
               <div
                 className="p-4 -m-px rounded-t-md"
-                style={{ background: "#2E7D32" }}
+                style={{ background: "#14532D" }}
               >
                 <span
                   className="text-lg text-white tracking-wide"
@@ -939,7 +939,7 @@ export default function CheckoutPage() {
               {/* Totals */}
               <div
                 className="mt-4 pt-4 space-y-2 border-t"
-                style={{ borderColor: "rgba(46, 125, 50, 0.15)" }}
+                style={{ borderColor: "rgba(20, 83, 45, 0.15)" }}
               >
                 <div className="flex justify-between text-sm">
                   <span style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}>Subtotal</span>
@@ -951,13 +951,13 @@ export default function CheckoutPage() {
                   <span style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}>Shipping</span>
                   <span style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#1a1a1a" }}>
                     {shipping === 0 ? (
-                      <span style={{ color: "#2E7D32" }}>FREE</span>
+                      <span style={{ color: "#14532D" }}>FREE</span>
                     ) : (
                       formatCurrency(shipping)
                     )}
                   </span>
                 </div>
-                <div className="flex justify-between pt-2 border-t" style={{ borderColor: "rgba(46,125,50,0.15)" }}>
+                <div className="flex justify-between pt-2 border-t" style={{ borderColor: "rgba(20,83,45,0.15)" }}>
                   <span
                     className="font-semibold"
                     style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#1a1a1a" }}
@@ -966,7 +966,7 @@ export default function CheckoutPage() {
                   </span>
                   <span
                     className="font-bold text-xl"
-                    style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#2E7D32" }}
+                    style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#14532D" }}
                   >
                     {formatCurrency(total)}
                   </span>
@@ -974,17 +974,17 @@ export default function CheckoutPage() {
               </div>
 
               {/* Trust Badges */}
-              <div className="mt-6 pt-6 border-t border-[rgba(46,125,50,0.1)] space-y-3">
+              <div className="mt-6 pt-6 border-t border-[rgba(20,83,45,0.1)] space-y-3">
                 <div className="flex items-center gap-3 text-xs" style={{ color: "#7B9E6B" }}>
-                  <Shield className="w-4 h-4 flex-shrink-0" style={{ color: "#2E7D32" }} />
+                  <Shield className="w-4 h-4 flex-shrink-0" style={{ color: "#14532D" }} />
                   <span>100% Authentic — Lab Tested</span>
                 </div>
                 <div className="flex items-center gap-3 text-xs" style={{ color: "#7B9E6B" }}>
-                  <Zap className="w-4 h-4 flex-shrink-0" style={{ color: "#2E7D32" }} />
+                  <Zap className="w-4 h-4 flex-shrink-0" style={{ color: "#14532D" }} />
                   <span>Fast Delivery — Within 48 Hours</span>
                 </div>
                 <div className="flex items-center gap-3 text-xs" style={{ color: "#7B9E6B" }}>
-                  <CheckCircle className="w-4 h-4 flex-shrink-0" style={{ color: "#2E7D32" }} />
+                  <CheckCircle className="w-4 h-4 flex-shrink-0" style={{ color: "#14532D" }} />
                   <span>Every Batch Verified</span>
                 </div>
               </div>
@@ -995,13 +995,13 @@ export default function CheckoutPage() {
         {/* Bottom Tagline */}
         <div
           className="mt-12 pt-8 border-t flex flex-col lg:flex-row items-center justify-between gap-6"
-          style={{ borderColor: "rgba(46, 125, 50, 0.1)" }}
+          style={{ borderColor: "rgba(20, 83, 45, 0.1)" }}
         >
           <p className="text-sm tracking-wide" style={{ color: "#7B9E6B" }}>
-            Wellness, rooted in <span style={{ color: "#2E7D32" }}>nature</span>.
+            Wellness, rooted in <span style={{ color: "#14532D" }}>nature</span>.
           </p>
           <div className="flex items-center gap-2 text-xs" style={{ color: "#7B9E6B" }}>
-            <div className="w-2 h-2 rounded-full" style={{ background: "#2E7D32" }} />
+            <div className="w-2 h-2 rounded-full" style={{ background: "#14532D" }} />
             <span>Secure Checkout · Encrypted Payment</span>
           </div>
         </div>

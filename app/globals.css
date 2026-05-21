@@ -213,12 +213,9 @@
     padding-bottom: clamp(4rem, 10vw, 7rem);
   }
 
-  /* Luxury gold gradient text */
+  /* Luxury gold text */
   .text-luxury-gold {
-    background: linear-gradient(135deg, var(--luxury-gold-dark) 0%, var(--luxury-gold) 50%, var(--luxury-gold-light) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--luxury-gold);
   }
 
   /* Gold shimmer on hover */
@@ -259,12 +256,9 @@
     will-change: transform;
   }
 
-  /* Gold gradient text */
+  /* Gold text */
   .text-gold {
-    background: linear-gradient(135deg, #E8A020 0%, #F5C842 50%, #E8A020 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: #E8A020;
   }
 
   /* Wellnza brand heading style */
@@ -474,12 +468,8 @@
 .animate-fade-up-delay-3 { animation: fadeUp 0.6s ease-out 0.3s both; }
 
 .shimmer-text {
-  background: linear-gradient(90deg, #E8A020 0%, #F5C842 30%, #E8A020 60%, #F5C842 100%);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: shimmer 3s linear infinite;
+  color: #E8A020;
+  animation: pulseGold 2s ease-in-out infinite;
 }
 
 /* ===========================

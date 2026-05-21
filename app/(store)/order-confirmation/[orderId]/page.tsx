@@ -50,9 +50,9 @@ export default async function OrderConfirmationPage({
         <div className="text-center mb-8">
           <div
             className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
-            style={{ background: "rgba(46, 125, 50, 0.1)" }}
+            style={{ background: "rgba(20, 83, 45, 0.1)" }}
           >
-            <Check className="w-8 h-8" style={{ color: "#2E7D32" }} />
+            <Check className="w-8 h-8" style={{ color: "#14532D" }} />
           </div>
           <h1
             className="text-2xl font-bold mb-3"
@@ -70,8 +70,8 @@ export default async function OrderConfirmationPage({
           className="p-6 mb-6 rounded-md"
           style={{
             background: "#fff",
-            border: "1px solid rgba(46, 125, 50, 0.15)",
-            boxShadow: "0 2px 8px rgba(46, 125, 50, 0.06)",
+            border: "1px solid rgba(20, 83, 45, 0.15)",
+            boxShadow: "0 2px 8px rgba(20, 83, 45, 0.06)",
           }}
         >
           <div className="flex items-center justify-between mb-4">
@@ -95,7 +95,7 @@ export default async function OrderConfirmationPage({
               <div key={item.id} className="flex items-center gap-4">
                 <div
                   className="w-16 h-16 bg-[#FAFAF8] flex-shrink-0 flex items-center justify-center rounded-md"
-                  style={{ border: "1px solid rgba(46, 125, 50, 0.1)" }}
+                  style={{ border: "1px solid rgba(20, 83, 45, 0.1)" }}
                 >
                   <Package className="w-6 h-6" style={{ color: "#7B9E6B" }} />
                 </div>
@@ -133,7 +133,7 @@ export default async function OrderConfirmationPage({
           {/* Totals */}
           <div
             className="border-t pt-4 space-y-2"
-            style={{ borderColor: "rgba(46, 125, 50, 0.15)" }}
+            style={{ borderColor: "rgba(20, 83, 45, 0.15)" }}
           >
             <div className="flex justify-between text-sm">
               <span style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}>Subtotal</span>
@@ -145,7 +145,7 @@ export default async function OrderConfirmationPage({
               <span style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}>Shipping</span>
               <span style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#1a1a1a" }}>
                 {order.shippingCost === 0 ? (
-                  <span style={{ color: "#2E7D32" }}>FREE</span>
+                  <span style={{ color: "#14532D" }}>FREE</span>
                 ) : (
                   formatCurrency(order.shippingCost)
                 )}
@@ -159,7 +159,7 @@ export default async function OrderConfirmationPage({
             </div>
             <div
               className="flex justify-between pt-2 border-t"
-              style={{ borderColor: "rgba(46, 125, 50, 0.15)" }}
+              style={{ borderColor: "rgba(20, 83, 45, 0.15)" }}
             >
               <span
                 className="font-semibold"
@@ -169,7 +169,7 @@ export default async function OrderConfirmationPage({
               </span>
               <span
                 className="font-bold"
-                style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#2E7D32" }}
+                style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#14532D" }}
               >
                 {formatCurrency(order.total)}
               </span>
@@ -180,10 +180,10 @@ export default async function OrderConfirmationPage({
           {order.shippingAddress && (
             <div
               className="mt-6 pt-6 border-t"
-              style={{ borderColor: "rgba(46, 125, 50, 0.15)" }}
+              style={{ borderColor: "rgba(20, 83, 45, 0.15)" }}
             >
               <div className="flex items-center gap-2 mb-3">
-                <MapPin className="w-4 h-4" style={{ color: "#2E7D32" }} />
+                <MapPin className="w-4 h-4" style={{ color: "#14532D" }} />
                 <span
                   className="text-sm font-medium"
                   style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#1a1a1a" }}
@@ -214,7 +214,7 @@ export default async function OrderConfirmationPage({
               className="w-full py-3 text-sm font-medium transition-opacity"
               style={{
                 fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)",
-                background: "#2E7D32",
+                background: "#14532D",
                 color: "#fff",
                 borderRadius: "6px",
               }}
@@ -228,8 +228,8 @@ export default async function OrderConfirmationPage({
               style={{
                 fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)",
                 background: "transparent",
-                color: "#2E7D32",
-                border: "1px solid rgba(46, 125, 50, 0.3)",
+                color: "#14532D",
+                border: "1px solid rgba(20, 83, 45, 0.3)",
                 borderRadius: "6px",
               }}
             >

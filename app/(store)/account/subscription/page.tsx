@@ -15,13 +15,13 @@ export default async function SubscriptionPage() {
     <div className="min-h-screen py-8" style={{ background: "#FAFAF8" }}>
       <div className="max-w-2xl mx-auto px-4">
         <Link href="/account" className="inline-flex items-center gap-2 text-sm mb-6" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}>
-          <ArrowLeft className="w-4 h-4" style={{ color: "#2E7D32" }} />
+          <ArrowLeft className="w-4 h-4" style={{ color: "#14532D" }} />
           Back to Account
         </Link>
 
-        <div className="bg-white border p-6" style={{ borderColor: "rgba(46,125,50,0.15)" }}>
+        <div className="bg-white border p-6" style={{ borderColor: "rgba(20,83,45,0.15)" }}>
           <div className="flex items-center gap-3 mb-6">
-            <CreditCard className="w-6 h-6" style={{ color: "#2E7D32" }} />
+            <CreditCard className="w-6 h-6" style={{ color: "#14532D" }} />
             <h1 className="text-xl font-bold" style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#1a1a1a" }}>Subscriptions</h1>
           </div>
 
@@ -32,7 +32,7 @@ export default async function SubscriptionPage() {
               You don&apos;t have any recurring subscriptions at the moment.
             </p>
             <Link href="/products">
-              <Button className="text-white" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", background: "#2E7D32" }}>
+              <Button className="text-white" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", background: "#14532D" }}>
                 Browse Products
               </Button>
             </Link>

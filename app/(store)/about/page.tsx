@@ -46,12 +46,7 @@ export default function AboutPage() {
             >
               Supplements Indian Athletes
               <br />
-              <span style={{
-                background: "linear-gradient(135deg, #E8A020 0%, #F5C842 50%, #E8A020 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}>
+              <span style={{ color: "#E8A020" }}>
                 Actually Deserve
               </span>
             </h1>

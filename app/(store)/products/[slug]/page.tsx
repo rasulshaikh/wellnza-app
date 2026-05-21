@@ -112,7 +112,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
   return (
     <div className="min-h-screen">
       {/* Breadcrumb */}
-      <div className="border-b px-4 py-3 md:px-8" style={{ background: "#FAFAF8", borderColor: "rgba(46,125,50,0.15)" }}>
+      <div className="border-b px-4 py-3 md:px-8" style={{ background: "#FAFAF8", borderColor: "rgba(20,83,45,0.15)" }}>
         <div className="mx-auto max-w-7xl">
           <p className="text-xs" style={{ color: "#7B9E6B" }}>
             <Link href="/products" className="hover:underline transition-colors" style={{ color: "#7B9E6B" }}>Products</Link>
@@ -142,28 +142,25 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
         {/* Tabs */}
         <div className="mt-12">
           <Tabs defaultValue="description">
-            <TabsList className="w-full justify-start gap-0 rounded-none border-b p-0 overflow-x-auto" style={{ background: "transparent", borderColor: "rgba(46,125,50,0.15)" }}>
+            <TabsList className="w-full justify-start gap-0 rounded-none border-b p-0 overflow-x-auto" style={{ background: "transparent", borderColor: "rgba(20,83,45,0.15)" }}>
               <TabsTrigger
                 value="description"
-                className="rounded-none border-b-2 border-transparent data-active:border-transparent data-active:bg-transparent"
+                className="rounded-none border-b-2 border-transparent bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-[#14532D] data-[state=active]:bg-transparent data-[state=active]:text-[#1a1a1a] data-[state=active]:shadow-none"
                 style={{ color: "#7B9E6B", fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}
-                data-active-style={{ color: "#1a1a1a", borderBottomColor: "#2E7D32" }}
               >
                 Description
               </TabsTrigger>
               <TabsTrigger
                 value="nutrition"
-                className="rounded-none border-b-2 border-transparent data-active:border-transparent data-active:bg-transparent"
+                className="rounded-none border-b-2 border-transparent bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-[#14532D] data-[state=active]:bg-transparent data-[state=active]:text-[#1a1a1a] data-[state=active]:shadow-none"
                 style={{ color: "#7B9E6B", fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}
-                data-active-style={{ color: "#1a1a1a", borderBottomColor: "#2E7D32" }}
               >
                 Nutrition Facts
               </TabsTrigger>
               <TabsTrigger
                 value="how-to-use"
-                className="rounded-none border-b-2 border-transparent data-active:border-transparent data-active:bg-transparent"
+                className="rounded-none border-b-2 border-transparent bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-[#14532D] data-[state=active]:bg-transparent data-[state=active]:text-[#1a1a1a] data-[state=active]:shadow-none"
                 style={{ color: "#7B9E6B", fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)" }}
-                data-active-style={{ color: "#1a1a1a", borderBottomColor: "#2E7D32" }}
               >
                 How to Use
               </TabsTrigger>
@@ -181,17 +178,17 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
 
             <TabsContent value="nutrition" className="py-6">
               {nutritionFacts ? (
-                <div className="rounded-lg border" style={{ borderColor: "rgba(46,125,50,0.15)", background: "#fff" }}>
+                <div className="rounded-lg border" style={{ borderColor: "rgba(20,83,45,0.15)", background: "#fff" }}>
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="border-b" style={{ borderColor: "rgba(46,125,50,0.15)", background: "#FAFAF8" }}>
+                      <tr className="border-b" style={{ borderColor: "rgba(20,83,45,0.15)", background: "#FAFAF8" }}>
                         <th className="px-4 py-2 text-left font-semibold" style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#1a1a1a" }}>Nutrient</th>
                         <th className="px-4 py-2 text-right font-semibold" style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#1a1a1a" }}>Per Serving</th>
                       </tr>
                     </thead>
                     <tbody>
                       {Object.entries(nutritionFacts).map(([key, value]: [string, string]) => (
-                        <tr key={key} className="border-b last:border-0" style={{ borderColor: "rgba(46,125,50,0.15)" }}>
+                        <tr key={key} className="border-b last:border-0" style={{ borderColor: "rgba(20,83,45,0.15)" }}>
                           <td className="px-4 py-2 capitalize" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#1a1a1a" }}>{key.replace(/_/g, " ")}</td>
                           <td className="px-4 py-2 text-right" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}>{value}</td>
                         </tr>
@@ -200,35 +197,35 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
                   </table>
                 </div>
               ) : (
-                <div className="rounded-lg border" style={{ borderColor: "rgba(46,125,50,0.15)", background: "#fff" }}>
+                <div className="rounded-lg border" style={{ borderColor: "rgba(20,83,45,0.15)", background: "#fff" }}>
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="border-b" style={{ borderColor: "rgba(46,125,50,0.15)", background: "#FAFAF8" }}>
+                      <tr className="border-b" style={{ borderColor: "rgba(20,83,45,0.15)", background: "#FAFAF8" }}>
                         <th className="px-4 py-2 text-left font-semibold" style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#1a1a1a" }}>Nutrient</th>
                         <th className="px-4 py-2 text-right font-semibold" style={{ fontFamily: "var(--font-rajdhani,'Rajdhani',sans-serif)", color: "#1a1a1a" }}>Per Serving</th>
                       </tr>
                     </thead>
                     <tbody>
                       {product.calories != null && (
-                        <tr className="border-b" style={{ borderColor: "rgba(46,125,50,0.15)" }}>
+                        <tr className="border-b" style={{ borderColor: "rgba(20,83,45,0.15)" }}>
                           <td className="px-4 py-2" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#1a1a1a" }}>Calories</td>
                           <td className="px-4 py-2 text-right" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}>{product.calories}</td>
                         </tr>
                       )}
                       {product.protein != null && (
-                        <tr className="border-b" style={{ borderColor: "rgba(46,125,50,0.15)" }}>
+                        <tr className="border-b" style={{ borderColor: "rgba(20,83,45,0.15)" }}>
                           <td className="px-4 py-2" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#1a1a1a" }}>Protein</td>
                           <td className="px-4 py-2 text-right" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}>{product.protein}g</td>
                         </tr>
                       )}
                       {product.carbs != null && (
-                        <tr className="border-b" style={{ borderColor: "rgba(46,125,50,0.15)" }}>
+                        <tr className="border-b" style={{ borderColor: "rgba(20,83,45,0.15)" }}>
                           <td className="px-4 py-2" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#1a1a1a" }}>Carbohydrates</td>
                           <td className="px-4 py-2 text-right" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}>{product.carbs}g</td>
                         </tr>
                       )}
                       {product.fat != null && (
-                        <tr className="border-b" style={{ borderColor: "rgba(46,125,50,0.15)" }}>
+                        <tr className="border-b" style={{ borderColor: "rgba(20,83,45,0.15)" }}>
                           <td className="px-4 py-2" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#1a1a1a" }}>Fat</td>
                           <td className="px-4 py-2 text-right" style={{ fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)", color: "#7B9E6B" }}>{product.fat}g</td>
                         </tr>

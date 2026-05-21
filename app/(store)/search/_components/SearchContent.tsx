@@ -101,7 +101,7 @@ export function SearchContent() {
       {/* Search header */}
       <div
         className="border-b px-4 py-6 md:px-8"
-        style={{ borderColor: "rgba(46, 125, 50, 0.15)", background: "#FAFAF8" }}
+        style={{ borderColor: "rgba(20, 83, 45, 0.15)", background: "#FAFAF8" }}
       >
         <div className="mx-auto max-w-7xl">
           <form onSubmit={handleSearch} className="flex gap-2 max-w-2xl">
@@ -117,7 +117,7 @@ export function SearchContent() {
                 placeholder="Search products..."
                 className="h-12 flex-1 border pl-10 pr-10 text-sm"
                 style={{
-                  borderColor: "rgba(46, 125, 50, 0.2)",
+                  borderColor: "rgba(20, 83, 45, 0.2)",
                   background: "#fff",
                   color: "#1a1a1a",
                 }}
@@ -138,7 +138,7 @@ export function SearchContent() {
               type="submit"
               className="h-12 !px-6 text-sm font-medium"
               style={{
-                background: "#2E7D32",
+                background: "#14532D",
                 color: "#fff",
                 fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)",
               }}
@@ -168,7 +168,7 @@ export function SearchContent() {
               }}
               className="h-9 border px-3 py-1.5 text-sm"
               style={{
-                borderColor: "rgba(46, 125, 50, 0.2)",
+                borderColor: "rgba(20, 83, 45, 0.2)",
                 background: "#fff",
                 color: "#1a1a1a",
                 fontFamily: "var(--font-jakarta,'Plus Jakarta Sans',sans-serif)",
@@ -217,13 +217,13 @@ export function SearchContent() {
         ) : (
           <div
             className="flex flex-col items-center justify-center py-20 text-center rounded-md"
-            style={{ background: "#fff", border: "1px solid rgba(46, 125, 50, 0.15)" }}
+            style={{ background: "#fff", border: "1px solid rgba(20, 83, 45, 0.15)" }}
           >
             <div
               className="mb-6 flex h-20 w-20 items-center justify-center rounded-full"
-              style={{ background: "rgba(46, 125, 50, 0.08)" }}
+              style={{ background: "rgba(20, 83, 45, 0.08)" }}
             >
-              <Search className="size-10" style={{ color: "#2E7D32" }} />
+              <Search className="size-10" style={{ color: "#14532D" }} />
             </div>
             <h3
               className="text-xl font-bold mb-2"
@@ -240,7 +240,7 @@ export function SearchContent() {
             <Link
               href="/products"
               className="mt-6 text-sm font-medium transition-colors"
-              style={{ color: "#2E7D32" }}
+              style={{ color: "#14532D" }}
             >
               Browse All Products →
             </Link>

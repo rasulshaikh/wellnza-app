@@ -11,10 +11,15 @@ export async function proxy(request: NextRequest) {
   const isProtected = PROTECTED_PATHS.some((path) => pathname.startsWith(path));
   if (!isProtected) return NextResponse.next();
 
-  const token = await getToken({
-    req: request,
-    secret: process.env.AUTH_SECRET,
-  });
+  let token;
+  try {
+    token = await getToken({
+      req: request,
+      secret: process.env.AUTH_SECRET,
+    });
+  } catch {
+    return NextResponse.json({ error: "Auth configuration error" }, { status: 500 });
+  }
 
   if (!token) {
     const loginUrl = new URL("/login", request.url);

@@ -13,7 +13,7 @@ function Input({ className, type, ...props }: React.ComponentProps<"input">) {
         className
       )}
       style={{
-        borderColor: "rgba(46,125,50,0.15)",
+        borderColor: "rgba(20,83,45,0.15)",
         backgroundColor: "#FFFFFF",
         color: "#1a1a1a",
       }}

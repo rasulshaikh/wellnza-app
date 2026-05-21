@@ -69,7 +69,7 @@ export function ImageGallery({ images, productName, variantHint = 0, variants }:
   if (!images || images.length === 0) {
     return (
       <div className="flex aspect-square items-center justify-center" style={{ background: "#FAFAF8" }}>
-        <div className="flex h-20 w-20 items-center justify-center rounded-full" style={{ background: "rgba(46,125,50,0.1)" }}>
+        <div className="flex h-20 w-20 items-center justify-center rounded-full" style={{ background: "rgba(20,83,45,0.1)" }}>
           <span className="text-sm font-medium" style={{ color: "#7B9E6B" }}>
             {productName
               .split(" ")
@@ -123,7 +123,7 @@ export function ImageGallery({ images, productName, variantHint = 0, variants }:
                 width: "4rem",
                 height: "4rem",
                 border: idx === selectedIndex
-                  ? "2px solid #2E7D32"
+                  ? "2px solid #14532D"
                   : "2px solid transparent",
               }}
               whileHover={{ scale: 1.05 }}

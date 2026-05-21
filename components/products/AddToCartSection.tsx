@@ -39,7 +39,7 @@ export function AddToCartSection({
 
   if (!hasVariants) {
     return (
-      <button disabled className="w-full h-12 rounded-lg text-white font-semibold text-base cursor-not-allowed" style={{ background: "#2E7D32", opacity: 0.5 }}>
+      <button disabled className="w-full h-12 rounded-lg text-white font-semibold text-base cursor-not-allowed" style={{ background: "#14532D", opacity: 0.5 }}>
         Out of Stock
       </button>
     );
@@ -65,11 +65,11 @@ export function AddToCartSection({
       {/* Quantity selector */}
       <div className="flex items-center gap-3">
         <span className="text-sm font-medium" style={{ fontFamily: "var(--font-jakarta), 'Plus Jakarta Sans', sans-serif", color: "#1a1a1a" }}>Qty</span>
-        <div className="flex items-center h-11 rounded-lg border overflow-hidden" style={{ borderColor: "rgba(46,125,50,0.15)" }}>
+        <div className="flex items-center h-11 rounded-lg border overflow-hidden" style={{ borderColor: "rgba(20,83,45,0.15)" }}>
           <button
             onClick={() => setQuantity(Math.max(1, quantity - 1))}
             className="flex items-center justify-center w-11 h-full border-r hover:bg-[#FAFAF8] transition-colors disabled:opacity-50"
-            style={{ borderColor: "rgba(46,125,50,0.15)", color: "#2E7D32" }}
+            style={{ borderColor: "rgba(20,83,45,0.15)", color: "#14532D" }}
             disabled={quantity <= 1}
           >
             <Minus className="size-4" />
@@ -78,7 +78,7 @@ export function AddToCartSection({
           <button
             onClick={() => setQuantity(Math.min(10, quantity + 1))}
             className="flex items-center justify-center w-11 h-full border-l hover:bg-[#FAFAF8] transition-colors disabled:opacity-50"
-            style={{ borderColor: "rgba(46,125,50,0.15)", color: "#2E7D32" }}
+            style={{ borderColor: "rgba(20,83,45,0.15)", color: "#14532D" }}
             disabled={quantity >= 10}
           >
             <Plus className="size-4" />
@@ -97,8 +97,8 @@ export function AddToCartSection({
             : "text-white hover:opacity-90"
         )}
         style={{
-          background: added ? "#2E7D32" : isOutOfStock ? "#FAFAF8" : "#2E7D32",
-          borderColor: added ? "#2E7D32" : "transparent",
+          background: added ? "#14532D" : isOutOfStock ? "#FAFAF8" : "#14532D",
+          borderColor: added ? "#14532D" : "transparent",
           color: isOutOfStock ? "#7B9E6B" : "#FFFFFF",
           fontFamily: "var(--font-jakarta), 'Plus Jakarta Sans', sans-serif"
         }}

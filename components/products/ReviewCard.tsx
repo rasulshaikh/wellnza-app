@@ -20,7 +20,7 @@ export function ReviewCard({ review }: ReviewCardProps) {
   const firstName = review.user.name?.split(" ")[0] ?? "Anonymous";
 
   return (
-    <div className="flex flex-col gap-3 rounded-xl border p-4" style={{ borderColor: "rgba(46,125,50,0.15)", background: "#fff" }}>
+    <div className="flex flex-col gap-3 rounded-xl border p-4" style={{ borderColor: "rgba(20,83,45,0.15)", background: "#fff" }}>
       {/* Header */}
       <div className="flex items-start justify-between gap-3">
         <div className="flex flex-col gap-1">
@@ -40,7 +40,7 @@ export function ReviewCard({ review }: ReviewCardProps) {
           </span>
         </div>
         {review.isVerifiedPurchase && (
-          <span className="rounded px-2 py-0.5 text-[10px] font-medium" style={{ background: "rgba(46,125,50,0.1)", color: "#2E7D32" }}>
+          <span className="rounded px-2 py-0.5 text-[10px] font-medium" style={{ background: "rgba(20,83,45,0.1)", color: "#14532D" }}>
             Verified Purchase
           </span>
         )}

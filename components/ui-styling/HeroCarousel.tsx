@@ -38,7 +38,7 @@ export function HeroCarousel({ images }: HeroCarouselProps) {
   }
 
   return (
-    <div className="relative w-full h-full">
+    <div className="absolute inset-0">
       {/* Image layers with crossfade */}
       <AnimatePresence mode="wait">
         <motion.div

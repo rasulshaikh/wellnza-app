@@ -71,7 +71,7 @@ export default function AddressesPage() {
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-4">
             <Link href="/account">
-              <Button variant="outline" size="icon" className="h-9 w-9 border-[rgba(46,125,50,0.15)] text-[#1a1a1a] hover:bg-white">
+              <Button variant="outline" size="icon" className="h-9 w-9 border-[rgba(20,83,45,0.15)] text-[#1a1a1a] hover:bg-white">
                 <ArrowLeft className="w-4 h-4" />
               </Button>
             </Link>
@@ -83,7 +83,7 @@ export default function AddressesPage() {
             </div>
           </div>
           <Link href="/account/addresses/new">
-            <Button className="bg-[#2E7D32] hover:bg-[#1B5E20] text-white h-9">
+            <Button className="bg-[#14532D] hover:bg-[#0F3D20] text-white h-9">
               <Plus className="w-4 h-4 mr-1" />
               Add New
             </Button>
@@ -91,7 +91,7 @@ export default function AddressesPage() {
         </div>
 
         {addresses.length === 0 ? (
-          <div className="bg-white border border-[rgba(46,125,50,0.15)] p-12 text-center rounded-lg shadow-[0_2px_8px_rgba(46,125,50,0.06)]">
+          <div className="bg-white border border-[rgba(20,83,45,0.15)] p-12 text-center rounded-lg shadow-[0_2px_8px_rgba(20,83,45,0.06)]">
             <MapPin className="w-12 h-12 text-[#7B9E6B] mx-auto mb-4" />
             <h2 className="text-lg font-semibold text-[#1a1a1a] mb-2">
               No saved addresses
@@ -100,7 +100,7 @@ export default function AddressesPage() {
               Add an address to speed up your checkout.
             </p>
             <Link href="/account/addresses/new">
-              <Button className="bg-[#2E7D32] hover:bg-[#1B5E20] text-white h-10">
+              <Button className="bg-[#14532D] hover:bg-[#0F3D20] text-white h-10">
                 <Plus className="w-4 h-4 mr-1" />
                 Add Address
               </Button>
@@ -111,7 +111,7 @@ export default function AddressesPage() {
             {addresses.map((address) => (
               <div
                 key={address.id}
-                className="bg-white border border-[rgba(46,125,50,0.15)] p-4 rounded-lg shadow-[0_2px_8px_rgba(46,125,50,0.06)]"
+                className="bg-white border border-[rgba(20,83,45,0.15)] p-4 rounded-lg shadow-[0_2px_8px_rgba(20,83,45,0.06)]"
               >
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center gap-2">
@@ -120,7 +120,7 @@ export default function AddressesPage() {
                       {address.name}
                     </span>
                     {address.isDefault && (
-                      <Badge className="bg-[#2E7D32] text-white text-xs border-none">
+                      <Badge className="bg-[#14532D] text-white text-xs border-none">
                         Default
                       </Badge>
                     )}
@@ -140,7 +140,7 @@ export default function AddressesPage() {
                     <Button
                       variant="outline"
                       size="sm"
-                      className="w-full h-8 border-[rgba(46,125,50,0.15)] text-[#1a1a1a] hover:bg-white"
+                      className="w-full h-8 border-[rgba(20,83,45,0.15)] text-[#1a1a1a] hover:bg-white"
                     >
                       <Pencil className="w-3 h-3 mr-1" />
                       Edit
@@ -151,7 +151,7 @@ export default function AddressesPage() {
                       disabled={deletingId === address.id}
                       variant="outline"
                       size="sm"
-                      className="flex-1 h-8 border-[rgba(46,125,50,0.15)] text-red-600 hover:bg-white"
+                      className="flex-1 h-8 border-[rgba(20,83,45,0.15)] text-red-600 hover:bg-white"
                     >
                       <Trash2 className="w-3 h-3 mr-1" />
                       {deletingId === address.id ? "..." : "Delete"}
