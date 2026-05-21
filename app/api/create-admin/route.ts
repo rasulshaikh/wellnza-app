@@ -1,8 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import bcrypt from "bcryptjs";
+import { checkRateLimit, getClientIP, rateLimitResponse } from "@/app/api/ratelimit";
 
 export async function POST(req: Request) {
+  const clientIP = getClientIP(req);
+  if (!checkRateLimit(`create-admin:${clientIP}`, 5, 60000)) {
+    return rateLimitResponse();
+  }
+
   const { email, password, name } = await req.json();
   
   const ADMIN_SECRET = process.env.ADMIN_SETUP_SECRET;

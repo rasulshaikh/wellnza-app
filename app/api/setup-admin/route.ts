@@ -53,20 +53,10 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    const adminEmail = "admin@wellnzanutrition.com";
-    const admin = await db.user.findUnique({ where: { email: adminEmail } });
-    if (!admin) {
-      return NextResponse.json({ exists: false });
-    }
-    return NextResponse.json({
-      exists: true,
-      email: admin.email,
-      role: admin.role,
-      hasPassword: !!admin.password,
-      createdAt: admin.createdAt,
-    });
+    // Always return same response to prevent user enumeration
+    return NextResponse.json({ exists: false });
   } catch (error) {
     console.error("[setup-admin-get]", error);
-    return NextResponse.json({ error: "Check failed" }, { status: 500 });
+    return NextResponse.json({ exists: false });
   }
 }
