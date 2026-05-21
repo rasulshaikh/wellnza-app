@@ -2,7 +2,8 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { getToken } from "next-auth/jwt";
 
-const PROTECTED_PATHS = ["/checkout", "/order-confirmation", "/admin", "/account"];
+const PUBLIC_PATHS = ["/", "/products", "/about", "/login", "/register", "/forgot-password"];
+const PROTECTED_PATHS = ["/checkout", "/admin", "/account"];
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -25,5 +26,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/checkout", "/order-confirmation/:path*", "/admin/:path*", "/account/:path*"],
+  matcher: ["/checkout", "/admin/:path*", "/account/:path*"],
 };
