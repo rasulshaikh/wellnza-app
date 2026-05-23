@@ -5,8 +5,8 @@ import { db } from "@/lib/db";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 
-// NextAuth v5: in production, always use the canonical URL to fix CSRF token
-// mismatch caused by stale AUTH_URL env vars from old Vercel deployments.
+// NextAuth v5: in production, force the canonical URL to fix CSRF token
+// mismatch caused by stale AUTH_URL/NEXTAUTH_URL from old Vercel deployments.
 if (process.env.NODE_ENV === "production") {
   process.env.AUTH_URL = "https://well-nz-nutrition.vercel.app";
 }

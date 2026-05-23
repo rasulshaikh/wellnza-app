@@ -18,6 +18,9 @@ async function wrappedPOST(req: NextRequest) {
   if (!checkRateLimit(`auth_post:${clientIP}`, 10, 60000)) {
     return rateLimitResponse();
   }
+  // DEBUG: log environment to diagnose CSRF mismatch
+  console.log("[DEBUG auth POST] AUTH_URL:", process.env.AUTH_URL, "NODE_ENV:", process.env.NODE_ENV);
+  console.log("[DEBUG auth POST] origin:", req.headers.get("origin"), "host:", req.headers.get("host"));
   return handlers.POST(req);
 }
 
