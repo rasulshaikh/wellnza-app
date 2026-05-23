@@ -5,6 +5,12 @@ import { db } from "@/lib/db";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 
+// NextAuth v5: in production, always use the canonical URL to fix CSRF token
+// mismatch caused by stale AUTH_URL env vars from old Vercel deployments.
+if (process.env.NODE_ENV === "production") {
+  process.env.AUTH_URL = "https://well-nz-nutrition.vercel.app";
+}
+
 export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(db),
   trustHost: true, // required on Vercel — allows NextAuth to trust x-forwarded-host
